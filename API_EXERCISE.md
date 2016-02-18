@@ -14,7 +14,7 @@ The external API will be driven by the controller
 
 #Use Cases: 
 
-1. The user types 'fd 50' in the command window, sees the turtle move in the display window leaving a trail, and has the command added to the environment's history.
+**1:** The user types 'fd 50' in the command window, sees the turtle move in the display window leaving a trail, and has the command added to the environment's history.
 
 In GamePane:
 
@@ -43,7 +43,7 @@ In Parser:
 	
 	}
 	
-2. The user types '50 fd' in the command window and sees an error message that the command was not formatted correctly.
+**2:** The user types '50 fd' in the command window and sees an error message that the command was not formatted correctly.
 
 In Controller:
 
@@ -61,14 +61,16 @@ In GamePane
 	
 In Backend: throw exception when necessary
 
-3. The user types 'pu fd 50 pd fd 50' in the command window and sees the turtle move twice (once without a trail and once with a trail)
+**3:** The user types 'pu fd 50 pd fd 50' in the command window and sees the turtle move twice (once without a trail and once with a trail)
 
 The same flow will hold with that in case 1.  Whether or not the trail is drawn is determined by the LinearCommands the Controller is given. Specified linear commands upon execution can changed the stored state in the Controller of whether or not the pen is up or done. Every time the front end goes to draw they will access this stored value in the Controller to determine whether or not the pen is up or down.
 
-4. The user changes the color of the environment's background.
+**4:** The user changes the color of the environment's background.
 
 	Color color = startColorChooser();
 	setBackground(color);
+	
+
 
 
 
