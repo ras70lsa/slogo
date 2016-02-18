@@ -67,7 +67,8 @@ The same flow will hold with that in case 1.  Whether or not the trail is drawn 
 
 4. The user changes the color of the environment's background.
 
- 
+	Color color = startColorChooser();
+	setBackground(color);
 
 
 
