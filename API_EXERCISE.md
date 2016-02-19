@@ -86,6 +86,8 @@ The same flow will hold with that in case 1.  Whether or not the trail is drawn 
 	
 
 #FrontEnd:  
+
+NetID: Sophie Guo (yg37)
 PaneBuilder:   
 1) createPane(): internal   
 2) createButton(): internal  
