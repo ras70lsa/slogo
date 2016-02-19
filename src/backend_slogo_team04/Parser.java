@@ -11,13 +11,18 @@ public class Parser {
     }
     
     
-    public void parseString(String stringToParse){
+    public Action parseString(String stringToParse){
         //TODO something that breaks input string into space delineated words
         
         NonLinearCommand myHeadNode = null; // now make the tree here
         
         //TODO 
         myInterpreter.interpretCommandTree(myHeadNode);
+        return null;
+    }
+    
+    private void makeCommandTree(){
+        
     }
     
     public NonLinearCommand getNonLinearCommandForString(String input){
