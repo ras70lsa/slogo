@@ -17,8 +17,13 @@ Closed:
 *Interpreter that executes the tree of commands the parser generates 
 *Controller that maintains the communication between the front and back end
 
+## Design Overview 
+
 ## User Interface
 
+## API Example Code
+
+## Design Considerations
 
 ## Team Responsibilities
 

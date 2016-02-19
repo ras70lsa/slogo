@@ -88,19 +88,24 @@ The same flow will hold with that in case 1.  Whether or not the trail is drawn 
 #FrontEnd:  
 
 NetID: Sophie Guo (yg37)
+
 PaneBuilder:   
+
 1) createPane(): internal   
 2) createButton(): internal  
 3) setColor(): internal  
 
 AnimationPane:  
+
 1) moveTurtle(): external    
 2) rotateTurtle(): external   
 
 TextField:
+
 1) getText(): external   
 
 Turtle:
+
 1) getLocation(): internal    
 2) getPixelX(): internal  
 3) getPixelY(): internal  
@@ -109,22 +114,15 @@ Turtle:
 6) setImage(): internal  
 
 LineManager():  
+
 1) addLine(): internal    
 2) getLines(): external     
 3) reverse(): external      
 
 AlertWindow:  
+
 1) createWindow(): shows error message  
 
 The front end is mainly responsible for visually implementing the user commands through the GUI. The PaneBuilder class is responsible for constructing the GUI, which includes the animation pane, a text field where users can enter their command, and a number of other components. The animation pane would have a turtle object and a line manager object as instance variables. The turtle object encapsulates information about the turtle moving on the screen and the line manager stores information about all the lines on the screen. 
 
 The front end interacts with the back end in mainly two ways. The back end would parse the commands that users give and call the corresponding methods on AnimationPane (e.g.: moveTurtle(x, y), etc) and the AnimationPane, after finishing the visualization, would send the relevant information about the visualization back to the back end (e.g: added three lines to the stack of lines) so the process is reversible. 
-
-
-
-
-
-
-
-
-
