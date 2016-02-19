@@ -107,12 +107,12 @@ Turtle:
 6) setImage(): internal  
 
 LineManager():  
-1) addLine(): internal  
-2) getLines(): external   
-3) reverse(): external    
+1) addLine(): internal    
+2) getLines(): external     
+3) reverse(): external      
 
-AlertWindow:
-1) createWindow(): shows error message
+AlertWindow:  
+1) createWindow(): shows error message  
 
 The front end is mainly responsible for visually implementing the user commands through the GUI. The PaneBuilder class is responsible for constructing the GUI, which includes the animation pane, a text field where users can enter their command, and a number of other components. The animation pane would have a turtle object and a line manager object as instance variables. The turtle object encapsulates information about the turtle moving on the screen and the line manager stores information about all the lines on the screen. 
 
