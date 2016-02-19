@@ -85,31 +85,31 @@ The same flow will hold with that in case 1.  Whether or not the trail is drawn 
 	setBackground(color);
 	
 
-#FrontEnd:
-PaneBuilder:
-1) createPane(): internal 
-2) createButton(): internal
-3) setColor(): internal
+#FrontEnd:  
+PaneBuilder:   
+1) createPane(): internal   
+2) createButton(): internal  
+3) setColor(): internal  
 
-AnimationPane:
-1) moveTurtle(): external 
-2) rotateTurtle(): external 
+AnimationPane:  
+1) moveTurtle(): external    
+2) rotateTurtle(): external   
 
 TextField:
-1) getText(): external 
+1) getText(): external   
 
 Turtle:
-1) getLocation(): internal
-2) getPixelX(): internal
-3) getPixelY(): internal
-4) getOrientation(): internal
-5) setColor(): internal
-6) setImage(): internal
+1) getLocation(): internal    
+2) getPixelX(): internal  
+3) getPixelY(): internal  
+4) getOrientation(): internal  
+5) setColor(): internal  
+6) setImage(): internal  
 
-LineManager():
-1) addLine(): internal
-2) getLines(): external 
-3) reverse(): external 
+LineManager():  
+1) addLine(): internal  
+2) getLines(): external   
+3) reverse(): external    
 
 AlertWindow:
 1) createWindow(): shows error message
