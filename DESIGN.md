@@ -154,10 +154,15 @@ There was a tradeoff in this decision.  It seems the second model describes is l
 
 ## Team Responsibilities
 
+##BackEnd
 Jonathan Im (jji93):  
-* Parser 
-* Factory 
+
+*BackEnd
+
+##FrontEnd
 
 Ryan St Pierre (ras70) 
-* Interpreter 
-* Controller
+
+*GuiUserOption
+*State
+*Making the options accessible from the display 
