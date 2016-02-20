@@ -1,4 +1,4 @@
-package backend_slogo_team04;
+package interfaces_slogo_team04;
 
 
 /**

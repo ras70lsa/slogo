@@ -1,5 +1,7 @@
 package backend_slogo_team04;
 
+import interfaces_slogo_team04.SlogoModelActions;
+
 /**
  * Holds the model's information
  * @author Ryan St Pierre
