@@ -157,12 +157,12 @@ There was a tradeoff in this decision.  It seems the second model describes is l
 ##BackEnd
 Jonathan Im (jji93):  
 
-*BackEnd
+* BackEnd
 
 ##FrontEnd
 
 Ryan St Pierre (ras70) 
 
-*GuiUserOption
-*State
-*Making the options accessible from the display 
+* GuiUserOption
+* State
+* Making the options accessible from the display 
