@@ -13,6 +13,9 @@ public class Controller implements SlogoModelActions {
         
     }
     
+    public void interpretInformation(NonLinearCommand head){
+    	
+    }
     
     @Override
     public double forward (double pixels) {
