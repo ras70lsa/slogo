@@ -27,7 +27,7 @@ public class Action {
 		return head;
 	}
 	
-	public int getNodes() {
+	public int getNodesCount() {
 		return nodesDrawn;
 	}
 	
