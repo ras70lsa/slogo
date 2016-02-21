@@ -16,25 +16,40 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import properties.ImageProperty;
 
 public class TestingState extends Application {
 
 	ObjectProperty<Color> color;
 	BooleanProperty tf;
+	ImageProperty image;
 	
 	public TestingState() {
 		
 		color = new SimpleObjectProperty<Color>(this, "color", Color.RED);
 		tf = new SimpleBooleanProperty(false);
+		image = new ImageProperty();
 	}
+	
 	
 	public Color getColor(){
 		return color.get();
 	}
 	
-	public void setColor(Color newColor) { color.set(newColor);};
+	public BooleanProperty getBooleanProperty() {
+		return tf;
+	}
+	
+	public ImageProperty getImageProperty() {
+		return image;
+	}
+	
+	public ObjectProperty<Color> getColorProperty() {
+		return color;
+	}
 	
 
 	public Stage getUserOptions() {
@@ -48,6 +63,7 @@ public class TestingState extends Application {
 		GuiUserOption factory = new GuiUserOption();
 		nodes.add(factory.get(color, "string"));
 		nodes.add(factory.get(tf, "string"));
+		nodes.add(factory.get(image, "String"));
 		return nodes;
 		
 	}
@@ -66,6 +82,8 @@ public class TestingState extends Application {
 		}
 		return stage;
 	}
+	
+	
 
 	public static void main(String [] args) {
 		launch(args);
