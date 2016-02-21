@@ -19,17 +19,18 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import properties.ImageProperty;
+import properties.*;
+
 
 public class TestingState extends Application {
 
-	ObjectProperty<Color> color;
+	ColorProperty color;
 	BooleanProperty tf;
 	ImageProperty image;
 	
 	public TestingState() {
 		
-		color = new SimpleObjectProperty<Color>(this, "color", Color.RED);
+		color = new ColorProperty(Color.RED);
 		tf = new SimpleBooleanProperty(false);
 		image = new ImageProperty();
 	}
@@ -47,7 +48,7 @@ public class TestingState extends Application {
 		return image;
 	}
 	
-	public ObjectProperty<Color> getColorProperty() {
+	public ColorProperty getColorProperty() {
 		return color;
 	}
 	

@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import properties.ColorProperty;
 import properties.ImageProperty;
 
 public class GuiUserOption {
@@ -38,7 +39,7 @@ public class GuiUserOption {
 		
 	}
 	
-	public Node get(ObjectProperty<Color> color, String str) {
+	public Node get(ColorProperty color, String str) {
 		ColorPicker picker = new ColorPicker();
 		picker.setOnAction(e -> color.set(picker.getValue()));
 		return picker;
@@ -56,8 +57,8 @@ public class GuiUserOption {
 		FileChooser f = new FileChooser();
 		File file = f.showOpenDialog(new Stage());
 		try {
-			System.out.println(file.toURI().toURL().toString());
-			image.set(new Image(file.toURI().toURL().toString()));
+			Image input = new Image(file.toURI().toURL().toString());
+			image.set(input);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

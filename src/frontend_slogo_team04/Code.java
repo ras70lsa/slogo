@@ -42,6 +42,8 @@ public class Code extends ModularPane {
 		add(text, 0, 0);
 		
 		image = new ImageView();
+		image.setFitWidth(100);
+		image.setFitHeight(100);
 		add(image, 10, 10);
 	}
 	
