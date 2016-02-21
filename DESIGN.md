@@ -29,8 +29,8 @@ The **Controller** is the link of communication between the Model and View.  The
 
 In this form, the functionality is provided to change the visual representation of the model without changing the model itself and the model can be changed without changing the front end.
 
-View: 
-Model: Interpreter, NonLinearCommand, Model
+View: see front end package. 
+Model: see backend package.
 Controller: Controller, Parser
 
 #####APIs 
@@ -43,9 +43,19 @@ The SlogoModelActions API is used for external communication between the Model.j
 
 The NonLinearCommand API allows for extending the power of the Model.
 
+**Module** 
+
+This interface describes what is needed to internally extend the front end.  Each new feature is an extension of the module interface.
+
+**State**
+
+This describes the external action between the front end.  This tells the backend which properties the front end needs in order to generate user interactions that are able to manipulate the proper variables.
+
 ####Classes
 
 **Front End**
+
+
 
 **Backend** 
 
@@ -65,6 +75,33 @@ Once the code has been parsed, interpreted, and saved the Controller will tell t
 
 ## User Interface
 
+The design will look as follows:
+
+![header](images/look.png "Design")
+
+Each block given above is a Module.  There functionalities are: 
+
+*Options* 
+
+The options bar is a drop-down menu that gives the user the chance to select a module.  Clicked the desired module will start a stage that allows the user to change the state of that module.
+ 
+*View*
+
+The View will display the turtle after the code is executed.  It will rely on the information from the model to render itself.
+
+*Code*
+
+Allows the user to type in code, by accepting all key input.  Will then allow the user to execute the code with a button labeled execute.
+
+*History*
+
+Will give the history of the prior commands.  Will allow the user to click on these commands into the text view (code) where they can be executed again.
+
+*Variables* 
+
+Will display the current variables in the code.  Will allow the user space to delete a given variable or bring it into the text view with clicks.
+
+
 ## API Details
 
 For the backend API refer to the *SlogoModelActions.java* and *NonLinearCommand.java* interfaces and accompanying comments in the interfaces_slogo_team04.
@@ -74,6 +111,10 @@ The SlogoModelActions interface is everything necessary for the Controller to ex
 The NonLinearCommand interface lays out what is necessary to add a feature that extends the back end code detection.  The given command must execute.  This means it must *do* something.  The second requirement is a return.  Each Slogo command returns a type double.  Thus, we are allowing for extendibility in commands if the user creates a command that returns a double when `getValue()` is called.  The `isDoneConstructing()` requirement is crucial for the functionality of building the tree in Parser.  In the Tree building in Parser, each node will continue to add children until it is "satisfied."  This means each command has a certain number of *attributes* and parameters that it needs to take.  The Parser will continue associating the next command read with the current node until this satisfaction threshold is met.  The last method in this interface is `parseString()`.  This ensure the proper command based on the given next String is correct. 
 
 **Exceptions**
+
+*Front End*
+
+There is a UserInputException thrown when the user does not input properly.  In the case of code input this doesn not mean the code input can compile.  Rather it means the field has been filled correctly, in this case with any text.
 
 *BackEnd*
 There are two main types of exceptions thrown in the backend:
@@ -117,7 +158,7 @@ Display:
 1. `draw(DrawData data)`
 
 
-*Parser- generating tree from the input* (jji93)
+*Parser- generating tree from the input* 
 
 	public void parseString(String stringToParse){
         
@@ -126,7 +167,7 @@ Display:
         myInterpreter.interpretCommandTree(myHeadNode);
     }
     
-*Interpret the tree it gets from the Parser* (ras70)
+*Interpret the tree it gets from the Parser* 
 
 Interpreter: 
 
@@ -139,6 +180,16 @@ NonLinearCommand:
 `execute()`
 
 Each individual implementation of the NonLinearCommand will have a different execute method.  However, they will all most likely be tied to lambda expressions that drive methods through the Controller class.
+
+*Change the Color of the background* 
+
+The user will hit the option bar that drops down the list of modules.  They will select the view module.  To bring up the options page for the user to alter the following code will be in place. 
+
+Options: 
+
+	getState().display()
+
+This will tell the State to which the module has been selected to open the Stage it creates through `getUserOptions()`. 
 
 ## Design Considerations
 
