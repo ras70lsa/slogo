@@ -1,5 +1,7 @@
 package backend_slogo_team04;
 
+import java.util.List;
+
 import interfaces_slogo_team04.SlogoModelActions;
 
 /**
@@ -87,12 +89,6 @@ public class Model implements SlogoModelActions {
 	}
 
 	@Override
-	public double clearScreen() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public double xCor() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -120,6 +116,12 @@ public class Model implements SlogoModelActions {
 	public double isShowing() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Action> getHistory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

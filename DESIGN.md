@@ -8,14 +8,14 @@ The intent of this program is to create an interactive IDE that allows users to 
 4. Create a communication system, through the controller, that connects the front and back end in a way that is efficient but still allows the front and back end to maintain their distinct purposes. 
 
 Open: 
-*Modules for adding to the display
-*Commands (Linear and nonlinear) in the backend
+* Modules for adding to the display
+* Commands (Linear and nonlinear) in the backend
 
 Closed: 
-*The main display 
-*Parser that generates the Tree command structure 
-*Interpreter that executes the tree of commands the parser generates 
-*Controller that maintains the communication between the front and back end
+* The main display 
+* Parser that generates the Tree command structure 
+* Interpreter that executes the tree of commands the parser generates 
+* Controller that maintains the communication between the front and back end
 
 ## Design Overview
 
@@ -23,9 +23,9 @@ We have divided the project into 3 main components: the model, view, and control
 
 The **Model** is responsible for holding an abstract representation of the state of the board.  This includes where the turtle and other lines are located with respect to the central point and the turtle's rotation. To properly distinguish between the model and view this abstract information that the model holds should be able to be represented in a multitude of ways. The Model is responsible for interpreting a tree of commands given from the parser and updating its state.
 
-The **View** is responsible for representing the information of the model.  The view should have no information of how the model constructed its information, but render the model of the screen.  In addition, the view should properly pass user data to the Controller for interpretation. Lastly, the view should offer features to the user relating to the state of the model, such as history.
+The **View** is responsible for representing the information of the model.  The view should have no information of how the model constructed its information, but render the model of the screen.  In addition, the view has the capacity to visualize the changes in the model as the controller delegates relevant information about the model to the view. Lastly, the view should offer features to the user relating to the state of the model, such as history.
 
-The **Controller** is the link of communication between the Model and View.  The View gives information to the from the user to Parse.  The Controller then parses this information and gives it in the form in which the model can interpret, which in this case is a tree of commands.  The Model updates itself based on this input and sends back a series of "simple" commands to the Controller, which then delegates to the proper recipient to commit the simple command. 
+The **Controller** is the link of communication between the Model and View.  The View gives information to the Controller from the user to Parse.  The Controller then parses this information and gives it in the form in which the model can interpret, which in this case is a tree of commands.  The Model updates itself based on this input and sends back a series of "simple" commands to the Controller, which then delegates to the proper recipient to commit the simple command. 
 
 In this form, the functionality is provided to change the visual representation of the model without changing the model itself and the model can be changed without changing the front end.
 
@@ -33,15 +33,29 @@ View: see front end package.
 Model: see backend package.
 Controller: Controller, Parser
 
-#####APIs 
+####APIs
+#####Back End APIs:
 
-**SlogoModelActions**
+**SlogoModelActions (External)**
 
 The SlogoModelActions API is used for external communication between the Model.java class and the Controller.  Functionally, these will provide methods for the controller to tell the Model to manipulate its state based on input values.
 
-**NonLinearCommand**
+**NonLinearCommand (Internal)**
 
-The NonLinearCommand API allows for extending the power of the Model.
+The NonLinearCommand API is an internal API which allows for extending the power of the Model.
+
+#####Front End APIs:
+
+**VisualizationActions API (External)**
+VisualizationActions API is called by the Controller to deliver visualizations of turtle movements when it detects changes in the Model. It includes methods. It has essentially the same methods as the SlogoModelActions API.
+
+**updateHistory (External)**
+
+This method is called by the Controlled on the History module to update the view of the history of commands.
+
+
+**Modules (Internal)**
+The different modules corresponding to the different GUI component allows for extending the power of the View.
 
 **Module** 
 
@@ -55,13 +69,18 @@ This describes the external action between the front end.  This tells the backen
 
 **Front End**
 
+The GUI consists of four major components. Text Field, upon receiving text commands from users, notifies the Controller, which in turn initiates the parsing and updating process. The Controller gets notified when the Model gets updated and passes relevant information to the View through the VisualizationActions API to update the visualization. More specifically, Text Field would have a method  `addController(Controller controller)`  which adds the Controller as an event listener to the "Run" button. The Model would have a similar method which adds the Controller as an event listener to some of the values or actions.
+
+Options allows users to customize the modules on the GUI. We do this by creating a state class for each of the module which encapsulates the parameters that users can modify such as background color, image, etc. The parameters are changed dynamically as users interact with the dropdown menu of the Options in GUI, and these changes are mapped to changes in the visualization accordingly. This design prevents hard coding and makes the front end extensible to more complicated UI requirements. 
+
+History displays the past user commands and relevant information about the turtle. Whenever the Model gets updated, the Controller accesses the Model's history information through `getHistory()` method of the Model, and calls the `updateHistory()` method on History to update the history view.
 
 
 **Backend** 
 
 The backend receives the String input from the Front end through the Controller.  The Controller delegates the parsing of the String code to the Parser class.  The Parse class uses the `parseString(String input)` method to convert the code into a tree of NonLinearCommands.  Each NonLinearCommand knows how many attributes and parameters it needs.  Thus, each NonLinearCommand will keep collection data until it is satisfied. This will continue until the tree recursively builds itself.  There is a method called `getNextCommand()` in the Parser class for getting the next readable instance in the form of a string.  This "readable instance" is the next word/symbol separated by whitespace.  The `getNonLinearCommandForString()` is a factory method that takes that String and converts it into a NonLinearCommand that can be used in the tree.
 
-Once the information is parsed it is sent to the Interpreter to interpret.  The Interpreter loops through the tree, left to right, and turns the nested, NonLinearCommands into a linear progression of simplistic commands that can be converted directly to java code.  The Interpreter will execute the commands as it traverses the Tree.  If the given command corresponds to action that needs to be taken on the front end the information will be passed through the Controller.  Else, the command will execute to update the necessary component of the model, information stored in the Model class.  The Turtle class is currently written to store that attributes of the turtle in the Model.
+Once the information is parsed it is sent to the Interpreter to interpret.  The Interpreter loops through the tree, left to right, and turns the nested, NonLinearCommands into a linear progression of simplistic commands that can be converted directly to java code.  The Interpreter will execute the commands as it traverses the Tree. The command will execute to update the necessary component of the model, information stored in the Model class.  The Turtle class is currently written to store that attributes of the turtle in the Model.
 
 Each new command that needs to be written will extend NonLinearCommand.  This requires each command to have an associated value, determine whether or not it is satisfied, and have the ability to execute.  In addition, in implementation the commands will store a map of their variables.  Thus, each command will have access to its variables and the variables of its parents. This will help automatically account for scope. 
 
@@ -110,6 +129,8 @@ The SlogoModelActions interface is everything necessary for the Controller to ex
 
 The NonLinearCommand interface lays out what is necessary to add a feature that extends the back end code detection.  The given command must execute.  This means it must *do* something.  The second requirement is a return.  Each Slogo command returns a type double.  Thus, we are allowing for extendibility in commands if the user creates a command that returns a double when `getValue()` is called.  The `isDoneConstructing()` requirement is crucial for the functionality of building the tree in Parser.  In the Tree building in Parser, each node will continue to add children until it is "satisfied."  This means each command has a certain number of *attributes* and parameters that it needs to take.  The Parser will continue associating the next command read with the current node until this satisfaction threshold is met.  The last method in this interface is `parseString()`.  This ensure the proper command based on the given next String is correct. 
 
+For the front end API refer to the *VisualizationActions.java* interface.
+
 **Exceptions**
 
 *Front End*
@@ -152,10 +173,15 @@ Parser:
 Controller:
 
 1. `interpretInformation(NonLinearCommand head)`
+2. `actionPerformed(ActionEvent e)` //respond to changes in View/Model
 
-Display:
+View:
 
 1. `draw(DrawData data)`
+2. `moveTurtle(DrawData data)`
+
+History:
+1. `updateHistory()`
 
 
 *Parser- generating tree from the input* 
@@ -217,3 +243,8 @@ Ryan St Pierre (ras70)
 * GuiUserOption
 * State
 * Making the options accessible from the display 
+
+Sophie Guo(yg37)
+* View 
+* View's communication with Controller
+
