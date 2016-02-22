@@ -8,14 +8,14 @@ The intent of this program is to create an interactive IDE that allows users to 
 4. Create a communication system, through the controller, that connects the front and back end in a way that is efficient but still allows the front and back end to maintain their distinct purposes. 
 
 Open: 
-*Modules for adding to the display
-*Commands (Linear and nonlinear) in the backend
+* Modules for adding to the display
+* Commands (Linear and nonlinear) in the backend
 
 Closed: 
-*The main display 
-*Parser that generates the Tree command structure 
-*Interpreter that executes the tree of commands the parser generates 
-*Controller that maintains the communication between the front and back end
+* The main display 
+* Parser that generates the Tree command structure 
+* Interpreter that executes the tree of commands the parser generates 
+* Controller that maintains the communication between the front and back end
 
 ## Design Overview
 
@@ -29,15 +29,12 @@ The **Controller** is the link of communication between the Model and View.  The
 
 In this form, the functionality is provided to change the visual representation of the model without changing the model itself and the model can be changed without changing the front end.
 
-View: VisualizationActions
-Model: Interpreter, NonLinearCommand, Model
+View: see front end package. 
+Model: see backend package.
 Controller: Controller, Parser
 
 ####APIs
 #####Back End APIs:
-
-**getHistory (External)**
-The Model keeps a history of the updates and the Controller accesses the information through the getHistory API and passes the information on to the View for display. 
 
 **SlogoModelActions (External)**
 
@@ -52,15 +49,8 @@ The NonLinearCommand API is an internal API which allows for extending the power
 **VisualizationActions API (External)**
 VisualizationActions API is called by the Controller to deliver visualizations of turtle movements when it detects changes in the Model. It includes methods. It has essentially the same methods as the SlogoModelActions API.
 
-**updateHistory (External)**
-
-This method is called by the Controlled on the History module to update the view of the history of commands.
-
-
 **Modules (Internal)**
 The different modules corresponding to the different GUI component allows for extending the power of the View.
-
-
 
 ####Classes
 
@@ -71,6 +61,7 @@ The GUI consists of four major components. Text Field, upon receiving text comma
 Options allows users to customize the modules on the GUI. We do this by creating a state class for each of the module which encapsulates the parameters that users can modify such as background color, image, etc. The parameters are changed dynamically as users interact with the dropdown menu of the Options in GUI, and these changes are mapped to changes in the visualization accordingly. This design prevents hard coding and makes the front end extensible to more complicated UI requirements. 
 
 History displays the past user commands and relevant information about the turtle. Whenever the Model gets updated, the Controller accesses the Model's history information through `getHistory()` method of the Model, and calls the `updateHistory()` method on History to update the history view.
+
 
 **Backend** 
 
@@ -90,6 +81,33 @@ Once the code has been parsed, interpreted, and saved the Controller will tell t
 
 ## User Interface
 
+The design will look as follows:
+
+![header](images/look.png "Design")
+
+Each block given above is a Module.  There functionalities are: 
+
+*Options* 
+
+The options bar is a drop-down menu that gives the user the chance to select a module.  Clicked the desired module will start a stage that allows the user to change the state of that module.
+ 
+*View*
+
+The View will display the turtle after the code is executed.  It will rely on the information from the model to render itself.
+
+*Code*
+
+Allows the user to type in code, by accepting all key input.  Will then allow the user to execute the code with a button labeled execute.
+
+*History*
+
+Will give the history of the prior commands.  Will allow the user to click on these commands into the text view (code) where they can be executed again.
+
+*Variables* 
+
+Will display the current variables in the code.  Will allow the user space to delete a given variable or bring it into the text view with clicks.
+
+
 ## API Details
 
 For the backend API refer to the *SlogoModelActions.java* and *NonLinearCommand.java* interfaces and accompanying comments in the interfaces_slogo_team04.
@@ -101,6 +119,10 @@ The NonLinearCommand interface lays out what is necessary to add a feature that 
 For the front end API refer to the *VisualizationActions.java* interface.
 
 **Exceptions**
+
+*Front End*
+
+There is a UserInputException thrown when the user does not input properly.  In the case of code input this doesn not mean the code input can compile.  Rather it means the field has been filled correctly, in this case with any text.
 
 *BackEnd*
 There are two main types of exceptions thrown in the backend:
@@ -149,7 +171,7 @@ History:
 1. `updateHistory()`
 
 
-*Parser- generating tree from the input* (jji93)
+*Parser- generating tree from the input* 
 
 	public void parseString(String stringToParse){
         
@@ -158,7 +180,7 @@ History:
         myInterpreter.interpretCommandTree(myHeadNode);
     }
     
-*Interpret the tree it gets from the Parser* (ras70)
+*Interpret the tree it gets from the Parser* 
 
 Interpreter: 
 
@@ -171,6 +193,16 @@ NonLinearCommand:
 `execute()`
 
 Each individual implementation of the NonLinearCommand will have a different execute method.  However, they will all most likely be tied to lambda expressions that drive methods through the Controller class.
+
+*Change the Color of the background* 
+
+The user will hit the option bar that drops down the list of modules.  They will select the view module.  To bring up the options page for the user to alter the following code will be in place. 
+
+Options: 
+
+	getState().display()
+
+This will tell the State to which the module has been selected to open the Stage it creates through `getUserOptions()`. 
 
 ## Design Considerations
 
@@ -186,14 +218,21 @@ There was a tradeoff in this decision.  It seems the second model describes is l
 
 ## Team Responsibilities
 
+##BackEnd
 Jonathan Im (jji93):  
-* Parser 
-* Factory 
+
+* Parser
+* Factory
+
+##FrontEnd
 
 Ryan St Pierre (ras70) 
-* Interpreter 
-* Controller
+
+* GuiUserOption
+* State
+* Making the options accessible from the display 
 
 Sophie Guo(yg37)
 * View 
 * View's communication with Controller
+
