@@ -77,7 +77,7 @@ Once the code has been parsed, interpreted, and saved the Controller will tell t
 
 *Visualization*
 
-![header](images/UMLBackEnd.png "Backend UML")
+![header](images/UMLBackEnd2.png "Backend UML")
 
 ## User Interface
 
