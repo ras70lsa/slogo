@@ -25,6 +25,13 @@ public class Parser {
         
     }
     
+    /*
+     * returns the next command to be read in by the parser
+     */
+    public String getNextCommand() {
+    	return null;
+    }
+    
     public NonLinearCommand getNonLinearCommandForString(String input){
         return null;
     }

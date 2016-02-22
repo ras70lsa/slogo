@@ -7,7 +7,7 @@ package backend_slogo_team04;
  *
  */
 public interface NonLinearCommand {
-    
+   
     /**
      * Will cause the command to actually cause the turtle or drawn screen to change, and will do so through connections between the 
      * subclasses and our controller class

@@ -1,5 +1,4 @@
 package backend_slogo_team04;
-import interfaces_slogo_team04.SlogoModelActions;
 
 /**
  * This class serves to unify our parser, interpreter, model and view classes
@@ -13,6 +12,9 @@ public class Controller implements SlogoModelActions {
         
     }
     
+    public void interpretInformation(NonLinearCommand head){
+    	
+    }
     
     @Override
     public double forward (double pixels) {
