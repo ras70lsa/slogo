@@ -1,5 +1,9 @@
 package frontend_slogo_team04;
 
+import java.util.List;
+
+import backend_slogo_team04.Action;
+
 public interface VisulizationAction {
 		public double forward(double pixels);
 	    public double back(double pixels);
@@ -19,5 +23,6 @@ public interface VisulizationAction {
 	    public double heading();
 	    public double isPenDown();
 	    public double isShowing();
+	    public void updateHistory(List<Action> history);
 
 }

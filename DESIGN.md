@@ -49,21 +49,8 @@ The NonLinearCommand API is an internal API which allows for extending the power
 **VisualizationActions API (External)**
 VisualizationActions API is called by the Controller to deliver visualizations of turtle movements when it detects changes in the Model. It includes methods. It has essentially the same methods as the SlogoModelActions API.
 
-**updateHistory (External)**
-
-This method is called by the Controlled on the History module to update the view of the history of commands.
-
-
 **Modules (Internal)**
 The different modules corresponding to the different GUI component allows for extending the power of the View.
-
-**Module** 
-
-This interface describes what is needed to internally extend the front end.  Each new feature is an extension of the module interface.
-
-**State**
-
-This describes the external action between the front end.  This tells the backend which properties the front end needs in order to generate user interactions that are able to manipulate the proper variables.
 
 ####Classes
 
@@ -234,7 +221,8 @@ There was a tradeoff in this decision.  It seems the second model describes is l
 ##BackEnd
 Jonathan Im (jji93):  
 
-* BackEnd
+* Parser
+* Factory
 
 ##FrontEnd
 
