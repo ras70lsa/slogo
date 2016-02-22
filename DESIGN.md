@@ -78,13 +78,13 @@ Once the code has been parsed, interpreted, and saved the Controller will tell t
 *Visualization*
 
 ![header](images/UMLBackEnd2.png "Backend UML")
+![header](images/frontend.png "Front End")
 
 ## User Interface
 
 The design will look as follows:
 
 ![header](images/look.png "Design")
-![header](images/frontend.png "Front End")
 
 Each block given above is a Module.  There functionalities are: 
 
