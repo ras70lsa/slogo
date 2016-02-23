@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class View extends ModularPane {
+public class View extends StaticPane {
 
 	private ImageView turtle;
 	private TestingState state;
@@ -20,11 +20,6 @@ public class View extends ModularPane {
 		state.getColorProperty().addListener((a,b,newValue) -> updateColor(newValue));
 	}
 	
-	private Object updateColor(Color newValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void draw() {
 		
 	}
@@ -37,8 +32,9 @@ public class View extends ModularPane {
 
 	@Override
 	public State getState() {
-		// TODO Auto-generated method stub
-		return null;
+		return state;
 	}
+
+	
 
 }

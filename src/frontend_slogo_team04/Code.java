@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Code extends ModularPane {
+public class Code extends StaticPane {
 
 	private Rectangle text;
 	private TestingState state;
@@ -31,16 +31,7 @@ public class Code extends ModularPane {
 		image.setImage(c);
 	}
 
-	private void updateColor(Color newValue) {
-		text.setFill(newValue);
-	}
-
 	private void createTextField() {
-		text = new Rectangle(100, 100);
-		text.setFill(state.getColor());
-		text.setOnMouseClicked(e->update());
-		add(text, 0, 0);
-		
 		image = new ImageView();
 		image.setFitWidth(100);
 		image.setFitHeight(100);
@@ -48,18 +39,15 @@ public class Code extends ModularPane {
 	}
 	
 	public void update() { 
-		state.getUserOptions().show();
-		text.setFill(state.getColor());
+		super.update();
 	}
 	
 	public void setUp() {
 		createTextField();
 	}
 
-	@Override
 	public State getState() {
-		// TODO Auto-generated method stub
-		return null;
+		return state;
 	}
 	
 	public void inputEntered() {

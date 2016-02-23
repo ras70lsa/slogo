@@ -2,6 +2,7 @@ package frontend_slogo_team04;
 
 import interfaces_slogo_team04.State;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 /**
  * This defines the interface for every feature in the main menu.  
@@ -19,7 +20,7 @@ public interface Module {
 	/**
 	 * @return a Pane for the Display class to position as desired
 	 */
-	public Pane getPane();
+	public Region getPane();
 	
 	/**
 	 * This returns a State, which internally can provide a Stage for the user to select options to edit the Stage
@@ -27,6 +28,8 @@ public interface Module {
 	 * @return State 
 	 */
 	public State getState();
+
+	public void update();
 	
 	
 }

@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import properties.*;
 
 
-public class TestingState extends Application {
+public class TestingState implements State {
 
 	ColorProperty color;
 	BooleanProperty tf;
@@ -71,30 +71,17 @@ public class TestingState extends Application {
 	
 	private Stage createNewStage(Collection<Node> nodes) {
 		Group myGroup = new Group();
-		Scene myScene = new Scene(myGroup, 500, 500, Color.BEIGE);
+		Scene myScene = new Scene(myGroup, 300, 300, Color.BEIGE);
 		Stage stage = new Stage();
 		stage.setScene(myScene);
 		int counter = 10;
 		for(Node node: nodes) {
 			myGroup.getChildren().add(node);
-			node.setTranslateX(250);
+			node.setTranslateX(140);
 			node.setTranslateY(counter);
 			counter = counter + 50;
 		}
 		return stage;
-	}
-	
-	
-
-	public static void main(String [] args) {
-		launch(args);
-	}
-
-	public void start(Stage primaryStage) throws Exception {
-		TestingState tester = new TestingState();
-		Stage stage = tester.getUserOptions();
-		stage.show();
-		
 	}
 
 }

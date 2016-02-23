@@ -1,12 +1,15 @@
 package frontend_slogo_team04;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import constants.DisplayConstants;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 /**
@@ -21,29 +24,64 @@ public class Display {
 	private Stage myStage;
 	private Group myRoot;
 	private Scene myScene;
+	Code code;
+	History history;
 	
 	public Display() {
-		// TODO Auto-generated constructor stub
+		
+		modules = new ArrayList<Module>();
+		code = new Code(new TestingState());
+		history = new History(new TestingState());
+		modules.add(code);
+		modules.add(history);
 		setUpScene();
 		addPanes();
+		createMenuBar();
+		positionModules();
 	}
 	
-	private void positionModule() {
-		
+	public interface FunctionCall {
+		public void call(Module module);
+	}
+	
+	private void positionModules() {
+		code.getPane().setTranslateX(100);
+		code.getPane().setTranslateY(100);
+		history.getPane().setTranslateX(300);
+		history.getPane().setTranslateY(50);
+		history.getPane().setPrefSize(150, 400);
+	}
+	
+	private void loopAndDo(FunctionCall method) {
+		for(Module module: modules) {
+			method.call(module);
+		}
+	}
+	
+	private void addPanes() {
+		loopAndDo( m -> add(m.getPane()));
+
+	}
+	
+	private void add(Node node) {
+		myRoot.getChildren().add(node);
 	}
 	
 	private void createMenuBar() {
 		
-	}
-	
-	private void addPanes() {
-		Code code = new Code(new TestingState());
-		code.getPane().setTranslateX(100);
-		code.getPane().setTranslateY(100);
-		myRoot.getChildren().add(code.getPane());
+		Menu file = new Menu("Options");
+		MenuBar bar = new MenuBar(file);
+		loopAndDo(m -> addItem(m, file));
+		myRoot.getChildren().add(bar);
 		
 	}
-	
+
+	private void addItem(Module module, Menu file) {
+		MenuItem item = new MenuItem(module.getClass().getSimpleName());
+		item.setOnAction(e -> module.update());
+		file.getItems().add(item);
+	}
+
 	public void start() {
 		myStage.show();
 	}

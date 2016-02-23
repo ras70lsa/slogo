@@ -1,28 +1,20 @@
 package frontend_slogo_team04;
 
 import interfaces_slogo_team04.State;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 
 public abstract class ModularPane implements Module {
-
-	private Pane pane; 
 	
-	public ModularPane() {
-		pane = new Pane();
+	public void update() {
+		getState().getUserOptions().show();
 	}
 	
-	public Pane getPane() {
-		return pane;
+	public String toRGBCode( Color color ){
+	    return String.format( "#%02X%02X%02X",
+	            (int)( color.getRed() * 255 ),
+	            (int)( color.getGreen() * 255 ),
+	            (int)( color.getBlue() * 255 ) );
 	}
-	
-	public void add(Node node, int x, int y) {
-		pane.getChildren().add(node);
-		node.setTranslateX(x);
-		node.setTranslateY(y);
-		System.out.println("Adding to pane");
-	}
-
-	
 
 }
