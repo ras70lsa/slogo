@@ -11,7 +11,7 @@ import backend_slogo_team04.Action;
  * @author jonathanim
  *
  */
-public interface SlogoModelActions {
+public interface ISlogoModelActions {
     public double forward(double pixels);
     public double back(double pixels);
     public double left(double pixels);

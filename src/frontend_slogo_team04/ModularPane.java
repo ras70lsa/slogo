@@ -1,8 +1,8 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.State;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
+import interfaces_slogo_team04.IState;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 public abstract class ModularPane implements Module {
 	

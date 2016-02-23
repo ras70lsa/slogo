@@ -6,7 +6,7 @@ import javafx.stage.Stage;
  * @author Ryan St Pierre
  *
  */
-public interface State {
+public interface IState {
 
 	/**
 	 * 
