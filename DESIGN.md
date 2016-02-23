@@ -226,13 +226,12 @@ Jonathan Im (jji93):
 
 ##FrontEnd
 
-Ryan St Pierre (ras70) 
-
-* GuiUserOption
-* State
-* Making the options accessible from the display 
-
 Sophie Guo(yg37)
 * View 
 * View's communication with Controller
 
+Ryan St Pierre (ras70)
+
+*GuiUserOption
+*State
+*Making the options accessible from the display 

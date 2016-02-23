@@ -7,7 +7,9 @@ import interfaces_slogo_team04.SlogoModelActions;
  * @author jonathanim
  *
  */
-public class Controller  {
+
+public class Controller {
+
     
     
     public void parseString(String stringToParse){
@@ -18,5 +20,6 @@ public class Controller  {
     	
     }
     
+
 
 }
