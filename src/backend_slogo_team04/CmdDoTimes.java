@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdDoTimes extends CommandTreeNode {
 
-    public CmdDoTimes (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdDoTimes (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

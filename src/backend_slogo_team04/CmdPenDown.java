@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdPenDown extends CommandTreeNode {
 
-    public CmdPenDown (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdPenDown (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

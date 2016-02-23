@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdDifference extends CommandTreeNode {
 
-    public CmdDifference (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdDifference (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

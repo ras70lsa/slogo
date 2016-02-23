@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdRandom extends CommandTreeNode {
 
-    public CmdRandom (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdRandom (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

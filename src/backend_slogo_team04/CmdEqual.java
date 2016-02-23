@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdEqual extends CommandTreeNode {
 
-    public CmdEqual (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdEqual (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

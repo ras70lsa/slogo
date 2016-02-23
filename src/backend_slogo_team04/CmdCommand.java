@@ -2,11 +2,11 @@ package backend_slogo_team04;
 
 import java.util.Scanner;
 
-public class CmdVariable extends CommandTreeNode {
+public class CmdCommand extends CommandTreeNode {
 
 
 
-    public CmdVariable (Controller myController, CommandTreeNode myParent) {
+    public CmdCommand (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);
         // TODO Auto-generated constructor stub
     }

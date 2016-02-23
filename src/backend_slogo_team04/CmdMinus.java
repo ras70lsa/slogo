@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdMinus extends CommandTreeNode {
 
-    public CmdMinus (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdMinus (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

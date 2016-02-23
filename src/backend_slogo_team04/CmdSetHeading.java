@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdSetHeading extends CommandTreeNode {
 
-    public CmdSetHeading (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdSetHeading (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

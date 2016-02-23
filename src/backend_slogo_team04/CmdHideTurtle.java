@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdHideTurtle extends CommandTreeNode {
 
-    public CmdHideTurtle (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdHideTurtle (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

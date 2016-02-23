@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdSum extends CommandTreeNode {
 
-    public CmdSum (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdSum (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

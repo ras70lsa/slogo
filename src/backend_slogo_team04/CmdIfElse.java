@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdIfElse extends CommandTreeNode {
 
-    public CmdIfElse (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdIfElse (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

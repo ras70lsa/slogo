@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdShowTurtle extends CommandTreeNode {
 
-    public CmdShowTurtle (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdShowTurtle (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

@@ -4,10 +4,6 @@ import java.util.Scanner;
 
 public class CmdAtan extends CommandTreeNode {
 
-    public CmdAtan (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
 
     public CmdAtan (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

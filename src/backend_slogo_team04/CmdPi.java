@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdPi extends CommandTreeNode {
 
-    public CmdPi (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdPi (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

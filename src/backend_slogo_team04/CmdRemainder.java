@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdRemainder extends CommandTreeNode {
 
-    public CmdRemainder (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdRemainder (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);

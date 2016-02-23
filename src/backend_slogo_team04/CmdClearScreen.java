@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class CmdClearScreen extends CommandTreeNode {
 
-    public CmdClearScreen (Controller myController) {
-        super(myController);
-        // TODO Auto-generated constructor stub
-    }
+
 
     public CmdClearScreen (Controller myController, CommandTreeNode myParent) {
         super(myController, myParent);
