@@ -45,7 +45,7 @@ public class Parser {
         
         
         
-        NonLinearCommand myHeadNode = null; // now make the tree here
+        INonLinearCommand myHeadNode = null; // now make the tree here
         
         //TODO 
         myInterpreter.interpretCommandTree(myHeadNode);
@@ -65,7 +65,7 @@ public class Parser {
     	return null;
     }
     
-    public NonLinearCommand getNonLinearCommandForString(String input){
+    public INonLinearCommand getNonLinearCommandForString(String input){
         return null;
     }
     

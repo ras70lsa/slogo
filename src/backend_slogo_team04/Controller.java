@@ -16,7 +16,7 @@ public class Controller {
         
     }
     
-    public void interpretInformation(NonLinearCommand head){
+    public void interpretInformation(INonLinearCommand head){
     	
     }
     

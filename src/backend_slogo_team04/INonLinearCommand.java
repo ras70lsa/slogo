@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author jonathanim
  *
  */
-public interface NonLinearCommand {
+public interface INonLinearCommand {
    
     /**
      * Will cause the command to actually cause the turtle or drawn screen to change, and will do so through connections between the 
@@ -35,7 +35,7 @@ public interface NonLinearCommand {
      * @param nextWord
      * @return
      */
-    public abstract NonLinearCommand parseString(Scanner myScanner);
+    public abstract INonLinearCommand parseString(Scanner myScanner);
     
    
 }
