@@ -31,6 +31,8 @@ public interface Module {
 	public void update();
 
 	public IState getState();
+	
+	public void position(double x, double y, double prefWidth, double prefHeight);
 
 	
 	

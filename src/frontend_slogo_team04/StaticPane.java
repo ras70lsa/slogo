@@ -12,6 +12,7 @@ public abstract class StaticPane extends ModularPane {
 	
 	public StaticPane() {
 		pane = new Pane();
+		pane.getStyleClass().add("pane");
 	}
 	
 	public Region getPane() {
@@ -23,17 +24,11 @@ public abstract class StaticPane extends ModularPane {
 		node.setTranslateX(x);
 		node.setTranslateY(y);
 	}
-	
+
 	public void updateColor(Color color){
 		String hex = toRGBCode(color);
-		pane.setStyle("-fx-background-color: " + hex);
+		getPane().setStyle("-fx-background-color: " + hex);
 	}
-	
-	public void addCSS(String str) {
-		pane.getStylesheets().add(str);
-	}
-
-
 	
 
 }

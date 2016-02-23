@@ -5,18 +5,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
-public class Code extends StaticPane {
+public class Variables extends ScrollablePane {
 
 	private Rectangle text;
 	private TestingState state;
 	private ImageView image;
 	
-	public Code(TestingState state) {
+	public Variables(TestingState state) {
 	
 		this.state = state;
 		setUp();
 		addListeners();
+		addCSS("visual_resources/DefaultVariables.css");
+		
 	}
 	
 	private void addListeners() {
@@ -32,10 +35,13 @@ public class Code extends StaticPane {
 	}
 
 	private void createTextField() {
-		image = new ImageView();
-		image.setFitWidth(100);
-		image.setFitHeight(100);
-		add(image, 10, 10);
+		
+		for(int i =0; i <10 ; i++) {
+			Text text = new Text("test" + " " + i);
+			text.getStyleClass().add("text");
+			add(text);
+		}
+		
 	}
 	
 	public void update() { 

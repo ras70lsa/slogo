@@ -20,7 +20,7 @@ public class UserTextInput extends StaticPane {
 		language = "English";
 		setUp();
 		addListeners();
-		addCSS("visual_resources/DefaultDisplay.css");
+		addCSS("visual_resources/DefaultInputBox.css");
 	}
 	
 	private void addListeners() {
@@ -35,10 +35,10 @@ public class UserTextInput extends StaticPane {
 
 	private void createTextField() {
 		textArea = new TextArea();
-        textArea.setPrefWidth(300);
         textArea.getStyleClass().add("TextArea");
-        textArea.setPrefHeight(150);
-        textArea.setScrollTop(100);
+        textArea.setScrollTop(10);
+        textArea.setPrefHeight(DisplayConstants.TEXT_HEIGHT);
+        textArea.setPrefWidth(DisplayConstants.TEXT_WIDTH);
         add(textArea, 0, 0);
        
 	}
@@ -56,7 +56,8 @@ public class UserTextInput extends StaticPane {
 		Button go = new Button("GO");
 		go.getStyleClass().add("button");
 		go.setOnAction(e -> inputEntered());
-		add(go, 300 - go.getWidth(), 0); 
+		go.setPrefWidth(50);
+		add(go, DisplayConstants.TEXT_WIDTH - go.getPrefWidth(), 0); 
 		
 	}
 

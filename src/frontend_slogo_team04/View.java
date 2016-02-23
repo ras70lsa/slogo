@@ -14,6 +14,7 @@ public class View extends StaticPane {
 		this.state = state;
 		setUp();
 		addListeners();
+		addCSS("visual_resources/DefaultView.css");
 	}
 	
 	private void addListeners() {

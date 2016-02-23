@@ -24,18 +24,21 @@ public class Display {
 	private Stage myStage;
 	private Group panes;
 	private Scene myScene;
-	UserTextInput code;
-	History history;
-	View view;
+	private UserTextInput textInput;
+	private History history;
+	private View view;
+	private Variables variables;
 	
 	public Display() {
 		modules = new ArrayList<Module>();
-		code = new UserTextInput(new UserTextInputState());
+		textInput = new UserTextInput(new UserTextInputState());
 		history = new History(new TestingState());
 		view = new View(new TestingState());
-		modules.add(code);
+		variables = new Variables(new TestingState());
+		modules.add(textInput);
 		modules.add(history);
 		modules.add(view);
+		modules.add(variables);
 		setUpScene();
 		addPanes();
 		createMenuBar();
@@ -47,15 +50,15 @@ public class Display {
 	}
 	
 	private void positionModules() {
-		view.getPane().setTranslateX(100);
-		view.getPane().setTranslateY(200);
-		code.getPane().setTranslateX(100);
-		code.getPane().setTranslateY(400);
-		view.getPane().setPrefSize(150, 200);
-		view.getPane().setPrefSize(150, 200);
-		history.getPane().setTranslateX(450);
-		history.getPane().setTranslateY(50);
-		history.getPane().setPrefSize(150, 400);
+		view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
+				DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
+		textInput.position(DisplayConstants.TEXT_X, DisplayConstants.TEXT_Y, 
+				DisplayConstants.TEXT_WIDTH, DisplayConstants.TEXT_HEIGHT);
+		variables.position(DisplayConstants.VAR_X, DisplayConstants.VAR_Y, 
+				DisplayConstants.VAR_WIDTH, DisplayConstants.VAR_HEIGHT);
+		history.position(DisplayConstants.HISTORY_X, DisplayConstants.HISTORY_Y, 
+				DisplayConstants.HISTORY_WIDTH, DisplayConstants.HISTORY_HEIGHT);
+		
 	}
 	
 	private void loopAndDo(FunctionCall method) {
