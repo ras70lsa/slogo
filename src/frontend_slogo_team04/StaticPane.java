@@ -18,7 +18,7 @@ public abstract class StaticPane extends ModularPane {
 		return pane;
 	}
 	
-	public void add(Node node, int x, int y) {
+	public void add(Node node, double x, double y) {
 		pane.getChildren().add(node);
 		node.setTranslateX(x);
 		node.setTranslateY(y);

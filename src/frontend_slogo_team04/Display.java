@@ -24,16 +24,19 @@ public class Display {
 	private Stage myStage;
 	private Group myRoot;
 	private Scene myScene;
-	Code code;
+	UserTextInput code;
 	History history;
+	View view;
 	
 	public Display() {
 		
 		modules = new ArrayList<Module>();
-		code = new Code(new TestingState());
+		code = new UserTextInput(new UserTextInputState());
 		history = new History(new TestingState());
+		view = new View(new TestingState());
 		modules.add(code);
 		modules.add(history);
+		modules.add(view);
 		setUpScene();
 		addPanes();
 		createMenuBar();
@@ -45,9 +48,13 @@ public class Display {
 	}
 	
 	private void positionModules() {
+		view.getPane().setTranslateX(100);
+		view.getPane().setTranslateY(200);
 		code.getPane().setTranslateX(100);
-		code.getPane().setTranslateY(100);
-		history.getPane().setTranslateX(300);
+		code.getPane().setTranslateY(400);
+		view.getPane().setPrefSize(150, 200);
+		view.getPane().setPrefSize(150, 200);
+		history.getPane().setTranslateX(450);
 		history.getPane().setTranslateY(50);
 		history.getPane().setPrefSize(150, 400);
 	}
