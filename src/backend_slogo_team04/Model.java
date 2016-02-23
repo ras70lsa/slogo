@@ -2,7 +2,7 @@ package backend_slogo_team04;
 
 import java.util.List;
 
-import interfaces_slogo_team04.SlogoModelActions;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 /**
  * Holds the model's information

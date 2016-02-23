@@ -1,6 +1,6 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.State;
+import interfaces_slogo_team04.IState;
 import javafx.scene.layout.Pane;
 
 public class History extends ModularPane {
@@ -16,7 +16,7 @@ public class History extends ModularPane {
 	}
 	
 	@Override
-	public State getState() {
+	public IState getState() {
 		// TODO Auto-generated method stub
 		return null;
 	}
