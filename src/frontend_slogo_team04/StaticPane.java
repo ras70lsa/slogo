@@ -28,6 +28,10 @@ public abstract class StaticPane extends ModularPane {
 		String hex = toRGBCode(color);
 		pane.setStyle("-fx-background-color: " + hex);
 	}
+	
+	public void addCSS(String str) {
+		pane.getStylesheets().add(str);
+	}
 
 
 	

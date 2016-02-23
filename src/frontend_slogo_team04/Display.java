@@ -22,14 +22,13 @@ public class Display {
 
 	private Collection<Module> modules;
 	private Stage myStage;
-	private Group myRoot;
+	private Group panes;
 	private Scene myScene;
 	UserTextInput code;
 	History history;
 	View view;
 	
 	public Display() {
-		
 		modules = new ArrayList<Module>();
 		code = new UserTextInput(new UserTextInputState());
 		history = new History(new TestingState());
@@ -71,7 +70,7 @@ public class Display {
 	}
 	
 	private void add(Node node) {
-		myRoot.getChildren().add(node);
+		panes.getChildren().add(node);
 	}
 	
 	private void createMenuBar() {
@@ -79,7 +78,7 @@ public class Display {
 		Menu file = new Menu("Options");
 		MenuBar bar = new MenuBar(file);
 		loopAndDo(m -> addItem(m, file));
-		myRoot.getChildren().add(bar);
+		panes.getChildren().add(bar);
 		
 	}
 
@@ -96,8 +95,8 @@ public class Display {
 	public void setUpScene() {
 		
 		myStage = new Stage();
-		myRoot = new Group();
-		myScene = new Scene(myRoot, DisplayConstants.DISPLAY_SIZE, DisplayConstants.DISPLAY_SIZE, 
+		panes = new Group();
+		myScene = new Scene(panes, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT, 
 						DisplayConstants.BACKGROUND_COLOR);
 		myStage.setScene(myScene);
 	}

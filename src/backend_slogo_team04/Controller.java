@@ -13,7 +13,7 @@ public class Controller {
     
     
     public void parseString(String stringToParse){
-        
+        System.out.println(stringToParse);
     }
     
     public void interpretInformation(INonLinearCommand head){
