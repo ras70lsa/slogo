@@ -1,6 +1,6 @@
 package backend_slogo_team04;
 
-import interfaces_slogo_team04.SlogoModelActions;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 /**
  * This class serves to unify our parser, interpreter, model and view classes

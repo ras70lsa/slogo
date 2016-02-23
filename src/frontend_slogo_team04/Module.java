@@ -1,6 +1,6 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.State;
+import interfaces_slogo_team04.IState;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
@@ -27,9 +27,11 @@ public interface Module {
 	 * This gives the functionality of allowing the User to change given settings, such as background color.
 	 * @return State 
 	 */
-	public State getState();
 
 	public void update();
+
+	public IState getState();
+
 	
 	
 }

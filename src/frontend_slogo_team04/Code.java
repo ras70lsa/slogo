@@ -1,6 +1,6 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.State;
+import interfaces_slogo_team04.IState;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -46,8 +46,10 @@ public class Code extends StaticPane {
 		createTextField();
 	}
 
-	public State getState() {
+	public IState getState() {
+		
 		return state;
+
 	}
 	
 	public void inputEntered() {

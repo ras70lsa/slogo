@@ -1,6 +1,7 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.State;
+
+import interfaces_slogo_team04.IState;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -28,7 +29,9 @@ public class History extends ScrollablePane {
 		add(t);
 	}
 	
-	public State getState() {
+
+	public IState getState() {
+	
 		return state;
 	}
 

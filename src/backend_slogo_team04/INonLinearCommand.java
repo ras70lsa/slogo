@@ -1,5 +1,6 @@
 package backend_slogo_team04;
 
+import java.util.Scanner;
 
 /**
  * We will construct our parsing/interpreting tree using concretes instances of this abstract
@@ -34,7 +35,7 @@ public interface NonLinearCommand {
      * @param nextWord
      * @return
      */
-    public abstract NonLinearCommand parseString(String nextWord);
+    public abstract NonLinearCommand parseString(Scanner myScanner);
     
    
 }
