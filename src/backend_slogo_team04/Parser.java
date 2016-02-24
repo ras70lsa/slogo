@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Parser {
-    private static final String ALL_WHITESPACE_REGEX = "\\s+";
+    private static final String ALL_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
     
     Controller myController;
     Interpreter myInterpreter;
