@@ -7,6 +7,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Features with scrollable pane (assumes vBox to populate)
+ * @author Ryan St Pierre
+ */
 public abstract class ScrollablePane extends ModularPane {
 
 	public static final int REMOVE_SCROLL_BIT = 2;

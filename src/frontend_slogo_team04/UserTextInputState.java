@@ -13,6 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * State for the text input
+ * @author Ryan St Pierre
+ */
+
 public class UserTextInputState extends State {
 
 	StringProperty language;

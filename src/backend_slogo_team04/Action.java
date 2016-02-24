@@ -11,21 +11,18 @@ import java.util.Map;
  */
 public class Action {
 	
+
 	private Model model;
-	private double turtleDirection;
 	private Map<String, Double> variables;
 	private Map<String, INonLinearCommand> commands;
 	String input;
 	
+
 	public Action(Model model, String input, Map<String, Double> variables, Map<String, INonLinearCommand> commands) {
 		this.model=model;
 		this.variables = variables;
 		this.commands = commands;
 		this.input= input;
-	}
-	
-	public double getTurtleDirection() {
-		return turtleDirection;
 	}
 	
 	public Model getModel() {

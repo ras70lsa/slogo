@@ -15,20 +15,14 @@ public interface INonLinearCommand {
      * 
      * This may not result in direct action, may include flow logic, for example the repeat command will simply call executeCommand on 
      * all of its associated children the appropriate number of times    
+     * 
+     * @param myController we delegate actionable events to this object
+     * @param myInterpreter This object holds the state required for properly 'running' the Slogo commands
+     * 
      */
-    public abstract void executeCommand();
+    public abstract double executeCommand(Controller myController, Interpreter myInterpreter);
     
-    /**
-     * The return value of the command, as specified, all commands return values in Slogo and all returned values are of type double
-     * @return
-     */
-    public abstract double getValue();
-    
-    /**
-     * Will be used during parsing to understand who should capture the next string bit from the parser class, the parent or the child
-     * @return
-     */
-    public abstract boolean isDoneConstructing();
+
    
     /**
      * Each command as defined by the list of possible Slogo commands knows what it needs to instantiate itself
