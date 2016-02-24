@@ -173,6 +173,10 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             return new CmdComment(myController, myParent);
         }
 
+        //TODO need to replace the fake checks for the type of command with the pattern syntax matches provided on the website:
+        // http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php
+        
+        
         // at this point, we have no idea what the input is, we should simply throw a malformed code input error and let the gui
         // handle informing the user
         throw new UserInputException("Please check spelling of all Slogo commands");

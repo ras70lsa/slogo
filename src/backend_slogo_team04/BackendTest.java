@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
+import exceptions.LogicException;
 import exceptions.UserInputException;
 
 public class BackendTest {
@@ -11,7 +12,7 @@ public class BackendTest {
     
     public static void main(String [] args){
      //Testing the cmdAnd class
-        CommandTreeNode andTest = new CmdNot(null);
+        CommandTreeNode andTest = new CmdPi(null);
         try {
             andTest.parseString(null, null);
         }
@@ -19,7 +20,13 @@ public class BackendTest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println(andTest.executeCommand(null, null));
+        try {
+            System.out.println(andTest.executeCommand(null, null));
+        }
+        catch (LogicException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
     }
         

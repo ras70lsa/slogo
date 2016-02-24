@@ -1,28 +1,23 @@
 package backend_slogo_team04;
 
 import java.util.Scanner;
+import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
 public class CmdPi extends CommandTreeNode {
-
-
-
-    public CmdPi (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
-        // TODO Auto-generated constructor stub
+    public CmdPi (CommandTreeNode myParent) {
+        super(myParent);
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) {
-        // TODO Auto-generated method stub
-        return 0;
+    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+        return Math.PI;
     }
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 
 }

@@ -1,6 +1,7 @@
 package backend_slogo_team04;
 
 import java.util.Scanner;
+import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
@@ -13,7 +14,7 @@ public class CmdNot extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) {
+    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         boolean testOneNonZero = isNonZero(testOne, myController, myInterpreter);
         if(testOneNonZero){
             return CommandTreeNode.DOUBLE_ZERO;
