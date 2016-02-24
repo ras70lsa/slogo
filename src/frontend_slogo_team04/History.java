@@ -1,11 +1,7 @@
 package frontend_slogo_team04;
 
-<<<<<<< HEAD
-import interfaces_slogo_team04.State;
 import javafx.scene.control.Button;
-=======
 import interfaces_slogo_team04.IState;
->>>>>>> 007b7e5e3d9029e4eac3780e1c4528d8430f01f3
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

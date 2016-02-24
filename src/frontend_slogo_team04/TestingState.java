@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import properties.*;
 
 
-public class TestingState implements State {
+public class TestingState implements IState {
 
 	ColorProperty color;
 	BooleanProperty tf;

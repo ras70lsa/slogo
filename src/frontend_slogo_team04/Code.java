@@ -45,7 +45,7 @@ public class Code extends StaticPane {
 	public void setUp() {
 		createTextField();
 	}
-
+	
 	@Override
 	public IState getState() {
 		// TODO Auto-generated method stub
