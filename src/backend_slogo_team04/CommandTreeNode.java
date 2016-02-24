@@ -35,7 +35,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
 
-    public static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , Controller myController){
+    public static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , Controller myController) throws StructuralException{
         // throw an error here regarding incomplete syntax
         String lowerCaseWord;
         try{
