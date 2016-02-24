@@ -18,6 +18,10 @@ import properties.ColorProperty;
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Model;
 
+/**
+ * Keeps track of the programs back end history
+ * @author Ryan St Pierre
+ */
 public class HistoryState extends State {
 
 	private ColorProperty color;

@@ -9,6 +9,11 @@ import interfaces_slogo_team04.State;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
+/**
+ * Text input feature (for code)
+ * @author Ryan St Pierre
+ */
+
 public class UserTextInput extends StaticPane {
 
 	private UserTextInputState state;

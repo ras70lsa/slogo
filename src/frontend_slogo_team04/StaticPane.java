@@ -6,6 +6,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
+/**
+ * Feature with pane
+ * @author Ryan St Pierre
+ */
 public abstract class StaticPane extends ModularPane {
 
 	private Pane pane; 

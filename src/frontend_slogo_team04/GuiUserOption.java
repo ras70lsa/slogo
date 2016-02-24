@@ -26,6 +26,10 @@ import javafx.stage.Stage;
 import properties.ColorProperty;
 import properties.ImageProperty;
 
+/**
+ * Automates the creation of nodes for the user selection stage based purely on a State's Property
+ * @author Ryan St Pierre
+ */
 public class GuiUserOption {
 
 	public void get(File file, String str) {

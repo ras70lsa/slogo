@@ -4,7 +4,10 @@ import javafx.scene.paint.Color;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-
+/**
+ * Parent class for all features with Panes on the screen
+ * @author Ryan St Pierre
+ */
 public abstract class ModularPane implements Module {
 	
 	private DoubleProperty width;

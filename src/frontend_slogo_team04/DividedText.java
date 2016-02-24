@@ -6,6 +6,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+/**
+ * Class for creating the data structure that display the histroy in an organized fashion
+ * @author Ryan St Pierre
+ *
+ */
 public class DividedText extends HBox {
 
 	public DividedText() {

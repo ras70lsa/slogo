@@ -9,6 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+/**
+ * History Feature
+ * @author Ryan St Pierre
+ */
 
 public class History extends ScrollablePane {
 

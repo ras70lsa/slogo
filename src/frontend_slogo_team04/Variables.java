@@ -7,6 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * Variable feature
+ * @author Ryan St Pierre
+ */
 public class Variables extends ScrollablePane {
 
 	private Rectangle text;

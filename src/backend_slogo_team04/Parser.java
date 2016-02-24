@@ -1,10 +1,12 @@
 package backend_slogo_team04;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
 
 public class Parser {
-    private static final String ALL_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
+
+    private static final String ALL_WHITESPACE_REGEX = "\\s+";
+
     
     Controller myController;
     Interpreter myInterpreter;
@@ -17,8 +19,8 @@ public class Parser {
     
     public Action parseString(String stringToParse){
         //TODO something that breaks input string into space delineated words
-        Scanner myScanner = new Scanner(stringToParse);
-        myScanner.useDelimiter(Pattern.compile(ALL_WHITESPACE_REGEX)); // all whitespace of any length is ignored
+        Scanner myScanner = new SlogoScanner(stringToParse).getSlogoFormattedScanner();
+       
         
         //test code
         int i = 0;
