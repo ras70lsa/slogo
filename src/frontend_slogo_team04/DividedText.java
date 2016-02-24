@@ -38,5 +38,9 @@ public class DividedText extends HBox {
 			this.setSpacing(spacing);
 		}
 	}
+	
+	public Text getRight() {
+		return t2;
+	}
 
 }

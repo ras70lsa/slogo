@@ -80,6 +80,10 @@ public class UserTextInput extends StaticPane {
 		SlogoScanner reader = new SlogoScanner(textArea.getText());
 		controller.parseString(reader.getLanguageConvertedCode(myBundle));
 	}
+
+	public void setText(String selectedText) {
+		textArea.setText(selectedText);
+	}
 	
 
 }

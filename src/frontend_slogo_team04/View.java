@@ -12,7 +12,6 @@ public class View extends StaticPane {
 	
 	public View(TestingState state) { 
 		this.state = state;
-		setUp();
 		addListeners();
 		addCSS("visual_resources/DefaultView.css");
 	}
@@ -24,15 +23,8 @@ public class View extends StaticPane {
 	public void draw() {
 		
 	}
-	
-	@Override
-	public void setUp() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public State getState() {
-		// TODO Auto-generated method stub
 		return state;
 	}
 
