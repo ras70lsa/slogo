@@ -1,15 +1,19 @@
 package frontend_slogo_team04;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import constants.DisplayConstants;
-import interfaces_slogo_team04.IState;
+import interfaces_slogo_team04.State;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class UserTextInputState implements IState {
+public class UserTextInputState extends State {
 
 	StringProperty language;
 	
@@ -21,18 +25,14 @@ public class UserTextInputState implements IState {
 		return language;
 	}
 	
-	public Stage getUserOptions() {
-		Group myGroup = new Group();
-		Scene myScene = new Scene(myGroup, 300, 300, Color.BEIGE);
-		Stage stage = new Stage();
-		stage.setScene(myScene);
-		GuiUserOption gui = new GuiUserOption();
-		myGroup.getChildren().add(gui.get(language, DisplayConstants.possibleLangauges));
-		return stage;
-	}
-	
 	public String getLanguage(){
 		return "English";
-	};
+	}
+
+	protected Collection<Node> getStageNodes() {
+		Collection<Node> myStageNodes = new ArrayList<Node>();
+		myStageNodes.add(getFactory().get(language, DisplayConstants.possibleLangauges));
+		return myStageNodes;
+	}
 
 }

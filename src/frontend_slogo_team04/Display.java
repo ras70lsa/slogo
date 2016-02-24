@@ -29,12 +29,12 @@ public class Display {
 	private View view;
 	private Variables variables;
 	
-	public Display() {
+	public Display(UserTextInput textInput, History history, View view, Variables variables) {
 		modules = new ArrayList<Module>();
-		textInput = new UserTextInput(new UserTextInputState());
-		history = new History(new TestingState());
-		view = new View(new TestingState());
-		variables = new Variables(new TestingState());
+		this.textInput = textInput;
+		this.history = history;
+		this.view = view;
+		this.variables = variables;
 		modules.add(textInput);
 		modules.add(history);
 		modules.add(view);

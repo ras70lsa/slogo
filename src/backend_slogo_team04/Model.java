@@ -11,7 +11,8 @@ import interfaces_slogo_team04.ISlogoModelActions;
  */
 public class Model  {
 
-	private Turtle turtle;
+	private Actor actor;
+	
 	public Model() {
 		// TODO Auto-generated constructor stub
 	}

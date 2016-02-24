@@ -1,6 +1,6 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.IState;
+import interfaces_slogo_team04.State;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -27,9 +27,7 @@ public class Variables extends ScrollablePane {
 		state.getColorProperty().addListener((a,b,newValue) -> updateColor(newValue));
 		state.getImageProperty().addListener((a,b,c) -> updateImageView(c));
 	}
-	
-	
-	
+
 	private void updateImageView(Image c) {
 		image.setImage(c);
 	}
@@ -52,16 +50,9 @@ public class Variables extends ScrollablePane {
 		createTextField();
 	}
 
-	public IState getState() {
-		
+	public State getState() {
 		return state;
 
 	}
-	
-	public void inputEntered() {
-
-	}
-
-	
 
 }
