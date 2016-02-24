@@ -33,9 +33,12 @@ public abstract class ScrollablePane extends ModularPane {
 	}
 
 	public void add(Node node) {
-		
 		content.getChildren().add(node);
 		
+	}
+	
+	public void clearBox(){
+		content.getChildren().clear();
 	}
 	
 	public void updateColor(Color color){

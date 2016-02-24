@@ -7,9 +7,8 @@ import backend_slogo_team04.Action;
 import interfaces_slogo_team04.State;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Label;
+
 
 public class History extends ScrollablePane {
 
@@ -27,21 +26,28 @@ public class History extends ScrollablePane {
 	
 	public void setUp() {
 		
-		Button r = new Button("Text");
+		DividedText r = new DividedText();
 		add(r);
-		Button t = new Button("Text");
-		add(t);
+		DividedText r2 = new DividedText();
+		add(r2);
+		Label d = new Label("Ryan");
+		add(d);
+		
+		
 	}
 	
-
 	public State getState() {
 	
 		return state;
 	}
 
-	public void updateText(ObservableList<Double> newInfo) {
-		//System.out.println(newInfo.toString());
-		
+	public void updateText(ObservableList<Action> newInfo) {
+		//clearBox();
+		for(Action a: newInfo) {
+			Button b = new Button(a.getInput());
+			b.setOnMouseClicked(e -> state.addToStack());
+			add(b);
+		}	
 	}
 
 }
