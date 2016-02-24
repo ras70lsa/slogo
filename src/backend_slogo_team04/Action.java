@@ -11,32 +11,37 @@ import java.util.Map;
  */
 public class Action {
 	
-	private NonLinearCommand head;
-	private int nodesDrawn;
+	private Model model;
 	private double turtleDirection;
-	private Map<String, Integer> variables;
+	private Map<String, Double> variables;
+	private Map<String, INonLinearCommand> commands;
+	String input;
 	
-	public Action(NonLinearCommand head, int drawn, double direction, Map<String, Integer> variables) {
-		this.head=head;
-		nodesDrawn = drawn;
-		turtleDirection = direction;
+	public Action(Model model, String input, Map<String, Double> variables, Map<String, INonLinearCommand> commands) {
+		this.model=model;
 		this.variables = variables;
-	}
-	
-	public NonLinearCommand getHead() {
-		return head;
-	}
-	
-	public int getNodesCount() {
-		return nodesDrawn;
+		this.commands = commands;
+		this.input= input;
 	}
 	
 	public double getTurtleDirection() {
 		return turtleDirection;
 	}
 	
-	public Map<String, Integer> getVariables() {
+	public Model getModel() {
+		return model;
+	}
+	
+	public Map<String, Double> getVariables() {
 		return variables;
+	}
+	
+	public String getInput() {
+		return input;
+	}
+	
+	public Map<String, INonLinearCommand> getCommands() { 
+		return commands;
 	}
 
 }

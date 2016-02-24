@@ -1,0 +1,12 @@
+.text {
+	
+	-fx-font-family: Consolas;
+	-fx-fill: #FFFFFF;
+	-fx-font-size: 16pt;
+	
+}
+
+.scroll_pane {
+	-fx-background: #00008F;
+}
+

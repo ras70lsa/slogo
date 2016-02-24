@@ -1,12 +1,13 @@
 package backend_slogo_team04;
 
+import java.util.Scanner;
 
 /**
  * We will construct our parsing/interpreting tree using concretes instances of this abstract
  * @author jonathanim
  *
  */
-public interface NonLinearCommand {
+public interface INonLinearCommand {
    
     /**
      * Will cause the command to actually cause the turtle or drawn screen to change, and will do so through connections between the 
@@ -34,7 +35,7 @@ public interface NonLinearCommand {
      * @param nextWord
      * @return
      */
-    public abstract NonLinearCommand parseString(String nextWord);
+    public abstract INonLinearCommand parseString(Scanner myScanner);
     
    
 }

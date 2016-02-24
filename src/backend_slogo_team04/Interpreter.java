@@ -6,7 +6,7 @@ public class Interpreter {
      * This method will iterate through the nonlinear commands in
      * @param headNode
      */
-    public void interpretCommandTree(NonLinearCommand headNode){
+    public void interpretCommandTree(INonLinearCommand headNode){
         
         return;
     }

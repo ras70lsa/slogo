@@ -14,6 +14,7 @@ public class View extends StaticPane {
 		this.state = state;
 		setUp();
 		addListeners();
+		addCSS("visual_resources/DefaultView.css");
 	}
 	
 	private void addListeners() {
@@ -30,8 +31,8 @@ public class View extends StaticPane {
 
 	}
 
-	@Override
 	public State getState() {
+		// TODO Auto-generated method stub
 		return state;
 	}
 

@@ -22,18 +22,23 @@ public class Display {
 
 	private Collection<Module> modules;
 	private Stage myStage;
-	private Group myRoot;
+	private Group panes;
 	private Scene myScene;
-	Code code;
-	History history;
+	private UserTextInput textInput;
+	private History history;
+	private View view;
+	private Variables variables;
 	
-	public Display() {
-		
+	public Display(UserTextInput textInput, History history, View view, Variables variables) {
 		modules = new ArrayList<Module>();
-		code = new Code(new TestingState());
-		history = new History(new TestingState());
-		modules.add(code);
+		this.textInput = textInput;
+		this.history = history;
+		this.view = view;
+		this.variables = variables;
+		modules.add(textInput);
 		modules.add(history);
+		modules.add(view);
+		modules.add(variables);
 		setUpScene();
 		addPanes();
 		createMenuBar();
@@ -45,11 +50,15 @@ public class Display {
 	}
 	
 	private void positionModules() {
-		code.getPane().setTranslateX(100);
-		code.getPane().setTranslateY(100);
-		history.getPane().setTranslateX(300);
-		history.getPane().setTranslateY(50);
-		history.getPane().setPrefSize(150, 400);
+		view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
+				DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
+		textInput.position(DisplayConstants.TEXT_X, DisplayConstants.TEXT_Y, 
+				DisplayConstants.TEXT_WIDTH, DisplayConstants.TEXT_HEIGHT);
+		variables.position(DisplayConstants.VAR_X, DisplayConstants.VAR_Y, 
+				DisplayConstants.VAR_WIDTH, DisplayConstants.VAR_HEIGHT);
+		history.position(DisplayConstants.HISTORY_X, DisplayConstants.HISTORY_Y, 
+				DisplayConstants.HISTORY_WIDTH, DisplayConstants.HISTORY_HEIGHT);
+		
 	}
 	
 	private void loopAndDo(FunctionCall method) {
@@ -64,7 +73,7 @@ public class Display {
 	}
 	
 	private void add(Node node) {
-		myRoot.getChildren().add(node);
+		panes.getChildren().add(node);
 	}
 	
 	private void createMenuBar() {
@@ -72,7 +81,7 @@ public class Display {
 		Menu file = new Menu("Options");
 		MenuBar bar = new MenuBar(file);
 		loopAndDo(m -> addItem(m, file));
-		myRoot.getChildren().add(bar);
+		panes.getChildren().add(bar);
 		
 	}
 
@@ -89,8 +98,8 @@ public class Display {
 	public void setUpScene() {
 		
 		myStage = new Stage();
-		myRoot = new Group();
-		myScene = new Scene(myRoot, DisplayConstants.DISPLAY_SIZE, DisplayConstants.DISPLAY_SIZE, 
+		panes = new Group();
+		myScene = new Scene(panes, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT, 
 						DisplayConstants.BACKGROUND_COLOR);
 		myStage.setScene(myScene);
 	}
