@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import exceptions.StructuralException;
+import exceptions.UserInputException;
 
 
 /**
@@ -16,6 +17,8 @@ import exceptions.StructuralException;
  *
  */
 public abstract class CommandTreeNode implements INonLinearCommand {
+    private static final char START_OF_COMMENT_CHAR = '#';
+    private static final char VAR_FIRST_CHAR = ':';
     private List<CommandTreeNode> myChildren;
     private CommandTreeNode myParent; //in case we need to do weird scope things in the future
 
@@ -35,22 +38,23 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
 
-    public static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , Controller myController){
+    public static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , Controller myController, Interpreter myInterpreter) throws UserInputException{
         // throw an error here regarding incomplete syntax
         String lowerCaseWord;
         try{
             lowerCaseWord = myScanner.next().toLowerCase();
         }catch(NoSuchElementException e){
-            throw new StructuralException("Incomplete Slogo commands detected");
+            throw new UserInputException("Incomplete Slogo commands detected");
         }
 
-        CommandTreeNode myNextCommand = CommandTreeNode.slogoCommandFactory(lowerCaseWord, parentNode, myController);
+        CommandTreeNode myNextCommand = CommandTreeNode.slogoCommandFactory(lowerCaseWord, parentNode, myController, myInterpreter);
         myNextCommand.parseString(myScanner);
 
         return myNextCommand;
     }
 
-    public static CommandTreeNode slogoCommandFactory(String nextWord, CommandTreeNode myParent, Controller myController){
+    public static CommandTreeNode slogoCommandFactory(String nextWord, CommandTreeNode myParent, Controller myController, Interpreter myInterpreter) throws UserInputException{
+// we can assume at this point that the only things that are coming are the words themselves and new line characters
         switch(nextWord){
             // TURTLE COMMANDS
             case "Forward":
@@ -151,13 +155,37 @@ public abstract class CommandTreeNode implements INonLinearCommand {
                 return new CmdTo(myController, myParent);
         }
         // at this point, no keyword is detected
-        // need to check if it is a variable
-        // need to check if it is a userdefined function
-        // need to check if it is a constant
-        // need to check if the line is a comment, if create commentCommand which then will eat all symbols untill we hit the nextline character
-        
-        return null;
+        if(isVariableDeclaration(nextWord)){
+            return new CmdVariable(myController, myParent);
+        }
+        if(isUserDefinedFunction(nextWord, myInterpreter)){
+            return new CmdCommand(myController, myParent);
+        }
+        if(NumberFormatChecker.isDouble(nextWord)){
+            return new CmdConstant(myController, myParent);
+        }
+        if(isStartOfComment(nextWord)){
+            return new CmdComment(myController, myParent);
+        }
+
+        // at this point, we have no idea what the input is, we should simply throw a malformed code input error and let the gui
+        // handle informing the user
+        throw new UserInputException("Please check spelling of all Slogo commands");
     }
+
+    public static boolean isUserDefinedFunction(String nextWord, Interpreter myInterpreter){
+        return (myInterpreter.getFunction(nextWord) != null);
+    }
+
+    public static boolean isVariableDeclaration(String nextWord){
+        return nextWord.charAt(0) == VAR_FIRST_CHAR;
+    }
+    public static boolean isStartOfComment(String nextWord){
+        char nextChar = nextWord.charAt(0);
+        return nextChar == START_OF_COMMENT_CHAR;  // || nextChar == '\n'; // We need to dynamically switch the behavior of the parser in the comment cmd class
+    }
+
+
 
 
 

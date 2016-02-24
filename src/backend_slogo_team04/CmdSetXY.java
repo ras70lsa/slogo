@@ -1,6 +1,7 @@
 package backend_slogo_team04;
 
 import java.util.Scanner;
+import exceptions.UserInputException;
 
 public class CmdSetXY extends CommandTreeNode {
 
@@ -18,7 +19,7 @@ public class CmdSetXY extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner) {
+    public INonLinearCommand parseString (Scanner myScanner) throws UserInputException {
         // TODO Auto-generated method stub
         return null;
     }
