@@ -2,6 +2,7 @@ package backend_slogo_team04;
 
 import java.util.Scanner;
 import exceptions.UserInputException;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 public class CmdMinus extends CommandTreeNode {
 
@@ -13,13 +14,13 @@ public class CmdMinus extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (Controller myController, Interpreter myInterpreter) {
+    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner) throws UserInputException {
+    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         // TODO Auto-generated method stub
         return null;
     }

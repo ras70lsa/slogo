@@ -2,6 +2,7 @@ package backend_slogo_team04;
 
 import java.util.Scanner;
 import exceptions.UserInputException;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 /**
  * We will construct our parsing/interpreting tree using concretes instances of this abstract
@@ -21,17 +22,18 @@ public interface INonLinearCommand {
      * @param myInterpreter This object holds the state required for properly 'running' the Slogo commands
      * 
      */
-    public abstract double executeCommand(Controller myController, Interpreter myInterpreter);
+    public abstract double executeCommand(ISlogoModelActions myController, ISlogoInterpreter myInterpreter);
     
 
    
     /**
      * Each command as defined by the list of possible Slogo commands knows what it needs to instantiate itself
+     * @param myInterpreter TODO
      * @param nextWord
      * @return
      * @throws UserInputException TODO
      */
-    public abstract INonLinearCommand parseString(Scanner myScanner) throws UserInputException;
+    public abstract INonLinearCommand parseString(Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException;
     
    
 }

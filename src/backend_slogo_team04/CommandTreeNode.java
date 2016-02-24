@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import exceptions.StructuralException;
 import exceptions.UserInputException;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 
 /**
@@ -19,6 +20,9 @@ import exceptions.UserInputException;
 public abstract class CommandTreeNode implements INonLinearCommand {
     private static final char START_OF_COMMENT_CHAR = '#';
     private static final char VAR_FIRST_CHAR = ':';
+    protected static final double DOUBLE_ZERO = 0d;
+    protected static final double DOUBLE_ONE = 1d;
+    
     private List<CommandTreeNode> myChildren;
     private CommandTreeNode myParent; //in case we need to do weird scope things in the future
 
@@ -26,7 +30,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
 
 
 
-    public CommandTreeNode(Controller myController, CommandTreeNode myParent){
+    public CommandTreeNode(CommandTreeNode myParent){
         this.myParent = myParent;
         myChildren = new ArrayList<CommandTreeNode>();
     }
@@ -38,7 +42,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
 
-    public static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , Controller myController, Interpreter myInterpreter) throws UserInputException{
+    protected static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , ISlogoInterpreter myInterpreter) throws UserInputException{
         // throw an error here regarding incomplete syntax
         String lowerCaseWord;
         try{
@@ -47,13 +51,14 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             throw new UserInputException("Incomplete Slogo commands detected");
         }
 
-        CommandTreeNode myNextCommand = CommandTreeNode.slogoCommandFactory(lowerCaseWord, parentNode, myController, myInterpreter);
-        myNextCommand.parseString(myScanner);
+        CommandTreeNode myNextCommand = CommandTreeNode.slogoCommandFactory(lowerCaseWord, parentNode, myInterpreter);
+        myNextCommand.parseString(myScanner, null);
 
         return myNextCommand;
     }
 
-    public static CommandTreeNode slogoCommandFactory(String nextWord, CommandTreeNode myParent, Controller myController, Interpreter myInterpreter) throws UserInputException{
+
+    protected static CommandTreeNode slogoCommandFactory(String nextWord, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
 // we can assume at this point that the only things that are coming are the words themselves and new line characters
         switch(nextWord){
             // TURTLE COMMANDS
@@ -173,7 +178,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         throw new UserInputException("Please check spelling of all Slogo commands");
     }
 
-    public static boolean isUserDefinedFunction(String nextWord, Interpreter myInterpreter){
+    public static boolean isUserDefinedFunction(String nextWord, ISlogoInterpreter myInterpreter){
         return (myInterpreter.getFunction(nextWord) != null);
     }
 
@@ -183,6 +188,11 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     public static boolean isStartOfComment(String nextWord){
         char nextChar = nextWord.charAt(0);
         return nextChar == START_OF_COMMENT_CHAR;  // || nextChar == '\n'; // We need to dynamically switch the behavior of the parser in the comment cmd class
+    }
+    
+    protected boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActions myController, ISlogoInterpreter myInterpreter){
+        double myValue = myCommand.executeCommand(myController, myInterpreter);
+        return myValue != CommandTreeNode.DOUBLE_ZERO;
     }
 
 
