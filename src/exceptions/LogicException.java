@@ -1,6 +1,6 @@
 package exceptions;
 
-public class LogicException extends RuntimeException {
+public class LogicException extends Exception {
 
 	public LogicException() {
 		// TODO Auto-generated constructor stub

@@ -11,19 +11,19 @@ import java.util.Map;
  */
 public class Action {
 	
-	private NonLinearCommand head;
+	private INonLinearCommand head;
 	private int nodesDrawn;
 	private double turtleDirection;
 	private Map<String, Integer> variables;
 	
-	public Action(NonLinearCommand head, int drawn, double direction, Map<String, Integer> variables) {
+	public Action(INonLinearCommand head, int drawn, double direction, Map<String, Integer> variables) {
 		this.head=head;
 		nodesDrawn = drawn;
 		turtleDirection = direction;
 		this.variables = variables;
 	}
 	
-	public NonLinearCommand getHead() {
+	public INonLinearCommand getHead() {
 		return head;
 	}
 	
