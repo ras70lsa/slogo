@@ -21,6 +21,7 @@ public class History extends ScrollablePane {
 		this.state = hState;
 		addListeners();
 		setUp();
+		addCSS("visual_resources/DefaultHistory.css");
 	}
 
 	private void addListeners() {
@@ -30,12 +31,16 @@ public class History extends ScrollablePane {
 	
 	public void setUp() {
 		
-		DividedText r = new DividedText();
+		String shor = "Ryan";
+		DividedText r = new DividedText(shor, shor);
 		add(r);
-		DividedText r2 = new DividedText();
+		String lon = "Ryan\nTayla Nick";
+		DividedText r2 = new DividedText(lon, lon);
 		add(r2);
-		Label d = new Label("Ryan");
-		add(d);
+		r.setW(100);
+		r2.setW(100);
+		
+		
 		
 		
 	}
@@ -47,11 +52,11 @@ public class History extends ScrollablePane {
 
 	public void updateText(ObservableList<Action> newInfo) {
 		//clearBox();
-		for(Action a: newInfo) {
-			Button b = new Button(a.getInput());
-			b.setOnMouseClicked(e -> state.addToStack());
-			add(b);
-		}	
+//		for(Action a: newInfo) {
+//			Button b = new Button(a.getInput());
+//			b.setOnMouseClicked(e -> state.addToStack());
+//			add(b);
+//		}	
 	}
 
 }
