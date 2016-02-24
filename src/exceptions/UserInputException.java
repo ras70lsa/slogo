@@ -1,6 +1,6 @@
 package exceptions;
 
-public class UserInputException extends RuntimeException {
+public class UserInputException extends Exception {
 
 	public UserInputException() {
 		// TODO Auto-generated constructor stub
