@@ -2,75 +2,54 @@ package backend_slogo_team04;
 
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SlogoScanner {
     private static final String ALL_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
-    private static final String NEW_LINE_POSSIBLE = "[\\n]*";
-    private static final String NEW_LINE_YES = "[\\n]+\\w+";
-    private static final String WHITESPACE = " ";
     private Scanner myScanner;
+    private String str;
+    
     
     public SlogoScanner(String myString){
         this.myScanner = new Scanner(myString);
         this.myScanner.useDelimiter(ALL_WHITESPACE_REGEX);
+        str = myString;
     }
     
     public Scanner getSlogoFormattedScanner(){
         return this.myScanner;
     }
     
-    /**
-     * NEED TO REFACTOR THESE 4 METHODS INTO 2
-     */
    public String getLanguageConvertedCode(ResourceBundle myResourceBundle) {
-       StringBuilder myStringBuilder = new StringBuilder();
-       while(myScanner.hasNext()){
-    	   String str = myScanner.next();
-           String nextSlogoCommand = convert(str, myResourceBundle);
-           if(str.matches(NEW_LINE_YES)) {
-    		   myStringBuilder.append("\\n" + nextSlogoCommand + WHITESPACE);
-    		   System.out.println("HERE");
-    	   } else {
-    		   myStringBuilder.append(nextSlogoCommand + WHITESPACE);
-    	   }
-       }
+       replace(myResourceBundle);
+       return str;
+   }
+    
+    
+    private void replace(ResourceBundle myResourceBundle) {
+    	for(String key: myResourceBundle.keySet()) {
+    		Pattern p = Pattern.compile(myResourceBundle.getString(key));
+    		Matcher m = p.matcher(str);
+    		str = m.replaceAll(key);
+    		
+    	}
+    }
 
-       return myStringBuilder.toString();
+    public String getCodeConvertToLanguage(ResourceBundle myResourceBundle) {
+       replaceReverse(myResourceBundle);
+       return str;
    }
    
-   public String getCodeConvertToLanguage(ResourceBundle myResourceBundle) {
-       StringBuilder myStringBuilder = new StringBuilder();
-       while(myScanner.hasNext()){
-    	   String toTest = myScanner.next();
-    	   String nextSlogoCommand = convertReverse(toTest, myResourceBundle);
-    	   myStringBuilder.append(nextSlogoCommand + WHITESPACE);
-    	   
-       }
-       return myStringBuilder.toString();
-   }
-    
-    
-    private String convert(String text, ResourceBundle myBundle ) {
-        for(String key: myBundle.keySet()) {
-        		String newReg = NEW_LINE_POSSIBLE + "(" + myBundle.getString(key) + ")";
-                if(text.matches(newReg)) {
-                        text = key;
-                        break;
-                }
-        }
-        return text;
-    }  
-   
-	private String convertReverse(String text, ResourceBundle myBundle ) {
-		System.out.println(text.substring(0, 2).equals("\\n"));
-		if(text.substring(0, 2).equals("\\n")) {
-			text= text.substring(2);
+	private void replaceReverse(ResourceBundle myBundle ) {
+		System.out.println(str);
+		for(String key: myBundle.keySet()) {
+    		Pattern p = Pattern.compile("\\b" + key + "\\b");
+    		Matcher m = p.matcher(str);
+    		String find = myBundle.getString(key);
+    		str = m.replaceAll(find);
 		}
-        if(myBundle.containsKey(text)) {
-              String str = myBundle.getString(text);
-              return str.substring(0, str.indexOf("|"));
-        }
-        return text;
+		
     } 
 
 }
