@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class SlogoScanner {
     private static final String ALL_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
+    private static final String NEW_LINE_POSSIBLE = "[\\n]*";
+    private static final String NEW_LINE_YES = "[\\n]+\\w+";
     private static final String WHITESPACE = " ";
     private Scanner myScanner;
     
@@ -23,8 +25,14 @@ public class SlogoScanner {
    public String getLanguageConvertedCode(ResourceBundle myResourceBundle) {
        StringBuilder myStringBuilder = new StringBuilder();
        while(myScanner.hasNext()){
-           String nextSlogoCommand = convert(myScanner.next(), myResourceBundle);
-           myStringBuilder.append(nextSlogoCommand + WHITESPACE);
+    	   String str = myScanner.next();
+           String nextSlogoCommand = convert(str, myResourceBundle);
+           if(str.matches(NEW_LINE_YES)) {
+    		   myStringBuilder.append("\\n" + nextSlogoCommand + WHITESPACE);
+    		   System.out.println("HERE");
+    	   } else {
+    		   myStringBuilder.append(nextSlogoCommand + WHITESPACE);
+    	   }
        }
 
        return myStringBuilder.toString();
@@ -33,25 +41,31 @@ public class SlogoScanner {
    public String getCodeConvertToLanguage(ResourceBundle myResourceBundle) {
        StringBuilder myStringBuilder = new StringBuilder();
        while(myScanner.hasNext()){
-           String nextSlogoCommand = convertReverse(myScanner.next(), myResourceBundle);
-           myStringBuilder.append(nextSlogoCommand + WHITESPACE);
+    	   String toTest = myScanner.next();
+    	   String nextSlogoCommand = convertReverse(toTest, myResourceBundle);
+    	   myStringBuilder.append(nextSlogoCommand + WHITESPACE);
+    	   
        }
-
        return myStringBuilder.toString();
    }
     
     
     private String convert(String text, ResourceBundle myBundle ) {
         for(String key: myBundle.keySet()) {
-                if(text.matches(myBundle.getString(key))) {
+        		String newReg = NEW_LINE_POSSIBLE + "(" + myBundle.getString(key) + ")";
+                if(text.matches(newReg)) {
                         text = key;
                         break;
                 }
         }
         return text;
     }  
-    
-    private String convertReverse(String text, ResourceBundle myBundle ) {
+   
+	private String convertReverse(String text, ResourceBundle myBundle ) {
+		System.out.println(text.substring(0, 2).equals("\\n"));
+		if(text.substring(0, 2).equals("\\n")) {
+			text= text.substring(2);
+		}
         if(myBundle.containsKey(text)) {
               String str = myBundle.getString(text);
               return str.substring(0, str.indexOf("|"));
