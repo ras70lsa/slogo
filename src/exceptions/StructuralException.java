@@ -1,6 +1,6 @@
 package exceptions;
 
-public class StructuralException extends RuntimeException {
+public class StructuralException extends Exception {
 
 	public StructuralException() {
 		// TODO Auto-generated constructor stub
