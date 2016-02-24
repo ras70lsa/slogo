@@ -49,10 +49,8 @@ public class HistoryState extends State {
 		return info;
 	}
 	
-	public void addToStack() {
-		//System.out.println(info.toString());
-		Model m = new Model();
-		info.add(new Action(m, "Testing", null, null));
+	public void addToStack(Action action) {
+		info.add(action);
 	}
 
 }

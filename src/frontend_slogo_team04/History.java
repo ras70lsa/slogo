@@ -1,9 +1,12 @@
 package frontend_slogo_team04;
 
 
+import java.util.ResourceBundle;
 import java.util.Stack;
 
 import backend_slogo_team04.Action;
+import backend_slogo_team04.SlogoScanner;
+import constants.DisplayConstants;
 import interfaces_slogo_team04.State;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,35 +22,44 @@ import javafx.scene.text.Text;
 
 public class History extends ScrollablePane {
 
-	BooleanProperty interacted = new SimpleBooleanProperty();
+	private BooleanProperty interacted = new SimpleBooleanProperty();
 	private HistoryState state; 
-	String selectedText;
+	private String selectedText;
+	private HistoryUIState visuals;
 	
-	public History(HistoryState hState) {
+	public History(HistoryState hState, HistoryUIState visuals) {
 		this.state = hState;
-		addCSS("visual_resources/DefaultHistory.css");
+		this.visuals = visuals;
 		addListeners();
+		addCSS("visual_resources/DefaultHistory.css");
 		selectedText = "";
 	}
 
 	private void addListeners() {
-		state.getListProperty().addListener((a,b,newInfo) -> updateText(newInfo));
+		state.getListProperty().addListener((a,b,newInfo) -> 
+			updateText(newInfo, visuals.getLanguageProperty().get()));
+		visuals.getColorProperty().addListener((a,b,c) -> updateColor(c));
+		visuals.getLanguageProperty().addListener((a,b,c) -> 
+			updateText(state.getListProperty(), c));
 	}
 	
 	public State getState() {
-		return state;
+		return visuals;
 	}
 
-	public void updateText(ObservableList<Action> newInfo) {
+	public void updateText(ObservableList<Action> newInfo, String language) {
 		clearBox();
+		ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + language);
 		for(Action a: newInfo) {
 			String str = a.getInput();
-			DividedText text = new DividedText("holder", str);
+			SlogoScanner scan = new SlogoScanner(str);
+			String toAdd = scan.getCodeConvertToLanguage(myBundle);
+			DividedText text = new DividedText("holder", toAdd);
 			text.setOnMouseClicked(e -> clicked(text.getRight()));
 			add(text);
 		}	
 	}
-
+	
 	private void clicked(Text right) {
 		selectedText = right.getText();
 		interacted.set(!interacted.get());

@@ -8,8 +8,6 @@ public class SlogoScanner {
     private static final String WHITESPACE = " ";
     private Scanner myScanner;
     
-    
-    
     public SlogoScanner(String myString){
         this.myScanner = new Scanner(myString);
         this.myScanner.useDelimiter(ALL_WHITESPACE_REGEX);
@@ -19,13 +17,23 @@ public class SlogoScanner {
         return this.myScanner;
     }
     
-    
-    
-    
+    /**
+     * NEED TO REFACTOR THESE 4 METHODS INTO 2
+     */
    public String getLanguageConvertedCode(ResourceBundle myResourceBundle) {
        StringBuilder myStringBuilder = new StringBuilder();
        while(myScanner.hasNext()){
            String nextSlogoCommand = convert(myScanner.next(), myResourceBundle);
+           myStringBuilder.append(nextSlogoCommand + WHITESPACE);
+       }
+
+       return myStringBuilder.toString();
+   }
+   
+   public String getCodeConvertToLanguage(ResourceBundle myResourceBundle) {
+       StringBuilder myStringBuilder = new StringBuilder();
+       while(myScanner.hasNext()){
+           String nextSlogoCommand = convertReverse(myScanner.next(), myResourceBundle);
            myStringBuilder.append(nextSlogoCommand + WHITESPACE);
        }
 
@@ -41,6 +49,14 @@ public class SlogoScanner {
                 }
         }
         return text;
-}    
+    }  
+    
+    private String convertReverse(String text, ResourceBundle myBundle ) {
+        if(myBundle.containsKey(text)) {
+              String str = myBundle.getString(text);
+              return str.substring(0, str.indexOf("|"));
+        }
+        return text;
+    } 
 
 }
