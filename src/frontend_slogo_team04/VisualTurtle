@@ -1,0 +1,33 @@
+package frontend_slogo_team04;
+
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class VisualTurtle extends ImageView{
+	private boolean isShowing = true;
+	private double myHeading ;
+	
+	public VisualTurtle(Image i){
+		setImage(i);
+		myHeading = 0;
+	}
+	
+	public void hideTurtle(){
+		isShowing = false;
+		setVisible(isShowing);
+	}
+	
+	public void showTurtle(){
+		isShowing = true;
+		setVisible(isShowing);
+	}
+	
+	public boolean isShowing(){
+		return isShowing;
+	}
+	
+	public void setHeading(double degress){
+		myHeading = degress;
+	}
+}
