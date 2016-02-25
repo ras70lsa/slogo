@@ -1,16 +1,18 @@
 package frontend_slogo_team04;
 
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class VisualTurtle extends ImageView{
 	private boolean isShowing = true;
-	private double myHeading ;
+	private DoubleProperty myHeading = new SimpleDoubleProperty();
 	
 	public VisualTurtle(Image i){
 		setImage(i);
-		myHeading = 0;
+		myHeading.setValue(0);;
 	}
 	
 	public void hideTurtle(){
@@ -28,6 +30,6 @@ public class VisualTurtle extends ImageView{
 	}
 	
 	public void setHeading(double degress){
-		myHeading = degress;
+		myHeading.setValue(degress);
 	}
 }
