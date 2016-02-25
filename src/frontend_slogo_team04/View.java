@@ -70,11 +70,6 @@ public class View extends StaticPane implements VisualizationAction {
 		return 0;
 	}
 
-	public void scale(double scaleFactor) {
-		this.scaleFactor = scaleFactor;
-		turtle.setScaleX(getScaleFactor());
-		turtle.setScaleY(getScaleFactor());
-	}
 
 	public double getScaleFactor() {
 		return scaleFactor;
