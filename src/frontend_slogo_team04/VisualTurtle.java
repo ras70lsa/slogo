@@ -32,4 +32,8 @@ public class VisualTurtle extends ImageView{
 	public void setHeading(double degress){
 		myHeading.setValue(degress);
 	}
+	
+	public double getHeading(){
+		return myHeading.getValue();
+	}
 }

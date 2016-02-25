@@ -5,7 +5,7 @@ import java.util.List;
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Controller;
 import constants.DisplayConstants;
-import interfaces_slogo_team04.IState;
+import interfaces_slogo_team04.State;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class View extends ModularPane implements VisualizationAction {
+public class View extends StaticPane implements VisualizationAction {
 
 	private Controller myController;
 	private VisualTurtle turtle;
@@ -51,16 +51,6 @@ public class View extends ModularPane implements VisualizationAction {
 		add(turtle, getCenterXCor(),  getCenterYCor());
 	}
 
-	@Override
-	public IState getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Object updateColor(Color newValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	private void setTurtleImage(Image i) {
 		turtle.setImage(i);
@@ -197,12 +187,21 @@ public class View extends ModularPane implements VisualizationAction {
 		return DisplayConstants.VIEW_HEIGHT/2;
 	}
 	
-
-
 	@Override
 	public double heading() {
+		return turtle.getHeading();
+	}
+
+	@Override
+	public State getState() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
+	}
+
+	@Override
+	public void updateHistory(List<Action> history) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
