@@ -27,6 +27,7 @@ public class TestingState extends Application {
 	ColorProperty color;
 	BooleanProperty tf;
 	ImageProperty image;
+	String backgroundColor;
 	
 	public TestingState() {
 		
@@ -52,6 +53,9 @@ public class TestingState extends Application {
 		return color;
 	}
 	
+	public String getBackgroundColor(){
+		return backgroundColor;
+	}
 
 	public Stage getUserOptions() {
 		
