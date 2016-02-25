@@ -16,7 +16,11 @@ public abstract class ModularPane implements Module {
 		return pane;
 	}
 	
-	public void add(Node node, int x, int y) {
+	public void setPane(Pane newPane){
+		this.pane = newPane;
+	}
+	
+	public void add(Node node, double x, double y) {
 		pane.getChildren().add(node);
 		node.setTranslateX(x);
 		node.setTranslateY(y);
