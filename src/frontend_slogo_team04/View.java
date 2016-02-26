@@ -1,6 +1,6 @@
 package frontend_slogo_team04;
 
-import java.util.ArrayList;
+import java.util.ArrayList;	
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -39,6 +39,7 @@ public class View extends StaticPane implements Observer {
 		addCSS("visual_resources/DefaultView.css");
 		addListeners();
 		model.addObserver(this);
+		setUp();
 	}
 
 	 private void addListeners() {
@@ -53,11 +54,10 @@ public class View extends StaticPane implements Observer {
 	}
 	
 	public void setUp() {
-		Pane newDisplay = new Pane();
-		newDisplay.setPrefSize(DisplayConstants.VIEW_WIDTH, DisplayConstants.VIEW_HEIGHT);
-		setPane(newDisplay);
-		setTurtleImage(new Image(getClass().getClassLoader().getResourceAsStream("turtle.gif")));
-		add(turtle, getCenterXCor(), getCenterYCor());
+		
+		turtle = new VisualTurtle(new Image(getClass().getClassLoader().getResourceAsStream("turtle.gif")));
+//		setTurtleImage(new Image(getClass().getClassLoader().getResourceAsStream("turtle.gif")));
+		add(turtle, this.getCenterXCor(), this.getCenterYCor());
 	}
 
 	public void draw(double endX, double endY) {
@@ -147,11 +147,13 @@ public class View extends StaticPane implements Observer {
 	}
 
 	public double getCenterXCor() {
-		return DisplayConstants.VIEW_WIDTH / 2;
+		System.out.println("Width " + getWidth().get());
+		return getWidth().get()/ 2;
 	}
 
 	public double getCenterYCor() {
-		return DisplayConstants.VIEW_HEIGHT / 2;
+		System.out.println("Height " + getHeight().get());
+		return getHeight().get()/ 2;
 	}
 
 	public double heading() {
@@ -160,6 +162,8 @@ public class View extends StaticPane implements Observer {
 
 	private void setTurtleImage(Image i) {
 		turtle.setImage(i);
+		turtle.setFitWidth(10);
+		turtle.setFitHeight(10);
 	}
 
 	public double getMaxWidth() {

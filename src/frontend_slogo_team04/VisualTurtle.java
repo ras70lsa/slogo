@@ -13,6 +13,9 @@ public class VisualTurtle extends ImageView{
 	public VisualTurtle(Image i){
 		super(i);
 		setImage(i);
+		this.setFitHeight(50);
+		this.setFitWidth(50);
+		this.setPreserveRatio(true);
 		myHeading.setValue(0);;
 	}
 	
