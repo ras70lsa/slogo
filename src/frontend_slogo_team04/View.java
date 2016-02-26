@@ -1,6 +1,5 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.State;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

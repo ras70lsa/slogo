@@ -2,6 +2,8 @@ package backend_slogo_team04;
 
 import java.util.Scanner;
 
+import model.Controller;
+
 public class CmdGreater extends CommandTreeNode {
 
 

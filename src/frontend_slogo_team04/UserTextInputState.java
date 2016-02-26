@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import constants.DisplayConstants;
-import interfaces_slogo_team04.State;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Group;

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.Model;
 
 /**
  * Encapsulates the actions taken (information needed when parsing a single block of text from the front end) so that we can track

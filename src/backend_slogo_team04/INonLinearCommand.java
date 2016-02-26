@@ -2,6 +2,8 @@ package backend_slogo_team04;
 
 import java.util.Scanner;
 
+import model.Controller;
+
 /**
  * We will construct our parsing/interpreting tree using concretes instances of this abstract
  * @author jonathanim

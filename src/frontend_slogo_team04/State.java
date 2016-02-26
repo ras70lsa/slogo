@@ -1,7 +1,6 @@
-package interfaces_slogo_team04;
+package frontend_slogo_team04;
 import java.util.Collection;
 
-import frontend_slogo_team04.GuiUserOption;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;

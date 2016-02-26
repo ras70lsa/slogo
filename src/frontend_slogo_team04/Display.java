@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import constants.DisplayConstants;
+import interfaces_slogo_team04.IHistoryModel;
+import interfaces_slogo_team04.IModel;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+import model.Controller;
 
 /**
  * This class is the class responsible for setting up the interaction with the user.
@@ -27,18 +30,13 @@ public class Display {
 	private UserTextInput textInput;
 	private History history;
 	private View view;
-	private Variables variables;
+	private VariableFeature variables;
+	private IModel model;
 	
-	public Display(UserTextInput textInput, History history, View view, Variables variables) {
+	public Display(IModel iModel, Controller controller) {
 		modules = new ArrayList<Module>();
-		this.textInput = textInput;
-		this.history = history;
-		this.view = view;
-		this.variables = variables;
-		modules.add(textInput);
-		modules.add(history);
-		modules.add(view);
-		modules.add(variables);
+		model = iModel;
+		createModules(controller);
 		setUpScene();
 		addPanes();
 		createMenuBar();
@@ -46,9 +44,21 @@ public class Display {
 		addListeners();
 	}
 	
-	private void addListeners() {
-		history.getInteracted().addListener((a,b,c) -> textInput.setText(history.getSelectedText()));
+	public IModel getHistoryModel() {
+		return model;
 		
+	}
+	private void createModules(Controller controller) {
+		textInput= new UserTextInput(controller);
+		history = new History(model.getHistory(), null);
+		//view = new View(null);
+		variables = new VariableFeature(model.getVariables());
+		modules.add(history);
+		modules.add(textInput);
+		modules.add(variables);
+	}
+
+	private void addListeners() {
 	}
 
 	public interface FunctionCall {
@@ -56,8 +66,8 @@ public class Display {
 	}
 	
 	private void positionModules() {
-		view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
-				DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
+		//view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
+		//		DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
 		textInput.position(DisplayConstants.TEXT_X, DisplayConstants.TEXT_Y, 
 				DisplayConstants.TEXT_WIDTH, DisplayConstants.TEXT_HEIGHT);
 		variables.position(DisplayConstants.VAR_X, DisplayConstants.VAR_Y, 

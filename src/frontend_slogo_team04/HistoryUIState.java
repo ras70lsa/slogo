@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import constants.DisplayConstants;
-import interfaces_slogo_team04.State;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
