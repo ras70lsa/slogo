@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Page Not Found</title>
+<link href="/web_resources/css/global.css" rel="stylesheet" type="text/css">
+<link rel="icon" href="/web_resources/graphics/bookmark.gif" type="image/gif">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17104298-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+<a name="top"></a>
+
+<div id="Wrapper">
+
+<div id="ForNav">
+<ul id="For">
+<li class="NoLeftBorder">For Current:</li>
+<li class="NoLeftBorder"><a href="/department/resources/faculty">Faculty</a></li>
+<li><a href="/department/resources/staff">Staff</a></li>
+<li><a href="/education/resources/graduate">Grad Students</a></li>
+<li><a href="/education/resources/undergrad">Undergrads</a></li>
+</ul>
+</div>
+
+<div id="EtcNav">
+<ul id="Etc">
+<li class="NoLeftBorder"><a href="/department/">Contact Us</a></li>
+<li><a href="http://www.duke.edu">Duke University</a></li>
+<li><a href="/sitemap/">Site Map</a></li>
+</ul>
+</div>
+
+<!-- NEW CODE FROM GOOGLE COLLECTIONS -->
+<div id="Search">
+<div id="cse-search-form" style="width: 110px;">Loading</div>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript"> 
+  google.load('search', '1', {language : 'en'});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('011038146041689656405:mef6e9fsjgq');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.setAutoComplete(true);
+    options.enableSearchboxOnly("http://www.google.com/cse?cx=011038146041689656405:mef6e9fsjgq");    
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
+<style type="text/css">
+  input.gsc-input {
+    border-color: #BCCDF0;
+  }
+  input.gsc-search-button {
+  border-color: #001a57;
+  text-shadow: 0 0px 0px #FFFFFF;
+  background-color: #001a57;
+  color: #ffffff;
+  display: none;
+  }
+  .gsc-input input.gsc-input {
+    background: none repeat scroll 0% 0% white !important;
+  }
+  td.gsc-clear-button  { 
+        display: none !important; 
+  }
+</style>
+</div>
+
+
+
+<!-- End of CS_Master.inc -->
+
+
+<div id="Header">
+<a href="/">
+<img src="/web_resources/graphics/headers/header_sitemap.jpg" border="0" alt="Duke CS Image"></a>
+</div>
+<div id="MainNavContainer">
+<div id="MainNavHome"><a href="/">Home</a></div>
+<div id="MainNavDept"><span><a href="/department/">Department</a></span></div>
+<div id="MainNavPeople"><span><a href="/people">People</a></span></div>
+<div id="MainNavResearch"><span><a href="/research">Research</a></span></div>
+<div id="MainNavEducation"><span><a href="/education">Education</a></span></div>
+<div id="MainNavNews"><span><a href="/news">News & Media</a></span></div>
+<div id="MainNavEvents"><span><a href="/events">Events</a></span></div>
+<div id="MainNavInDuke" ><span><a href="/induke">Industry Partners</a></span></div>
+<div id="MainNavAlumni"><span><a href="/people/alumni">Alumni</a></span></div>
+</div>
+<div id="Content600Wide"><h1 id="PageTitle">Page Not Found</h1>
+<div style=" background-color: #f4faff; padding: 20px; border-style: dotted; border-color: tan; border-width: 1px;"> The page you have requested:<br />
+		<blockquote>
+		<code>http://www.cs.duke.edu/courses/compsci308/spring16/images/images/suggestion_box.png</code>
+		</blockquote> was not found on this server.  The following error was returned:<br />
+
+<blockquote>
+<code>404 :  (No Error Message Returned)</code>
+</blockquote>
+
+</div>
+
+<p> You may report an error on the error report 
+<a href="/web_resources/php/error.php">form</a> or by sending an email
+to the <A HREF="mailto:webmaster@cs.duke.edu">webmaster</A>. </p>
+
+<p> <b>NOTE:</b> We have recently redesigned our Web site and many 
+links have changed.  Please try navigating from the 
+<a href="/">home page</a> or look at the <a href="/sitemap/">site map</a> 
+to find the information you are looking for. </p>
+
+<p> If the link you are trying to reach contains a tilde (<tt>~</tt>), this
+indicates the page is maintained by an individual user.   In most
+cases, such pages will no longer be available when that user leaves our
+department.</p>
+
+</div>
+  
+<div id="Footer">Comments to <a href="mailto:webmaster@cs.duke.edu">webmaster@cs.duke.edu</a>  
+|  <a href="/web_resources/php/error">Report an error on this page</a>  
+|  © Duke University Department of Computer Science 2016. 
+ </div>
+ 
+</div> <!-- end wrapper -->
+</body>
+</html>

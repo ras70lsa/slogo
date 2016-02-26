@@ -26,6 +26,7 @@ public class TestingState extends State {
 	ColorProperty color;
 	BooleanProperty tf;
 	ImageProperty image;
+	String backgroundColor;
 	
 	public TestingState() {
 		
@@ -34,7 +35,13 @@ public class TestingState extends State {
 		image = new ImageProperty();
 	}
 	
+	public void setBackgroundColor(String color){
+		this.backgroundColor = color;
+	}
 	
+	public String getBackgroundColor(){
+		return backgroundColor;
+	}
 
 	public BooleanProperty getBooleanProperty() {
 		return tf;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import backend_slogo_team04.Action;
 
-public interface VisulizationAction {
+public interface VisualizationAction {
 		public double forward(double pixels);
 	    public double back(double pixels);
 	    public double left(double pixels);
@@ -21,8 +21,8 @@ public interface VisulizationAction {
 	    public double xCor();
 	    public double yCor();
 	    public double heading();
-	    public double isPenDown();
-	    public double isShowing();
+	    public boolean isPenDown();
+	    public boolean isShowing();
 	    public void updateHistory(List<Action> history);
 
 }

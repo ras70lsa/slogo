@@ -29,7 +29,7 @@ public class DisplayConstants {
 	public static final double HISTORY_Y = 2 * BUFFER;
 	
 	public static final double VIEW_HEIGHT = DISPLAY_HEIGHT - TEXT_HEIGHT - 4 * BUFFER;
-		
+	public static final int VIEW_WIDTH = 250;
 	
 	public static final String RESOURCES_PATH = "resources.languages/";
 	
