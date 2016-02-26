@@ -51,7 +51,9 @@ public class View extends StaticPane implements Observer{
 	}
 
 	public void setUp() {
-		add(turtle, getCenterXCor(),  getCenterYCor());
+		add(turtle, getCenterXCor(turtle.getFitWidth()),  getCenterYCor(turtle.getFitHeight()));
+		System.out.println("X: " + turtle.getTranslateX());
+		System.out.println("Y: " + turtle.getTranslateY());
 	}
 
 
@@ -79,12 +81,14 @@ public class View extends StaticPane implements Observer{
 	}
 
 
-	public double getCenterXCor(){
-		return DisplayConstants.VIEW_WIDTH/2;
+	public double getCenterXCor(double imageWidth){
+		return DisplayConstants.VIEW_WIDTH/2-(imageWidth/2);
+		
 	}
 	
-	public double getCenterYCor(){
-		return DisplayConstants.VIEW_HEIGHT/2;
+	public double getCenterYCor(double imageHeight){
+		return DisplayConstants.VIEW_HEIGHT/2-(imageHeight/2);
+		
 	}
 
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
