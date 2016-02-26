@@ -14,8 +14,8 @@ import javafx.scene.text.Text;
  */
 public class DividedText extends HBox {
 
-	Text t1;
-	Text t2;
+	private Text t1;
+	private Text t2;
 	
 	public DividedText(String str1, String str2) {
 		populate(str1, str2);

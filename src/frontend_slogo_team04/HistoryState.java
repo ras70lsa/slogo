@@ -32,6 +32,8 @@ public class HistoryState extends State {
 		color = new ColorProperty();
 		ObservableList<Action> list = FXCollections.observableArrayList();
 		info = new SimpleListProperty<Action>(list);
+		ObservableList<String> list2 = FXCollections.observableArrayList();
+		
 		
 	}
 	

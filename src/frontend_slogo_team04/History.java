@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import backend_slogo_team04.Action;
+import backend_slogo_team04.Model;
 import backend_slogo_team04.SlogoScanner;
 import constants.DisplayConstants;
 import interfaces_slogo_team04.State;
@@ -13,6 +14,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 /**
@@ -33,6 +38,8 @@ public class History extends ScrollablePane {
 		addListeners();
 		addCSS("visual_resources/DefaultHistory.css");
 		selectedText = "";
+		
+		
 	}
 
 	private void addListeners() {
@@ -54,10 +61,11 @@ public class History extends ScrollablePane {
 			String str = a.getInput();
 			SlogoScanner scan = new SlogoScanner(str);
 			String toAdd = scan.getCodeConvertToLanguage(myBundle);
-			DividedText text = new DividedText("holder", toAdd);
-			text.setOnMouseClicked(e -> clicked(text.getRight()));
-			add(text);
+			DividedText divided = new DividedText(toAdd, toAdd);
+			divided.setOnMouseClicked(e -> clicked(divided.getRight()));
+			add(divided);
 		}	
+		
 	}
 	
 	private void clicked(Text right) {
