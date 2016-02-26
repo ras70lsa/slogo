@@ -19,6 +19,9 @@ public class DisplayConstants {
 	public static final double HISTORY_WIDTH = 350;
 	public static final double HISTORY_HEIGHT = DISPLAY_HEIGHT - 3 * BUFFER;
 	
+	public static final double TURTLE_WIDTH = 40;
+	public static final double TURTLE_HEIGHT = 40;
+	
 	public static final double VAR_WIDTH = 150;
 	public static final double VAR_HEIGHT = TEXT_HEIGHT;
 	
