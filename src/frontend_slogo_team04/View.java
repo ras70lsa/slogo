@@ -28,7 +28,6 @@ public class View extends StaticPane implements VisualizationAction {
 
 	public View(TestingState state) {
 		this.state = state;
-		setUp();
 		addListeners();
 	}
 
@@ -40,7 +39,6 @@ public class View extends StaticPane implements VisualizationAction {
 
 	}
 
-	@Override
 	public void setUp() {
 		// TODO Auto-generated method stub
 		Pane newDisplay = new Pane();
@@ -54,6 +52,7 @@ public class View extends StaticPane implements VisualizationAction {
 
 	private void setTurtleImage(Image i) {
 		turtle.setImage(i);
+		
 	}
 
 	public double getMaxWidth() {
@@ -97,6 +96,10 @@ public class View extends StaticPane implements VisualizationAction {
 	public boolean isShowing() {
 		// TODO Auto-generated method stub
 		return isShowing;
+	}
+
+	public State getState() {
+		return state;
 	}
 
 
@@ -186,13 +189,7 @@ public class View extends StaticPane implements VisualizationAction {
 	public double heading() {
 		return turtle.getHeading();
 	}
-
-	@Override
-	public State getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public void updateHistory(List<Action> history) {
 		// TODO Auto-generated method stub

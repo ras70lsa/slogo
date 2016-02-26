@@ -1,13 +1,24 @@
 package frontend_slogo_team04;
 
 
+import java.util.ResourceBundle;
 import java.util.Stack;
 
 import backend_slogo_team04.Action;
+import backend_slogo_team04.Model;
+import backend_slogo_team04.SlogoScanner;
+import constants.DisplayConstants;
 import interfaces_slogo_team04.State;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 /**
  * History Feature
@@ -16,42 +27,58 @@ import javafx.scene.control.Label;
 
 public class History extends ScrollablePane {
 
+	private BooleanProperty interacted = new SimpleBooleanProperty();
 	private HistoryState state; 
-	public History(HistoryState hState) {
+	private String selectedText;
+	private HistoryUIState visuals;
+	
+	public History(HistoryState hState, HistoryUIState visuals) {
 		this.state = hState;
+		this.visuals = visuals;
 		addListeners();
-		setUp();
+		addCSS("visual_resources/DefaultHistory.css");
+		selectedText = "";
+		
+		
 	}
 
 	private void addListeners() {
-		state.getColorProperty().addListener((a,b,newValue) -> updateColor(newValue));
-		state.getListProperty().addListener((a,b,newInfo) -> updateText(newInfo));
-	}
-	
-	public void setUp() {
-		
-		DividedText r = new DividedText();
-		add(r);
-		DividedText r2 = new DividedText();
-		add(r2);
-		Label d = new Label("Ryan");
-		add(d);
-		
-		
+		state.getListProperty().addListener((a,b,newInfo) -> 
+			updateText(newInfo, visuals.getLanguageProperty().get()));
+		visuals.getColorProperty().addListener((a,b,c) -> updateColor(c));
+		visuals.getLanguageProperty().addListener((a,b,c) -> 
+			updateText(state.getListProperty(), c));
 	}
 	
 	public State getState() {
-	
-		return state;
+		return visuals;
 	}
 
-	public void updateText(ObservableList<Action> newInfo) {
-		//clearBox();
+	public void updateText(ObservableList<Action> newInfo, String language) {
+		clearBox();
+		ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + language);
 		for(Action a: newInfo) {
-			Button b = new Button(a.getInput());
-			b.setOnMouseClicked(e -> state.addToStack());
-			add(b);
+			String str = a.getInput();
+			SlogoScanner scan = new SlogoScanner(str);
+			String toAdd = scan.getCodeConvertToLanguage(myBundle);
+			DividedText divided = new DividedText(toAdd, toAdd);
+			divided.setOnMouseClicked(e -> clicked(divided.getRight()));
+			add(divided);
 		}	
+		
+	}
+	
+	private void clicked(Text right) {
+		selectedText = right.getText();
+		interacted.set(!interacted.get());
+	}
+	
+	public String getSelectedText() {
+		return selectedText;
+	}
+	
+	public BooleanProperty getInteracted() {
+		return interacted;
 	}
 
 }

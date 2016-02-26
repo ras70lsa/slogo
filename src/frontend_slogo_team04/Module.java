@@ -11,11 +11,6 @@ import javafx.scene.layout.Region;
  *
  */
 public interface Module {
-
-	/**
-	 * Ensures the module internally handles the setup of its Pane
-	 */
-	public void setUp();
 	
 	/**
 	 * @return a Pane for the Display class to position as desired

@@ -38,7 +38,7 @@ public abstract class ScrollablePane extends ModularPane {
 
 	public void add(Node node) {
 		content.getChildren().add(node);
-		
+		node.getStyleClass().add("vbox_item");
 	}
 	
 	public void clearBox(){

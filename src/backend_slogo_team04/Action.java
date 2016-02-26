@@ -2,6 +2,9 @@ package backend_slogo_team04;
 
 import java.util.Map;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Encapsulates the actions taken (information needed when parsing a single block of text from the front end) so that we can track
  * what we have done, so that we can implement redo-undo functionality later
@@ -15,14 +18,14 @@ public class Action {
 	private Model model;
 	private Map<String, Double> variables;
 	private Map<String, INonLinearCommand> commands;
-	String input;
+	private StringProperty input;
 	
 
 	public Action(Model model, String input, Map<String, Double> variables, Map<String, INonLinearCommand> commands) {
 		this.model=model;
 		this.variables = variables;
 		this.commands = commands;
-		this.input= input;
+		this.input= new SimpleStringProperty(input);
 	}
 	
 	public Model getModel() {
@@ -33,8 +36,12 @@ public class Action {
 		return variables;
 	}
 	
-	public String getInput() {
+	public StringProperty getInput2() {
 		return input;
+	}
+	
+	public String getInput() {
+		return input.get();
 	}
 	
 	public Map<String, INonLinearCommand> getCommands() { 

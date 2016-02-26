@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class DisplayConstants {
 
 	public static final double DISPLAY_HEIGHT= 670;
-	public static final double DISPLAY_WIDTH= 900;
+	public static final double DISPLAY_WIDTH= 1050;
 	public static final Color BACKGROUND_COLOR = Color.LIGHTCYAN;
 	
 	public static final int BUFFER = 20;
@@ -16,7 +16,7 @@ public class DisplayConstants {
 	public static final double TEXT_X = BUFFER;
 	public static final double TEXT_Y = DISPLAY_HEIGHT - TEXT_HEIGHT - BUFFER;
 	
-	public static final double HISTORY_WIDTH = 200;
+	public static final double HISTORY_WIDTH = 350;
 	public static final double HISTORY_HEIGHT = DISPLAY_HEIGHT - 3 * BUFFER;
 	
 	public static final double VAR_WIDTH = 150;

@@ -47,8 +47,14 @@ public class Display {
 		addPanes();
 		createMenuBar();
 		positionModules();
+		addListeners();
 	}
 	
+	private void addListeners() {
+		history.getInteracted().addListener((a,b,c) -> textInput.setText(history.getSelectedText()));
+		
+	}
+
 	public interface FunctionCall {
 		public void call(Module module);
 	}

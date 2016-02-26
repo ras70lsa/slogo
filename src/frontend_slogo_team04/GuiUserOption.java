@@ -70,23 +70,18 @@ public class GuiUserOption {
 	private void getImage(ImageProperty image) {
 		FileChooser f = new FileChooser();
 		File file = f.showOpenDialog(new Stage());
-		try {
-			Image input = new Image(file.toURI().toURL().toString());
-			image.set(input);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		
-		
+		if(file!=null) {
+			try {
+				Image input = new Image(file.toURI().toURL().toString());
+				image.set(input);
+			} catch (MalformedURLException e) {
+				//do nothing
+			}
+		} 
 	}
 
 	private Button createToggle(BooleanProperty value) {
 		return new ToggleButton(value);
-	}
-	
-
-	public Node get(Enum enumerable, Collection<String> str) {
-		return null;
 	}
 
 }

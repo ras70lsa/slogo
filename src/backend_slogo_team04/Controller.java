@@ -24,11 +24,13 @@ public class Controller {
     public Controller(UserTextInputState textState, HistoryState hState) {
     	this.textState = textState;
     	this.historyState = hState;
-    	historyState.addToStack();
+    	Model m = new Model();
+    	historyState.addToStack(new Action(m, "first", null, null));
     }
     
     public void parseString(String stringToParse){
-        System.out.println(stringToParse);
+    	Model m = new Model();
+    	historyState.addToStack(new Action(m, stringToParse, null, null));
     }
     
     public void interpretInformation(INonLinearCommand head){

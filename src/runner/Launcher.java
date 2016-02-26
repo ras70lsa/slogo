@@ -4,6 +4,7 @@ import backend_slogo_team04.Controller;
 import frontend_slogo_team04.Display;
 import frontend_slogo_team04.History;
 import frontend_slogo_team04.HistoryState;
+import frontend_slogo_team04.HistoryUIState;
 import frontend_slogo_team04.TestingState;
 import frontend_slogo_team04.UserTextInput;
 import frontend_slogo_team04.UserTextInputState;
@@ -27,7 +28,7 @@ public class Launcher extends Application{
 		UserTextInputState textState = new UserTextInputState();
 		HistoryState hState = new HistoryState();
 		UserTextInput textInput = new UserTextInput(textState);
-		History history = new History(hState);
+		History history = new History(hState, new HistoryUIState());
 		Controller controller = new Controller(textState, hState);
 		textInput.setController(controller);
 		View view = new View(new TestingState());
