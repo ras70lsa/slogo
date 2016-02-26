@@ -5,6 +5,8 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
+import model.Controller;
+
 /**
  * We will construct our parsing/interpreting tree using concretes instances of this abstract
  * @author jonathanim

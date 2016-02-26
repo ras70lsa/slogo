@@ -1,8 +1,11 @@
 package runner;
 
+
 import frontend_slogo_team04.Display;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Controller;
+import model.Model;
 
 /**
  * Launches the simulation application
@@ -16,7 +19,9 @@ public class Launcher extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Display display = new Display();
+		Model model = new Model();
+		Controller controller = new Controller(model.getCommunicator());
+		Display display = new Display(model, controller);
 		display.start();
 		
 	}

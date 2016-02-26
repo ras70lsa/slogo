@@ -5,6 +5,8 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
+import model.Controller;
+
 public class CmdProduct extends CommandTreeNode {
 
     private INonLinearCommand expOne, expTwo; // the two nodes that we need to grab

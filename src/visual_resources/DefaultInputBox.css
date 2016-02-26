@@ -1,0 +1,19 @@
+.button {
+	-fx-background-color: #0000e6; /* Dark blue */
+	-fx-text-fill: #FFFFFF;
+	-fx-font-weight: bold;
+	
+}
+
+.TextArea .content{
+	-fx-background-color: #FFFFFF;
+	
+}
+
+.TextArea {
+	-fx-font-family: Consolas;
+	-fx-text-fill: #000000;
+	-fx-font-size: 12pt;
+	-fx-background-color: #000000;
+	
+}

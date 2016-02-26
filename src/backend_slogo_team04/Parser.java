@@ -2,8 +2,13 @@ package backend_slogo_team04;
 
 import java.util.Scanner;
 
+import model.Controller;
+
 
 public class Parser {
+
+    private static final String ALL_WHITESPACE_REGEX = "\\s+";
+
     
     Controller myController;
     ISlogoInterpreter myInterpreter;

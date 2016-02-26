@@ -5,9 +5,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 
+/**
+ * Created data structure to create a Toggle (works closely with Boolean Property)
+ * @author Ryan St Pierre
+ */
 public class ToggleButton extends Button {
 
-	
 	BooleanProperty value;
 	
 	public ToggleButton(BooleanProperty value) {

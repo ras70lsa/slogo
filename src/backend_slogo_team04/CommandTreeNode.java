@@ -9,6 +9,7 @@ import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
 
+
 /**
  * This class forms the basis for how we are going to parse the input text, each word allowable in the language will expects certain
  * types of words to follow, each subsequent word suggesting its own logic
@@ -42,7 +43,9 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
 
+
     protected static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , ISlogoInterpreter myInterpreter) throws UserInputException{
+
         // throw an error here regarding incomplete syntax
         String lowerCaseWord;
         try{
