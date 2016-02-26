@@ -7,21 +7,18 @@ import interfaces_slogo_team04.ICommands;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 
-public class CommandFeature extends StaticPane {
-	
-	ICommands model;
-	private ListView<String> commands;
+public class CommandFeature extends InteractionListView {
 	
 	public CommandFeature(ICommands model) {
-		this.model = model;
+		super(model.getCommands());
+		setAction(e->print());
 		addCSS("visual_resources/DefaultCommands.css");
 	}
 
 	private void print() {
-		System.out.println(commands.getSelectionModel().getSelectedItem());
-		
+		System.out.println(getSelection());	
 	}
-
+	
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		return null;
 	}

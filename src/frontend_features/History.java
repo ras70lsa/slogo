@@ -25,25 +25,21 @@ import javafx.scene.control.ListView;
 
 public class History extends InteractionListView {
 
-	public static final double LABEL_HEIGHT = 25;
-	public static final double SCROLL_BAR = 3.9;
 	private IHistoryModel model;
-	private HistoryUIState visuals;
-	private ListView<String> history;
 	private String selectedItem;
 	private BooleanProperty interacted;
 	
 	public History(IHistoryModel model, HistoryUIState visuals) {
+		super(model.getCommandList());
+		setAction(e->print());
 		this.model = model;
 		interacted = new SimpleBooleanProperty();
 		selectedItem = "";
-		this.visuals = visuals;
 		addCSS("visual_resources/DefaultHistory.css");
-		addLabel("History", LABEL_HEIGHT);
 	}
 
 	private void print() {
-		selectedItem = history.getSelectionModel().getSelectedItem();
+		selectedItem = getSelection();
 		interacted.set(!interacted.get());
 	}
 	

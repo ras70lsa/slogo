@@ -30,6 +30,7 @@ public class View extends StaticPane implements Observer{
 	public View(IView model) {
 		this.model = model;
 		addCSS("visual_resources/DefaultView.css");
+		visuals = new ViewUIState();
 		addSilentListeners();
 		model.addObserver(this);
 	}

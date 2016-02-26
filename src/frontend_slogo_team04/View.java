@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Stack;
-
-import backend_slogo_team04.Action;
 import constants.DisplayConstants;
 import frontend_features.StaticPane;
 import interfaces_slogo_team04.IView;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -20,10 +17,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class View extends StaticPane implements Observer {
