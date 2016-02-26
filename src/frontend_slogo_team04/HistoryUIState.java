@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import constants.DisplayConstants;
 import interfaces_slogo_team04.State;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
@@ -11,6 +12,8 @@ import javafx.beans.property.BooleanPropertyBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -22,34 +25,18 @@ import javafx.stage.Stage;
 import properties.*;
 
 
-public class TestingState extends State {
+public class HistoryUIState extends State {
 
 	ColorProperty color;
-	BooleanProperty tf;
-	ImageProperty image;
-	String backgroundColor;
+	StringProperty language;
 	
-	public TestingState() {
-		
+	public HistoryUIState() {
 		color = new ColorProperty();
-		tf = new SimpleBooleanProperty(false);
-		image = new ImageProperty();
+		language = new SimpleStringProperty("English");
 	}
 	
-	public void setBackgroundColor(String color){
-		this.backgroundColor = color;
-	}
-	
-	public String getBackgroundColor(){
-		return backgroundColor;
-	}
-
-	public BooleanProperty getBooleanProperty() {
-		return tf;
-	}
-	
-	public ImageProperty getImageProperty() {
-		return image;
+	public StringProperty getLanguageProperty() {
+		return language;
 	}
 	
 	public ColorProperty getColorProperty() {
@@ -59,8 +46,7 @@ public class TestingState extends State {
 	protected Collection<Node> getStageNodes() {
 		List<Node> nodes = new ArrayList<Node>();
 		nodes.add(getFactory().get(color, "string"));
-		nodes.add(getFactory().get(tf, "string"));
-		nodes.add(getFactory().get(image, "String"));
+		nodes.add(getFactory().get(language, DisplayConstants.possibleLangauges));
 		return nodes;
 		
 	}

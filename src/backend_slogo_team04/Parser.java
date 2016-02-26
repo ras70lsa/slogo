@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 
 public class Parser {
+
+    private static final String ALL_WHITESPACE_REGEX = "\\s+";
+
     
     Controller myController;
     Interpreter myInterpreter;

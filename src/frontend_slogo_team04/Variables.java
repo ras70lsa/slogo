@@ -1,22 +1,29 @@
 package frontend_slogo_team04;
 
-import interfaces_slogo_team04.IState;
+import interfaces_slogo_team04.State;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
-public class Code extends ModularPane {
+/**
+ * Variable feature
+ * @author Ryan St Pierre
+ */
+public class Variables extends ScrollablePane {
 
 	private Rectangle text;
 	private TestingState state;
 	private ImageView image;
 	
-	public Code(TestingState state) {
+	public Variables(TestingState state) {
 	
 		this.state = state;
 		setUp();
 		addListeners();
+		addCSS("visual_resources/DefaultVariables.css");
+		
 	}
 	
 	private void addListeners() {
@@ -24,48 +31,32 @@ public class Code extends ModularPane {
 		state.getColorProperty().addListener((a,b,newValue) -> updateColor(newValue));
 		state.getImageProperty().addListener((a,b,c) -> updateImageView(c));
 	}
-	
-	
-	
+
 	private void updateImageView(Image c) {
 		image.setImage(c);
 	}
 
-	private void updateColor(Color newValue) {
-		text.setFill(newValue);
-	}
-
 	private void createTextField() {
-		text = new Rectangle(100, 100);
-		text.setFill(state.getColor());
-		text.setOnMouseClicked(e->update());
-		add(text, 0, 0);
 		
-		image = new ImageView();
-		image.setFitWidth(100);
-		image.setFitHeight(100);
-		add(image, 10, 10);
+		for(int i =0; i <10 ; i++) {
+			Text text = new Text("test" + " " + i);
+			text.getStyleClass().add("text");
+			add(text);
+		}
+		
 	}
 	
 	public void update() { 
-		state.getUserOptions().show();
-		text.setFill(state.getColor());
+		super.update();
 	}
 	
 	public void setUp() {
 		createTextField();
 	}
 
-	@Override
-	public IState getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public void inputEntered() {
+	public State getState() {
+		return state;
 
 	}
-
-	
 
 }
