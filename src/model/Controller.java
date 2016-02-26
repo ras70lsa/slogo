@@ -2,18 +2,11 @@ package model;
 
 
 import java.util.ResourceBundle;
-import java.util.Stack;
-
-import backend_slogo_team04.Action;
 import backend_slogo_team04.INonLinearCommand;
 import backend_slogo_team04.SlogoScanner;
 import constants.DisplayConstants;
-import frontend_slogo_team04.History;
-import frontend_slogo_team04.UserTextInput;
-import frontend_slogo_team04.UserTextInputState;
-import interfaces_slogo_team04.IHistoryModel;
+import interfaces_slogo_team04.ICommunicator;
 import interfaces_slogo_team04.IModel;
-import interfaces_slogo_team04.ISlogoModelActions;
 
 
 /**
@@ -25,17 +18,17 @@ import interfaces_slogo_team04.ISlogoModelActions;
 
 public class Controller {
 
-    private IModel model;
+    private ICommunicator model;
     
-    public Controller(IModel model) {
+    public Controller(ICommunicator model) {
     	this.model = model;
     }
     
     public void parseString(String stringToParse){
     	SlogoScanner scanner = new SlogoScanner(stringToParse); 
     	String str = scanner.getLanguageConvertedCode(
-    			ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + model.getLangauage()));
-    	model.getHistory().add(str);
+    			ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + model.getLanguage()));
+    	model.addToHistory(str);
     }
     
     public void interpretInformation(INonLinearCommand head){

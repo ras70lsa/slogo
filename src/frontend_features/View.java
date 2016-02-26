@@ -1,10 +1,16 @@
-package frontend_slogo_team04;
+package frontend_features;
 
 
 import java.util.List;
 
 import backend_slogo_team04.Action;
 import constants.DisplayConstants;
+import frontend_slogo_team04.GuiUserOption;
+import frontend_slogo_team04.State;
+import frontend_slogo_team04.TestingState;
+import frontend_slogo_team04.VisualTurtle;
+import frontend_slogo_team04.VisualizationAction;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import model.Controller;
@@ -21,6 +27,7 @@ public class View extends StaticPane implements VisualizationAction {
 	public View(TestingState state) {
 		this.state = state;
 		addListeners();
+		addCSS("visual_resources/DefaultView.css");
 	}
 
 	private void addListeners() {
@@ -186,6 +193,10 @@ public class View extends StaticPane implements VisualizationAction {
 	public void updateHistory(List<Action> history) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	protected List<Node> getReleventProperties(GuiUserOption factory) {
+		return (List<Node>) state.getStageNodes();
 	}
 
 }

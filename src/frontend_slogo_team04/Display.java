@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import constants.DisplayConstants;
+import frontend_features.CommandFeature;
+import frontend_features.History;
+import frontend_features.Module;
+import frontend_features.UserTextInput;
+import frontend_features.VariableFeature;
+import frontend_features.View;
 import interfaces_slogo_team04.IHistoryModel;
 import interfaces_slogo_team04.IModel;
 import javafx.scene.Group;
@@ -36,6 +42,7 @@ public class Display {
 	private View view;
 	private VariableFeature variables;
 	private IModel model;
+	private CommandFeature commands;
 	
 	public Display(IModel iModel, Controller controller) {
 		modules = new ArrayList<Module>();
@@ -55,11 +62,14 @@ public class Display {
 	private void createModules(Controller controller) {
 		textInput= new UserTextInput(controller);
 		history = new History(model.getHistory(), new HistoryUIState());
-		//view = new View(null);
+		view = new View(new TestingState());
 		variables = new VariableFeature(model.getVariables());
+		commands = new CommandFeature();
 		modules.add(history);
 		modules.add(textInput);
 		modules.add(variables);
+		modules.add(view);
+		modules.add(commands);
 	}
 
 	private void addListeners() {
@@ -71,14 +81,16 @@ public class Display {
 	}
 	
 	private void positionModules() {
-		//view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
-		//		DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
+		view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
+				DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
 		textInput.position(DisplayConstants.TEXT_X, DisplayConstants.TEXT_Y, 
 				DisplayConstants.TEXT_WIDTH, DisplayConstants.TEXT_HEIGHT);
 		variables.position(DisplayConstants.VAR_X, DisplayConstants.VAR_Y, 
 				DisplayConstants.VAR_WIDTH, DisplayConstants.VAR_HEIGHT);
 		history.position(DisplayConstants.HISTORY_X, DisplayConstants.HISTORY_Y, 
 				DisplayConstants.HISTORY_WIDTH, DisplayConstants.HISTORY_HEIGHT);
+		commands.position(DisplayConstants.COM_X, DisplayConstants.COM_Y, 
+				DisplayConstants.COM_WIDTH, DisplayConstants.COM_HEIGHT);
 		
 	}
 	

@@ -55,7 +55,7 @@ public class TestingState extends State {
 		return color;
 	}
 	
-	protected Collection<Node> getStageNodes() {
+	public Collection<Node> getStageNodes() {
 		List<Node> nodes = new ArrayList<Node>();
 		nodes.add(getFactory().get(color, "string"));
 		nodes.add(getFactory().get(tf, "string"));

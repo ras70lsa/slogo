@@ -1,4 +1,4 @@
-package frontend_slogo_team04;
+package frontend_features;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.util.List;
 
 import constants.DisplayConstants;
+import frontend_slogo_team04.GuiUserOption;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;

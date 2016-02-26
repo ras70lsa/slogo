@@ -1,8 +1,9 @@
-package frontend_slogo_team04;
+package frontend_features;
 
 import java.util.List;
 
 import backend_slogo_team04.Variable;
+import frontend_slogo_team04.GuiUserOption;
 import interfaces_slogo_team04.IVariable;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
@@ -37,7 +38,9 @@ public class VariableFeature extends ScrollablePane {
 	private void createTableView() {
 		table.setEditable(true);
 		TableColumn<Variable, String> names = new TableColumn<Variable, String>();
+		names.setText("Name");
 		TableColumn<Variable, Number> values = new TableColumn<Variable, Number>();
+		values.setText("Val");
 		names.setCellValueFactory(e -> e.getValue().getName());
 		values.setCellValueFactory(e -> e.getValue().getDoubleValue());
 		names.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -57,6 +60,7 @@ public class VariableFeature extends ScrollablePane {
 
 	private void setName(String edit) {
 		table.getSelectionModel().getSelectedItem().getName().set(edit);
+		System.out.println(table.getItems());
 	}
 
 	protected List<Node> getReleventProperties(GuiUserOption factory) {

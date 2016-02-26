@@ -1,4 +1,4 @@
-package frontend_slogo_team04;
+package frontend_features;
 
 
 import javafx.scene.Node;

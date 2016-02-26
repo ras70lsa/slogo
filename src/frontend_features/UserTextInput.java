@@ -1,8 +1,9 @@
-package frontend_slogo_team04;
+package frontend_features;
 
 import java.util.List;
 
 import constants.DisplayConstants;
+import frontend_slogo_team04.GuiUserOption;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

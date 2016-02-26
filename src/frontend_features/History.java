@@ -1,4 +1,4 @@
-package frontend_slogo_team04;
+package frontend_features;
 
 
 
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import constants.DisplayConstants;
+import frontend_slogo_team04.GuiUserOption;
+import frontend_slogo_team04.HistoryUIState;
 import interfaces_slogo_team04.IHistoryModel;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;

@@ -9,5 +9,6 @@ public interface IModel {
 	public IVariable getVariables();
 	public String getLangauage();
 	public StringProperty getLangauageProperty();
-
+	public ICommunicator getCommunicator();
+	public ICommands getCommandInterface();
 }

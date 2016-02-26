@@ -20,7 +20,7 @@ public class Launcher extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Model model = new Model();
-		Controller controller = new Controller(model);
+		Controller controller = new Controller(model.getCommunicator());
 		Display display = new Display(model, controller);
 		display.start();
 		
