@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import exceptions.StructuralException;
+import model.Controller;
 
 
 /**

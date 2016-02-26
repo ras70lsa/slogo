@@ -1,12 +1,15 @@
 package frontend_slogo_team04;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Stack;
 
 import backend_slogo_team04.Action;
-import backend_slogo_team04.Controller;
 import constants.DisplayConstants;
-import interfaces_slogo_team04.State;
+import frontend_features.StaticPane;
+import interfaces_slogo_team04.IView;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -23,35 +26,37 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class View extends StaticPane {
+public class View extends StaticPane implements Observer {
 
 	private static final double INTERVAL_LENGTH = 1000;
 	private Stack<Line> lineManager;
 	private VisualTurtle turtle;
-	private ViewState state;
 	private boolean penDown = true;
 	private boolean isShowing = true;
-
-	public View(ViewState state) {
-		this.state = state;
-		setUp();
-		// addListeners();
+	private double scaleFactor = 1;
+	private ViewUIState visuals;
+	private IView model;
+	
+	
+	public View(IView model) {
+		visuals = new ViewUIState();
+		this.model = model;
+		addCSS("visual_resources/DefaultView.css");
+		addListeners();
+		model.addObserver(this);
 	}
 
-	// private void addListeners() {
-	// state.getColorProperty().addListener((a, b, newValue) ->
-	// updateColor(newValue));
-	// }
+	 private void addListeners() {
+		 visuals.getImageProperty().addListener((a, b, newValue) -> setTurtleImage(newValue));
+	 }
 
 
 	public void setUp() {
 		Pane newDisplay = new Pane();
-		newDisplay.setStyle(state.getBackgroundColor());
 		newDisplay.setPrefSize(DisplayConstants.VIEW_WIDTH, DisplayConstants.VIEW_HEIGHT);
 		setPane(newDisplay);
 		setTurtleImage(new Image(getClass().getClassLoader().getResourceAsStream("turtle.gif")));
 		add(turtle, getCenterXCor(), getCenterYCor());
-		// add(new Circle(10), getCenterXCor(), getCenterYCor());
 	}
 
 	public void draw(double endX, double endY) {
@@ -158,12 +163,6 @@ public class View extends StaticPane {
 		return turtle.getHeading();
 	}
 
-	@Override
-	public State getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	private void setTurtleImage(Image i) {
 		turtle.setImage(i);
 	}
@@ -182,6 +181,17 @@ public class View extends StaticPane {
 
 	public boolean isShowing() {
 		return isShowing;
+	}
+
+	protected List<Node> getReleventProperties(GuiUserOption factory) {
+		List<Node> list = new ArrayList<Node>();
+		list.add(factory.get(visuals.getImageProperty(), "Testing"));
+		return list;
+	}
+
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

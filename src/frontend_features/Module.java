@@ -1,6 +1,5 @@
-package frontend_slogo_team04;
+package frontend_features;
 
-import interfaces_slogo_team04.State;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
@@ -23,9 +22,7 @@ public interface Module {
 	 * @return State 
 	 */
 
-	public void update();
-
-	public State getState();
+	public void getOptions();
 	
 	public void position(double x, double y, double prefWidth, double prefHeight);
 

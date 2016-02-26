@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import constants.DisplayConstants;
-import interfaces_slogo_team04.State;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
@@ -41,14 +40,6 @@ public class HistoryUIState extends State {
 	
 	public ColorProperty getColorProperty() {
 		return color;
-	}
-	
-	protected Collection<Node> getStageNodes() {
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(getFactory().get(color, "string"));
-		nodes.add(getFactory().get(language, DisplayConstants.possibleLangauges));
-		return nodes;
-		
 	}
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import constants.DisplayConstants;
-import interfaces_slogo_team04.State;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Group;
@@ -32,12 +31,6 @@ public class UserTextInputState extends State {
 	
 	public String getLanguage(){
 		return "English";
-	}
-
-	protected Collection<Node> getStageNodes() {
-		Collection<Node> myStageNodes = new ArrayList<Node>();
-		myStageNodes.add(getFactory().get(language, DisplayConstants.possibleLangauges));
-		return myStageNodes;
 	}
 
 }

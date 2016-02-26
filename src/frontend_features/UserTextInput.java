@@ -1,13 +1,14 @@
-package frontend_slogo_team04;
+package frontend_features;
 
-import java.util.ResourceBundle;
+import java.util.List;
 
-import backend_slogo_team04.Controller;
-import backend_slogo_team04.SlogoScanner;
 import constants.DisplayConstants;
-import interfaces_slogo_team04.State;
+import frontend_slogo_team04.GuiUserOption;
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import model.Controller;
 
 /**
  * Text input feature (for code)
@@ -16,24 +17,17 @@ import javafx.scene.control.TextArea;
 
 public class UserTextInput extends StaticPane {
 
-	private UserTextInputState state;
 	private TextArea textArea;
 	private String language;
-	Controller controller;
+	private Controller controller;
 	
-	public UserTextInput(UserTextInputState state) {
-		this.state = state;
+	public UserTextInput(Controller controller) {
+		this.controller = controller;
 		language = "English";
 		setUp();
-		addListeners();
 		addCSS("visual_resources/DefaultInputBox.css");
 	}
 	
-	private void addListeners() {
-	
-		state.getLanguageProperty().addListener((a,b,c) -> setLanguage(c));
-	}
-
 	private void setLanguage(String newValue) {
 		language= newValue;
 		System.out.println(language);
@@ -46,11 +40,6 @@ public class UserTextInput extends StaticPane {
         textArea.setPrefHeight(DisplayConstants.TEXT_HEIGHT);
         textArea.setPrefWidth(DisplayConstants.TEXT_WIDTH);
         add(textArea, 0, 0);
-       
-	}
-	
-	public void update() { 
-		super.update();
 	}
 	
 	public void setUp() {
@@ -67,22 +56,17 @@ public class UserTextInput extends StaticPane {
 		
 	}
 	
-	public void setController(Controller controller) {
-		this.controller = controller;
-	}
-
-	public State getState() {
-		return state;
-	}
-	
 	public void inputEntered() {	
-		ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + language);
-		SlogoScanner reader = new SlogoScanner(textArea.getText());
-		controller.parseString(reader.getLanguageConvertedCode(myBundle));
+		controller.parseString(textArea.getText());
 	}
 
 	public void setText(String selectedText) {
 		textArea.setText(selectedText);
+	}
+
+	@Override
+	protected List<Node> getReleventProperties(GuiUserOption factory) {
+		return null;
 	}
 	
 

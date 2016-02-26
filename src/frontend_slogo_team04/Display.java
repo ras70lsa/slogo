@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import constants.DisplayConstants;
+import frontend_features.CommandFeature;
+import frontend_features.History;
+import frontend_features.Module;
+import frontend_features.UserTextInput;
+import frontend_features.VariableFeature;
+import frontend_features.View;
+import interfaces_slogo_team04.IHistoryModel;
+import interfaces_slogo_team04.IModel;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -15,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import model.Controller;
 
 /**
  * This class is the class responsible for setting up the interaction with the user.
@@ -31,18 +40,14 @@ public class Display {
 	private UserTextInput textInput;
 	private History history;
 	private View view;
-	private Variables variables;
+	private VariableFeature variables;
+	private IModel model;
+	private CommandFeature commands;
 	
-	public Display(UserTextInput textInput, History history, View view, Variables variables) {
+	public Display(IModel iModel, Controller controller) {
 		modules = new ArrayList<Module>();
-		this.textInput = textInput;
-		this.history = history;
-		this.view = view;
-		this.variables = variables;
-		modules.add(textInput);
-		modules.add(history);
-		modules.add(view);
-		modules.add(variables);
+		model = iModel;
+		createModules(controller);
 		setUpScene();
 		addPanes();
 		createMenuBar();
@@ -50,9 +55,25 @@ public class Display {
 		addListeners();
 	}
 	
-	private void addListeners() {
-		history.getInteracted().addListener((a,b,c) -> textInput.setText(history.getSelectedText()));
+	public IModel getHistoryModel() {
+		return model;
 		
+	}
+	private void createModules(Controller controller) {
+		textInput= new UserTextInput(controller);
+		history = new History(model.getHistory(), new HistoryUIState());
+		view = new View(model.getViewInterface());
+		variables = new VariableFeature(model.getVariables());
+		commands = new CommandFeature(model.getCommandInterface());
+		modules.add(history);
+		modules.add(textInput);
+		modules.add(variables);
+		modules.add(view);
+		modules.add(commands);
+	}
+
+	private void addListeners() {
+		history.getInteracted().addListener(e -> textInput.setText(history.getSelected()));
 	}
 
 	public interface FunctionCall {
@@ -68,6 +89,8 @@ public class Display {
 				DisplayConstants.VAR_WIDTH, DisplayConstants.VAR_HEIGHT);
 		history.position(DisplayConstants.HISTORY_X, DisplayConstants.HISTORY_Y, 
 				DisplayConstants.HISTORY_WIDTH, DisplayConstants.HISTORY_HEIGHT);
+		commands.position(DisplayConstants.COM_X, DisplayConstants.COM_Y, 
+				DisplayConstants.COM_WIDTH, DisplayConstants.COM_HEIGHT);
 		
 	}
 	
@@ -103,7 +126,7 @@ public class Display {
 
 	private void addItem(Module module, Menu file) {
 		MenuItem item = new MenuItem(module.getClass().getSimpleName());
-		item.setOnAction(e -> module.update());
+		item.setOnAction(e -> module.getOptions());
 		file.getItems().add(item);
 	}
 

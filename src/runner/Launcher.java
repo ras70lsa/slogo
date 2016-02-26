@@ -1,17 +1,11 @@
 package runner;
 
-import backend_slogo_team04.Controller;
+
 import frontend_slogo_team04.Display;
-import frontend_slogo_team04.History;
-import frontend_slogo_team04.HistoryState;
-import frontend_slogo_team04.HistoryUIState;
-import frontend_slogo_team04.TestingState;
-import frontend_slogo_team04.UserTextInput;
-import frontend_slogo_team04.UserTextInputState;
-import frontend_slogo_team04.Variables;
-import frontend_slogo_team04.View;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Controller;
+import model.Model;
 
 /**
  * Launches the simulation application
@@ -25,15 +19,9 @@ public class Launcher extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		UserTextInputState textState = new UserTextInputState();
-		HistoryState hState = new HistoryState();
-		UserTextInput textInput = new UserTextInput(textState);
-		History history = new History(hState, new HistoryUIState());
-		Controller controller = new Controller(textState, hState);
-		textInput.setController(controller);
-		View view = new View(new TestingState());
-		Variables variables = new Variables(new TestingState());
-		Display display = new Display(textInput, history, view, variables);
+		Model model = new Model();
+		Controller controller = new Controller(model.getCommunicator());
+		Display display = new Display(model, controller);
 		display.start();
 		
 	}

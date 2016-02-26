@@ -1,6 +1,5 @@
-package frontend_slogo_team04;
+package frontend_features;
 
-import interfaces_slogo_team04.State;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;

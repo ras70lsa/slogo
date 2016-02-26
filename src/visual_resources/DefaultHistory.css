@@ -1,19 +1,35 @@
-.vbox_item {
-	-fx-border-color: #2e8b57;
-    -fx-border-width: 2px;
-    -fx-padding: 4;
+.list-cell:odd{
+	
+    -fx-background-color: #0000b3;
+    -fx-text-fill: white;
+	
 }
 
-.dividedText_text1 {
-	-fx-font-family: Consolas;
-	-fx-fill: #E01350;
-	-fx-font-size: 8pt;
-	-fx-background-color: #000000;
+.list-cell:filled:hover { 
+    -fx-background-color:  #c2c2d6; 
+    -fx-text-fill: white; 
 }
 
-.dividedText_text2 {
-	-fx-font-family: Consolas;
-	-fx-fill: #E01350;
-	-fx-font-size: 12pt;
-	-fx-background-color: #000000;
+.list-cell:even{
+	
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000; 
+	
 }
+
+.list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
+    -fx-text-fill: white;
+}
+
+
+.list-cell:empty{
+	
+    -fx-background-color: #FFFFFF;
+}
+
+.label {
+	-fx-text-fill: #47476b;
+}
+
+

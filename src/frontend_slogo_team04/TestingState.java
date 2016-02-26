@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import interfaces_slogo_team04.State;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
@@ -56,13 +55,5 @@ public class TestingState extends State {
 		return color;
 	}
 	
-	protected Collection<Node> getStageNodes() {
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(getFactory().get(color, "string"));
-		nodes.add(getFactory().get(tf, "string"));
-		nodes.add(getFactory().get(image, "String"));
-		return nodes;
-		
-	}
 
 }
