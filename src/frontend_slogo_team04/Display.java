@@ -64,7 +64,7 @@ public class Display {
 		history = new History(model.getHistory(), new HistoryUIState());
 		view = new View(new TestingState());
 		variables = new VariableFeature(model.getVariables());
-		commands = new CommandFeature();
+		commands = new CommandFeature(model.getCommandInterface());
 		modules.add(history);
 		modules.add(textInput);
 		modules.add(variables);

@@ -14,6 +14,7 @@ public class CommandModel implements ICommands{
 	public CommandModel() {
 		ObservableList<String> list = FXCollections.observableArrayList();
 		commands = new SimpleListProperty<String>(list);
+		commands.add("Ryan");
 	}
 	
 	public ListProperty<String> getCommands() {
