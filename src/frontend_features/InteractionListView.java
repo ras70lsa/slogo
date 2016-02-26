@@ -1,22 +1,33 @@
 package frontend_features;
 
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
-public abstract class InteractionListView extends ScrollablePane {
+public abstract class InteractionListView extends StaticPane {
 
 	ListView<String> list;
 	
-	public InteractionListView() {
-		createListView();
+	public InteractionListView(ObservableList<String> tracking) {
+		createListView(tracking);
+		addListeners();
 	}
 	
-	private void createListView() {
+	protected void setAction(EventHandler<MouseEvent> e) {
+		list.setOnMouseClicked(e);
+	}
+	
+	protected String getSelection() {
+		return list.getSelectionModel().getSelectedItem();
+	}
+	
+	private void createListView(ObservableList<String> tracking) {
 		list = new ListView<String>();
 		list = new ListView<String>();
 		list.setVisible(true);
-		list.setItems();
-		list.setOnMouseClicked(e -> print());
-		add(commands, 0, 0);
+		list.setItems(tracking);
+		add(list, 0, 0);
 		
 	}
 	
@@ -26,7 +37,7 @@ public abstract class InteractionListView extends ScrollablePane {
 	}
 	
 	private void resize(double width, double height) {
-		commands.setPrefSize(width, height);
+		list.setPrefSize(width, height);
 	}
 
 }
