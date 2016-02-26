@@ -54,9 +54,7 @@ public class View extends StaticPane implements Observer {
 	}
 	
 	public void setUp() {
-		
 		turtle = new VisualTurtle(new Image(getClass().getClassLoader().getResourceAsStream("turtle.gif")));
-//		setTurtleImage(new Image(getClass().getClassLoader().getResourceAsStream("turtle.gif")));
 		add(turtle, this.getCenterXCor(), this.getCenterYCor());
 	}
 
