@@ -29,7 +29,7 @@ public class SlogoScanner {
     
     private void replace(ResourceBundle myResourceBundle) {
     	for(String key: myResourceBundle.keySet()) {
-    		Pattern p = Pattern.compile(myResourceBundle.getString(key));
+    		Pattern p = Pattern.compile("\\b" + myResourceBundle.getString(key) + "\\b");
     		Matcher m = p.matcher(str);
     		str = m.replaceAll(key);
     		
@@ -42,11 +42,13 @@ public class SlogoScanner {
    }
    
 	private void replaceReverse(ResourceBundle myBundle ) {
-		System.out.println(str);
 		for(String key: myBundle.keySet()) {
     		Pattern p = Pattern.compile("\\b" + key + "\\b");
     		Matcher m = p.matcher(str);
     		String find = myBundle.getString(key);
+    		if(find.indexOf("|") != -1) {
+    			find = find.substring(0, find.indexOf("|"));
+    		}
     		str = m.replaceAll(find);
 		}
 		
