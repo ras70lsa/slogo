@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
+
 public class View extends StaticPane implements Observer {
 
 	private static final double INTERVAL_LENGTH = 1000;
@@ -43,8 +44,14 @@ public class View extends StaticPane implements Observer {
 	 private void addListeners() {
 		 visuals.getImageProperty().addListener((a, b, newValue) -> setTurtleImage(newValue));
 	 }
-
-
+	 
+	public void moveTurtle(double endX, double endY) {
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(1);
+		timeline.getKeyFrames().add(createKeyFrame(turtle.xProperty(), turtle.yProperty(), endX, endY));
+		timeline.play();
+	}
+	
 	public void setUp() {
 		Pane newDisplay = new Pane();
 		newDisplay.setPrefSize(DisplayConstants.VIEW_WIDTH, DisplayConstants.VIEW_HEIGHT);
@@ -62,13 +69,6 @@ public class View extends StaticPane implements Observer {
 		timeline.getKeyFrames().add(createKeyFrame(line.startXProperty(), line.startYProperty(), endX, endY));
 		timeline.play();
 		lineManager.add(line);
-	}
-
-	public void moveTurtle(double endX, double endY) {
-		Timeline timeline = new Timeline();
-		timeline.setCycleCount(1);
-		timeline.getKeyFrames().add(createKeyFrame(turtle.xProperty(), turtle.yProperty(), endX, endY));
-		timeline.play();
 	}
 
 	public KeyFrame createKeyFrame(DoubleProperty startX, DoubleProperty startY, double endX, double endY) {
@@ -92,20 +92,23 @@ public class View extends StaticPane implements Observer {
 	public double getHeading() {
 		return turtle.getHeading();
 	}
+	
+	public boolean isPenDown() {
+		return penDown;
+	}
+
+
+	public boolean isShowing() {
+		return isShowing;
+	}
+
+	public State getState() {
+		return visuals;
+	}
 
 	public double setxy(double x, double y) {
 		turtle.setTranslateX(x);
 		turtle.setTranslateY(y);
-		return 0;
-	}
-
-	public double penDown() {
-		penDown = true;
-		return 1;
-	}
-
-	public double penUp() {
-		penDown = false;
 		return 0;
 	}
 
@@ -130,19 +133,17 @@ public class View extends StaticPane implements Observer {
 		return 0;
 	}
 
-	public void resetTurtlePosition() {
-		turtle.setTranslateX(getCenterXCor());
-		turtle.setTranslateY(getCenterYCor());
-		lineManager.forEach(l -> l.setVisible(false));
-		lineManager.clear();
-	}
 
 	public double xCor() {
 		return turtle.getTranslateX() - getCenterXCor();
 	}
 
-	public double yCor() {
-		return getCenterYCor() - turtle.getTranslateY();
+	
+	public void resetTurtlePosition() {
+		turtle.setTranslateX(getCenterXCor());
+		turtle.setTranslateY(getCenterYCor());
+		lineManager.forEach(l -> l.setVisible(false));
+		lineManager.clear();
 	}
 
 	public double getCenterXCor() {
@@ -167,14 +168,6 @@ public class View extends StaticPane implements Observer {
 
 	public double getMaxHeight() {
 		return DisplayConstants.VIEW_HEIGHT;
-	}
-
-	public boolean isPenDown() {
-		return penDown;
-	}
-
-	public boolean isShowing() {
-		return isShowing;
 	}
 
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
