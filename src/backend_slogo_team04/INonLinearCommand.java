@@ -1,6 +1,9 @@
 package backend_slogo_team04;
 
 import java.util.Scanner;
+import exceptions.LogicException;
+import exceptions.UserInputException;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 import model.Controller;
 
@@ -20,18 +23,21 @@ public interface INonLinearCommand {
      * 
      * @param myController we delegate actionable events to this object
      * @param myInterpreter This object holds the state required for properly 'running' the Slogo commands
+     * @throws LogicException TODO
      * 
      */
-    public abstract double executeCommand(Controller myController, Interpreter myInterpreter);
+    public abstract double executeCommand(ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException;
     
 
    
     /**
      * Each command as defined by the list of possible Slogo commands knows what it needs to instantiate itself
+     * @param myInterpreter TODO
      * @param nextWord
      * @return
+     * @throws UserInputException TODO
      */
-    public abstract INonLinearCommand parseString(Scanner myScanner);
+    public abstract INonLinearCommand parseString(Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException;
     
    
 }
