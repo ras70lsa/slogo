@@ -5,27 +5,26 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
-
-public class CmdHeading extends CommandTreeNode {
-
+public class CmdANullTwo extends CommandTreeNode {
+    private INonLinearCommand testOne, testTwo; // the two nodes that we need to grab
 
 
-    public CmdHeading (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
+
+    public CmdANullTwo (CommandTreeNode myParent) {
+        super(myParent);
         // TODO Auto-generated constructor stub
     }
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        // TODO Auto-generated method stub
-        return 0;
+        return 1d;
     }
+    
+
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 
 }

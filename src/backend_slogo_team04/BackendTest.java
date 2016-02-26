@@ -2,35 +2,35 @@ package backend_slogo_team04;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
+import exceptions.LogicException;
+import exceptions.UserInputException;
 
 public class BackendTest {
     
     
     public static void main(String [] args){
-        Parser myParserTest = new Parser(null);
-        
-        String content = null;
+     //Testing the cmdAnd class
+        CommandTreeNode andTest = new CmdPi(null);
         try {
-            content = new Scanner(new File("examples/procedures/dash.logo")).useDelimiter("\\Z").next();
+            andTest.parseString(null, null);
         }
-        catch (FileNotFoundException e) {
+        catch (UserInputException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-          
-        //so the scanner object is passed by reference
-//        Scanner scanTest = new Scanner(content);
-//        System.out.println(scanTest.next());
-//        BackendTest bt = new BackendTest();
-//        bt.testObjectReference(scanTest);
-//        System.out.println(scanTest.next());
-        myParserTest.parseString(content);
+        try {
+            System.out.println(andTest.executeCommand(null, null));
+        }
+        catch (LogicException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
         
     
-    public void testObjectReference(Scanner scanTest){
-        System.out.println(scanTest.next());
-    }
+
 
 }

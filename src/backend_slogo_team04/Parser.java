@@ -11,7 +11,7 @@ public class Parser {
 
     
     Controller myController;
-    Interpreter myInterpreter;
+    ISlogoInterpreter myInterpreter;
     
     public Parser(Controller myController){
         this.myController = myController;

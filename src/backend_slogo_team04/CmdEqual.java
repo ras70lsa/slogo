@@ -1,28 +1,40 @@
 package backend_slogo_team04;
 
 import java.util.Scanner;
+import exceptions.LogicException;
+import exceptions.UserInputException;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 import model.Controller;
 
 public class CmdEqual extends CommandTreeNode {
-
-
-
-    public CmdEqual (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
-        // TODO Auto-generated constructor stub
+    private INonLinearCommand expressionOne, expressionTwo;
+    
+    public CmdEqual (CommandTreeNode myParent) {
+        super(myParent);
     }
 
     @Override
-    public double executeCommand (Controller myController, Interpreter myInterpreter) {
-        // TODO Auto-generated method stub
-        return 0;
+    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+        double valOne, valTwo;
+        valOne = expressionOne.executeCommand(myController, myInterpreter);
+        valTwo = expressionTwo.executeCommand(myController, myInterpreter);
+        return oneIfEqualValues(valOne, valTwo);
+    }
+    
+    private double oneIfEqualValues(double valOne, double valTwo){
+        int compareOutput = Double.compare(valOne, valTwo);
+        if(compareOutput == 0){
+            return CommandTreeNode.DOUBLE_ONE;
+        }
+        return CommandTreeNode.DOUBLE_ZERO;
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner) {
-        // TODO Auto-generated method stub
-        return null;
+    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        expressionOne = CommandTreeNode.recursiveSlogoFactory(myScanner, this, myInterpreter);
+        expressionTwo = CommandTreeNode.recursiveSlogoFactory(myScanner, this, myInterpreter);
+        return this;
     }
 
 }
