@@ -1,21 +1,12 @@
 package frontend_slogo_team04;
 
 
-import javafx.scene.image.ImageView;
 import java.util.List;
 
 import backend_slogo_team04.Action;
 import constants.DisplayConstants;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import model.Controller;
 
 public class View extends StaticPane implements VisualizationAction {

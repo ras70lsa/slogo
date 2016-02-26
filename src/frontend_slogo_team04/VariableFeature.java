@@ -1,14 +1,20 @@
 package frontend_slogo_team04;
 
+import java.util.List;
+
 import backend_slogo_team04.Variable;
 import interfaces_slogo_team04.IVariable;
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.converter.NumberStringConverter;
 
 /**
  * Variable feature
@@ -34,20 +40,27 @@ public class VariableFeature extends ScrollablePane {
 		TableColumn<Variable, Number> values = new TableColumn<Variable, Number>();
 		names.setCellValueFactory(e -> e.getValue().getName());
 		values.setCellValueFactory(e -> e.getValue().getDoubleValue());
+		names.setCellFactory(TextFieldTableCell.forTableColumn());
+		values.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		names.setOnEditCommit(e -> setName(e.getNewValue()));
+		values.setOnEditCommit(e -> setDoubleValue(e.getNewValue()));
 		table.setItems(model.getVariables());
 		table.getColumns().add(names);
 		table.getColumns().add(values);
 		add(table);
 		
 	}
-	
-	public void update() { 
-		super.update();
+
+	private void setDoubleValue(Number newValue) {
+		table.getSelectionModel().getSelectedItem().getDoubleValue().set(newValue.doubleValue());
 	}
 
-	public State getState() {
-		return null;
+	private void setName(String edit) {
+		table.getSelectionModel().getSelectedItem().getName().set(edit);
+	}
 
+	protected List<Node> getReleventProperties(GuiUserOption factory) {
+		return null;
 	}
 
 }

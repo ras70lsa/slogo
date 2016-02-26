@@ -54,7 +54,7 @@ public class Display {
 	}
 	private void createModules(Controller controller) {
 		textInput= new UserTextInput(controller);
-		history = new History(model.getHistory(), null);
+		history = new History(model.getHistory(), new HistoryUIState());
 		//view = new View(null);
 		variables = new VariableFeature(model.getVariables());
 		modules.add(history);
@@ -63,6 +63,7 @@ public class Display {
 	}
 
 	private void addListeners() {
+		history.getInteracted().addListener(e -> textInput.setText(history.getSelected()));
 	}
 
 	public interface FunctionCall {
@@ -113,7 +114,7 @@ public class Display {
 
 	private void addItem(Module module, Menu file) {
 		MenuItem item = new MenuItem(module.getClass().getSimpleName());
-		item.setOnAction(e -> module.update());
+		item.setOnAction(e -> module.getOptions());
 		file.getItems().add(item);
 	}
 

@@ -1,26 +1,20 @@
 package frontend_slogo_team04;
 
 
-import java.util.ResourceBundle;
-import java.util.Stack;
 
-import backend_slogo_team04.Action;
-import backend_slogo_team04.SlogoScanner;
+import java.util.ArrayList;
+import java.util.List;
+
 import constants.DisplayConstants;
 import interfaces_slogo_team04.IHistoryModel;
-import interfaces_slogo_team04.IModel;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
-import model.Model;
+
 
 /**
  * History Feature
@@ -29,33 +23,63 @@ import model.Model;
 
 public class History extends ScrollablePane {
 
+	public static final double LABEL_HEIGHT = 25;
+	public static final double SCROLL_BAR = 3.9;
 	private IHistoryModel model;
 	private HistoryUIState visuals;
-	ListView<String> commands;
+	private ListView<String> commands;
+	private String selectedItem;
+	private BooleanProperty interacted;
 	
 	public History(IHistoryModel model, HistoryUIState visuals) {
 		this.model = model;
+		interacted = new SimpleBooleanProperty();
+		selectedItem = "";
 		this.visuals = visuals;
 		addCSS("visual_resources/DefaultHistory.css");
+		addLabel("History", LABEL_HEIGHT);
 		makeTextList();
+		addListeners();
+	}
+
+	private void addListeners() {
+		visuals.getColorProperty().addListener((a,b,c) -> updateColor(c));
+		getWidth().addListener((a,b,w) -> resize(w.doubleValue(), getHeight().get()));
+		getHeight().addListener((a,b,h) -> resize(getWidth().get(),h.doubleValue()));
 		
 	}
 
+	private void resize(double width, double height) {
+		commands.setPrefSize(width, height- LABEL_HEIGHT - SCROLL_BAR);
+	}
+
 	private void makeTextList() {
+		
 		commands = new ListView<String>();
+		commands.setVisible(true);
 		commands.setItems(model.getCommandList());
 		commands.setOnMouseClicked(e -> print());
 		add(commands);
-		model.add("Forward");
+		
 	}
 
 	private void print() {
-		String str = commands.getSelectionModel().getSelectedItem();
-		System.out.println(str);
+		selectedItem = commands.getSelectionModel().getSelectedItem();
+		interacted.set(!interacted.get());
+	}
+	
+	public BooleanProperty getInteracted() {
+		return interacted;
+	}
+	
+	public String getSelected() {
+		return selectedItem;
 	}
 
-	public State getState() {
-		return visuals;
+	protected List<Node> getReleventProperties(GuiUserOption factory) {
+		List<Node> toRet = new ArrayList<Node>();
+		toRet.add(factory.get(model.getLanguage(), DisplayConstants.possibleLangauges));
+		return toRet;
 	}
 
 }

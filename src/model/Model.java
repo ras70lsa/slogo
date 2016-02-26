@@ -31,6 +31,10 @@ public class Model implements IModel  {
 	public String getLangauage() {
 		return language.get();
 	}
+	
+	public StringProperty getLangauageProperty() {
+		return language;
+	}
 
 	public IVariable getVariables() {
 		return variables;

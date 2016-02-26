@@ -2,6 +2,7 @@ package frontend_slogo_team04;
 
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -19,9 +20,8 @@ public abstract class ScrollablePane extends ModularPane {
 	
 	public ScrollablePane() {
 		pane = new ScrollPane();
-		pane.getStyleClass().add("scroll_pane");
 		content = new VBox();
-		content.getStyleClass().add("pane_vbox");
+		content.getStyleClass().add("vbox");
 		pane.setContent(content);
 		setVBoxWidth(getWidth().getValue());
 		getWidth().addListener((a,b,c) -> setVBoxWidth(c.doubleValue()));
@@ -48,6 +48,12 @@ public abstract class ScrollablePane extends ModularPane {
 	public void updateColor(Color color){
 		String hex = toRGBCode(color);
 		getPane().setStyle("-fx-background: " + hex);
+	}
+	
+	public void addLabel(String title, double height) {
+		Label label = new Label(title);
+		label.setPrefHeight(height);
+		add(label);
 	}
 
 }

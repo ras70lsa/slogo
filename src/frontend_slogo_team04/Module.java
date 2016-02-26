@@ -22,9 +22,7 @@ public interface Module {
 	 * @return State 
 	 */
 
-	public void update();
-
-	public State getState();
+	public void getOptions();
 	
 	public void position(double x, double y, double prefWidth, double prefHeight);
 

@@ -25,5 +25,13 @@ public class Variable {
 	public DoubleProperty getDoubleValue() {
 		return value;
 	}
+	
+	public void setName(String str) {
+		name.set(str);
+	}
+	
+	public String toString() {
+		return name.get() + " " + value.get();
+	}
 
 }

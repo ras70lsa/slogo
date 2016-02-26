@@ -1,6 +1,10 @@
 package frontend_slogo_team04;
 
+import java.util.List;
+
 import constants.DisplayConstants;
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import model.Controller;
@@ -37,10 +41,6 @@ public class UserTextInput extends StaticPane {
         add(textArea, 0, 0);
 	}
 	
-	public void update() { 
-		super.update();
-	}
-	
 	public void setUp() {
 		createTextField();
 		createGoButton();
@@ -54,10 +54,6 @@ public class UserTextInput extends StaticPane {
 		add(go, DisplayConstants.TEXT_WIDTH - go.getPrefWidth(), 0); 
 		
 	}
-
-	public State getState() {
-		return null;
-	}
 	
 	public void inputEntered() {	
 		controller.parseString(textArea.getText());
@@ -65,6 +61,11 @@ public class UserTextInput extends StaticPane {
 
 	public void setText(String selectedText) {
 		textArea.setText(selectedText);
+	}
+
+	@Override
+	protected List<Node> getReleventProperties(GuiUserOption factory) {
+		return null;
 	}
 	
 
