@@ -55,13 +55,5 @@ public class TestingState extends State {
 		return color;
 	}
 	
-	public Collection<Node> getStageNodes() {
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(getFactory().get(color, "string"));
-		nodes.add(getFactory().get(tf, "string"));
-		nodes.add(getFactory().get(image, "String"));
-		return nodes;
-		
-	}
 
 }

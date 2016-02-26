@@ -11,4 +11,5 @@ public interface IModel {
 	public StringProperty getLangauageProperty();
 	public ICommunicator getCommunicator();
 	public ICommands getCommandInterface();
+	public IView getViewInterface();
 }

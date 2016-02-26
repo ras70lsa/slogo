@@ -33,10 +33,4 @@ public class UserTextInputState extends State {
 		return "English";
 	}
 
-	protected Collection<Node> getStageNodes() {
-		Collection<Node> myStageNodes = new ArrayList<Node>();
-		myStageNodes.add(getFactory().get(language, DisplayConstants.possibleLangauges));
-		return myStageNodes;
-	}
-
 }

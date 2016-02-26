@@ -23,13 +23,13 @@ import javafx.scene.control.ListView;
  * @author Ryan St Pierre
  */
 
-public class History extends ScrollablePane {
+public class History extends InteractionListView {
 
 	public static final double LABEL_HEIGHT = 25;
 	public static final double SCROLL_BAR = 3.9;
 	private IHistoryModel model;
 	private HistoryUIState visuals;
-	private ListView<String> commands;
+	private ListView<String> history;
 	private String selectedItem;
 	private BooleanProperty interacted;
 	
@@ -40,33 +40,10 @@ public class History extends ScrollablePane {
 		this.visuals = visuals;
 		addCSS("visual_resources/DefaultHistory.css");
 		addLabel("History", LABEL_HEIGHT);
-		makeTextList();
-		addListeners();
-	}
-
-	private void addListeners() {
-		visuals.getColorProperty().addListener((a,b,c) -> updateColor(c));
-		getWidth().addListener((a,b,w) -> resize(w.doubleValue(), getHeight().get()));
-		getHeight().addListener((a,b,h) -> resize(getWidth().get(),h.doubleValue()));
-		
-	}
-
-	private void resize(double width, double height) {
-		commands.setPrefSize(width, height- LABEL_HEIGHT - SCROLL_BAR);
-	}
-
-	private void makeTextList() {
-		
-		commands = new ListView<String>();
-		commands.setVisible(true);
-		commands.setItems(model.getCommandList());
-		commands.setOnMouseClicked(e -> print());
-		add(commands);
-		
 	}
 
 	private void print() {
-		selectedItem = commands.getSelectionModel().getSelectedItem();
+		selectedItem = history.getSelectionModel().getSelectedItem();
 		interacted.set(!interacted.get());
 	}
 	

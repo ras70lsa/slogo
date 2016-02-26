@@ -62,7 +62,7 @@ public class Display {
 	private void createModules(Controller controller) {
 		textInput= new UserTextInput(controller);
 		history = new History(model.getHistory(), new HistoryUIState());
-		view = new View(new TestingState());
+		view = new View(model.getViewInterface());
 		variables = new VariableFeature(model.getVariables());
 		commands = new CommandFeature(model.getCommandInterface());
 		modules.add(history);

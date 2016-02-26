@@ -5,6 +5,7 @@ import interfaces_slogo_team04.ICommunicator;
 import interfaces_slogo_team04.IHistoryModel;
 import interfaces_slogo_team04.IModel;
 import interfaces_slogo_team04.IVariable;
+import interfaces_slogo_team04.IView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -21,6 +22,7 @@ public class Model implements IModel  {
 	private StringProperty language;
 	private Communicator communicator;
 	private CommandModel commands;
+	private ViewModel view;
 	
 	public Model() {
 		language = new SimpleStringProperty("English");
@@ -28,6 +30,7 @@ public class Model implements IModel  {
 		variables = new VariableModel();
 		communicator = new Communicator(this);
 		commands = new CommandModel();
+		view = new ViewModel();
 	}
 	
 	public IHistoryModel getHistory() {
@@ -52,6 +55,10 @@ public class Model implements IModel  {
 
 	public ICommunicator getCommunicator() {
 		return communicator;
+	}
+
+	public IView getViewInterface() {
+		return view;
 	}
 
 }

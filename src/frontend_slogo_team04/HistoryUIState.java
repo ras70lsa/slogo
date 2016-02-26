@@ -41,13 +41,5 @@ public class HistoryUIState extends State {
 	public ColorProperty getColorProperty() {
 		return color;
 	}
-	
-	protected Collection<Node> getStageNodes() {
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(getFactory().get(color, "string"));
-		nodes.add(getFactory().get(language, DisplayConstants.possibleLangauges));
-		return nodes;
-		
-	}
 
 }
