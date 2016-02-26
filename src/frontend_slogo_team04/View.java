@@ -1,6 +1,7 @@
 package frontend_slogo_team04;
 
 import java.util.List;
+import java.util.Stack;
 
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Controller;
@@ -10,42 +11,39 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class View extends StaticPane{
+public class View extends StaticPane {
 
-	private Controller myController;
+	private static final double INTERVAL_LENGTH = 1000;
+	private Stack<Line> lineManager;
 	private VisualTurtle turtle;
-	private TestingState state;
+	private ViewState state;
 	private boolean penDown = true;
 	private boolean isShowing = true;
 
-	public View(TestingState state) {
+	public View(ViewState state) {
 		this.state = state;
-		addListeners();
+		setUp();
+		// addListeners();
 	}
 
-	private void addListeners() {
-		state.getColorProperty().addListener((a, b, newValue) -> updateColor(newValue));
-	}
-
-	public void setUp() {
-		// TODO Auto-generated method stub
-		Pane newDisplay = new Pane();
-		newDisplay.setStyle(state.getBackgroundColor());
-		newDisplay.setPrefSize(DisplayConstants.VIEW_WIDTH, DisplayConstants.VIEW_HEIGHT);
-		setPane(newDisplay);
-		setTurtleImage(new Image(getClass().getClassLoader().getResourceAsStream("turtle.jpg")));
-		add(turtle, getCenterXCor(),  getCenterYCor());
-	}
+	// private void addListeners() {
+	// state.getColorProperty().addListener((a, b, newValue) ->
+	// updateColor(newValue));
+	// }
 
 
-	@Override
 	public void setUp() {
 		Pane newDisplay = new Pane();
 		newDisplay.setStyle(state.getBackgroundColor());
@@ -186,5 +184,4 @@ public class View extends StaticPane{
 		return isShowing;
 	}
 }
-
 
