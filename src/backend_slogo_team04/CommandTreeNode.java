@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import exceptions.LogicException;
 import exceptions.StructuralException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
@@ -20,9 +21,11 @@ import interfaces_slogo_team04.ISlogoModelActions;
  */
 public abstract class CommandTreeNode implements INonLinearCommand {
     private static final char START_OF_COMMENT_CHAR = '#';
+    protected static final char NEW_LINE_CHAR = '\n';
     private static final char VAR_FIRST_CHAR = ':';
     protected static final double DOUBLE_ZERO = 0d;
     protected static final double DOUBLE_ONE = 1d;
+    private static final String START_OF_LIST = "[";
     
     private List<CommandTreeNode> myChildren;
     private CommandTreeNode myParent; //in case we need to do weird scope things in the future
@@ -44,25 +47,55 @@ public abstract class CommandTreeNode implements INonLinearCommand {
 
 
 
-    protected static CommandTreeNode recursiveSlogoFactory(Scanner myScanner, CommandTreeNode parentNode , ISlogoInterpreter myInterpreter) throws UserInputException{
-
+    protected static INonLinearCommand recursiveSlogoFactoryNoListsAllowed(Scanner myScanner
+                                                                         , CommandTreeNode parentNode 
+                                                                         , ISlogoInterpreter myInterpreter) throws UserInputException{
         // throw an error here regarding incomplete syntax
-        String lowerCaseWord;
-        try{
-            lowerCaseWord = myScanner.next().toLowerCase();
-        }catch(NoSuchElementException e){
-            throw new UserInputException("Incomplete Slogo commands detected");
+        String nextWord = getNextWord(myScanner);
+        assertNotStartOfList(nextWord);
+        return recursiveSlogoFactoryListsAllowed(myScanner, parentNode, myInterpreter);
+
+    }
+    
+    protected static INonLinearCommand recursiveSlogoFactoryListsAllowed(Scanner myScanner
+                                                                         , CommandTreeNode parentNode
+                                                                         , ISlogoInterpreter myInterpreter) throws UserInputException{
+        return CommandTreeNode
+                .slogoCommandFactory(getNextWord(myScanner), parentNode, myInterpreter)
+                .parseString(myScanner, myInterpreter);
+    }
+    
+    protected static CommandTreeNode recursiveListConstruction(Scanner myScanner
+                                                               , CommandTreeNode parentNode
+                                                               , ISlogoInterpreter myInterpreter) throws UserInputException{
+        //TODO create a list object class and let it start feeding in commands
+        //check to see if next word is start of list
+        //construct list object here,
+        return null;
+    }
+    
+    private static void assertNotStartOfList(String myWordToCheck) throws UserInputException{
+        if(myWordToCheck.equals(START_OF_LIST)){
+            throw new UserInputException("Did not expect list declaration following last command");
         }
-
-        CommandTreeNode myNextCommand = CommandTreeNode.slogoCommandFactory(lowerCaseWord, parentNode, myInterpreter);
-        myNextCommand.parseString(myScanner, null);
-
-        return myNextCommand;
+    }
+    
+    private static String getNextWord(Scanner myScanner) throws UserInputException{
+        String myWord;
+        try{
+            myWord = myScanner.next();
+        }catch(NoSuchElementException e){
+            throw new UserInputException("Incomplete Slogo commands detected"); //TODO make this use resource bundles later
+        }
+        return myWord;
     }
 
 
     protected static CommandTreeNode slogoCommandFactory(String nextWord, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
 // we can assume at this point that the only things that are coming are the words themselves and new line characters
+        // need to fix this to include the required inputs for hte different classes, and then also
+        // include the logic for choosing to instantiate the headnode
+        // include the required list node subtype construction
         switch(nextWord){
             // TURTLE COMMANDS
             case "Forward":
@@ -193,11 +226,10 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         return nextWord.charAt(0) == VAR_FIRST_CHAR;
     }
     public static boolean isStartOfComment(String nextWord){
-        char nextChar = nextWord.charAt(0);
-        return nextChar == START_OF_COMMENT_CHAR;  // || nextChar == '\n'; // We need to dynamically switch the behavior of the parser in the comment cmd class
+        return nextWord.charAt(0) == START_OF_COMMENT_CHAR; // || nextChar == '\n'; // We need to dynamically switch the behavior of the parser in the comment cmd class
     }
     
-    protected boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActions myController, ISlogoInterpreter myInterpreter){
+    protected boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException{
         double myValue = myCommand.executeCommand(myController, myInterpreter);
         return myValue != CommandTreeNode.DOUBLE_ZERO;
     }
