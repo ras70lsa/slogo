@@ -11,6 +11,7 @@ public class VisualTurtle extends ImageView{
 	private DoubleProperty myHeading = new SimpleDoubleProperty();
 	
 	public VisualTurtle(Image i){
+		super(i);
 		setImage(i);
 		myHeading.setValue(0);;
 	}

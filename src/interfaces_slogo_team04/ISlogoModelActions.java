@@ -1,9 +1,5 @@
 package interfaces_slogo_team04;
 
-import java.util.List;
-
-import backend_slogo_team04.Action;
-
 
 /**
  * This class represents all actionable things that are present in the Slogo language, things that do not control flow or change internal
@@ -29,6 +25,4 @@ public interface ISlogoModelActions {
     public double heading();
     public double isPenDown();
     public double isShowing();
-    public List<Action> getHistory();
-
 }

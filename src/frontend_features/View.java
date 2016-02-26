@@ -16,6 +16,7 @@ import frontend_slogo_team04.VisualTurtle;
 import frontend_slogo_team04.VisualizationAction;
 import interfaces_slogo_team04.IView;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
@@ -28,13 +29,19 @@ public class View extends StaticPane implements Observer{
 	
 	
 	public View(IView model) {
+		turtle = new VisualTurtle(getFirstImage());
 		this.model = model;
 		addCSS("visual_resources/DefaultView.css");
 		visuals = new ViewUIState();
 		addSilentListeners();
 		model.addObserver(this);
+		setUp();
 	}
 	
+	private Image getFirstImage() {
+		return new Image(getClass().getClassLoader().getResourceAsStream("visual_resources/turtle.jpg"));
+	}
+
 	private void addSilentListeners() {
 		visuals.getImageProperty().addListener((a,b,c) -> setTurtleImage(c));
 		
@@ -44,10 +51,6 @@ public class View extends StaticPane implements Observer{
 	}
 
 	public void setUp() {
-		Pane newDisplay = new Pane();
-		newDisplay.setPrefSize(DisplayConstants.VIEW_WIDTH, DisplayConstants.VIEW_HEIGHT);
-		setPane(newDisplay);
-		setTurtleImage(new Image(getClass().getClassLoader().getResourceAsStream("/slogo_team04/images/turtle.jpg")));
 		add(turtle, getCenterXCor(),  getCenterYCor());
 	}
 
