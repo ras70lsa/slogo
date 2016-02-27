@@ -8,7 +8,6 @@ import constants.DisplayConstants;
 
 import java.util.List;
 import java.util.Observable;
-
 import interfaces_slogo_team04.ISlogoModelActions;
 import interfaces_slogo_team04.IView;
 
