@@ -146,10 +146,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return (isShowing)? 1:0;
 	}
 
-	@Override
-	public List<Action> getHistory() {
-		// TODO Auto-generated method stub
-		return null;
+	public double getRotation(){
+		return turtle.getRotation();
 	}
 
 }
