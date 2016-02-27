@@ -23,10 +23,25 @@ public class Actor {
 		return xLocation;
 	}
 	
+	public void setXLocation(double x){
+		xLocation = xLocation + x;
+	}
+	
+	public void setYLocation(double y){
+		yLocation = yLocation + y;
+	}
+	
 	public double getYLocation(){
 		return yLocation;
 	}
 	
+	public void setHeading(double h){
+		heading = heading + h;
+	}
+	
+	public void setRotation(double r){
+		rotation = rotation + r;
+	}
 	public double getHeading(){
 		return heading;
 	}

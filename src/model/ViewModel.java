@@ -20,62 +20,67 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double forward(double pixels) {
 		// TODO Auto-generated method stub
-		
+		turtle.setYLocation(pixels);
 		setChanged();
 		notifyObservers();
-		return 0;
+		return turtle.getYLocation();
 	}
 
 	@Override
 	public double back(double pixels) {
 		// TODO Auto-generated method stub
+		turtle.setYLocation(pixels);
 		setChanged();
-		
 		notifyObservers();
-		return 0;
+		return turtle.getYLocation();
 	}
 
 	@Override
 	public double left(double pixels) {
 		// TODO Auto-generated method stub
+		turtle.setXLocation(pixels);
 		setChanged();
-		
 		notifyObservers();
-		return 0;
+		return turtle.getXLocation();
 	}
 
 	@Override
 	public double right(double pixels) {
 		// TODO Auto-generated method stub
+		turtle.setXLocation(pixels);
 		setChanged();
-		
 		notifyObservers();
-		return 0;
+		return turtle.getXLocation();
 	}
 
 	@Override
 	public double setHeading(double degrees) {
 		// TODO Auto-generated method stub
+		turtle.setHeading(degrees);
 		setChanged();
-		
 		notifyObservers();
-		return 0;
+		return turtle.getHeading();
 	}
 
 	@Override
 	public double towards(double x, double y) {
 		// TODO Auto-generated method stub
 		setChanged();
-		
 		notifyObservers();
 		return 0;
 	}
 
 	@Override
-	public double setxy(double x, double y) {
+	public Double[] setxy(double x, double y) {
 		// TODO Auto-generated method stub
+		double [] location = new double [2];
+		turtle.setXLocation(x);
+		turtle.setYLocation(y);
 		setChanged();
-		return 0;
+		notifyObservers();
+		location[0] = turtle.getXLocation();
+		location[1] = turtle.getYLocation();
+		return location;
 	}
 
 	@Override
