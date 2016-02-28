@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Stack;
 
+import Utilities.Angle;
 import constants.DisplayConstants;
 import frontend_slogo_team04.State;
 import frontend_slogo_team04.VisualTurtle;
@@ -26,6 +28,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Model;
+import model.ModelLine;
 import model.ViewModel;
 
 public class View extends StaticPane implements Observer {
@@ -140,13 +143,6 @@ public class View extends StaticPane implements Observer {
 		return 0;
 	}
 
-	public double clearScreen() {
-		getLineManager().forEach(l -> l.setVisible(false));
-		getLineManager().clear();
-		resetTurtlePosition();
-		return 0;
-	}
-
 	public void resetTurtlePosition() {
 		turtle.setTranslateX(getCenterXCor(turtle.getFitWidth()));
 		turtle.setTranslateY(getCenterYCor(turtle.getFitHeight()));
@@ -158,7 +154,7 @@ public class View extends StaticPane implements Observer {
 	}
 
 	public void turn(double heading) {
-		turtle.setRotate(heaing);
+		turtle.setRotate(heading);
 	}
 
 	private double translateToLineX(double xCor) {
