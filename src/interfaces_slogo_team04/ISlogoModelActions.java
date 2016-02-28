@@ -14,7 +14,7 @@ public interface ISlogoModelActions {
     public double right(double pixels);
     public double setHeading(double degrees);
     public double towards(double x, double y);
-    public double setxy(double x, double y);
+    public double[] setxy(double x, double y);
     public double penDown();
     public double penUp();
     public double showTurtle();

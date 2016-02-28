@@ -85,7 +85,7 @@ public class Display {
 	
 	private void positionModules() {
 		view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
-				DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
+				DisplayConstants.VIEW_WIDTH, DisplayConstants.VIEW_HEIGHT);
 		textInput.position(DisplayConstants.TEXT_X, DisplayConstants.TEXT_Y, 
 				DisplayConstants.TEXT_WIDTH, DisplayConstants.TEXT_HEIGHT);
 		variables.position(DisplayConstants.VAR_X, DisplayConstants.VAR_Y, 
