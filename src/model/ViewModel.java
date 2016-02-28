@@ -32,8 +32,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public double forward(double pixels) {
 
 		double angle = turtle.getHeadingInRadians();
-		turtle.setxy(turtle.getXLocation() + Math.sin(angle) * pixels,
-				turtle.getYLocation() + Math.cos(angle) * pixels);
+		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
+				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
 		return pixels;
 
@@ -42,9 +42,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double back(double pixels) {
 		
-		double angle = turtle.getHeadingInRadians() + Angle.HALF_CIRCLE;
-		turtle.setxy(turtle.getXLocation() + Math.sin(angle) * pixels,
-				turtle.getYLocation() + Math.cos(angle) * pixels);
+		double angle = turtle.getHeadingInRadians() + Math.PI;
+		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
+				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
 		return pixels;
 	}
