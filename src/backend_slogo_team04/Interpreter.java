@@ -9,16 +9,6 @@ import java.util.Map;
  */
 public class Interpreter implements ISlogoInterpreter {
     
-
-    @Override
-    public void interpretCommandTree(INonLinearCommand headNode){
-        
-        return;
-    }
-    
-    
-    
-    
     private Map<String, Double> slogoVariables;
     private Map<String, CommandTreeNode> userDefinedCommands;
     

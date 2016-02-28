@@ -1,6 +1,7 @@
 package interfaces_slogo_team04;
 
 import javafx.beans.property.StringProperty;
+import model.ExecutionState;
 import model.HistoryModel;
 
 public interface IModel {
@@ -12,4 +13,5 @@ public interface IModel {
 	public ICommunicator getCommunicator();
 	public ICommands getCommandInterface();
 	public IView getViewInterface();
+	public ExecutionState getExecutionState();
 }

@@ -3,6 +3,8 @@ package frontend_features;
 import java.util.List;
 
 import constants.DisplayConstants;
+import exceptions.LogicException;
+import exceptions.UserInputException;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,7 +17,7 @@ import visual_states.GuiUserOption;
  * @author Ryan St Pierre
  */
 
-public class UserTextInput extends StaticPane {
+public class UserTextInput extends VPane {
 
 	private TextArea textArea;
 	private Controller controller;
@@ -32,12 +34,12 @@ public class UserTextInput extends StaticPane {
         textArea.setScrollTop(10);
         textArea.setPrefHeight(DisplayConstants.TEXT_HEIGHT);
         textArea.setPrefWidth(DisplayConstants.TEXT_WIDTH);
-        add(textArea, 0, 0);
+        add(textArea);
 	}
 	
 	public void setUp() {
-		createTextField();
 		createGoButton();
+		createTextField();
 	}
 
 	private void createGoButton() {
@@ -45,19 +47,22 @@ public class UserTextInput extends StaticPane {
 		go.getStyleClass().add("button");
 		go.setOnAction(e -> inputEntered());
 		go.setPrefWidth(50);
-		add(go, DisplayConstants.TEXT_WIDTH - go.getPrefWidth(), 0); 
+		add(go); 
 	}
 	
-	public void inputEntered() {	
-		controller.parseString(textArea.getText());
+	public void inputEntered() {
+		System.out.println(textArea.getText());
+		try {
+			controller.parseString(textArea.getText());
+			textArea.clear();
+		} catch (UserInputException|LogicException e) {
+			AlertMessage alert = new AlertMessage(e.getMessage());
+			alert.displayError();
+		} 
 	}
 
 	public void setText(String selectedText) {
 		textArea.setText(selectedText);
-	}
-
-	protected List<Node> getReleventProperties(GuiUserOption factory) {
-		return null;
 	}
 
 	public void append(String text) {

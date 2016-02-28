@@ -33,10 +33,5 @@ public abstract class VPane extends ModularPane {
 	public void clearBox(){
 		vbox.getChildren().clear();
 	}
-	
-	public void updateColor(Color color){
-		String hex = toRGBCode(color);
-		getPane().setStyle("-fx-background: " + hex);
-	}
 
 }

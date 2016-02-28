@@ -20,14 +20,14 @@ import properties.ColorProperty;
 
 public class HistoryModel extends State implements IHistoryModel{
 
-	private ListProperty<String> commands;
+	private ListProperty<String> history;
 	private StringProperty language;
 	
 	public HistoryModel(StringProperty language) {
 		
 		this.language = language;
 		ObservableList<String> commandList = FXCollections.observableArrayList();
-		commands = new SimpleListProperty<String>(commandList);
+		history = new SimpleListProperty<String>(commandList);
 		addListeners();
 		
 	}
@@ -37,25 +37,25 @@ public class HistoryModel extends State implements IHistoryModel{
 	}
 	
 	private void updateText(String old, String current) {
-		for(int i=0; i<commands.size(); i++) {
-			SlogoScanner scanner = new SlogoScanner(commands.get(i));
+		for(int i=0; i<history.size(); i++) {
+			SlogoScanner scanner = new SlogoScanner(history.get(i));
 			ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + old);
 			String translated = scanner.getLanguageConvertedCode(myBundle);
 			myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + current);
 			translated = scanner.getCodeConvertToLanguage(myBundle);
-			commands.set(i, translated);
+			history.set(i, translated);
 		}
 	}
 
 	public ListProperty<String> getCommandList() {
-		return commands;
+		return history;
 	}
 	
 	public void add(String command) {
 		SlogoScanner scanner = new SlogoScanner(command);
 		ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + language.get());
 		String translated = scanner.getCodeConvertToLanguage(myBundle);
-		commands.add(translated);
+		history.add(translated);
 	}
 
 	
@@ -64,7 +64,7 @@ public class HistoryModel extends State implements IHistoryModel{
 	}
 
 	public void clear() {
-		commands.clear();
+		history.clear();
 	}
 
 }
