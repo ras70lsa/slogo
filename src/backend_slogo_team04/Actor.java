@@ -5,10 +5,11 @@ import Utilities.Distance;
 
 /**
  * Class for manipulating the Turtle in the model
+ * 
  * @author Ryan St Pierre, Sophie Guo
  *
  */
- 
+
 public class Actor {
 
 	private double xLocation;
@@ -18,9 +19,17 @@ public class Actor {
 	public Actor(double x, double y, double heading) {
 		xLocation = x;
 		yLocation = y;
-		heading = heading;
+		this.heading = heading;
 	}
 
+	public void setXLocation(double x){
+		xLocation = x;
+	}
+	
+	public void setYLocation(double y){
+		yLocation = y;
+	}
+	
 	public void setxy(double x, double y) {
 		xLocation = x;
 		yLocation = y;
@@ -54,3 +63,4 @@ public class Actor {
 		return Math.toRadians(getHeading());
 	}
 }
+
