@@ -3,6 +3,8 @@ package frontend_features;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -47,7 +49,6 @@ public class View extends StaticPane implements Observer {
 		this.model = model;
 		addCSS("visual_resources/DefaultView.css");
 		visuals = new ViewUIState();
-		lineManager = new Stack<Line>();
 		pen = new Pen(Color.BLACK);
 		lineManager = new HashMap<ModelLine, Line>();
 		addSilentListeners();
