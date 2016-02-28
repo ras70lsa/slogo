@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class HTMLDisplay {
 
 	Stage stage;
+	
 	public HTMLDisplay() {
 		makeStage();
 		setProperties();
@@ -24,7 +25,7 @@ public class HTMLDisplay {
 	}
 
 	private void makeStage() {
-		 Stage stage = new Stage();
+		 stage = new Stage();
 	     Scene scene = new Scene(new Group());
 	     VBox root = new VBox();     
 

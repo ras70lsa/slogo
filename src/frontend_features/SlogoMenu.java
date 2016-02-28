@@ -47,7 +47,7 @@ public class SlogoMenu extends MenuBar {
 	
 	private void populate() {
 		history.getItems().add(createMenuItem(myBundle.getString("Clear"), e-> clear()));
-		help.getItems().add(createMenuItem(myBundle.getString("Command"), e-> helpBox()));
+		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox()));
 		options.getItems().add(history);
 		options.getItems().add(new SeparatorMenuItem());
 		options.getItems().add(new LanguageSelector(model.getLangauageProperty()));

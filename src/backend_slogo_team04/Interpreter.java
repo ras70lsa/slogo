@@ -63,4 +63,18 @@ public class Interpreter implements ISlogoInterpreter {
         }
         return this.slogoVariables.get(variable.toLowerCase());
     }
+
+
+	@Override
+	public void putFunction(String functionName, INonLinearCommand headNodeOfFunction) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public double setVariableValue(String variable, Double value) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
