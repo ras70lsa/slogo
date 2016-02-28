@@ -26,9 +26,9 @@ public class Controller {
     
     public void parseString(String stringToParse){
     	SlogoScanner scanner = new SlogoScanner(stringToParse); 
-    	String str = scanner.getLanguageConvertedCode(
+    	String debug = scanner.getLanguageConvertedCode(
     			ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + model.getLanguage()));
-    	model.addToHistory(str);
+    	//model.addToHistory(str);
     }
     
     public void interpretInformation(INonLinearCommand head){

@@ -2,12 +2,10 @@ package model;
 
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
-
 import Utilities.Angle;
 import Utilities.Distance;
 import interfaces_slogo_team04.ISlogoModelActions;

@@ -3,7 +3,7 @@ package model;
 import interfaces_slogo_team04.ICommunicator;
 import interfaces_slogo_team04.IModel;
 
-public class Communicator implements ICommunicator {
+public class Communicator implements ICommunicator{
 
 	IModel model;
 	public Communicator(IModel model) {
@@ -22,5 +22,4 @@ public class Communicator implements ICommunicator {
 	public void addCommand(String command) {
 		model.getCommandInterface().add(command);
 	}
-
 }
