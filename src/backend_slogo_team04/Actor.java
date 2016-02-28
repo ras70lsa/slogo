@@ -1,7 +1,11 @@
 package backend_slogo_team04;
 
+import Utilities.Angle;
+import Utilities.Distance;
+
 /**
  * Class for manipulating the Turtle in the model
+ * 
  * @author Ryan St Pierre
  *
  */
@@ -10,43 +14,52 @@ public class Actor {
 
 	private double xLocation;
 	private double yLocation;
-	private double rotation;
 	private double heading;
-	
-	public Actor(double x, double y, double spin) {
+
+	public Actor(double x, double y, double heading) {
 		xLocation = x;
 		yLocation = y;
-		rotation = spin;
+		this.heading = heading;
 	}
-	
-	public double getXLocation(){
-		return xLocation;
-	}
-	
+
 	public void setXLocation(double x){
-		xLocation = xLocation + x;
+		xLocation = x;
 	}
 	
 	public void setYLocation(double y){
-		yLocation = yLocation + y;
+		yLocation = y;
 	}
 	
-	public double getYLocation(){
+	public void setxy(double x, double y) {
+		xLocation = x;
+		yLocation = y;
+	}
+
+	public double getXLocation() {
+		return xLocation;
+	}
+
+	public double getYLocation() {
 		return yLocation;
 	}
-	
-	public void setHeading(double h){
-		heading = heading + h;
-	}
-	
-	public void setRotation(double r){
-		rotation = rotation + r;
-	}
-	public double getHeading(){
+
+	public double getHeading() {
 		return heading;
 	}
-	
-	public double getRotation(){
-		return rotation;
+
+	public void setHeading(double heading) {
+		heading = Angle.mod360(heading);
+	}
+
+	public void rotateClockwise(double degrees) {
+		heading = Angle.mod360(heading - degrees);
+	}
+
+	public void rotateCounterClockwise(double degrees) {
+		heading = Angle.mod360(heading + degrees);
+	}
+
+	public double getHeadingInRadians() {
+		return Math.toRadians(getHeading());
 	}
 }
