@@ -52,15 +52,15 @@ public class Actor {
 	}
 
 	public void setHeading(double heading) {
-		heading = Angle.mod360(heading);
+		this.heading = Angle.mod360(heading);
 	}
 
 	public void rotateClockwise(double degrees) {
-		heading = Angle.mod360(heading - degrees);
+		this.heading = Angle.mod360(heading - degrees);
 	}
 
 	public void rotateCounterClockwise(double degrees) {
-		heading = Angle.mod360(heading + degrees);
+		this.heading = Angle.mod360(heading + degrees);
 	}
 
 	public double getHeadingInRadians() {
