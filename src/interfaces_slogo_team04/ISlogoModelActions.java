@@ -1,4 +1,7 @@
 package interfaces_slogo_team04;
+import java.util.List;
+
+import backend_slogo_team04.Action;
 
 
 /**
@@ -25,4 +28,7 @@ public interface ISlogoModelActions {
     public double heading();
     public double isPenDown();
     public double isShowing();
+    public double clearScreen();
+    public List<Action> getHistory();
+
 }

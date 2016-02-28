@@ -1,7 +1,10 @@
 package model;
 
 
+import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
+
+import java.util.List;
 import java.util.Observable;
 import interfaces_slogo_team04.ISlogoModelActions;
 import interfaces_slogo_team04.IView;
@@ -158,6 +161,18 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public ColorProperty getBackgroundColor() {
 		return backgroundColor;
+	}
+
+	@Override
+	public double clearScreen() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Action> getHistory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
