@@ -1,5 +1,7 @@
 package backend_slogo_team04;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -16,6 +18,19 @@ public class SlogoScanner {
         this.myScanner.useDelimiter(ALL_WHITESPACE_REGEX);
         str = myString;
     }
+    
+    public SlogoScanner(File myFile){
+        try {
+            this.myScanner = new Scanner(myFile);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace(); // should throw an error to cause the user to re-select the proper input file
+        }
+        this.myScanner.useDelimiter(ALL_WHITESPACE_REGEX);
+    }
+
+    
+
     
     public Scanner getSlogoFormattedScanner(){
         return this.myScanner;

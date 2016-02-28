@@ -8,24 +8,36 @@ import interfaces_slogo_team04.ISlogoModelActions;
 import model.Controller;
 
 public class CmdRepeat extends CommandTreeNode {
+   //TODO change this to a resource bundle reference
+    private static final String REP_COUNT_VAR_NAME = ":repcount"; //TODO resource bundle perhaps so langauge change
+    CmdVariable myRepCount;
+    INonLinearCommand myExpression, myCommands;
+    
 
 
 
     public CmdRepeat (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
+        super(myParent);
         // TODO Auto-generated constructor stub
     }
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        // TODO Auto-generated method stub
-        return 0;
+        double limit = myExpression.executeCommand(myController, myInterpreter);
+        double lastValueSeen = 0d;
+        for(double i = 1d; i <= limit; i+=1d){
+            myRepCount.setVariableValue(i, myInterpreter);
+            lastValueSeen = myCommands.executeCommand(myController, myInterpreter);
+        }
+        return lastValueSeen;
     }
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        // TODO Auto-generated method stub
-        return null;
+        myExpression = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);     
+        myRepCount = new CmdVariable(this, REP_COUNT_VAR_NAME);
+        myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
+        return this;
     }
 
 }

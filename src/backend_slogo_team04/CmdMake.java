@@ -5,27 +5,30 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
 
 public class CmdMake extends CommandTreeNode {
+    private CmdVariable myVariable;
+    private INonLinearCommand myExpression;
 
-
-
-    public CmdMake (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
-        // TODO Auto-generated constructor stub
+    public CmdMake (CommandTreeNode myParent) {
+        super(myParent);
     }
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        // TODO Auto-generated method stub
-        return 0;
+        myVariable.setVariableValue(myExpression.executeCommand(myController, myInterpreter), myInterpreter);
+        return myVariable.getVariableValue(myInterpreter);
     }
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        // TODO Auto-generated method stub
-        return null;
+        // grab a variable command
+        myVariable = CommandTreeNode.getVariableOrAssertError(CommandTreeNode.getNextWord(myScanner), myScanner, this, myInterpreter);
+        
+        // grab an expression and then assign the value to the variable
+        
+        myExpression = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        return this;
     }
 
 }
