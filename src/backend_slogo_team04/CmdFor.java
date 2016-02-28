@@ -33,8 +33,7 @@ public class CmdFor extends CommandTreeNode {
             myStart = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
             myEnd = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
             myIncrement = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            nextString = CommandTreeNode.getNextWord(myScanner);
-            if(SlogoRegexChecker.isEndOfList(nextString)){
+            if(SlogoRegexChecker.isEndOfList(CommandTreeNode.getNextWord(myScanner))){
                 cmdList = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
             }else{
                 throw new UserInputException("Expected closing list bracket");

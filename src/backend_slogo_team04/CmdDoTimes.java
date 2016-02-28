@@ -34,12 +34,19 @@ public class CmdDoTimes extends CommandTreeNode {
             myWord = CommandTreeNode.getNextWord(myScanner);
             myVariable = CommandTreeNode.getVariableOrAssertError(myWord,myScanner, this, myInterpreter);
             myLimit = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+            if(SlogoRegexChecker.isEndOfList(CommandTreeNode.getNextWord(myScanner))){
+                
+                
+                myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
+            } else{
+                throw new UserInputException("Variable and limits declaration not closed with bracket");
+            }
 
-            myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
+            
 
 
         }else{
-            throw new UserInputException("Variable and limit brackets not closed");
+            throw new UserInputException("Expected variable and limits declaration");
         }
         return this;
     }
