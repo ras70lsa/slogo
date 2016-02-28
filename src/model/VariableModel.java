@@ -18,6 +18,8 @@ public class VariableModel implements IVariable {
 		ObservableList<Variable> variableList = FXCollections.observableArrayList();
 		variables = new SimpleListProperty<Variable>(variableList);
 		Map<String, Double> map = new HashMap<String, Double>();
+		map.put("Ryan", 1.0);
+		set(map);
 	}
 
 	public ListProperty<Variable> getVariables() {
