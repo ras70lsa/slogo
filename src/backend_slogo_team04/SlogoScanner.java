@@ -34,9 +34,6 @@ public class SlogoScanner {
         }
         this.myScanner.useDelimiter(ALL_WHITESPACE_REGEX);
     }
-
-    
-
     
     public Scanner getSlogoFormattedScanner(){
         return this.myScanner;
@@ -50,7 +47,9 @@ public class SlogoScanner {
     
     private void replace(ResourceBundle myResourceBundle) {
     	for(String key: myResourceBundle.keySet()) {
-    		Pattern p = Pattern.compile("\\b" + myResourceBundle.getString(key) + "\\b");
+    	        String stringRegex = "\\b" + "(" + myResourceBundle.getString(key) + ")" + "\\b";
+    	        System.out.println(stringRegex);
+    		Pattern p = Pattern.compile(stringRegex);
     		Matcher m = p.matcher(str);
     		str = m.replaceAll(key);
     		
@@ -64,7 +63,8 @@ public class SlogoScanner {
    
 	private void replaceReverse(ResourceBundle myBundle ) {
 		for(String key: myBundle.keySet()) {
-    		Pattern p = Pattern.compile("\\b" + key + "\\b");
+		String stringRegex = "\\b" + "(" + key + ")" + "\\b";
+    		Pattern p = Pattern.compile(stringRegex);
     		Matcher m = p.matcher(str);
     		String find = myBundle.getString(key);
     		if(find.indexOf("|") != -1) {
