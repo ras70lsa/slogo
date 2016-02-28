@@ -22,7 +22,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 	
 	public double forward(double pixels) {
-		// TODO Auto-generated method stub
+
 		turtle.setYLocation(pixels);
 		setChanged();
 		notifyObservers();
@@ -31,7 +31,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double back(double pixels) {
-		// TODO Auto-generated method stub
 		turtle.setYLocation(pixels);
 		setChanged();
 		notifyObservers();
@@ -40,7 +39,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double left(double pixels) {
-		// TODO Auto-generated method stub
 		turtle.setXLocation(pixels);
 		setChanged();
 		notifyObservers();
@@ -49,7 +47,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double right(double pixels) {
-		// TODO Auto-generated method stub
 		turtle.setXLocation(pixels);
 		setChanged();
 		notifyObservers();
@@ -58,7 +55,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double setHeading(double degrees) {
-		// TODO Auto-generated method stub
 		turtle.setHeading(degrees);
 		setChanged();
 		notifyObservers();
@@ -67,7 +63,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double towards(double x, double y) {
-		// TODO Auto-generated method stub
 		setChanged();
 		notifyObservers();
 		return 0;
@@ -75,7 +70,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double[] setxy(double x, double y) {
-		// TODO Auto-generated method stub
 		double [] location = new double [2];
 		turtle.setXLocation(x);
 		turtle.setYLocation(y);
@@ -86,19 +80,14 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return location;
 	}
 
-	@Override
 	public double penDown() {
 		setChanged();
-		
 		notifyObservers();
 		return 1;
 	}
 
-	@Override
 	public double penUp() {
-		// TODO Auto-generated method stub
 		setChanged();
-		
 		notifyObservers();
 		return 0;
 	}

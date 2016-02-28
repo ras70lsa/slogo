@@ -10,6 +10,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Collection;
 
+import backend_structures.RGBColor;
 import frontend_slogo_team04.ToggleButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -48,10 +49,15 @@ public class GuiUserOption {
 	
 	public Node get(ColorProperty color) {
 		ColorPicker picker = new ColorPicker();
-		picker.setOnAction(e -> color.set(picker.getValue()));
+		picker.setOnAction(e -> setColor(picker.getValue(), color));
 		return picker;
 	}
 	
+	private void setColor(Color frontEnd, ColorProperty color) {
+		RGBColor next = new RGBColor(frontEnd.getRed(), frontEnd.getGreen(), frontEnd.getBlue());
+		color.set(next);
+	}
+
 	public Node get(ImageProperty image, String title) {
 		Button button = new Button();
 		button.setText(title);

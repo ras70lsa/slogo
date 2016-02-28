@@ -1,5 +1,6 @@
 package frontend_features;
 
+import backend_structures.RGBColor;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -32,11 +33,5 @@ public abstract class StaticPane extends ModularPane {
 		node.setTranslateX(x);
 		node.setTranslateY(y);
 	}
-
-	public void updateColor(Color color){
-		String hex = toRGBCode(color);
-		getPane().setStyle("-fx-background-color: " + hex);
-	}
-	
 
 }
