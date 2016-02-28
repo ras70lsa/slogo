@@ -22,7 +22,7 @@ import visual_states.GuiUserOption;
  * Variable feature
  * @author Ryan St Pierre
  */
-public class VariableFeature extends ScrollablePane {
+public class VariableFeature extends VPane {
 
 	private IVariable model;
 	private TableView<Variable> table;
@@ -31,7 +31,7 @@ public class VariableFeature extends ScrollablePane {
 	
 		model = variables;
 		table = new TableView<Variable>();
-		add(new Label("History"));
+		add(new Label("Variables"));
 		createTableView();
 		addCSS("visual_resources/DefaultVariables.css");
 		
@@ -42,7 +42,7 @@ public class VariableFeature extends ScrollablePane {
 		TableColumn<Variable, String> names = new TableColumn<Variable, String>();
 		names.setText("Name");
 		TableColumn<Variable, Number> values = new TableColumn<Variable, Number>();
-		values.setText("Val");
+		values.setText("Value");
 		names.setCellValueFactory(e -> e.getValue().getName());
 		values.setCellValueFactory(e -> e.getValue().getDoubleValue());
 		names.setCellFactory(TextFieldTableCell.forTableColumn());

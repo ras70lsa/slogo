@@ -3,6 +3,8 @@ package interfaces_slogo_team04;
 
 import java.util.Observer;
 
+import properties.ColorProperty;
+
 public interface IView{
 
 	public void addObserver(Observer o);
@@ -10,4 +12,5 @@ public interface IView{
 	public double yCor();
 	public double isPenDown();
 	public double getRotation();
+	public ColorProperty getBackgroundColor();
 }

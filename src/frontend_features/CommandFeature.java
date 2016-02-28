@@ -6,6 +6,7 @@ import interfaces_slogo_team04.ICommands;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import visual_states.GuiUserOption;
 
@@ -15,9 +16,8 @@ public class CommandFeature extends InteractionListView {
 	private String selectedText;
 	
 	public CommandFeature(ICommands model) {
-		super(model.getCommands());
+		super(model.getCommands(), "Commands");
 		setAction(e-> passToBox());
-		addCSS("visual_resources/DefaultCommands.css");
 		interacted = new SimpleBooleanProperty();
 	}
 
@@ -28,10 +28,6 @@ public class CommandFeature extends InteractionListView {
 	
 	public String getText() {
 		return selectedText;
-	}
-	
-	protected List<Node> getReleventProperties(GuiUserOption factory) {
-		return null;
 	}
 	
 	public BooleanProperty getInteracted() {

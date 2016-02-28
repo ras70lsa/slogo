@@ -7,9 +7,11 @@ import constants.DisplayConstants;
 import frontend_features.CommandFeature;
 import frontend_features.History;
 import frontend_features.Module;
+import frontend_features.SlogoMenu;
 import frontend_features.UserTextInput;
 import frontend_features.VariableFeature;
 import frontend_features.View;
+import interfaces_slogo_team04.IDisplay;
 import interfaces_slogo_team04.IModel;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -33,7 +35,7 @@ import visual_states.HistoryUIState;
  * @author Ryan St Pierre
  *
  */
-public class Display {
+public class Display implements IDisplay {
 
 	private Collection<Module> modules;
 	private Stage myStage;
@@ -105,7 +107,6 @@ public class Display {
 	
 	private void addPanes() {
 		loopAndDo( m -> add(m.getPane()));
-
 	}
 	
 	private void add(Node node) {
@@ -113,58 +114,12 @@ public class Display {
 	}
 	
 	private void createMenuBar() {
-		
-		Menu file = new Menu("Options");
-		Menu help = new Menu("Help");
-		MenuItem commands = new MenuItem("Commands");
-		help.getItems().add(commands);
-		commands.setOnAction(e->helpBox("Help"));
-		
-		MenuBar bar = new MenuBar(file);
-		bar.getMenus().add(help);
-		loopAndDo(m -> addItem(m, file));
-		file.getItems().add(new SeparatorMenuItem());
-		file.getItems().add(new LanguageSelector(model.getLangauageProperty()));
-		panes.getChildren().add(bar);
-		
+		panes.getChildren().add(new SlogoMenu(model, this));
 	}
-
-	private void addItem(Module module, Menu file) {
-		MenuItem item = new MenuItem(module.getClass().getSimpleName());
-		item.setOnAction(e -> module.getOptions());
-		file.getItems().add(item);
-	}
-
+	
 	public void start() {
 		myStage.show();
 	}
-	
-	private Stage helpBox (String title) {
-		 Stage stage = new Stage();
-		 stage.setTitle("HTML");
-	     stage.setWidth(500);
-	     stage.setHeight(500);
-	     Scene scene = new Scene(new Group());
-	     VBox root = new VBox();     
-
-	     final WebView browser = new WebView();
-	     final WebEngine webEngine = browser.getEngine();
-	     ScrollPane scrollPane = new ScrollPane();
-	     scrollPane.setContent(browser);
-	     scrollPane.setFitToHeight(true);
-	     scrollPane.setFitToWidth(true);
-	     ClassLoader classLoader = getClass().getClassLoader();
-	 	 String url = classLoader.getResource("visual_resources/Commands.html").toExternalForm();  
-	     webEngine.load(url);
-	     
-	     root.getChildren().addAll(scrollPane);
-	     scene.setRoot(root);
-	     
-	     stage.setScene(scene);
-	     stage.show();
-	     return stage;
-	        
-   }
 	
 	public void setUpScene() {
 		
@@ -173,6 +128,10 @@ public class Display {
 		myScene = new Scene(panes, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT, 
 						DisplayConstants.BACKGROUND_COLOR);
 		myStage.setScene(myScene);
+	}
+	
+	public View getView() {
+		return view;
 	}
 
 }

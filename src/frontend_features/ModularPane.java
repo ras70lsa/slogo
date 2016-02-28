@@ -21,36 +21,19 @@ public abstract class ModularPane implements Module {
 	
 	private DoubleProperty width;
 	private DoubleProperty height;
-	private Group myGroup;
 	
 	public ModularPane() {
 		width = new SimpleDoubleProperty();
 		height = new SimpleDoubleProperty();
 	}
 	
-	public void getOptions() {
-	
-		List<Node> properties = getReleventProperties(new GuiUserOption());
-		Stage stage = getEmptyStage();
-		VBox box= new VBox();
-		myGroup.getChildren().add(box);
-		for(Node node: properties) {
-			box.getChildren().add(node);
-		}
-		stage.show();
-		
-	}
-	
-	private Stage getEmptyStage() {
-		myGroup = new Group();
-		Scene myScene = new Scene(myGroup, DisplayConstants.USER_OPTION_SIZE, DisplayConstants.USER_OPTION_SIZE, 
+	protected Stage getEmptyStage() {
+		Scene myScene = new Scene(new Group(), DisplayConstants.USER_OPTION_SIZE, DisplayConstants.USER_OPTION_SIZE, 
 				DisplayConstants.USER_OPTION_COLOR);
 		Stage stage = new Stage();
 		stage.setScene(myScene);
 		return stage;
 	}
-
-	protected abstract List<Node> getReleventProperties(GuiUserOption factory);
 
 	public String toRGBCode( Color color ){
 	    return String.format( "#%02X%02X%02X",

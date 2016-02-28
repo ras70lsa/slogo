@@ -11,7 +11,7 @@ public class DisplayConstants {
 	public static final int BUFFER = 20;
 	
 	public static final double TEXT_HEIGHT = 200;
-	public static final double TEXT_WIDTH = 470;
+	public static final double TEXT_WIDTH = 500;
 	
 	public static final double TEXT_X = BUFFER;
 	public static final double TEXT_Y = DISPLAY_HEIGHT - TEXT_HEIGHT - BUFFER;
@@ -22,7 +22,7 @@ public class DisplayConstants {
 	public static final double TURTLE_WIDTH = 40;
 	public static final double TURTLE_HEIGHT = 40;
 	
-	public static final double VAR_WIDTH = 150;
+	public static final double VAR_WIDTH = 250;
 	public static final double VAR_HEIGHT = TEXT_HEIGHT;
 	
 	public static final double VAR_X = DISPLAY_WIDTH -  2 * BUFFER - HISTORY_WIDTH - VAR_WIDTH;
@@ -34,7 +34,7 @@ public class DisplayConstants {
 	public static final double VIEW_HEIGHT = DISPLAY_HEIGHT - TEXT_HEIGHT - 4 * BUFFER;
 	public static final int VIEW_WIDTH = 500;
 	
-	public static final double COM_WIDTH = 150;
+	public static final double COM_WIDTH = 250;
 	public static final double COM_HEIGHT = HISTORY_HEIGHT - VAR_HEIGHT - BUFFER;
 	
 	public static final double COM_X = DISPLAY_WIDTH -  2 * BUFFER - HISTORY_WIDTH - VAR_WIDTH;

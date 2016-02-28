@@ -18,6 +18,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import visual_states.GuiUserOption;
@@ -26,8 +27,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Model;
 import model.ViewModel;
@@ -44,7 +47,7 @@ public class View extends StaticPane implements Observer {
 
 	public View(IView model) {
 		turtle = new VisualTurtle(getFirstImage());
-		this.model = (ViewModel) model;
+		this.model = model;
 		addCSS("visual_resources/DefaultView.css");
 		visuals = new ViewUIState();
 		lineManager = new Stack<Line>();
@@ -60,6 +63,7 @@ public class View extends StaticPane implements Observer {
 
 	private void addSilentListeners() {
 		visuals.getImageProperty().addListener((a, b, c) -> setTurtleImage(c));
+		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
 
 	}
 
@@ -97,10 +101,11 @@ public class View extends StaticPane implements Observer {
 
 	}
 
-	@Override
+	
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		List<Node> list = new ArrayList<Node>();
 		list.add(factory.get(visuals.getImageProperty(), "Choose Actor Image"));
+		list.add(factory.get(model.getBackgroundColor()));
 		return list;
 	}
 
@@ -170,6 +175,20 @@ public class View extends StaticPane implements Observer {
 
 	public static void main(String[] args) {
 
+	}
+	
+	public void getOptions() {
+		
+		List<Node> properties = getReleventProperties(new GuiUserOption());
+		Stage stage = getEmptyStage();
+		VBox box= new VBox();
+		Group myGroup = (Group) stage.getScene().getRoot();
+		myGroup.getChildren().add(box);
+		for(Node node: properties) {
+			box.getChildren().add(node);
+		}
+		stage.show();
+		
 	}
 }
 

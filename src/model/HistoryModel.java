@@ -63,4 +63,8 @@ public class HistoryModel extends State implements IHistoryModel{
 		return language;
 	}
 
+	public void clear() {
+		commands.clear();
+	}
+
 }

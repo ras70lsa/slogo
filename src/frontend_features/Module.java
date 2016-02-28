@@ -21,8 +21,6 @@ public interface Module {
 	 * This gives the functionality of allowing the User to change given settings, such as background color.
 	 * @return State 
 	 */
-
-	public void getOptions();
 	
 	public void position(double x, double y, double prefWidth, double prefHeight);
 

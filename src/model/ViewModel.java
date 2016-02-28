@@ -1,23 +1,23 @@
 package model;
 
-import java.util.Observer;
 
-import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
-import constants.DisplayConstants;
-
-import java.util.List;
 import java.util.Observable;
 import interfaces_slogo_team04.ISlogoModelActions;
 import interfaces_slogo_team04.IView;
+import properties.ColorProperty;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
+	
 	private Actor turtle;
 	private boolean penDown = true;
 	private boolean isShowing = true;
+	private ColorProperty backgroundColor;
 	
+	public ViewModel() {
+		backgroundColor = new ColorProperty();
+	}
 	
-	@Override
 	public double forward(double pixels) {
 		// TODO Auto-generated method stub
 		turtle.setYLocation(pixels);
@@ -153,6 +153,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	public double getRotation(){
 		return turtle.getRotation();
+	}
+
+	@Override
+	public ColorProperty getBackgroundColor() {
+		return backgroundColor;
 	}
 
 }

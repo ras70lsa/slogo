@@ -12,10 +12,10 @@ import javafx.scene.paint.Color;
  */
 public abstract class StaticPane extends ModularPane {
 
-	private VBox pane; 
+	private Pane pane; 
 	
 	public StaticPane() {
-		pane = new VBox();
+		pane = new Pane();
 		pane.getStyleClass().add("pane");
 	}
 	

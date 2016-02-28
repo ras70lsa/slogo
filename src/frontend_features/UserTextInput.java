@@ -46,7 +46,6 @@ public class UserTextInput extends StaticPane {
 		go.setOnAction(e -> inputEntered());
 		go.setPrefWidth(50);
 		add(go, DisplayConstants.TEXT_WIDTH - go.getPrefWidth(), 0); 
-		
 	}
 	
 	public void inputEntered() {	
@@ -62,6 +61,9 @@ public class UserTextInput extends StaticPane {
 	}
 
 	public void append(String text) {
+		if(text == null) {
+			return;
+		}
 		textArea.setText(textArea.getText() + " " + text);
 	}
 	
