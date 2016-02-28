@@ -15,9 +15,8 @@ public class CmdTo extends CommandTreeNode {
 
 
 
-    public CmdTo (CommandTreeNode myParent, String myCommandName) {
+    public CmdTo (CommandTreeNode myParent) {
         super(myParent);
-        this.myCommandName = myCommandName;
         isInitializedCorrectly = CommandTreeNode.DOUBLE_ZERO;
     }
 
@@ -31,15 +30,23 @@ public class CmdTo extends CommandTreeNode {
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         // TODO Auto-generated method stub
-
-        CmdCommand myCommandToCreate = new CmdCommand(null, myCommandName); // command float on their own, do not have any parent as they are not really part of tree
-
-
-
         String myWord = CommandTreeNode.getNextWord(myScanner);
+        
+        //check to see if this is a valid command word type
+        if(SlogoRegexChecker.couldBeCommand(myWord)){
+            
+        }
+        
+        
+        CmdCommand myCommandToCreate = new CmdCommand(null, myWord); // command float on their own, do not have any parent as they are not really part of tree
+
+
+
+
 
         List<CmdVariable> listOfVariables = new ArrayList<CmdVariable>();
         List<INonLinearCommand> listOfCommands = new ArrayList<INonLinearCommand>(); 
+        myWord = CommandTreeNode.getNextWord(myScanner);
         if(SlogoRegexChecker.isStartOfList(myWord)){
             // grab variables
             myWord = CommandTreeNode.getNextWord(myScanner);

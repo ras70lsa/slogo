@@ -5,13 +5,11 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
-
 public class CmdFor extends CommandTreeNode {
     private CmdVariable myVariable;
     private INonLinearCommand myStart, myEnd, myIncrement, cmdList;
 
-    public CmdFor (Controller myController, CommandTreeNode myParent) {
+    public CmdFor (CommandTreeNode myParent) {
         super(myParent);
     }
 

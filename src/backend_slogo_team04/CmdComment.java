@@ -1,18 +1,23 @@
 package backend_slogo_team04;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
-
+/**
+ * Will just eat things until it sees a new line
+ * @author jonathanim
+ *
+ */
 public class CmdComment extends CommandTreeNode {
+    private final String NEW_LINE_CHARACTER = "[\\R]";
 
 
 
-    public CmdComment (Controller myController, CommandTreeNode myParent) {
-        super(myParent);asdfasdf
+    public CmdComment (CommandTreeNode myParent) {
+        super(myParent);
         // TODO Auto-generated constructor stub
     }
 
@@ -24,8 +29,16 @@ public class CmdComment extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        // TODO Auto-generated method stub
-        return null;
+        Pattern cached = myScanner.delimiter();
+        myScanner.useDelimiter(SlogoScanner.ALL_NON_NEW_LINE_WHITESPACE_REGEX);
+        while(myScanner.hasNext()){
+            if(Pattern.matches(NEW_LINE_CHARACTER, CommandTreeNode.getNextWord(myScanner))){
+                break;
+            }
+        }
+        myScanner.useDelimiter(cached);
+        
+        return null; //this will cause the comment to not even touch the tree
     }
 
 }

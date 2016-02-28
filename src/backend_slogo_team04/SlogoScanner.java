@@ -8,7 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SlogoScanner {
-    private static final String ALL_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
+    protected static final String ALL_NON_NEW_LINE_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
+    protected static final String ALL_WHITESPACE_REGEX = "[\\s]+";
     private Scanner myScanner;
     private String str;
     
@@ -19,6 +20,11 @@ public class SlogoScanner {
         str = myString;
     }
     
+    /**
+     * Will remove this method as soon as we are done testing the backend, the backend will only have text input coming from
+     * the file pickers or the textbox on the front end
+     * @param myFile
+     */
     public SlogoScanner(File myFile){
         try {
             this.myScanner = new Scanner(myFile);
