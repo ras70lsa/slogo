@@ -39,7 +39,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double back(double pixels) {
-
+		
 		double angle = turtle.getHeadingInRadians() + Angle.HALF_CIRCLE;
 		turtle.setxy(turtle.getXLocation() + Math.sin(angle) * pixels,
 				turtle.getYLocation() + Math.cos(angle) * pixels);
@@ -96,7 +96,15 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return 0;
 	}
 
-	
+	@Override
+	public double setxy(double x, double y) {
+		double oldX = turtle.getXLocation();
+		double oldY = turtle.getYLocation();
+		turtle.setxy(x, y);
+		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
+		return Distance.calculateDistance(oldX, oldY, x, y);
+	}
+
 
 	public double penDown() {
 		penIsDown = true;
@@ -188,6 +196,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double isPenDown() {
 		return (penIsDown) ? 1 : 0;
+	
 	}
 
 }
+

@@ -6,7 +6,11 @@ import Utilities.Distance;
 /**
  * Class for manipulating the Turtle in the model
  * 
+<<<<<<< HEAD
  * @author Ryan St Pierre, Sophie Guo
+=======
+ * @author Ryan St Pierre Sophie Guo
+>>>>>>> master
  *
  */
 
