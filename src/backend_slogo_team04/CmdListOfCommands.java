@@ -10,6 +10,8 @@ import interfaces_slogo_team04.ISlogoModelActions;
 
 /**
  * Helper class, not real part of slogo language but used to encapsulate the storage logic for an expected list of commands
+ * with the opening and closing brackets []
+ * will automatically return the last seen double value as a result of execution
  * @author jonathanim
  *
  */
@@ -40,7 +42,7 @@ public class CmdListOfCommands extends CommandTreeNode {
         if(SlogoRegexChecker.isStartOfList(myNextWord)){
             myNextWord = CommandTreeNode.getNextWord(myScanner);
             while(!SlogoRegexChecker.isEndOfList(myNextWord)){
-                myCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter));
+                myCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
                 myNextWord = CommandTreeNode.getNextWord(myScanner);
             }
         }else{
