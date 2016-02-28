@@ -42,8 +42,9 @@ public class View extends StaticPane implements Observer {
 	private ViewUIState visuals;
 	private IView model;
 	private Pen pen;
-	private Stack<Line> lineManager;
-	private static final double INTERVAL_LENGTH = 1000;
+	private Map<ModelLine, Line> lineManager;
+	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE/2;
+
 
 	public View(IView model) {
 		turtle = new VisualTurtle(getFirstImage());
@@ -52,6 +53,7 @@ public class View extends StaticPane implements Observer {
 		visuals = new ViewUIState();
 		lineManager = new Stack<Line>();
 		pen = new Pen(Color.BLACK);
+		lineManager = new HashMap<ModelLine, Line>();
 		addSilentListeners();
 		model.addObserver(this);
 		setUp();
@@ -113,18 +115,31 @@ public class View extends StaticPane implements Observer {
 	public void update(Observable o, Object arg) {
 		double modelX = model.xCor();
 		double modelY = model.yCor();
-		if (model.isPenDown() != 1) {
-			drawLine(turtle.getTranslateX(), turtle.getTranslateX(), translateToLineX(modelX),
-					translateToLineY(modelY));
+		if (arg instanceof Collection){
+			Collection toBeRemoved = (Collection) arg;
+			toBeRemoved.forEach(l -> remove(lineManager.get(l)));
 		}
-		turn(model.getRotation());
+		
+		if (arg instanceof ModelLine){
+			ModelLine modelLine = (ModelLine) arg;
+			Line newLine = drawLine(turtle.getTranslateX(), turtle.getTranslateX(), translateToLineX(modelX),
+					translateToLineY(modelY));
+			lineManager.put(modelLine,newLine);
+		}
+		
+		if (model.isShowing() == 1) {
+			showTurtle();
+		} else {
+			hideTurtle();
+		}
+		turn(translateToTurtleAngle(model.getHeading()));
 		moveTurtle(translateToTurtleX(modelX), translateToTurtleY(modelY));
 	}
 
-	public void drawLine(double startX, double startY, double endX, double endY) {
+	public Line drawLine(double startX, double startY, double endX, double endY) {
 		Line newLine = pen.createLine(startX, startY, endX, endY);
 		add(newLine, startX, startY);
-		lineManager.add(newLine);
+		return newLine;
 	}
 
 	public double home() {
@@ -144,17 +159,13 @@ public class View extends StaticPane implements Observer {
 		turtle.setTranslateY(getCenterYCor(turtle.getFitHeight()));
 	}
 
-	private Stack<Line> getLineManager() {
-		return lineManager;
-	}
-
 	public void moveTurtle(double endX, double endY) {
 		turtle.setTranslateX(endX);
 		turtle.setTranslateY(endY);
 	}
 
-	public void turn(double rotation) {
-		turtle.setRotate(rotation);
+	public void turn(double heading) {
+		turtle.setRotate(heaing);
 	}
 
 	private double translateToLineX(double xCor) {
@@ -175,6 +186,18 @@ public class View extends StaticPane implements Observer {
 
 	public static void main(String[] args) {
 
+	}
+	
+	public double translateToTurtleAngle(double angle){
+		return -(angle - TURTLE_INITIAL_ANGLE);
+	}
+	
+	public void hideTurtle(){
+		turtle.setVisible(false);
+	}
+	
+	public void showTurtle(){
+		turtle.setVisible(true);
 	}
 	
 	public void getOptions() {
