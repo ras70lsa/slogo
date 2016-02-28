@@ -22,6 +22,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
+		turtle = new Actor(0, 0, Angle.FULL_CIRCLE/2);
+		lineManager = new Stack<ModelLine>();
+		penIsDown = true;
+		isShowing = true;
 	}
 
 	@Override

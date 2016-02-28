@@ -74,5 +74,9 @@ public class SlogoScanner {
 		}
 		
     } 
+	
+	public String getString() {
+		return str;
+	}
 
 }

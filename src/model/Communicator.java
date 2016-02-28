@@ -14,7 +14,7 @@ public class Communicator implements ICommunicator{
 		model.getHistory().add(input);
 		
 	}
-	
+		
 	public String getLanguage() {
 		return model.getLangauage();
 	}
