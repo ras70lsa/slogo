@@ -1,6 +1,7 @@
 package frontend_slogo_team04;
 
 
+import constants.DisplayConstants;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
@@ -11,7 +12,11 @@ public class VisualTurtle extends ImageView{
 	private DoubleProperty myHeading = new SimpleDoubleProperty();
 	
 	public VisualTurtle(Image i){
+		super(i);
 		setImage(i);
+		this.setFitHeight(DisplayConstants.TURTLE_HEIGHT);
+		this.setFitWidth(DisplayConstants.TURTLE_WIDTH);
+		this.setPreserveRatio(true);
 		myHeading.setValue(0);;
 	}
 	

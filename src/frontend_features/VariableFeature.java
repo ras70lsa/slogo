@@ -3,10 +3,10 @@ package frontend_features;
 import java.util.List;
 
 import backend_slogo_team04.Variable;
-import frontend_slogo_team04.GuiUserOption;
 import interfaces_slogo_team04.IVariable;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -16,12 +16,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
+import visual_states.GuiUserOption;
 
 /**
  * Variable feature
  * @author Ryan St Pierre
  */
-public class VariableFeature extends ScrollablePane {
+public class VariableFeature extends VPane {
 
 	private IVariable model;
 	private TableView<Variable> table;
@@ -30,6 +31,7 @@ public class VariableFeature extends ScrollablePane {
 	
 		model = variables;
 		table = new TableView<Variable>();
+		add(new Label("Variables"));
 		createTableView();
 		addCSS("visual_resources/DefaultVariables.css");
 		
@@ -40,7 +42,7 @@ public class VariableFeature extends ScrollablePane {
 		TableColumn<Variable, String> names = new TableColumn<Variable, String>();
 		names.setText("Name");
 		TableColumn<Variable, Number> values = new TableColumn<Variable, Number>();
-		values.setText("Val");
+		values.setText("Value");
 		names.setCellValueFactory(e -> e.getValue().getName());
 		values.setCellValueFactory(e -> e.getValue().getDoubleValue());
 		names.setCellFactory(TextFieldTableCell.forTableColumn());
