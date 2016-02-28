@@ -5,7 +5,6 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
 
 public class CmdNot extends CommandTreeNode {
     private INonLinearCommand testOne; 
@@ -29,7 +28,7 @@ public class CmdNot extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        testOne = CommandTreeNode.recursiveSlogoFactory(myScanner, this, myInterpreter);
+        testOne = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
 
