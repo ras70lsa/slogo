@@ -5,13 +5,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import visual_states.GuiUserOption;
+import javafx.scene.layout.VBox;
 import java.util.List;
 
 import constants.DisplayConstants;
-import frontend_slogo_team04.GuiUserOption;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 /**
@@ -33,12 +32,10 @@ public abstract class ModularPane implements Module {
 	
 		List<Node> properties = getReleventProperties(new GuiUserOption());
 		Stage stage = getEmptyStage();
-		int counter = 0;
+		VBox box= new VBox();
+		myGroup.getChildren().add(box);
 		for(Node node: properties) {
-			myGroup.getChildren().add(node);
-			node.setTranslateX(140);
-			node.setTranslateY(counter);
-			counter = counter + 50;
+			box.getChildren().add(node);
 		}
 		stage.show();
 		
@@ -46,7 +43,8 @@ public abstract class ModularPane implements Module {
 	
 	private Stage getEmptyStage() {
 		myGroup = new Group();
-		Scene myScene = new Scene(myGroup, 300, 300, Color.BEIGE);
+		Scene myScene = new Scene(myGroup, DisplayConstants.USER_OPTION_SIZE, DisplayConstants.USER_OPTION_SIZE, 
+				DisplayConstants.USER_OPTION_COLOR);
 		Stage stage = new Stage();
 		stage.setScene(myScene);
 		return stage;

@@ -3,12 +3,12 @@ package frontend_features;
 import java.util.List;
 
 import constants.DisplayConstants;
-import frontend_slogo_team04.GuiUserOption;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import model.Controller;
+import visual_states.GuiUserOption;
 
 /**
  * Text input feature (for code)
@@ -18,21 +18,14 @@ import model.Controller;
 public class UserTextInput extends StaticPane {
 
 	private TextArea textArea;
-	private String language;
 	private Controller controller;
 	
 	public UserTextInput(Controller controller) {
 		this.controller = controller;
-		language = "English";
 		setUp();
 		addCSS("visual_resources/DefaultInputBox.css");
 	}
 	
-	private void setLanguage(String newValue) {
-		language= newValue;
-		System.out.println(language);
-	}
-
 	private void createTextField() {
 		textArea = new TextArea();
         textArea.getStyleClass().add("TextArea");
@@ -64,9 +57,12 @@ public class UserTextInput extends StaticPane {
 		textArea.setText(selectedText);
 	}
 
-	@Override
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		return null;
+	}
+
+	public void append(String text) {
+		textArea.setText(textArea.getText() + " " + text);
 	}
 	
 

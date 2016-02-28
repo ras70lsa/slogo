@@ -3,6 +3,7 @@ package frontend_features;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -11,10 +12,10 @@ import javafx.scene.paint.Color;
  */
 public abstract class StaticPane extends ModularPane {
 
-	private Pane pane; 
+	private VBox pane; 
 	
 	public StaticPane() {
-		pane = new Pane();
+		pane = new VBox();
 		pane.getStyleClass().add("pane");
 	}
 	
@@ -22,7 +23,7 @@ public abstract class StaticPane extends ModularPane {
 		return pane;
 	}
 	
-	public void setPane(Pane display){
+	public void setPane(VBox display){
 		this.pane = display;
 	}
 	

@@ -39,6 +39,9 @@ public class DisplayConstants {
 	
 	public static final String RESOURCES_PATH = "resources.languages/";
 	
+	public static final double USER_OPTION_SIZE = 200;
+	public static final Color USER_OPTION_COLOR = Color.LIGHTGOLDENRODYELLOW;
+	
 	public static final String[] possibleLangauges = {"English", "Chinese", "French", "German",
 			"Italian", "Portuguese", "Russian", "Spanish"};
 }

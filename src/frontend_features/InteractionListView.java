@@ -31,6 +31,10 @@ public abstract class InteractionListView extends StaticPane {
 		
 	}
 	
+	protected void canView(boolean interact) {
+		list.setVisible(interact);
+	}
+	
 	private void addListeners() {
 		getWidth().addListener((a,b,w) -> resize(w.doubleValue(), getHeight().get()));
 		getHeight().addListener((a,b,h) -> resize(getWidth().get(),h.doubleValue()));

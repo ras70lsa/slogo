@@ -10,20 +10,22 @@ import frontend_features.Module;
 import frontend_features.UserTextInput;
 import frontend_features.VariableFeature;
 import frontend_features.View;
-import interfaces_slogo_team04.IHistoryModel;
 import interfaces_slogo_team04.IModel;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import model.Controller;
+import visual_states.HistoryUIState;
 
 /**
  * This class is the class responsible for setting up the interaction with the user.
@@ -61,7 +63,7 @@ public class Display {
 	}
 	private void createModules(Controller controller) {
 		textInput= new UserTextInput(controller);
-		history = new History(model.getHistory(), new HistoryUIState());
+		history = new History(model.getHistory());
 		view = new View(model.getViewInterface());
 		variables = new VariableFeature(model.getVariables());
 		commands = new CommandFeature(model.getCommandInterface());
@@ -74,6 +76,7 @@ public class Display {
 
 	private void addListeners() {
 		history.getInteracted().addListener(e -> textInput.setText(history.getSelected()));
+		commands.getInteracted().addListener(e -> textInput.append(commands.getText()));
 	}
 
 	public interface FunctionCall {
@@ -120,6 +123,8 @@ public class Display {
 		MenuBar bar = new MenuBar(file);
 		bar.getMenus().add(help);
 		loopAndDo(m -> addItem(m, file));
+		file.getItems().add(new SeparatorMenuItem());
+		file.getItems().add(new LanguageSelector(model.getLangauageProperty()));
 		panes.getChildren().add(bar);
 		
 	}

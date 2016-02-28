@@ -5,20 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import backend_slogo_team04.Action;
 import constants.DisplayConstants;
-import frontend_slogo_team04.GuiUserOption;
 import frontend_slogo_team04.State;
-import frontend_slogo_team04.TestingState;
-import frontend_slogo_team04.ViewUIState;
 import frontend_slogo_team04.VisualTurtle;
-import frontend_slogo_team04.VisualizationAction;
 import interfaces_slogo_team04.IView;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
+import visual_states.GuiUserOption;
+import visual_states.ViewUIState;
 
 public class View extends StaticPane implements Observer{
 
@@ -26,7 +20,6 @@ public class View extends StaticPane implements Observer{
 	private double scaleFactor = 1;
 	private ViewUIState visuals;
 	private IView model;
-	
 	
 	public View(IView model) {
 		turtle = new VisualTurtle(getFirstImage());
@@ -77,8 +70,7 @@ public class View extends StaticPane implements Observer{
 	public State getState() {
 		return null;
 	}
-
-
+	
 	public double getCenterXCor(){
 		return DisplayConstants.VIEW_WIDTH/2;
 	}
@@ -89,7 +81,7 @@ public class View extends StaticPane implements Observer{
 
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		List<Node> list = new ArrayList<Node>();
-		list.add(factory.get(visuals.getImageProperty(), "Testing"));
+		list.add(factory.get(visuals.getImageProperty(), "Choose Actor Image"));
 		return list;
 	}
 	

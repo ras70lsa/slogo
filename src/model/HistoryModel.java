@@ -20,17 +20,12 @@ import properties.ColorProperty;
 
 public class HistoryModel extends State implements IHistoryModel{
 
-	private ColorProperty color;
-	private ListProperty<Action> info;
 	private ListProperty<String> commands;
 	private StringProperty language;
 	
 	public HistoryModel(StringProperty language) {
 		
 		this.language = language;
-		color = new ColorProperty();
-		ObservableList<Action> list = FXCollections.observableArrayList();
-		info = new SimpleListProperty<Action>(list);
 		ObservableList<String> commandList = FXCollections.observableArrayList();
 		commands = new SimpleListProperty<String>(commandList);
 		addListeners();
@@ -52,29 +47,10 @@ public class HistoryModel extends State implements IHistoryModel{
 		}
 	}
 
-	protected Collection<Node> getStageNodes() {
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(getFactory().get(color, "string"));
-		return nodes;
-	}
-	
-	public ColorProperty getColorProperty() {
-		return color;
-	}
-	
-	public ListProperty<Action> getListProperty() {
-		return info;
-	}
-	
-	public void addToStack(Action action) {
-		info.add(action);
-	}
-
 	public ListProperty<String> getCommandList() {
 		return commands;
 	}
-
-	@Override
+	
 	public void add(String command) {
 		SlogoScanner scanner = new SlogoScanner(command);
 		ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + language.get());
