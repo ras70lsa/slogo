@@ -82,30 +82,10 @@ public class SlogoMenu extends MenuBar {
 		file.getItems().add(item);
 	}
 	
-	private Stage helpBox () {
-		 Stage stage = new Stage();
-		 stage.setTitle("HTML");
-	     stage.setWidth(500);
-	     stage.setHeight(500);
-	     Scene scene = new Scene(new Group());
-	     VBox root = new VBox();     
-
-	     final WebView browser = new WebView();
-	     final WebEngine webEngine = browser.getEngine();
-	     ScrollPane scrollPane = new ScrollPane();
-	     scrollPane.setContent(browser);
-	     scrollPane.setFitToHeight(true);
-	     scrollPane.setFitToWidth(true);
-	     ClassLoader classLoader = getClass().getClassLoader();
-	 	 String url = classLoader.getResource(CSSPathConstants.HELP).toExternalForm();  
-	     webEngine.load(url);
-	     
-	     root.getChildren().addAll(scrollPane);
-	     scene.setRoot(root);
-	     
-	     stage.setScene(scene);
-	     stage.show();
-	     return stage;
+	private void helpBox () {
+		
+		HTMLDisplay display = new HTMLDisplay();
+		display.show();
 	        
    }
 }
