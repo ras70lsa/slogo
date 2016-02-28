@@ -16,7 +16,7 @@ public class BackendTest {
 
         //we are going to test the code used to 
 
-        File myFile = new File("examples/procedures/dash.logo");
+        File myFile = new File("examples/variables/fd_random.logo");
         String content = null;
         try {
             content = new Scanner(myFile).useDelimiter("\\Z").next();

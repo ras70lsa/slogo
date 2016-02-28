@@ -151,7 +151,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         }
         if(SlogoRegexChecker.isStartOfComment(nextWord)){
             new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children
-            return slogoCommandFactory(nextWord, myScanner, myParent, myInterpreter);
+            return slogoCommandFactory(CommandTreeNode.getNextWord(myScanner), myScanner, myParent, myInterpreter);
         }
 
         //TODO need to replace the fake checks for the type of command with the pattern syntax matches provided on the website:
