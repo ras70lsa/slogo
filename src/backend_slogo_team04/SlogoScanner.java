@@ -8,7 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SlogoScanner {
-    private static final String ALL_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
+    protected static final String ALL_NON_NEW_LINE_WHITESPACE_REGEX = "[ \\t\\x0B\\f\\r]+";
+    protected static final String ALL_WHITESPACE_REGEX = "[\\s]+";
     private Scanner myScanner;
     private String str;
     
@@ -19,6 +20,11 @@ public class SlogoScanner {
         str = myString;
     }
     
+    /**
+     * Will remove this method as soon as we are done testing the backend, the backend will only have text input coming from
+     * the file pickers or the textbox on the front end
+     * @param myFile
+     */
     public SlogoScanner(File myFile){
         try {
             this.myScanner = new Scanner(myFile);
@@ -28,9 +34,6 @@ public class SlogoScanner {
         }
         this.myScanner.useDelimiter(ALL_WHITESPACE_REGEX);
     }
-
-    
-
     
     public Scanner getSlogoFormattedScanner(){
         return this.myScanner;
@@ -44,7 +47,9 @@ public class SlogoScanner {
     
     private void replace(ResourceBundle myResourceBundle) {
     	for(String key: myResourceBundle.keySet()) {
-    		Pattern p = Pattern.compile("\\b" + myResourceBundle.getString(key) + "\\b");
+    	        String stringRegex = "\\b" + "(" + myResourceBundle.getString(key) + ")" + "\\b";
+    	        System.out.println(stringRegex);
+    		Pattern p = Pattern.compile(stringRegex);
     		Matcher m = p.matcher(str);
     		str = m.replaceAll(key);
     		
@@ -58,7 +63,8 @@ public class SlogoScanner {
    
 	private void replaceReverse(ResourceBundle myBundle ) {
 		for(String key: myBundle.keySet()) {
-    		Pattern p = Pattern.compile("\\b" + key + "\\b");
+		String stringRegex = "\\b" + "(" + key + ")" + "\\b";
+    		Pattern p = Pattern.compile(stringRegex);
     		Matcher m = p.matcher(str);
     		String find = myBundle.getString(key);
     		if(find.indexOf("|") != -1) {

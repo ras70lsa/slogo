@@ -5,7 +5,6 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
 
 public class CmdRepeat extends CommandTreeNode {
    //TODO change this to a resource bundle reference
@@ -16,7 +15,7 @@ public class CmdRepeat extends CommandTreeNode {
 
 
 
-    public CmdRepeat (Controller myController, CommandTreeNode myParent) {
+    public CmdRepeat (CommandTreeNode myParent) {
         super(myParent);
         // TODO Auto-generated constructor stub
     }

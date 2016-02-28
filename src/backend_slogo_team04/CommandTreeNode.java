@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import exceptions.LogicException;
-import exceptions.StructuralException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
@@ -21,15 +20,14 @@ import interfaces_slogo_team04.ISlogoModelActions;
  *
  */
 public abstract class CommandTreeNode implements INonLinearCommand {
-    private static final char START_OF_COMMENT_CHAR = '#';
-    private static final char NEW_LINE_CHAR = '\n';
-    private static final char VAR_FIRST_CHAR = ':';
+
     protected static final double DOUBLE_ZERO = 0d;
     protected static final double DOUBLE_ONE = 1d;
-    private static final String START_OF_LIST = "[";
-    private static final String END_OF_LIST = "]";
+
 
     private List<CommandTreeNode> myChildren;
+   
+    @SuppressWarnings("unused")
     private CommandTreeNode myParent; //in case we need to do weird scope things in the future
 
 
@@ -102,11 +100,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
 
-    private static void assertNotStartOfList(String myWordToCheck) throws UserInputException{
-        if(SlogoRegexChecker.isStartOfList(myWordToCheck)){
-            throw new UserInputException("Did not expect list declaration following last command");
-        }
-    }
+
 
     protected static String getNextWord(Scanner myScanner) throws UserInputException{
         String myWord;
@@ -124,6 +118,38 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         // need to fix this to include the required inputs for hte different classes, and then also
         // include the logic for choosing to instantiate the headnode
         // include the required list node subtype construction
+        CommandTreeNode toReturn = keyWordFunctions(nextWord, myParent);
+        if(toReturn != null){
+            return toReturn;
+        }
+        // at this point, no keyword is detected
+        if(SlogoRegexChecker.isVariable(nextWord)){
+            return new CmdVariable(myParent, nextWord);
+        }
+        if(isUserDefinedFunction(nextWord, myInterpreter)){
+            return new CmdCommand(myParent, nextWord);
+        }
+        if(SlogoRegexChecker.isDouble(nextWord)){
+            return new CmdConstant(myParent, Double.parseDouble(nextWord));
+        }
+        if(SlogoRegexChecker.isStartOfComment(nextWord)){
+            return new CmdComment(myParent);
+        }
+
+        //TODO need to replace the fake checks for the type of command with the pattern syntax matches provided on the website:
+        // http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php
+
+
+        // at this point, we have no idea what the input is, we should simply throw a malformed code input error and let the gui
+        // handle informing the user
+        throw new UserInputException("Please check spelling of all Slogo commands");
+    }
+    
+    protected boolean isKeyWord(String nextWord){
+        return keyWordFunctions(nextWord, null) != null;
+    }
+
+    private static CommandTreeNode keyWordFunctions (String nextWord, CommandTreeNode myParent) {
         switch(nextWord){
             // TURTLE COMMANDS
             case "Forward":
@@ -137,7 +163,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             case "SetHeading":
                 return new CmdSetHeading(myParent);
             case "SetTowards":
-                return new CmdTowards(myParent, asdf asdf asdf asdf );
+                return new CmdTowards(myParent);
             case "SetPosition":
                 return new CmdSetXY(myParent);
             case "PenDown":
@@ -211,39 +237,20 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             case "MakeVariable":
                 return new CmdMake(myParent);
             case "Repeat":
-                return new CmdRepeat(myController, myParent);
+                return new CmdRepeat(myParent);
             case "DoTimes":
-                return new CmdDoTimes(myController, myParent);
+                return new CmdDoTimes(myParent);
             case "For":
-                return new CmdFor(myController, myParent);
+                return new CmdFor(myParent);
             case "If":
-                return new CmdIf(myController, myParent);
+                return new CmdIf(myParent);
             case "IfElse":
-                return new CmdIfElse(myController, myParent);
+                return new CmdIfElse(myParent);
             case "MakeUserInstruction": //logic to prevent collision of existing commands will belong to the cmdTo class itself
-                return new CmdTo(myController, myParent);
+                return new CmdTo(myParent);
+            default:
+                return null;
         }
-        // at this point, no keyword is detected
-        if(SlogoRegexChecker.isVariable(nextWord)){
-            return new CmdVariable(myParent, nextWord);
-        }
-        if(isUserDefinedFunction(nextWord, myInterpreter)){
-            return new CmdCommand(myController, myParent);
-        }
-        if(NumberFormatChecker.isDouble(nextWord)){
-            return new CmdConstant(myController, myParent);
-        }
-        if(SlogoRegexChecker.isStartOfComment(nextWord)){
-            return new CmdComment(myController, myParent);
-        }
-
-        //TODO need to replace the fake checks for the type of command with the pattern syntax matches provided on the website:
-        // http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php
-
-
-        // at this point, we have no idea what the input is, we should simply throw a malformed code input error and let the gui
-        // handle informing the user
-        throw new UserInputException("Please check spelling of all Slogo commands");
     }
 
 
