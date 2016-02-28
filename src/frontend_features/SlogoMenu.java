@@ -82,10 +82,10 @@ public class SlogoMenu extends MenuBar {
 		file.getItems().add(item);
 	}
 	
+
 	private void helpBox () {
 		
 		HTMLDisplay display = new HTMLDisplay();
 		display.show();
-	        
    }
 }

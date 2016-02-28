@@ -15,14 +15,14 @@ import properties.ColorProperty;
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	private Actor turtle;
-	private boolean penIsDown = true;
-	private boolean isShowing = true;
+	private boolean penIsDown;
+	private boolean isShowing;
 	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
-		turtle = new Actor(0, 0, Angle.FULL_CIRCLE/2);
+		turtle = new Actor(0,0,Angle.HALF_CIRCLE/2);
 		lineManager = new Stack<ModelLine>();
 		penIsDown = true;
 		isShowing = true;
@@ -32,8 +32,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public double forward(double pixels) {
 
 		double angle = turtle.getHeadingInRadians();
-		turtle.setxy(turtle.getXLocation() + Math.sin(angle) * pixels,
-				turtle.getYLocation() + Math.cos(angle) * pixels);
+		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
+				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
 		return pixels;
 
@@ -41,10 +41,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double back(double pixels) {
-		
-		double angle = turtle.getHeadingInRadians() + Angle.HALF_CIRCLE;
-		turtle.setxy(turtle.getXLocation() + Math.sin(angle) * pixels,
-				turtle.getYLocation() + Math.cos(angle) * pixels);
+
+		double angle = turtle.getHeadingInRadians() + Math.PI;
+		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
+				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
 		return pixels;
 	}
@@ -201,5 +201,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	
 	}
 
+	
+	public static void main(String[] args) {
+		ViewModel test = new ViewModel();
+		test.forward(20);
+//		test.back(20);
+		System.out.println(test.xCor());
+		System.out.println(test.yCor());
+	}
 }
 

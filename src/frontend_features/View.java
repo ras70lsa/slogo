@@ -48,7 +48,7 @@ public class View extends StaticPane implements Observer {
 		turtle = new VisualTurtle(getFirstImage());
 		this.model = model;
 		addCSS("visual_resources/DefaultView.css");
-		visuals = new ViewUIState();
+		visuals = new ViewUIState();	
 		pen = new Pen(Color.BLACK);
 		lineManager = new HashMap<ModelLine, Line>();
 		addSilentListeners();
