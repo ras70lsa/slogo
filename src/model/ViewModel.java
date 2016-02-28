@@ -1,26 +1,31 @@
 package model;
 
-
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
+import java.util.Stack;
+
+import Utilities.Angle;
+import Utilities.Distance;
 import interfaces_slogo_team04.ISlogoModelActions;
 import interfaces_slogo_team04.IView;
 import properties.ColorProperty;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
-	
+
 	private Actor turtle;
-	private boolean penDown = true;
+	private boolean penIsDown = true;
 	private boolean isShowing = true;
+	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
-	
+
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
 	}
-	
+
 	@Override
 	public double forward(double pixels) {
 		double angle = turtle.getHeadingInRadians();
@@ -39,15 +44,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return pixels;
 	}
 
-	@Override
-	public double left(double pixels) {
-		// TODO Auto-generated method stub
-		turtle.setXLocation(pixels);
-		setChanged();
-		notifyObservers();
-		return turtle.getXLocation();
-	}
-
 	public void addNewLineAndNotifyObservers(double x, double y) {
 		ModelLine newLine = new ModelLine(x, y);
 		if (penIsDown) {
@@ -56,7 +52,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		setChanged();
 		notifyObservers(newLine);
 	}
-	
+
 	@Override
 	public double left(double degrees) {
 		turtle.rotateCounterClockwise(degrees);
@@ -64,7 +60,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		notifyObservers();
 		return degrees;
 	}
-	
+
 	@Override
 	public double right(double degrees) {
 		turtle.rotateClockwise(degrees);
@@ -94,7 +90,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double[] setxy(double x, double y) {
 		// TODO Auto-generated method stub
-		double [] location = new double [2];
+		double[] location = new double[2];
 		turtle.setXLocation(x);
 		turtle.setYLocation(y);
 		setChanged();
@@ -156,11 +152,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	@Override
-	public double yCor() {
-		return turtle.getYLocation();
-	}
-
-	@Override
 	public double heading() {
 		return turtle.getHeading();
 	}
@@ -170,7 +161,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return (isShowing) ? 1 : 0;
 	}
 
-	public double getHeading(){
+	public double getHeading() {
 		return turtle.getHeading();
 	}
 
@@ -195,6 +186,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public List<Action> getHistory() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public double isPenDown() {
+		return (penIsDown) ? 1 : 0;
 	}
 
 }
