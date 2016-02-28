@@ -53,7 +53,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     protected static INonLinearCommand recursiveSlogoFactoryNoListsAllowed(Scanner myScanner
                                                                            , CommandTreeNode parentNode 
                                                                            , ISlogoInterpreter myInterpreter) throws UserInputException{
-        return recursiveSlogoFactoryAssertCondition(myScanner.next()
+        return recursiveSlogoFactoryAssertCondition(CommandTreeNode.getNextWord(myScanner)
                                                     , myScanner
                                                     , parentNode
                                                     , myInterpreter

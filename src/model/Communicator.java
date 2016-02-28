@@ -1,5 +1,6 @@
 package model;
 
+import backend_slogo_team04.ISlogoInterpreter;
 import interfaces_slogo_team04.ICommunicator;
 import interfaces_slogo_team04.IModel;
 
@@ -19,7 +20,7 @@ public class Communicator implements ICommunicator{
 		return model.getLangauage();
 	}
 	
-	public void addCommand(String command) {
-		model.getCommandInterface().add(command);
+	public ExecutionState getExecutionModel() {
+		return model.getExecutionState();
 	}
 }

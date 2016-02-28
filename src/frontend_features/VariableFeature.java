@@ -68,8 +68,6 @@ public class VariableFeature extends VPane {
 		System.out.println(table.getItems());
 	}
 
-	protected List<Node> getReleventProperties(GuiUserOption factory) {
-		return null;
-	}
+	
 
 }
