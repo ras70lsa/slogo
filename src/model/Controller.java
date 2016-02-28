@@ -2,11 +2,17 @@ package model;
 
 
 import java.util.ResourceBundle;
+
+import backend_slogo_team04.CmdTreeHeadNode;
 import backend_slogo_team04.INonLinearCommand;
+import backend_slogo_team04.Interpreter;
 import backend_slogo_team04.SlogoScanner;
 import constants.DisplayConstants;
+import exceptions.LogicException;
+import exceptions.UserInputException;
 import interfaces_slogo_team04.ICommunicator;
 import interfaces_slogo_team04.IModel;
+import interfaces_slogo_team04.ISlogoModelActions;
 
 
 /**
@@ -19,16 +25,33 @@ import interfaces_slogo_team04.IModel;
 public class Controller {
 
     private ICommunicator model;
+    private ISlogoModelActions viewModel;
     
-    public Controller(ICommunicator model) {
+    public Controller(ICommunicator model, ISlogoModelActions viewModel) {
     	this.model = model;
+    	this.viewModel = viewModel;
     }
     
     public void parseString(String stringToParse){
     	SlogoScanner scanner = new SlogoScanner(stringToParse); 
-    	String str = scanner.getLanguageConvertedCode(
+    	String debug = scanner.getLanguageConvertedCode(
     			ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + model.getLanguage()));
-    	model.addToHistory(str);
+    	SlogoScanner test = new SlogoScanner(debug);
+    	
+    	try {
+    		Interpreter myTestInterpreter = new Interpreter();
+    		INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(test.getSlogoFormattedScanner(), myTestInterpreter);
+            myHead.executeCommand(viewModel, myTestInterpreter);
+        }
+        catch (UserInputException e) {
+              // TODO Auto-generated catch block
+               e.printStackTrace();
+        }
+    	catch (LogicException e) {
+               // TODO Auto-generated catch block
+    		e.printStackTrace();
+        }
+    	//model.addToHistory(str);
     }
     
     public void interpretInformation(INonLinearCommand head){

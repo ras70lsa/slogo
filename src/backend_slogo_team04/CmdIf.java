@@ -1,31 +1,37 @@
 package backend_slogo_team04;
 
+
 import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
 
 public class CmdIf extends CommandTreeNode {
+    private INonLinearCommand myExpression;
+    private INonLinearCommand myListOfCommands;
 
 
+    public CmdIf (CommandTreeNode myParent) {
+        super(myParent);
 
-    public CmdIf (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        // TODO Auto-generated method stub
-        return 0;
+        if(CommandTreeNode.isNonZero(myExpression, myController, myInterpreter)){
+            return myListOfCommands.executeCommand(myController, myInterpreter);
+        }
+        return CommandTreeNode.DOUBLE_ZERO;
     }
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        // TODO Auto-generated method stub
-        return null;
+        myExpression = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        myListOfCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
+        
+        
+        return this;
     }
 
 }

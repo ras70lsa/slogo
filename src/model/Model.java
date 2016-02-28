@@ -4,6 +4,7 @@ import interfaces_slogo_team04.ICommands;
 import interfaces_slogo_team04.ICommunicator;
 import interfaces_slogo_team04.IHistoryModel;
 import interfaces_slogo_team04.IModel;
+import interfaces_slogo_team04.ISlogoModelActions;
 import interfaces_slogo_team04.IVariable;
 import interfaces_slogo_team04.IView;
 import javafx.beans.property.SimpleStringProperty;
@@ -58,6 +59,10 @@ public class Model implements IModel  {
 	}
 
 	public IView getViewInterface() {
+		return view;
+	}
+	
+	public ISlogoModelActions getView() {
 		return view;
 	}
 

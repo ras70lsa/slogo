@@ -1,15 +1,7 @@
 package frontend_features;
 
-
-
-import java.util.ArrayList;
-import java.util.List;
-
+import constants.ResourceConstants;
 import interfaces_slogo_team04.IHistoryModel;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.Node;
-import visual_states.GuiUserOption;
 import visual_states.HistoryUIState;
 
 
@@ -20,37 +12,16 @@ import visual_states.HistoryUIState;
 
 public class History extends InteractionListView {
 
-	private String selectedItem;
-	private BooleanProperty interacted;
 	private HistoryUIState visuals;
 	
 	public History(IHistoryModel model) {
-		super(model.getCommandList(), "History");
-		setUp();
+		super(model.getCommandList(), ResourceConstants.HISTORY_KEY);
 		visuals = new HistoryUIState();
 		addListeners();
-	}
-	
-	public void setUp() {
-		setAction(e->print());
-		interacted = new SimpleBooleanProperty();
-		selectedItem = "";
 	}
 
 	private void addListeners() { 
 		visuals.getVisibleProperty().addListener((a,b,c) -> canView(c.booleanValue()));
 	}
-	private void print() {
-		selectedItem = getSelection();
-		interacted.set(!interacted.get());
-	}
 	
-	public BooleanProperty getInteracted() {
-		return interacted;
-	}
-	
-	public String getSelected() {
-		return selectedItem;
-	}
-
 }

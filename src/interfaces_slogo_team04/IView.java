@@ -11,6 +11,7 @@ public interface IView{
 	public double xCor();
 	public double yCor();
 	public double isPenDown();
-	public double getRotation();
+	public double isShowing();
+	public double getHeading();
 	public ColorProperty getBackgroundColor();
 }

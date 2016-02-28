@@ -8,8 +8,12 @@ import javafx.stage.Stage;
 import visual_states.GuiUserOption;
 import javafx.scene.layout.VBox;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import backend_structures.RGBColor;
+import constants.CSSPathConstants;
 import constants.DisplayConstants;
+import constants.ResourceConstants;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -19,12 +23,16 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 public abstract class ModularPane implements Module {
 	
+	public static final int RGB_MULTIPLIER = 255;
 	private DoubleProperty width;
 	private DoubleProperty height;
+	ResourceBundle myBundle;
 	
 	public ModularPane() {
 		width = new SimpleDoubleProperty();
 		height = new SimpleDoubleProperty();
+		myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH +
+					ResourceConstants.ENGLISH);
 	}
 	
 	protected Stage getEmptyStage() {
@@ -35,11 +43,11 @@ public abstract class ModularPane implements Module {
 		return stage;
 	}
 
-	public String toRGBCode( Color color ){
+	public String toRGBCode( RGBColor c ){
 	    return String.format( "#%02X%02X%02X",
-	            (int)( color.getRed() * 255 ),
-	            (int)( color.getGreen() * 255 ),
-	            (int)( color.getBlue() * 255 ) );
+	            (int)( c.getRed() * RGB_MULTIPLIER ),
+	            (int)( c.getGreen() * RGB_MULTIPLIER ),
+	            (int)( c.getBlue() * RGB_MULTIPLIER ) );
 	}
 	
 	public void position(double x, double y, double prefWidth, double prefHeight) {
@@ -62,5 +70,15 @@ public abstract class ModularPane implements Module {
 	protected DoubleProperty getHeight() {
 		return height;
 	}
+	
+	public void updateColor(RGBColor c){
+		String hex = toRGBCode(c);
+		getPane().setStyle(CSSPathConstants.BACKGROUND_COLOR + hex);
+	}
+	
+	protected String getString(String input) {
+		return myBundle.getString(input);
+	}
+	
 
 }

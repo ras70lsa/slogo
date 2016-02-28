@@ -2,12 +2,10 @@ package model;
 
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
-
 import Utilities.Angle;
 import Utilities.Distance;
 import interfaces_slogo_team04.ISlogoModelActions;
@@ -24,19 +22,26 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
+		turtle = new Actor(0, 0, Angle.FULL_CIRCLE/2);
+		lineManager = new Stack<ModelLine>();
+		penIsDown = true;
+		isShowing = true;
 	}
 
 	@Override
 	public double forward(double pixels) {
+
 		double angle = turtle.getHeadingInRadians();
 		turtle.setxy(turtle.getXLocation() + Math.sin(angle) * pixels,
 				turtle.getYLocation() + Math.cos(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
 		return pixels;
+
 	}
 
 	@Override
 	public double back(double pixels) {
+		
 		double angle = turtle.getHeadingInRadians() + Angle.HALF_CIRCLE;
 		turtle.setxy(turtle.getXLocation() + Math.sin(angle) * pixels,
 				turtle.getYLocation() + Math.cos(angle) * pixels);
@@ -49,11 +54,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		if (penIsDown) {
 			lineManager.add(newLine);
 		}
+
 		setChanged();
 		notifyObservers(newLine);
 	}
 
 	@Override
+
 	public double left(double degrees) {
 		turtle.rotateCounterClockwise(degrees);
 		setChanged();
@@ -64,6 +71,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double right(double degrees) {
 		turtle.rotateClockwise(degrees);
+
 		setChanged();
 		notifyObservers();
 		return degrees;
@@ -71,6 +79,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double setHeading(double degrees) {
+
 		double oldHeading = turtle.getHeading();
 		turtle.setHeading(degrees);
 		setChanged();
@@ -80,27 +89,25 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double towards(double x, double y) {
+
 		double newHeading = Angle.calculateAngleBetweenPoints(turtle.getXLocation(), turtle.getYLocation(), x, y);
 		turtle.setHeading(newHeading);
+
 		setChanged();
 		notifyObservers();
 		return 0;
 	}
 
 	@Override
-	public double[] setxy(double x, double y) {
-		// TODO Auto-generated method stub
-		double[] location = new double[2];
-		turtle.setXLocation(x);
-		turtle.setYLocation(y);
-		setChanged();
-		notifyObservers();
-		location[0] = turtle.getXLocation();
-		location[1] = turtle.getYLocation();
-		return location;
+	public double setxy(double x, double y) {
+		double oldX = turtle.getXLocation();
+		double oldY = turtle.getYLocation();
+		turtle.setxy(x, y);
+		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
+		return Distance.calculateDistance(oldX, oldY, x, y);
 	}
 
-	@Override
+
 	public double penDown() {
 		penIsDown = true;
 		setChanged();
@@ -108,8 +115,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return 1;
 	}
 
-	@Override
 	public double penUp() {
+
 		penIsDown = false;
 		setChanged();
 		notifyObservers();
@@ -191,6 +198,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double isPenDown() {
 		return (penIsDown) ? 1 : 0;
+	
 	}
 
 }
+

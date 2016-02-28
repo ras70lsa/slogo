@@ -5,27 +5,28 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces_slogo_team04.ISlogoModelActions;
 
-import model.Controller;
 
 public class CmdTowards extends CommandTreeNode {
+    INonLinearCommand myX, myY;
 
 
 
-    public CmdTowards (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
-        // TODO Auto-generated constructor stub
+    public CmdTowards (CommandTreeNode myParent) {
+        super(myParent);
     }
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        // TODO Auto-generated method stub
-        return 0;
+        return myController.towards(myX.executeCommand(myController, myInterpreter)
+                                    , myY.executeCommand(myController, myInterpreter));
     }
 
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         // TODO Auto-generated method stub
-        return null;
+        myX = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        myY = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        return this;
     }
 
 }
