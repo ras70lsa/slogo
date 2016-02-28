@@ -22,12 +22,10 @@ public class ToggleButton extends Button {
 	
 	public ToggleButton(String text) {
 		super(text);
-		// TODO Auto-generated constructor stub
 	}
 
 	public ToggleButton(String text, Node graphic) {
 		super(text, graphic);
-		// TODO Auto-generated constructor stub
 	}
 	
 	private void toggle() {

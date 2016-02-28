@@ -1,4 +1,4 @@
-package frontend_slogo_team04;
+package visual_states;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -10,16 +10,18 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Collection;
 
-
-
+import frontend_slogo_team04.ToggleButton;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,24 +38,23 @@ public class GuiUserOption {
 		
 	}
 	
-	public Node get(BooleanProperty value, String str) {
-		// TODO Auto-generated constructor stub
-		Button b = createToggle(value);
-		b.setTranslateX(200);
-		b.setTranslateY(200);
-		return b;
+	public Node get(BooleanProperty value, String label) {
+		HBox hbox = new HBox();
+		hbox.getChildren().add(new Label(label));
+		hbox.getChildren().add(new ToggleButton(value));
+		return hbox;
 		
 	}
 	
-	public Node get(ColorProperty color, String str) {
+	public Node get(ColorProperty color) {
 		ColorPicker picker = new ColorPicker();
 		picker.setOnAction(e -> color.set(picker.getValue()));
 		return picker;
 	}
 	
-	public Node get(ImageProperty image, String str) {
+	public Node get(ImageProperty image, String title) {
 		Button button = new Button();
-		button.setText(str);
+		button.setText(title);
 		button.setOnAction(e-> getImage(image));
 		return button;
 		
@@ -78,10 +79,6 @@ public class GuiUserOption {
 				//do nothing
 			}
 		} 
-	}
-
-	private Button createToggle(BooleanProperty value) {
-		return new ToggleButton(value);
 	}
 
 }

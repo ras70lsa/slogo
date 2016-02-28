@@ -7,23 +7,27 @@ import constants.DisplayConstants;
 import frontend_features.CommandFeature;
 import frontend_features.History;
 import frontend_features.Module;
+import frontend_features.SlogoMenu;
 import frontend_features.UserTextInput;
 import frontend_features.VariableFeature;
 import frontend_features.View;
-import interfaces_slogo_team04.IHistoryModel;
+import interfaces_slogo_team04.IDisplay;
 import interfaces_slogo_team04.IModel;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import model.Controller;
+import visual_states.HistoryUIState;
 
 /**
  * This class is the class responsible for setting up the interaction with the user.
@@ -31,7 +35,7 @@ import model.Controller;
  * @author Ryan St Pierre
  *
  */
-public class Display {
+public class Display implements IDisplay {
 
 	private Collection<Module> modules;
 	private Stage myStage;
@@ -61,7 +65,7 @@ public class Display {
 	}
 	private void createModules(Controller controller) {
 		textInput= new UserTextInput(controller);
-		history = new History(model.getHistory(), new HistoryUIState());
+		history = new History(model.getHistory());
 		view = new View(model.getViewInterface());
 		variables = new VariableFeature(model.getVariables());
 		commands = new CommandFeature(model.getCommandInterface());
@@ -74,6 +78,7 @@ public class Display {
 
 	private void addListeners() {
 		history.getInteracted().addListener(e -> textInput.setText(history.getSelected()));
+		commands.getInteracted().addListener(e -> textInput.append(commands.getText()));
 	}
 
 	public interface FunctionCall {
@@ -82,7 +87,7 @@ public class Display {
 	
 	private void positionModules() {
 		view.position(DisplayConstants.BUFFER, 2 * DisplayConstants.BUFFER, 
-				DisplayConstants.TEXT_WIDTH, DisplayConstants.VIEW_HEIGHT);
+				DisplayConstants.VIEW_WIDTH, DisplayConstants.VIEW_HEIGHT);
 		textInput.position(DisplayConstants.TEXT_X, DisplayConstants.TEXT_Y, 
 				DisplayConstants.TEXT_WIDTH, DisplayConstants.TEXT_HEIGHT);
 		variables.position(DisplayConstants.VAR_X, DisplayConstants.VAR_Y, 
@@ -102,7 +107,6 @@ public class Display {
 	
 	private void addPanes() {
 		loopAndDo( m -> add(m.getPane()));
-
 	}
 	
 	private void add(Node node) {
@@ -110,56 +114,12 @@ public class Display {
 	}
 	
 	private void createMenuBar() {
-		
-		Menu file = new Menu("Options");
-		Menu help = new Menu("Help");
-		MenuItem commands = new MenuItem("Commands");
-		help.getItems().add(commands);
-		commands.setOnAction(e->helpBox("Help"));
-		
-		MenuBar bar = new MenuBar(file);
-		bar.getMenus().add(help);
-		loopAndDo(m -> addItem(m, file));
-		panes.getChildren().add(bar);
-		
+		panes.getChildren().add(new SlogoMenu(model, this));
 	}
-
-	private void addItem(Module module, Menu file) {
-		MenuItem item = new MenuItem(module.getClass().getSimpleName());
-		item.setOnAction(e -> module.getOptions());
-		file.getItems().add(item);
-	}
-
+	
 	public void start() {
 		myStage.show();
 	}
-	
-	private Stage helpBox (String title) {
-		 Stage stage = new Stage();
-		 stage.setTitle("HTML");
-	     stage.setWidth(500);
-	     stage.setHeight(500);
-	     Scene scene = new Scene(new Group());
-	     VBox root = new VBox();     
-
-	     final WebView browser = new WebView();
-	     final WebEngine webEngine = browser.getEngine();
-	     ScrollPane scrollPane = new ScrollPane();
-	     scrollPane.setContent(browser);
-	     scrollPane.setFitToHeight(true);
-	     scrollPane.setFitToWidth(true);
-	     ClassLoader classLoader = getClass().getClassLoader();
-	 	 String url = classLoader.getResource("visual_resources/Commands.html").toExternalForm();  
-	     webEngine.load(url);
-	     
-	     root.getChildren().addAll(scrollPane);
-	     scene.setRoot(root);
-	     
-	     stage.setScene(scene);
-	     stage.show();
-	     return stage;
-	        
-   }
 	
 	public void setUpScene() {
 		
@@ -168,6 +128,10 @@ public class Display {
 		myScene = new Scene(panes, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT, 
 						DisplayConstants.BACKGROUND_COLOR);
 		myStage.setScene(myScene);
+	}
+	
+	public View getView() {
+		return view;
 	}
 
 }

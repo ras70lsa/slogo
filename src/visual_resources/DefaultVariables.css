@@ -2,11 +2,11 @@
 	
 	-fx-font-family: Consolas;
 	-fx-fill: #000000;
-	-fx-font-size: 16pt;
+	-fx-font-size: 12pt;
 	
 }
 
-.scroll_pane {
-	-fx-background: #00008F;
-}
+.table-view {
 
+    -fx-background-color: #FFFFFF;
+}

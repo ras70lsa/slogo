@@ -2,16 +2,20 @@ package frontend_features;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
-public abstract class InteractionListView extends StaticPane {
+public abstract class InteractionListView extends VPane {
 
 	ListView<String> list;
 	
-	public InteractionListView(ObservableList<String> tracking) {
+	public InteractionListView(ObservableList<String> tracking, String title) {
+		add(new Label(title));
 		createListView(tracking);
 		addListeners();
+		addCSS("visual_resources/DefaultList.css");
+		list.setPlaceholder(new Label("No Content"));
 	}
 	
 	protected void setAction(EventHandler<MouseEvent> e) {
@@ -27,8 +31,12 @@ public abstract class InteractionListView extends StaticPane {
 		list = new ListView<String>();
 		list.setVisible(true);
 		list.setItems(tracking);
-		add(list, 0, 0);
+		add(list);
 		
+	}
+	
+	protected void canView(boolean interact) {
+		list.setVisible(interact);
 	}
 	
 	private void addListeners() {

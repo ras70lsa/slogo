@@ -5,17 +5,12 @@ package frontend_features;
 import java.util.ArrayList;
 import java.util.List;
 
-import constants.DisplayConstants;
-import frontend_slogo_team04.GuiUserOption;
-import frontend_slogo_team04.HistoryUIState;
 import interfaces_slogo_team04.IHistoryModel;
-import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
-import javafx.scene.control.ListView;
+import visual_states.GuiUserOption;
+import visual_states.HistoryUIState;
 
 
 /**
@@ -25,19 +20,26 @@ import javafx.scene.control.ListView;
 
 public class History extends InteractionListView {
 
-	private IHistoryModel model;
 	private String selectedItem;
 	private BooleanProperty interacted;
+	private HistoryUIState visuals;
 	
-	public History(IHistoryModel model, HistoryUIState visuals) {
-		super(model.getCommandList());
+	public History(IHistoryModel model) {
+		super(model.getCommandList(), "History");
+		setUp();
+		visuals = new HistoryUIState();
+		addListeners();
+	}
+	
+	public void setUp() {
 		setAction(e->print());
-		this.model = model;
 		interacted = new SimpleBooleanProperty();
 		selectedItem = "";
-		addCSS("visual_resources/DefaultHistory.css");
 	}
 
+	private void addListeners() { 
+		visuals.getVisibleProperty().addListener((a,b,c) -> canView(c.booleanValue()));
+	}
 	private void print() {
 		selectedItem = getSelection();
 		interacted.set(!interacted.get());
@@ -49,12 +51,6 @@ public class History extends InteractionListView {
 	
 	public String getSelected() {
 		return selectedItem;
-	}
-
-	protected List<Node> getReleventProperties(GuiUserOption factory) {
-		List<Node> toRet = new ArrayList<Node>();
-		toRet.add(factory.get(model.getLanguage(), DisplayConstants.possibleLangauges));
-		return toRet;
 	}
 
 }
