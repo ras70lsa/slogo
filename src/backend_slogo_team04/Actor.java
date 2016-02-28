@@ -6,11 +6,10 @@ import Utilities.Distance;
 /**
  * Class for manipulating the Turtle in the model
  * 
-<<<<<<< HEAD
- * @author Ryan St Pierre, Sophie Guo
-=======
- * @author Ryan St Pierre Sophie Guo
->>>>>>> master
+
+ * @author Ryan St Pierre 
+ * @author Sophie Guo
+
  *
  */
 
@@ -52,7 +51,7 @@ public class Actor {
 	}
 
 	public void setHeading(double heading) {
-		heading = Angle.mod360(heading);
+		this.heading = Angle.mod360(heading);
 	}
 
 	public void rotateClockwise(double degrees) {
