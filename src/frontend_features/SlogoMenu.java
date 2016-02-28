@@ -65,8 +65,8 @@ public class SlogoMenu extends MenuBar {
 	private Stage helpBox () {
 		 Stage stage = new Stage();
 		 stage.setTitle("HTML");
-	     stage.setWidth(500);
-	     stage.setHeight(500);
+	     stage.setWidth(600);
+	     stage.setHeight(600);
 	     Scene scene = new Scene(new Group());
 	     VBox root = new VBox();     
 
