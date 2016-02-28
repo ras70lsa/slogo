@@ -68,6 +68,8 @@ public class View extends StaticPane implements Observer {
 
 	public void setUp() {
 		add(turtle, getCenterXCor(turtle.getFitWidth()), getCenterYCor(turtle.getFitHeight()));
+//		System.out.println("Center X: " + getCenterXCor(turtle.getFitWidth()));
+//		System.out.println("Center Y: " + getCenterYCor(turtle.getFitHeight()));
 	}
 
 	private void setTurtleImage(Image i) {
@@ -119,8 +121,12 @@ public class View extends StaticPane implements Observer {
 		
 		if (arg instanceof ModelLine){
 			ModelLine modelLine = (ModelLine) arg;
-			Line newLine = drawLine(turtle.getTranslateX(), turtle.getTranslateX(), translateToLineX(modelX),
+			Line newLine = drawLine(turtle.getTranslateX()+turtle.getFitWidth()/2, turtle.getTranslateY(), translateToLineX(modelX)+turtle.getFitHeight()/2,
 					translateToLineY(modelY));
+			System.out.println("line startx: " + turtle.getTranslateX());
+			System.out.println("line starty: " + turtle.getTranslateY());
+			System.out.println("line endx: " + translateToLineX(modelX));
+			System.out.println("line endy: " + translateToLineY(modelY));
 			lineManager.put(modelLine,newLine);
 		}
 		
@@ -130,13 +136,16 @@ public class View extends StaticPane implements Observer {
 			hideTurtle();
 		}
 		turn(translateToTurtleAngle(model.getHeading()));
+		System.out.println("Current heading: " + model.getHeading());
 		moveTurtle(translateToTurtleX(modelX), translateToTurtleY(modelY));
 	}
 
 	public Line drawLine(double startX, double startY, double endX, double endY) {
-		Line newLine = pen.createLine(startX, startY, endX, endY);
-		add(newLine, startX, startY);
-		return newLine;
+		//Line newLine = pen.createLine(startX, startY, endX, endY);\
+		Line n = new Line();
+		//add(newLine, startX, startY);
+		addLine(n ,startX, startY, endX, endY);
+		return n;
 	}
 
 	public double home() {
@@ -152,6 +161,8 @@ public class View extends StaticPane implements Observer {
 	public void moveTurtle(double endX, double endY) {
 		turtle.setTranslateX(endX);
 		turtle.setTranslateY(endY);
+		System.out.println("Turtle X: " + turtle.getTranslateX());
+		System.out.println("Turtle Y: " + turtle.getTranslateY());
 	}
 
 	public void turn(double heading) {
@@ -163,20 +174,21 @@ public class View extends StaticPane implements Observer {
 	}
 
 	public double translateToLineY(double yCor) {
-		return getCenterYCor(turtle.getFitHeight()) - yCor;
+		return getCenterYCor(turtle.getFitHeight()) - yCor + turtle.getFitHeight()/2;
 	}
 
 	public double translateToTurtleX(double xCor) {
-		return xCor;
+		return xCor + getCenterXCor(turtle.getFitHeight());
 	}
 
 	public double translateToTurtleY(double yCor) {
-		return -yCor;
+		return getCenterYCor(turtle.getFitHeight()) - yCor;
 	}
 
-	public static void main(String[] args) {
-
-	}
+//	public static void main(String[] args) {
+//		ViewModel test = new ViewModel();
+//		View temp = new View(test);
+//	}
 	
 	public double translateToTurtleAngle(double angle){
 		return -(angle - TURTLE_INITIAL_ANGLE);

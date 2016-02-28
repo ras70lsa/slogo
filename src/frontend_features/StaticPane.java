@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 /**
  * Feature with pane
@@ -36,6 +37,14 @@ public abstract class StaticPane extends ModularPane {
 		pane.getChildren().add(node);
 		node.setTranslateX(x);
 		node.setTranslateY(y);
+	}
+	
+	public void addLine(Line node, double startX, double startY, double endX, double endY){
+		pane.getChildren().add(node);
+		node.setStartX(startX);
+		node.setStartY(startY);
+		node.setEndX(endX);
+		node.setEndY(endY);
 	}
 
 }
