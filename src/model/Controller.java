@@ -44,7 +44,9 @@ public class Controller {
     }
     
     private void update(String input) {
-		model.addToHistory(input);
+    	if(input != null && !input.equals("")) {
+    		model.addToHistory(input);
+    	}
 	}
 
 	private SlogoScanner getProperScanner(String stringToParse) {
