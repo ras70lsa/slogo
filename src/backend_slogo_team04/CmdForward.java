@@ -16,7 +16,7 @@ public class CmdForward extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-       return myController.back(myValue.executeCommand(myController, myInterpreter));
+       return myController.forward(myValue.executeCommand(myController, myInterpreter));
     }
 
     @Override

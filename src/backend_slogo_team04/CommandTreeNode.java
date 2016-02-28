@@ -26,10 +26,13 @@ public abstract class CommandTreeNode implements INonLinearCommand {
 
 
     private List<CommandTreeNode> myChildren;
-   
-    @SuppressWarnings("unused")
-    private CommandTreeNode myParent; //in case we need to do weird scope things in the future
 
+
+    private CommandTreeNode myParent; //in case we need to do weird scope things in the future
+    
+    protected CommandTreeNode getMyParent(){
+        return this.myParent;
+    }
 
 
 
@@ -54,7 +57,20 @@ public abstract class CommandTreeNode implements INonLinearCommand {
                                                     , myScanner
                                                     , parentNode
                                                     , myInterpreter
-                                                    , s -> !SlogoRegexChecker.isStartOfList(s)
+                                                    , s -> SlogoRegexChecker.isStartOfList(s)
+                                                    , "List declaration when not expected");
+
+    }
+
+    protected static INonLinearCommand recursiveSlogoFactoryNoListsControlledAdvance(String myWord
+                                                                                     ,Scanner myScanner
+                                                                                     , CommandTreeNode parentNode 
+                                                                                     , ISlogoInterpreter myInterpreter) throws UserInputException{
+        return recursiveSlogoFactoryAssertCondition(myWord
+                                                    , myScanner
+                                                    , parentNode
+                                                    , myInterpreter
+                                                    , s -> SlogoRegexChecker.isStartOfList(s)
                                                     , "List declaration when not expected");
 
     }
@@ -63,7 +79,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
                                                                          , CommandTreeNode parentNode
                                                                          , ISlogoInterpreter myInterpreter) throws UserInputException{
         return CommandTreeNode
-                .slogoCommandFactory(getNextWord(myScanner), parentNode, myInterpreter)
+                .slogoCommandFactory(getNextWord(myScanner), myScanner, parentNode, myInterpreter)
                 .parseString(myScanner, myInterpreter);
     }
 
@@ -78,7 +94,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         if(myTestCase.test(nextWord)){
             throw new UserInputException(errorMessage);
         }
-        return CommandTreeNode.slogoCommandFactory(nextWord, parentNode, myInterpreter).parseString(myScanner, myInterpreter);
+        return CommandTreeNode.slogoCommandFactory(nextWord, myScanner, parentNode, myInterpreter).parseString(myScanner, myInterpreter);
 
     }
 
@@ -113,7 +129,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
 
-    protected static CommandTreeNode slogoCommandFactory(String nextWord, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
+    protected static CommandTreeNode slogoCommandFactory(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
         // we can assume at this point that the only things that are coming are the words themselves and new line characters
         // need to fix this to include the required inputs for hte different classes, and then also
         // include the logic for choosing to instantiate the headnode
@@ -127,13 +143,15 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             return new CmdVariable(myParent, nextWord);
         }
         if(isUserDefinedFunction(nextWord, myInterpreter)){
-            return new CmdCommand(myParent, nextWord);
+            return ((CmdCommand) myInterpreter.getFunction(nextWord)).createClone(); // this is erasing the stored information, need to recall the
+            //function as stored and have parse a new version everytime that it needs to run
         }
         if(SlogoRegexChecker.isDouble(nextWord)){
             return new CmdConstant(myParent, Double.parseDouble(nextWord));
         }
         if(SlogoRegexChecker.isStartOfComment(nextWord)){
-            return new CmdComment(myParent);
+            new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children
+            return slogoCommandFactory(nextWord, myScanner, myParent, myInterpreter);
         }
 
         //TODO need to replace the fake checks for the type of command with the pattern syntax matches provided on the website:
@@ -144,7 +162,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         // handle informing the user
         throw new UserInputException("Please check spelling of all Slogo commands");
     }
-    
+
     protected boolean isKeyWord(String nextWord){
         return keyWordFunctions(nextWord, null) != null;
     }

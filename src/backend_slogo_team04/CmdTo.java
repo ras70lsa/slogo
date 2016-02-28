@@ -34,16 +34,13 @@ public class CmdTo extends CommandTreeNode {
         
         //check to see if this is a valid command word type
         if(SlogoRegexChecker.couldBeCommand(myWord)){
-            
+            this.myCommandName = myWord;
+        }else{
+            throw new UserInputException("Improperly named command detected");
         }
         
         
         CmdCommand myCommandToCreate = new CmdCommand(null, myWord); // command float on their own, do not have any parent as they are not really part of tree
-
-
-
-
-
         List<CmdVariable> listOfVariables = new ArrayList<CmdVariable>();
         List<INonLinearCommand> listOfCommands = new ArrayList<INonLinearCommand>(); 
         myWord = CommandTreeNode.getNextWord(myScanner);
@@ -59,7 +56,7 @@ public class CmdTo extends CommandTreeNode {
                 //grabbing and storing the commands
                 myWord = CommandTreeNode.getNextWord(myScanner);
                 while(!SlogoRegexChecker.isEndOfList(myWord)){
-                    listOfCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, myCommandToCreate, myInterpreter));
+                    listOfCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsControlledAdvance(myWord, myScanner, myCommandToCreate, myInterpreter));
                     myWord = CommandTreeNode.getNextWord(myScanner);
                 }
                 isInitializedCorrectly = CommandTreeNode.DOUBLE_ONE; // construction was properly done

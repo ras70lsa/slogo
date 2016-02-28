@@ -48,7 +48,6 @@ public class SlogoScanner {
     private void replace(ResourceBundle myResourceBundle) {
     	for(String key: myResourceBundle.keySet()) {
     	        String stringRegex = "\\b" + "(" + myResourceBundle.getString(key) + ")" + "\\b";
-    	        System.out.println(stringRegex);
     		Pattern p = Pattern.compile(stringRegex);
     		Matcher m = p.matcher(str);
     		str = m.replaceAll(key);

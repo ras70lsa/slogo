@@ -33,12 +33,13 @@ public class CmdComment extends CommandTreeNode {
         myScanner.useDelimiter(SlogoScanner.ALL_NON_NEW_LINE_WHITESPACE_REGEX);
         while(myScanner.hasNext()){
             if(Pattern.matches(NEW_LINE_CHARACTER, CommandTreeNode.getNextWord(myScanner))){
+                myScanner.useDelimiter(cached);
                 break;
             }
         }
         myScanner.useDelimiter(cached);
         
-        return null; //this will cause the comment to not even touch the tree
+        return this; //this will cause the comment to not even touch the tree
     }
 
 }
