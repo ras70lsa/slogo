@@ -1,6 +1,5 @@
 package model;
 
-
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
 
@@ -16,17 +15,17 @@ import interfaces_slogo_team04.IView;
 import properties.ColorProperty;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
-	
+
 	private Actor turtle;
 	private boolean penIsDown = true;
 	private boolean isShowing = true;
 	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
-	
+
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
 	}
-	
+
 	@Override
 	public double forward(double pixels) {
 		double angle = turtle.getHeadingInRadians();
@@ -45,7 +44,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return pixels;
 	}
 
-
 	public void addNewLineAndNotifyObservers(double x, double y) {
 		ModelLine newLine = new ModelLine(x, y);
 		if (penIsDown) {
@@ -54,8 +52,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		setChanged();
 		notifyObservers(newLine);
 	}
-	
-	
+
 	@Override
 	public double left(double degrees) {
 		turtle.rotateCounterClockwise(degrees);
@@ -91,16 +88,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	@Override
-	public double[] setxy(double x, double y) {
-		// TODO Auto-generated method stub
-		double [] location = new double [2];
-		turtle.setXLocation(x);
-		turtle.setYLocation(y);
-		setChanged();
-		notifyObservers();
-		location[0] = turtle.getXLocation();
-		location[1] = turtle.getYLocation();
-		return location;
+	public double setxy(double x, double y) {
+		double oldX = turtle.getXLocation();
+		double oldY = turtle.getYLocation();
+		turtle.setxy(x, y);
+		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
+		return Distance.calculateDistance(oldX, oldY, x, y);
 	}
 
 	@Override
@@ -149,7 +142,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return turtle.getXLocation();
 	}
 
-
 	@Override
 	public double yCor() {
 		return turtle.getYLocation();
@@ -165,7 +157,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return (isShowing) ? 1 : 0;
 	}
 
-	public double getHeading(){
+	public double getHeading() {
 		return turtle.getHeading();
 	}
 
