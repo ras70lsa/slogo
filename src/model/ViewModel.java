@@ -41,10 +41,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double back(double pixels) {
 		double angle = turtle.getHeadingInRadians() + Math.PI;
-		System.out.println("Current Angle: " + angle);
 		turtle.setHeading(angle);
-		System.out.println("Turtle Heading: " + turtle.getHeading());
-		System.out.println(getHeading());
+		turtle.setHeading(turtle.getHeading() + Angle.HALF_CIRCLE);
 		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
 				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
