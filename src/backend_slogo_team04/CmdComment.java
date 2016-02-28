@@ -12,7 +12,7 @@ public class CmdComment extends CommandTreeNode {
 
 
     public CmdComment (Controller myController, CommandTreeNode myParent) {
-        super(myController, myParent);
+        super(myParent);asdfasdf
         // TODO Auto-generated constructor stub
     }
 

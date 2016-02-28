@@ -9,9 +9,7 @@ import java.util.Map;
  */
 public class Interpreter implements ISlogoInterpreter {
     
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#interpretCommandTree(backend_slogo_team04.INonLinearCommand)
-     */
+
     @Override
     public void interpretCommandTree(INonLinearCommand headNode){
         
@@ -32,58 +30,47 @@ public class Interpreter implements ISlogoInterpreter {
         
     }
     
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#resetAllSimulationVariables()
-     */
+
     @Override
     public void resetAllSimulationVariables(){
         resetGlobalVariables();
         resetUserDefinedCommands();
     }
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#resetGlobalVariables()
-     */
+
     @Override
     public void resetGlobalVariables(){
         this.slogoVariables = new HashMap<String, Double>();
     }
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#resetUserDefinedCommands()
-     */
+
     @Override
     public void resetUserDefinedCommands(){
         this.userDefinedCommands = new HashMap<String,CommandTreeNode>();
     }
     
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#putFunction(java.lang.String, backend_slogo_team04.CommandTreeNode)
-     */
+
     @Override
     public void putFunction(String functionName, CommandTreeNode headNodeOfFunction){
         this.userDefinedCommands.put(functionName.toLowerCase(), headNodeOfFunction);
     }
     
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#getFunction(java.lang.String)
-     */
+
     @Override
     public CommandTreeNode getFunction(String functionName){
         return this.userDefinedCommands.get(functionName);
     }
     
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#setVariableValue(java.lang.String, java.lang.Double)
-     */
+    //need to make sure that lack of case sensitivity is properly implemented across the code base 
     @Override
     public void setVariableValue(String variable, Double value){
-        this.slogoVariables.put(variable.toLowerCase(), value);
+        this.slogoVariables.put(variable, value);
     }
     
-    /* (non-Javadoc)
-     * @see backend_slogo_team04.ISlogoInterpreter#getVariableValue(java.lang.String)
-     */
+// if the variable does not exist then we need to create it with the value of zero
     @Override
     public double getVariableValue(String variable){
-        return this.slogoVariables.get(variable.toLowerCase());
+        if(!this.slogoVariables.containsKey(variable)){
+            setVariableValue(variable, CommandTreeNode.DOUBLE_ZERO);
+        }
+        return this.slogoVariables.get(variable);
     }
 }
