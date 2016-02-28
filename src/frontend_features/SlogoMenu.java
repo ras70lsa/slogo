@@ -1,5 +1,10 @@
 package frontend_features;
 
+import java.util.ResourceBundle;
+
+import constants.CSSPathConstants;
+import constants.DisplayConstants;
+import constants.ResourceConstants;
 import frontend_slogo_team04.LanguageSelector;
 import interfaces_slogo_team04.IDisplay;
 import interfaces_slogo_team04.IModel;
@@ -21,27 +26,42 @@ public class SlogoMenu extends MenuBar {
 
 	IDisplay display;
 	IModel model;
+	ResourceBundle myBundle;
+	Menu options;
+	Menu help;
+	Menu history;
 	
 	public SlogoMenu(IModel model, IDisplay display) { 
 		this.display = display;
 		this.model = model;
+		myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + ResourceConstants.ENGLISH);
 		createMenuBar();
 	}
 	
 	private void createMenuBar() {
-		Menu options = new Menu("Options");
-		Menu help = new Menu("Help");
-		help.getItems().add(createMenuItem("Commands", e-> helpBox()));
-		addMenu(options);
-		addMenu(help);
-		addItem("View", options);
-		Menu history = new Menu("History");
-		history.getItems().add(createMenuItem("clear", e-> clear()));
+		
+		createMenus();
+		addVisualItem(myBundle.getString("View"), options);
+		populate();
+	}
+	
+	private void populate() {
+		history.getItems().add(createMenuItem(myBundle.getString("Clear"), e-> clear()));
+		help.getItems().add(createMenuItem(myBundle.getString("Command"), e-> helpBox()));
 		options.getItems().add(history);
 		options.getItems().add(new SeparatorMenuItem());
 		options.getItems().add(new LanguageSelector(model.getLangauageProperty()));
 	}
-	
+
+	private void createMenus() {
+		options = new Menu(myBundle.getString("Options"));
+		help = new Menu(myBundle.getString("Help"));
+		history =  new Menu(myBundle.getString("History"));
+		addMenu(options);
+		addMenu(help);
+		
+	}
+
 	private void clear() {
 		model.getHistory().clear();
 	}
@@ -56,7 +76,7 @@ public class SlogoMenu extends MenuBar {
 		this.getMenus().add(menu);
 	}
 
-	private void addItem(String title, Menu file) {
+	private void addVisualItem(String title, Menu file) {
 		MenuItem item = new MenuItem(title);
 		item.setOnAction(e -> display.getView().getOptions());
 		file.getItems().add(item);
@@ -77,7 +97,7 @@ public class SlogoMenu extends MenuBar {
 	     scrollPane.setFitToHeight(true);
 	     scrollPane.setFitToWidth(true);
 	     ClassLoader classLoader = getClass().getClassLoader();
-	 	 String url = classLoader.getResource("visual_resources/Commands.html").toExternalForm();  
+	 	 String url = classLoader.getResource(CSSPathConstants.HELP).toExternalForm();  
 	     webEngine.load(url);
 	     
 	     root.getChildren().addAll(scrollPane);

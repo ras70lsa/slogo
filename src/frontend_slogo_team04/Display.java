@@ -69,6 +69,10 @@ public class Display implements IDisplay {
 		view = new View(model.getViewInterface());
 		variables = new VariableFeature(model.getVariables());
 		commands = new CommandFeature(model.getCommandInterface());
+		addModules();
+	}
+
+	private void addModules() {
 		modules.add(history);
 		modules.add(textInput);
 		modules.add(variables);
@@ -77,8 +81,8 @@ public class Display implements IDisplay {
 	}
 
 	private void addListeners() {
-		history.getInteracted().addListener(e -> textInput.setText(history.getSelected()));
-		commands.getInteracted().addListener(e -> textInput.append(commands.getText()));
+		history.getInteracted().addListener(e -> textInput.setText(history.getSelectedText()));
+		commands.getInteracted().addListener(e -> textInput.append(commands.getSelectedText()));
 	}
 
 	public interface FunctionCall {
