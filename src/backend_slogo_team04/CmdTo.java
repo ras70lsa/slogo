@@ -33,7 +33,7 @@ public class CmdTo extends CommandTreeNode {
         String myWord = CommandTreeNode.getNextWord(myScanner);
         
         //check to see if this is a valid command word type
-        if(SlogoRegexChecker.couldBeCommand(myWord)){
+        if(SlogoRegexChecker.couldBeCommand(myWord) && !CommandTreeNode.isKeyWord(myWord)){
             this.myCommandName = myWord;
         }else{
             throw new UserInputException("Improperly named command detected");
