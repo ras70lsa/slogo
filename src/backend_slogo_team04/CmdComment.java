@@ -12,7 +12,7 @@ import interfaces_slogo_team04.ISlogoModelActions;
  *
  */
 public class CmdComment extends CommandTreeNode {
-
+    public static final String REGEX_CHARS_AND_WHITESPACE_LESS_NEWLINE = "[[\\S]\\t\\x0B\\f\\r ]+";
 
 
     public CmdComment (CommandTreeNode myParent) {
@@ -31,7 +31,7 @@ public class CmdComment extends CommandTreeNode {
         
         Pattern cached = myScanner.delimiter();
         //myScanner.useDelimiter(SlogoScanner.ALL_NON_NEW_LINE_WHITESPACE_REGEX);
-        String content = myScanner.useDelimiter("[[\\S]\\t\\x0B\\f\\r ]+").next(); //"[[\\S]\\t\\x0B\\f\\r ]+"
+        myScanner.useDelimiter(REGEX_CHARS_AND_WHITESPACE_LESS_NEWLINE).next(); //"[[\\S]\\t\\x0B\\f\\r ]+"
         //System.out.println("Test" + content + ":");
 //        for(int i = 0; i < content.length(); i++){
 //            System.out.printf("%d\n", (int) content.charAt(i));
