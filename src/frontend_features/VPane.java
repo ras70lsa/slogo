@@ -18,7 +18,6 @@ public abstract class VPane extends ModularPane {
 	
 	public VPane() {
 		vbox = new VBox();
-		vbox.getStyleClass().add("vbox");
 	}
 
 	public Region getPane() {
@@ -27,7 +26,6 @@ public abstract class VPane extends ModularPane {
 
 	public void add(Node node) {
 		vbox.getChildren().add(node);
-		node.getStyleClass().add("vbox_item");
 	}
 	
 	public void clearBox(){

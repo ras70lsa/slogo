@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldTableCell;
 import visual_states.GuiUserOption;
 
@@ -15,7 +16,7 @@ import visual_states.GuiUserOption;
  * Variable feature
  * @author Ryan St Pierre
  */
-public class VariableFeature extends VPane {
+public class VariableFeature extends TitlePaneFeature {
 
 	private IVariable model;
 	private TableView<Variable> table;
@@ -23,12 +24,10 @@ public class VariableFeature extends VPane {
 	TableColumn<Variable, Number>  values;
 	
 	public VariableFeature(IVariable variables) {
-	
+		setText(getString("VariableTitle"));
 		model = variables;
 		table = new TableView<Variable>();
-		add(new Label("Variables"));
 		createTableView();
-		addCSS("visual_resources/DefaultVariables.css");
 		
 	}
 
@@ -43,7 +42,7 @@ public class VariableFeature extends VPane {
 		table.setItems(model.getVariables());
 		table.getColumns().add(names);
 		table.getColumns().add(values);
-		add(table);
+		setContent(table);
 		
 	}
 
@@ -65,7 +64,6 @@ public class VariableFeature extends VPane {
 
 	private void setName(String oldValue, String edit) {
 		table.getSelectionModel().getSelectedItem().getName().set(edit);
-		System.out.println(table.getItems());
 	}
 
 	

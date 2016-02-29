@@ -68,6 +68,8 @@ public class View extends StaticPane implements Observer {
 
 	public void setUp() {
 		add(turtle, getCenterXCor(turtle.getFitWidth()), getCenterYCor(turtle.getFitHeight()));
+//		System.out.println("Center X: " + getCenterXCor(turtle.getFitWidth()));
+//		System.out.println("Center Y: " + getCenterYCor(turtle.getFitHeight()));
 	}
 
 	private void setTurtleImage(Image i) {
@@ -119,7 +121,9 @@ public class View extends StaticPane implements Observer {
 		
 		if (arg instanceof ModelLine){
 			ModelLine modelLine = (ModelLine) arg;
-			Line newLine = drawLine(turtle.getTranslateX(), turtle.getTranslateX(), translateToLineX(modelX),
+			Line newLine = drawLine(adjustInitialPointX(turtle.getTranslateX()),
+					adjustInitialPointY(turtle.getTranslateY()),
+					translateToLineX(modelX),
 					translateToLineY(modelY));
 			lineManager.put(modelLine,newLine);
 		}
@@ -134,9 +138,9 @@ public class View extends StaticPane implements Observer {
 	}
 
 	public Line drawLine(double startX, double startY, double endX, double endY) {
-		Line newLine = pen.createLine(startX, startY, endX, endY);
-		add(newLine, startX, startY);
-		return newLine;
+		Line n = new Line();
+		addLine(n ,startX, startY, endX, endY);
+		return n;
 	}
 
 	public double home() {
@@ -159,23 +163,27 @@ public class View extends StaticPane implements Observer {
 	}
 
 	private double translateToLineX(double xCor) {
-		return xCor + getCenterXCor(turtle.getFitHeight());
+		return xCor + getCenterXCor(turtle.getFitHeight()) + turtle.getFitWidth()/2;
 	}
 
 	public double translateToLineY(double yCor) {
-		return getCenterYCor(turtle.getFitHeight()) - yCor;
+		return getCenterYCor(turtle.getFitHeight()) - yCor + turtle.getFitHeight()/2;
 	}
-
+	
 	public double translateToTurtleX(double xCor) {
-		return xCor;
+		return xCor + getCenterXCor(turtle.getFitHeight());
 	}
 
 	public double translateToTurtleY(double yCor) {
-		return -yCor;
+		return getCenterYCor(turtle.getFitHeight()) - yCor;
 	}
-
-	public static void main(String[] args) {
-
+	
+	private double adjustInitialPointX(double xCor){
+		return xCor + turtle.getFitWidth()/2;
+	}
+	
+	private double adjustInitialPointY(double yCor){
+		return yCor + turtle.getFitHeight()/2;
 	}
 	
 	public double translateToTurtleAngle(double angle){

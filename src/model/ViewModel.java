@@ -22,7 +22,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
-		turtle = new Actor(0,0,Angle.HALF_CIRCLE/2);
+		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2);
 		lineManager = new Stack<ModelLine>();
 		penIsDown = true;
 		isShowing = true;
@@ -30,19 +30,17 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double forward(double pixels) {
-
 		double angle = turtle.getHeadingInRadians();
 		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
 				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
 		return pixels;
-
 	}
 
 	@Override
 	public double back(double pixels) {
-
 		double angle = turtle.getHeadingInRadians() + Math.PI;
+		turtle.setHeading(turtle.getHeading()+Angle.HALF_CIRCLE);
 		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
 				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
@@ -71,7 +69,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double right(double degrees) {
 		turtle.rotateClockwise(degrees);
-
 		setChanged();
 		notifyObservers();
 		return degrees;

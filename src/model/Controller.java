@@ -39,12 +39,14 @@ public class Controller {
     	SlogoScanner scanner = getProperScanner(stringToParse);
     	String save = scanner.getString();
     	INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(scanner.getSlogoFormattedScanner(), model.getExecutionModel());
-        myHead.executeCommand(tester, model.getExecutionModel());
+        myHead.executeCommand(viewModel, model.getExecutionModel());
         update(save);
     }
     
     private void update(String input) {
-		model.addToHistory(input);
+    	if(input != null && !input.equals("")) {
+    		model.addToHistory(input);
+    	}
 	}
 
 	private SlogoScanner getProperScanner(String stringToParse) {
