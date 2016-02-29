@@ -9,8 +9,8 @@ import interfaces_slogo_team04.ISlogoModelActions;
 public class CmdRepeat extends CommandTreeNode {
    //TODO change this to a resource bundle reference
     private static final String REP_COUNT_VAR_NAME = ":repcount"; //TODO resource bundle perhaps so langauge change
-    CmdVariable myRepCount;
-    INonLinearCommand myExpression, myCommands;
+    private CmdVariable myRepCount;
+    private INonLinearCommand myExpression, myCommands;
     
 
 

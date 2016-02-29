@@ -8,12 +8,20 @@ import interfaces_slogo_team04.ISlogoModelActions;
 
 public class CmdVariable extends CommandTreeNode {
     private String myName;
+    private static final String VARIABLE_DECLARATION_TO_REMOVE = ":";
+    private static final int ASSUMED_LOCATION_OF_VARNAME = 1;
 
 
 
     public CmdVariable (CommandTreeNode myParent, String myVarName) {
         super(myParent);
-        this.myName = myVarName.toLowerCase();
+        //we are going to strip the first character if it is a :
+        if(myVarName.split(VARIABLE_DECLARATION_TO_REMOVE).length > ASSUMED_LOCATION_OF_VARNAME){
+            this.myName = myVarName.split(VARIABLE_DECLARATION_TO_REMOVE)[ASSUMED_LOCATION_OF_VARNAME].toLowerCase();
+        }else{
+            this.myName = myVarName.toLowerCase();            
+        }
+
     }
 
     @Override
