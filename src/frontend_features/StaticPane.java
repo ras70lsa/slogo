@@ -1,11 +1,9 @@
 package frontend_features;
 
-import backend_structures.RGBColor;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 /**

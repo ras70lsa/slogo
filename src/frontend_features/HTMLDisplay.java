@@ -1,6 +1,10 @@
 package frontend_features;
 
+import java.util.ResourceBundle;
+
 import constants.CSSPathConstants;
+import constants.DisplayConstants;
+import constants.ResourceConstants;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -19,33 +23,45 @@ public class HTMLDisplay {
 	}
 	
 	private void setProperties() {
-		 stage.setTitle("HTML");
-	     stage.setWidth(500);
-	     stage.setHeight(500);
+		ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH +
+    			ResourceConstants.ENGLISH);
+		 stage.setTitle(myBundle.getString("HTML"));
+	     stage.setWidth(DisplayConstants.HTML_SIZE);
+	     stage.setHeight(DisplayConstants.HTML_SIZE);
 	}
 
 	private void makeStage() {
 		 stage = new Stage();
 	     Scene scene = new Scene(new Group());
 	     VBox root = new VBox();     
-
-	     final WebView browser = new WebView();
-	     final WebEngine webEngine = browser.getEngine();
-	     ScrollPane scrollPane = new ScrollPane();
-	     scrollPane.setContent(browser);
-	     scrollPane.setFitToHeight(true);
-	     scrollPane.setFitToWidth(true);
-	     ClassLoader classLoader = getClass().getClassLoader();
-	 	 String url = classLoader.getResource(CSSPathConstants.HELP).toExternalForm();  
-	     webEngine.load(url);
 	     
+	     final WebView browser = getWebView();
+	     ScrollPane scrollPane = createScrollPane(browser);
+	 
 	     root.getChildren().add(scrollPane);
 	     scene.setRoot(root);
 	     stage.setScene(scene);
 	}
 	
+	private ScrollPane createScrollPane(WebView browser) {
+		 ScrollPane scrollPane = new ScrollPane();
+		 scrollPane.setContent(browser);
+	     scrollPane.setFitToHeight(true);
+	     scrollPane.setFitToWidth(true);
+	     return scrollPane;
+	}
+
 	public void show() {
 	     stage.show();
+	}
+	
+	public WebView getWebView() {
+		 final WebView browser = new WebView();
+	     final WebEngine webEngine = browser.getEngine();
+	     ClassLoader classLoader = getClass().getClassLoader();
+	 	 String url = classLoader.getResource(CSSPathConstants.HELP).toExternalForm();  
+	     webEngine.load(url);
+	     return browser;
 	}
 
 }

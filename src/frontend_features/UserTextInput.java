@@ -1,16 +1,13 @@
 package frontend_features;
 
-import java.util.List;
 
-import constants.DisplayConstants;
+import constants.CSSPathConstants;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import javafx.beans.property.ObjectProperty;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import model.Controller;
-import visual_states.GuiUserOption;
 
 /**
  * Text input feature (for code)
@@ -25,15 +22,12 @@ public class UserTextInput extends VPane {
 	public UserTextInput(Controller controller) {
 		this.controller = controller;
 		setUp();
-		addCSS("visual_resources/DefaultInputBox.css");
+		addCSS(CSSPathConstants.INPUT);
 	}
 	
 	private void createTextField() {
 		textArea = new TextArea();
-        textArea.getStyleClass().add("TextArea");
-        textArea.setScrollTop(10);
-        textArea.setPrefHeight(DisplayConstants.TEXT_HEIGHT);
-        textArea.setPrefWidth(DisplayConstants.TEXT_WIDTH);
+        textArea.getStyleClass().add(CSSPathConstants.TEXT_AREA);
         add(textArea);
 	}
 	
@@ -43,15 +37,13 @@ public class UserTextInput extends VPane {
 	}
 
 	private void createGoButton() {
-		Button go = new Button("GO");
-		go.getStyleClass().add("button");
+		Button go = new Button(getString("Go"));
 		go.setOnAction(e -> inputEntered());
 		go.setPrefWidth(50);
 		add(go); 
 	}
 	
 	public void inputEntered() {
-		System.out.println(textArea.getText());
 		try {
 			controller.parseString(textArea.getText());
 			textArea.clear();
