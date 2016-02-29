@@ -10,6 +10,7 @@ import exceptions.UserInputException;
 import frontend_features.AlertMessage;
 import frontend_features.CommandFeature;
 import frontend_features.History;
+import frontend_features.LocationFeature;
 import frontend_features.Module;
 import frontend_features.SlogoMenu;
 import frontend_features.UserTextInput;
@@ -89,6 +90,8 @@ public class Display implements IDisplay {
 	private void makeLeft() {
 		//do nothing for now
 		leftFeatures = new Accordion();
+		LocationFeature actors = new LocationFeature();
+		leftFeatures.getPanes().add(actors);
 	}
 
 	public IModel getHistoryModel() {
