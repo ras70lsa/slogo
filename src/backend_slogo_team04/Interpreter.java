@@ -52,7 +52,10 @@ public class Interpreter implements ISlogoInterpreter {
     //need to make sure that lack of case sensitivity is properly implemented across the code base 
     @Override
     public double setVariableValue(String variable, Double value){
-        return this.slogoVariables.put(variable.toLowerCase(), value);
+        //testing
+        System.out.println(variable + " " + value);
+        this.slogoVariables.put(variable.toLowerCase(), value);
+        return this.slogoVariables.get(variable);
     }
     
 // if the variable does not exist then we need to create it with the value of zero
