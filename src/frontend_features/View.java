@@ -121,7 +121,7 @@ public class View extends StaticPane implements Observer {
 		
 		if (arg instanceof ModelLine){
 			ModelLine modelLine = (ModelLine) arg;
-			Line newLine = drawLine(turtle.getTranslateX()+turtle.getFitWidth()/2, turtle.getTranslateY(), translateToLineX(modelX)+turtle.getFitHeight()/2,
+			Line newLine = drawLine(turtle.getTranslateX()+turtle.getFitWidth()/2, turtle.getTranslateY()+turtle.getFitHeight()/2, translateToLineX(modelX),
 					translateToLineY(modelY));
 			lineManager.put(modelLine,newLine);
 		}
@@ -161,7 +161,7 @@ public class View extends StaticPane implements Observer {
 	}
 
 	private double translateToLineX(double xCor) {
-		return xCor + getCenterXCor(turtle.getFitHeight());
+		return xCor + getCenterXCor(turtle.getFitHeight()) + turtle.getFitWidth()/2;
 	}
 
 	public double translateToLineY(double yCor) {
