@@ -14,7 +14,7 @@ public class SlogoScanner {
     
     //slogo words include different characters from the standard java /w, need to write our own boundary regex
 
-    protected static final String SLOGO_WORD_BOUNDARY = "(?:(?=[a-zA-Z0-9\\?\\+-~%/])(?<![a-zA-Z0-9\\?\\+-~%/])|(?<=[a-zA-Z0-9\\?\\+-~%/])(?![a-zA-Z0-9\\?\\+-~%/]))";
+    protected static final String SLOGO_WORD_BOUNDARY = "(?:(?=[a-zA-Z0-9\\?\\+\\*-~%/])(?<![a-zA-Z0-9\\?\\+\\*-~%/])|(?<=[a-zA-Z0-9\\?\\+\\*-~%/])(?![a-zA-Z0-9\\?\\+\\*-~%/]))";
     //SO MUCH PAIN ^^^ the % can't go between the - and the ~    
     
 
