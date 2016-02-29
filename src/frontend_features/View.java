@@ -1,7 +1,5 @@
 package frontend_features;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,30 +7,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
-
 import Utilities.Angle;
 import backend_structures.RGBColor;
 import constants.DisplayConstants;
 import frontend_slogo_team04.State;
 import frontend_slogo_team04.VisualTurtle;
 import interfaces_slogo_team04.IView;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import visual_states.GuiUserOption;
 import visual_states.ViewUIState;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import model.Model;
 import model.ModelLine;
-import model.ViewModel;
 
 public class View extends StaticPane implements Observer {
 
@@ -42,14 +32,13 @@ public class View extends StaticPane implements Observer {
 	private IView model;
 	private Pen pen;
 	private Map<ModelLine, Line> lineManager;
-	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE/2;
-
+	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE / 2;
 
 	public View(IView model) {
 		turtle = new VisualTurtle(getFirstImage());
 		this.model = model;
 		addCSS("visual_resources/DefaultView.css");
-		visuals = new ViewUIState();	
+		visuals = new ViewUIState();
 		pen = new Pen(Color.BLACK);
 		lineManager = new HashMap<ModelLine, Line>();
 		addSilentListeners();
@@ -63,20 +52,18 @@ public class View extends StaticPane implements Observer {
 
 	private void addSilentListeners() {
 		visuals.getImageProperty().addListener((a, b, c) -> setTurtleImage(c));
-		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
-		model.getPenColor().addListener((a,b,c) -> updatePenColor(c)); 
+		model.getBackgroundColor().addListener((a, b, c) -> updateColor(c));
+		model.getPenColor().addListener((a, b, c) -> updatePenColor(c));
 
 	}
 
 	private void updatePenColor(RGBColor c) {
 		pen.setPenColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 1.0));
-		
+
 	}
 
 	public void setUp() {
 		add(turtle, getCenterXCor(turtle.getFitWidth()), getCenterYCor(turtle.getFitHeight()));
-//		System.out.println("Center X: " + getCenterXCor(turtle.getFitWidth()));
-//		System.out.println("Center Y: " + getCenterYCor(turtle.getFitHeight()));
 	}
 
 	private void setTurtleImage(Image i) {
@@ -99,7 +86,7 @@ public class View extends StaticPane implements Observer {
 	public State getState() {
 		return null;
 	}
-	
+
 	public double getCenterXCor(double imageWidth) {
 		return DisplayConstants.VIEW_WIDTH / 2 - (imageWidth / 2);
 	}
@@ -109,7 +96,6 @@ public class View extends StaticPane implements Observer {
 
 	}
 
-	
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		List<Node> list = new ArrayList<Node>();
 		list.add(factory.get(visuals.getImageProperty(), "Choose Actor Image"));
@@ -122,20 +108,21 @@ public class View extends StaticPane implements Observer {
 	public void update(Observable o, Object arg) {
 		double modelX = model.xCor();
 		double modelY = model.yCor();
-		if (arg instanceof Collection){
+		if (arg instanceof Collection) {
 			Collection toBeRemoved = (Collection) arg;
 			toBeRemoved.forEach(l -> remove(lineManager.get(l)));
 		}
-		
-		if (arg instanceof ModelLine){
-			ModelLine modelLine = (ModelLine) arg;
-			Line newLine = drawLine(adjustInitialPointX(turtle.getTranslateX()),
-					adjustInitialPointY(turtle.getTranslateY()),
-					translateToLineX(modelX),
-					translateToLineY(modelY));
-			lineManager.put(modelLine,newLine);
+
+		if (arg instanceof ModelLine) {
+			if (model.isPenDown() == 1) {
+				ModelLine modelLine = (ModelLine) arg;
+				Line newLine = drawLine(adjustInitialPointX(turtle.getTranslateX()),
+						adjustInitialPointY(turtle.getTranslateY()), translateToLineX(modelX),
+						translateToLineY(modelY));
+				lineManager.put(modelLine, newLine);
+			}
 		}
-		
+
 		if (model.isShowing() == 1) {
 			showTurtle();
 		} else {
@@ -148,7 +135,7 @@ public class View extends StaticPane implements Observer {
 	public Line drawLine(double startX, double startY, double endX, double endY) {
 		Line n = new Line();
 		n.setStroke(pen.getPenColor());
-		addLine(n ,startX, startY, endX, endY);
+		addLine(n, startX, startY, endX, endY);
 		return n;
 	}
 
@@ -172,13 +159,13 @@ public class View extends StaticPane implements Observer {
 	}
 
 	private double translateToLineX(double xCor) {
-		return xCor + getCenterXCor(turtle.getFitHeight()) + turtle.getFitWidth()/2;
+		return xCor + getCenterXCor(turtle.getFitHeight()) + turtle.getFitWidth() / 2;
 	}
 
 	public double translateToLineY(double yCor) {
-		return getCenterYCor(turtle.getFitHeight()) - yCor + turtle.getFitHeight()/2;
+		return getCenterYCor(turtle.getFitHeight()) - yCor + turtle.getFitHeight() / 2;
 	}
-	
+
 	public double translateToTurtleX(double xCor) {
 		return xCor + getCenterXCor(turtle.getFitHeight());
 	}
@@ -186,39 +173,39 @@ public class View extends StaticPane implements Observer {
 	public double translateToTurtleY(double yCor) {
 		return getCenterYCor(turtle.getFitHeight()) - yCor;
 	}
-	
-	private double adjustInitialPointX(double xCor){
-		return xCor + turtle.getFitWidth()/2;
+
+	private double adjustInitialPointX(double xCor) {
+		return xCor + turtle.getFitWidth() / 2;
 	}
-	
-	private double adjustInitialPointY(double yCor){
-		return yCor + turtle.getFitHeight()/2;
+
+	private double adjustInitialPointY(double yCor) {
+		return yCor + turtle.getFitHeight() / 2;
 	}
-	
-	public double translateToTurtleAngle(double angle){
+
+	public double translateToTurtleAngle(double angle) {
 		return -(angle - TURTLE_INITIAL_ANGLE);
 	}
-	
-	public void hideTurtle(){
+
+	public void hideTurtle() {
 		turtle.setVisible(false);
 	}
-	
-	public void showTurtle(){
+
+	public void showTurtle() {
 		turtle.setVisible(true);
 	}
-	
+
 	public void getOptions() {
-		
+
 		List<Node> properties = getReleventProperties(new GuiUserOption());
 		Stage stage = getEmptyStage();
-		VBox box= new VBox();
+		VBox box = new VBox();
 		Group myGroup = (Group) stage.getScene().getRoot();
 		myGroup.getChildren().add(box);
-		for(Node node: properties) {
+		for (Node node : properties) {
 			box.getChildren().add(node);
 		}
 		stage.show();
-		
+
 	}
 }
 

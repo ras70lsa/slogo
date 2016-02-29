@@ -24,7 +24,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
 		penColor = new ColorProperty();
-		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2);
+		turtle = new Actor(0, 0, Angle.HALF_CIRCLE / 2);
 		lineManager = new Stack<ModelLine>();
 		penIsDown = true;
 		isShowing = true;
@@ -42,7 +42,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double back(double pixels) {
 		double angle = turtle.getHeadingInRadians() + Math.PI;
-		turtle.setHeading(turtle.getHeading()+Angle.HALF_CIRCLE);
+		turtle.setHeading(turtle.getHeading() + Angle.HALF_CIRCLE);
 		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
 				turtle.getYLocation() + Math.sin(angle) * pixels);
 		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
@@ -54,7 +54,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		if (penIsDown) {
 			lineManager.add(newLine);
 		}
-
 		setChanged();
 		notifyObservers(newLine);
 	}
@@ -106,7 +105,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return Distance.calculateDistance(oldX, oldY, x, y);
 	}
 
-
+	@Override
 	public double penDown() {
 		penIsDown = true;
 		setChanged();
@@ -114,6 +113,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return 1;
 	}
 
+	@Override
 	public double penUp() {
 
 		penIsDown = false;
@@ -167,6 +167,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return (isShowing) ? 1 : 0;
 	}
 
+	@Override
 	public double getHeading() {
 		return turtle.getHeading();
 	}
@@ -197,14 +198,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double isPenDown() {
 		return (penIsDown) ? 1 : 0;
-	
 	}
 
-	
 	public static void main(String[] args) {
 		ViewModel test = new ViewModel();
 		test.forward(20);
-//		test.back(20);
+		// test.back(20);
 		System.out.println(test.xCor());
 		System.out.println(test.yCor());
 	}
