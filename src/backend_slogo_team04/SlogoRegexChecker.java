@@ -48,43 +48,47 @@ public class SlogoRegexChecker {
        "[fFdD]?))" +
                     "[\\x00-\\x20]*");// Optional trailing "whitespace"
 
-/**
- * The regex pattern for this code is taken straight from the JavaDocs, provided as an alternative to using the {@link Double#parseDouble(String)}
- * which results in a {@link java.lang.NumberFormatException NumberFormatException}
- * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Double.html#valueOf%28java.lang.String%29">http://docs.oracle.com/javase/6/docs/api/java/lang/Double.html</a>
- * @param myString
- * @return
- */
+    /**
+     * The regex pattern for this code is taken straight from the JavaDocs, provided as an alternative to using the {@link Double#parseDouble(String)}
+     * which results in a {@link java.lang.NumberFormatException NumberFormatException}
+     * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Double.html#valueOf%28java.lang.String%29">http://docs.oracle.com/javase/6/docs/api/java/lang/Double.html</a>
+     * @param myString
+     * @return
+     */
     public static boolean isDouble(String myString){
         return Pattern.matches(fpRegex, myString);
     }
-    
+
     private final static String VARIABLE_PATTERN = ":[a-zA-Z_]+";
     public static boolean isVariable(String myString){
         return Pattern.matches(VARIABLE_PATTERN, myString);
     }
-    
+
     private final static String COMMAND_PATTERN = "[a-zA-Z_]+(\\?)?";
     public static boolean couldBeCommand(String myString){
         return Pattern.matches(COMMAND_PATTERN , myString);
     }
-    
+
     private final static String COMMENT_PATTERN = "^#.*";
     public static boolean isStartOfComment(String myString){
         return Pattern.matches(COMMENT_PATTERN, myString);
     }
-    
+
     private final static String START_OF_LIST = "[";
     public static boolean isStartOfList(String myString){
         return myString.equals(START_OF_LIST);
     }
-    
+
     private final static String END_OF_LIST = "]";
     public static boolean isEndOfList(String myString){
         return myString.equals(END_OF_LIST);
     }
-    
-    
-    
+
+
+
+
+
+
+
 
 }
