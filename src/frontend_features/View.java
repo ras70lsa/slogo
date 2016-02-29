@@ -12,6 +12,7 @@ import java.util.Observer;
 import java.util.Stack;
 
 import Utilities.Angle;
+import backend_structures.RGBColor;
 import constants.DisplayConstants;
 import frontend_slogo_team04.State;
 import frontend_slogo_team04.VisualTurtle;
@@ -63,7 +64,13 @@ public class View extends StaticPane implements Observer {
 	private void addSilentListeners() {
 		visuals.getImageProperty().addListener((a, b, c) -> setTurtleImage(c));
 		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
+		model.getPenColor().addListener((a,b,c) -> updatePenColor(c)); 
 
+	}
+
+	private void updatePenColor(RGBColor c) {
+		pen.setPenColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 1.0));
+		
 	}
 
 	public void setUp() {
@@ -106,7 +113,8 @@ public class View extends StaticPane implements Observer {
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		List<Node> list = new ArrayList<Node>();
 		list.add(factory.get(visuals.getImageProperty(), "Choose Actor Image"));
-		list.add(factory.get(model.getBackgroundColor()));
+		list.add(factory.get(model.getBackgroundColor(), "Background Color"));
+		list.add(factory.get(model.getPenColor(), "Pen Color"));
 		return list;
 	}
 
@@ -139,6 +147,7 @@ public class View extends StaticPane implements Observer {
 
 	public Line drawLine(double startX, double startY, double endX, double endY) {
 		Line n = new Line();
+		n.setStroke(pen.getPenColor());
 		addLine(n ,startX, startY, endX, endY);
 		return n;
 	}

@@ -14,4 +14,5 @@ public interface IView{
 	public double isShowing();
 	public double getHeading();
 	public ColorProperty getBackgroundColor();
+	public ColorProperty getPenColor();
 }

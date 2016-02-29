@@ -19,9 +19,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private boolean isShowing;
 	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
+	private ColorProperty penColor;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
+		penColor = new ColorProperty();
 		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2);
 		lineManager = new Stack<ModelLine>();
 		penIsDown = true;
@@ -205,6 +207,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 //		test.back(20);
 		System.out.println(test.xCor());
 		System.out.println(test.yCor());
+	}
+
+	@Override
+	public ColorProperty getPenColor() {
+		return penColor;
 	}
 }
 

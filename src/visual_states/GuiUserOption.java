@@ -47,12 +47,17 @@ public class GuiUserOption {
 		
 	}
 	
-	public Node get(ColorProperty color) {
+	public Node get(ColorProperty color, String title) {
+		HBox hbox = new HBox();
+		hbox.getChildren().add(new Label(title));
+		
 		ColorPicker picker = new ColorPicker();
+		picker.setStyle("-fx-color-label-visible: false;");
 		picker.setOnAction(e -> setColor(picker.getValue(), color));
-		return picker;
+		hbox.getChildren().add(picker);
+		return hbox;
 	}
-	
+
 	private void setColor(Color frontEnd, ColorProperty color) {
 		RGBColor next = new RGBColor(frontEnd.getRed(), frontEnd.getGreen(), frontEnd.getBlue());
 		color.set(next);
