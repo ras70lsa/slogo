@@ -16,7 +16,7 @@ public class BackendTest {
 
         //we are going to test the code used to 
 
-        File myFile = new File("examples/variables/fd_random.logo");
+        File myFile = new File("examples/loops/random_if.logo");
         String content = null;
         try {
             content = new Scanner(myFile).useDelimiter("\\Z").next();
@@ -48,7 +48,7 @@ public class BackendTest {
         SlogoScanner scanner = new SlogoScanner(content); 
         String str = scanner.getLanguageConvertedCode(
                                                       ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + "English"));
-        //System.out.println(str);
+        System.out.println(str);
         
         SlogoScanner testScanner = new SlogoScanner(str);
         

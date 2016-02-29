@@ -10,7 +10,7 @@ import java.util.Map;
 public class Interpreter implements ISlogoInterpreter {
     
     private Map<String, Double> slogoVariables;
-    private Map<String, CommandTreeNode> userDefinedCommands;
+    private Map<String, INonLinearCommand> userDefinedCommands;
     
     
     
@@ -34,25 +34,25 @@ public class Interpreter implements ISlogoInterpreter {
 
     @Override
     public void resetUserDefinedCommands(){
-        this.userDefinedCommands = new HashMap<String,CommandTreeNode>();
+        this.userDefinedCommands = new HashMap<String,INonLinearCommand>();
     }
     
 
     @Override
-    public void putFunction(String functionName, CommandTreeNode headNodeOfFunction){
+    public void putFunction(String functionName, INonLinearCommand headNodeOfFunction){
         this.userDefinedCommands.put(functionName.toLowerCase(), headNodeOfFunction);
     }
     
 
     @Override
-    public CommandTreeNode getFunction(String functionName){
+    public INonLinearCommand getFunction(String functionName){
         return this.userDefinedCommands.get(functionName.toLowerCase());
     }
     
     //need to make sure that lack of case sensitivity is properly implemented across the code base 
     @Override
-    public void setVariableValue(String variable, Double value){
-        this.slogoVariables.put(variable.toLowerCase(), value);
+    public double setVariableValue(String variable, Double value){
+        return this.slogoVariables.put(variable.toLowerCase(), value);
     }
     
 // if the variable does not exist then we need to create it with the value of zero
@@ -63,4 +63,7 @@ public class Interpreter implements ISlogoInterpreter {
         }
         return this.slogoVariables.get(variable.toLowerCase());
     }
+
+
+
 }
