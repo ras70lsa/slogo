@@ -39,9 +39,9 @@ public class CmdListOfCommands extends CommandTreeNode {
                                           ISlogoInterpreter myInterpreter) throws UserInputException {
 
         String myNextWord = CommandTreeNode.getNextWord(myScanner);
-        if(SlogoRegexChecker.isStartOfList(myNextWord)){
+        if(CommandTreeNode.checkIfStartOfList(myNextWord, myScanner, myInterpreter)){
             myNextWord = CommandTreeNode.getNextWord(myScanner);
-            while(!SlogoRegexChecker.isEndOfList(myNextWord)){
+            while(!CommandTreeNode.checkIfEndOfList(myNextWord, myScanner, myInterpreter)){
                 myCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
                 myNextWord = CommandTreeNode.getNextWord(myScanner);
             }

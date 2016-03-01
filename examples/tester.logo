@@ -1,0 +1,4 @@
+#ifelse greater? 12 12 [ fd 50 ] [ fd 123 ]
+set :ss dotimes [  :tester  4  ] # [
+[
+		fd :tester ] 
