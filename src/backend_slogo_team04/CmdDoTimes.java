@@ -29,20 +29,21 @@ public class CmdDoTimes extends CommandTreeNode {
     @Override
     public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         String myWord = CommandTreeNode.getNextWord(myScanner);
-        if(SlogoRegexChecker.isStartOfList(myWord)){
+        if(CommandTreeNode.checkIfStartOfList(myWord, myScanner, myInterpreter)){
             // grab variable and then the limit factor
             myWord = CommandTreeNode.getNextWord(myScanner);
             myVariable = CommandTreeNode.getVariableOrAssertError(myWord,myScanner, this, myInterpreter);
             myLimit = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            if(SlogoRegexChecker.isEndOfList(CommandTreeNode.getNextWord(myScanner))){
-                
-                
+            myWord = CommandTreeNode.getNextWord(myScanner);
+            if(CommandTreeNode.checkIfEndOfList(myWord, myScanner, myInterpreter)){
+
+
                 myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
             } else{
                 throw new UserInputException("Variable and limits declaration not closed with bracket");
             }
 
-            
+
 
 
         }else{
