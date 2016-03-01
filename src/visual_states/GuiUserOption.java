@@ -10,8 +10,8 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Collection;
 
-import backend_structures.RGBColor;
-import frontend_slogo_team04.ToggleButton;
+import backend.structures.RGBColor;
+import frontend.slogo.team04.ToggleButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;

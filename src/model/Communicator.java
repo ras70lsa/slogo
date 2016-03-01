@@ -1,8 +1,8 @@
 package model;
 
-import backend_slogo_team04.ISlogoInterpreter;
-import interfaces_slogo_team04.ICommunicator;
-import interfaces_slogo_team04.IModel;
+import backend.slogo.team04.ISlogoInterpreter;
+import interfaces.slogo.team04.ICommunicator;
+import interfaces.slogo.team04.IModel;
 
 public class Communicator implements ICommunicator{
 

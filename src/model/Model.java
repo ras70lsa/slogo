@@ -1,12 +1,12 @@
 package model;
 
-import interfaces_slogo_team04.ICommands;
-import interfaces_slogo_team04.ICommunicator;
-import interfaces_slogo_team04.IHistoryModel;
-import interfaces_slogo_team04.IModel;
-import interfaces_slogo_team04.ISlogoModelActions;
-import interfaces_slogo_team04.IVariable;
-import interfaces_slogo_team04.IView;
+import interfaces.slogo.team04.ICommands;
+import interfaces.slogo.team04.ICommunicator;
+import interfaces.slogo.team04.IHistoryModel;
+import interfaces.slogo.team04.IModel;
+import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.IVariable;
+import interfaces.slogo.team04.IView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 

@@ -1,13 +1,13 @@
 package model;
 
-import backend_slogo_team04.Actor;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import Utilities.Angle;
 import Utilities.Distance;
-import interfaces_slogo_team04.ISlogoModelActions;
-import interfaces_slogo_team04.IView;
+import backend.slogo.team04.Actor;
+import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.IView;
 import properties.ColorProperty;
 import properties.ImageProperty;
 
@@ -180,7 +180,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		
 	}
 
-	@Override
 	public ImageProperty getImageProperty() {
 		return turtle.getImageProperty();
 	}
