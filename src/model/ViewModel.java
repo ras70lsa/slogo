@@ -3,7 +3,6 @@ package model;
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
