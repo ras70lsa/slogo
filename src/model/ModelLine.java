@@ -1,9 +1,13 @@
 package model;
 
+
 public class ModelLine {
-	private double endX, endY;
+	private double startX, startY, endX, endY;
 	
-	public ModelLine(double endX, double endY){
+	public ModelLine(double startX, double startY, double endX, double endY){
+		
+		this.startX = startX;
+		this.startY = startY;
 		this.endX = endX;
 		this.endY = endY;
 	}
@@ -16,6 +20,13 @@ public class ModelLine {
 		return endY;
 	}
 	
+	public double getStartX(){
+		return startX;
+	}
+	
+	public double getStartY(){
+		return startY;
+	}
 	
 	
 }

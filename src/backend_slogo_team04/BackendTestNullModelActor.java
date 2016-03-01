@@ -113,13 +113,13 @@ public class BackendTestNullModelActor implements ISlogoModelActions{
         return 0;
     }
 
-    @Override
-    public List<Action> getHistory () {
-        System.out.printf("Getting history\n");
-        return null;
-    }
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
     
-  
     
 
 
