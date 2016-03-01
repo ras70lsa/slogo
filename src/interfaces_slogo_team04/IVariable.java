@@ -7,4 +7,6 @@ import javafx.beans.property.StringProperty;
 public interface IVariable {
 
 	public ListProperty<Variable> getVariables();
+
+	public void clearVariables();
 }

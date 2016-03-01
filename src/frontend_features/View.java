@@ -35,7 +35,7 @@ public class View extends StaticPane implements Observer {
 
 	
 	public static final double ACTOR_WIDTH = 50;
-	public static final double ACTOR_HEIGHT = 50;
+	public static final double ACTOR_HEIGHT = 60;
 
 	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE / 2;
 

@@ -18,7 +18,7 @@ import properties.ImageProperty;
 
 public class Actor {
 
-	public static final String DEFAULT_PATH = "visual_resources/turtle.jpg";
+	public static final String DEFAULT_PATH = "visual_resources/slogoTurtle.png";
 	private double xLocation;
 	private double yLocation;
 	private double heading;

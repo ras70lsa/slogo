@@ -29,7 +29,7 @@ public class SlogoMenu extends MenuBar {
 	ResourceBundle myBundle;
 	Menu options;
 	Menu help;
-	Menu history;
+	Menu clear;
 	
 	public SlogoMenu(IModel model, IDisplay display) { 
 		this.display = display;
@@ -46,23 +46,28 @@ public class SlogoMenu extends MenuBar {
 	}
 	
 	private void populate() {
-		history.getItems().add(createMenuItem(myBundle.getString("Clear"), e-> clear()));
+		clear.getItems().add(createMenuItem(myBundle.getString("History"), e-> clearHistory()));
+		clear.getItems().add(createMenuItem(myBundle.getString("VariableTitle"), e-> clearVariables()));
 		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox()));
-		options.getItems().add(history);
+		options.getItems().add(clear);
 		options.getItems().add(new SeparatorMenuItem());
 		options.getItems().add(new LanguageSelector(model.getLangauageProperty()));
+	}
+
+	private void clearVariables() {
+		model.getVariables().clearVariables();
 	}
 
 	private void createMenus() {
 		options = new Menu(myBundle.getString("Options"));
 		help = new Menu(myBundle.getString("Help"));
-		history =  new Menu(myBundle.getString("History"));
+		clear =  new Menu(myBundle.getString("Clear"));
 		addMenu(options);
 		addMenu(help);
 		
 	}
 
-	private void clear() {
+	private void clearHistory() {
 		model.getHistory().clear();
 	}
 
