@@ -74,9 +74,12 @@ public class View extends StaticPane implements Observer {
 
 	private void setTurtleImage(Image i) {
 		turtle.setImage(i);
-
 	}
 
+	private void setPenColor(Color c){
+		pen.setPenColor(c);
+	}
+	
 	public double getMaxWidth() {
 		return DisplayConstants.VIEW_WIDTH;
 	}
@@ -114,13 +117,47 @@ public class View extends StaticPane implements Observer {
 	public void update(Observable o, Object arg) {
 		double modelX = model.xCor();
 		double modelY = model.yCor();
+		double initialX = adjustInitialPointX(turtle.getTranslateX());
+		double initialY = adjustInitialPointY(turtle.getTranslateY());
+		double endX = translateToLineX(modelX);
+		double endY = translateToLineY(modelY);
+		
 		if (arg instanceof Collection){
 			Collection toBeRemoved = (Collection) arg;
 			toBeRemoved.forEach(l -> remove(lineManager.get(l)));
 		}
-		
 		if (arg instanceof ModelLine){
 			ModelLine modelLine = (ModelLine) arg;
+			
+//			if(endX<0){
+//				Line newLine = drawLine(getMaxWidth(),
+//						adjustInitialPointY(turtle.getTranslateY()),
+//						getMaxWidth()-initialX,
+//						translateToLineY(modelY));
+//				lineManager.put(modelLine,newLine);
+//			}else if(endX>getMaxWidth()){
+//				Line newLine = drawLine(0,
+//						adjustInitialPointY(turtle.getTranslateY()),
+//						endX-getMaxWidth(),
+//						translateToLineY(modelY));
+//				lineManager.put(modelLine,newLine);
+//			}
+//			
+//			if(endY<0){
+//				Line newLine = drawLine(initialX,
+//						getMaxHeight(),
+//						endX,
+//						getMaxHeight()-initialY);
+//				lineManager.put(modelLine,newLine);
+//			}else if(endY>getMaxHeight()){
+//				Line newLine = drawLine(initialX,
+//						0,
+//						endX,
+//						endY-getMaxHeight());
+//				lineManager.put(modelLine,newLine);
+//			}
+//			
+			
 			Line newLine = drawLine(adjustInitialPointX(turtle.getTranslateX()),
 					adjustInitialPointY(turtle.getTranslateY()),
 					translateToLineX(modelX),
@@ -134,9 +171,22 @@ public class View extends StaticPane implements Observer {
 			hideTurtle();
 		}
 		turn(translateToTurtleAngle(model.getHeading()));
-		moveTurtle(translateToTurtleX(modelX), translateToTurtleY(modelY));
+		
+//		if(endX<0){
+//			moveTurtle(getMaxWidth()-initialX, translateToTurtleY(modelY));
+//		}
+//		else if(endX>getMaxWidth()){
+//			moveTurtle(endX-getMaxWidth(), translateToTurtleY(modelY));
+//		}
+//		else if(endY<0){
+//			moveTurtle(translateToTurtleX(modelX),getMaxHeight()-initialY);
+//		}
+//		else if(endY>getMaxHeight()){
+//			moveTurtle(translateToTurtleX(modelX),endY-getMaxHeight());
+//		}
+			moveTurtle(translateToTurtleX(modelX), translateToTurtleY(modelY));
 	}
-
+	
 	public Line drawLine(double startX, double startY, double endX, double endY) {
 		Line n = new Line();
 		addLine(n ,startX, startY, endX, endY);
@@ -171,7 +221,7 @@ public class View extends StaticPane implements Observer {
 	}
 	
 	public double translateToTurtleX(double xCor) {
-		return xCor + getCenterXCor(turtle.getFitHeight());
+		return xCor + getCenterXCor(turtle.getFitWidth());
 	}
 
 	public double translateToTurtleY(double yCor) {

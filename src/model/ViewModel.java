@@ -31,28 +31,30 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double forward(double pixels) {
 		double angle = turtle.getHeadingInRadians();
+		double oldX = turtle.getXLocation();
+		double oldY = turtle.getYLocation();
 		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
 				turtle.getYLocation() + Math.sin(angle) * pixels);
-		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
+		addNewLineAndNotifyObservers(oldX, oldY, oldX+pixels, oldY+pixels);
 		return pixels;
 	}
 
 	@Override
 	public double back(double pixels) {
-		double angle = turtle.getHeadingInRadians() + Math.PI;
-		turtle.setHeading(turtle.getHeading()+Angle.HALF_CIRCLE);
-		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
-				turtle.getYLocation() + Math.sin(angle) * pixels);
-		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
-		return pixels;
+//		double angle = turtle.getHeadingInRadians() + Math.PI;
+//		turtle.setHeading(turtle.getHeading()+Angle.HALF_CIRCLE);
+//		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
+//				turtle.getYLocation() + Math.sin(angle) * pixels);
+//		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
+//		return pixels;
+		return forward(-pixels);
 	}
 
-	public void addNewLineAndNotifyObservers(double x, double y) {
-		ModelLine newLine = new ModelLine(x, y);
+	public void addNewLineAndNotifyObservers(double oldX, double oldY, double newX, double newY) {
+		ModelLine newLine = new ModelLine(oldX, oldY, newX, newY);
 		if (penIsDown) {
 			lineManager.add(newLine);
 		}
-
 		setChanged();
 		notifyObservers(newLine);
 	}
@@ -100,7 +102,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		double oldX = turtle.getXLocation();
 		double oldY = turtle.getYLocation();
 		turtle.setxy(x, y);
-		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
+		addNewLineAndNotifyObservers(oldX, oldY, x, y);
 		return Distance.calculateDistance(oldX, oldY, x, y);
 	}
 
@@ -113,7 +115,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public double penUp() {
-
 		penIsDown = false;
 		setChanged();
 		notifyObservers();
@@ -141,7 +142,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		double oldX = turtle.getXLocation();
 		double oldY = turtle.getYLocation();
 		turtle.setxy(0, 0);
-		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
+		addNewLineAndNotifyObservers(oldX, oldY, 0, 0);
 		return Distance.calculateDistance(oldX, oldY, 0, 0);
 	}
 
