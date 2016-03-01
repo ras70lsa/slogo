@@ -75,26 +75,50 @@ public abstract class CommandTreeNode implements INonLinearCommand {
 
     }
 
-    protected static INonLinearCommand recursiveSlogoFactoryListsAllowed(Scanner myScanner
-                                                                         , CommandTreeNode parentNode
-                                                                         , ISlogoInterpreter myInterpreter) throws UserInputException{
-        return CommandTreeNode
-                .slogoCommandFactory(getNextWord(myScanner), myScanner, parentNode, myInterpreter)
-                .parseString(myScanner, myInterpreter);
+//    protected static INonLinearCommand recursiveSlogoFactoryListsAllowed(Scanner myScanner
+//                                                                         , CommandTreeNode parentNode
+//                                                                         , ISlogoInterpreter myInterpreter) throws UserInputException{
+//        return CommandTreeNode
+//                .slogoCommandFactory(getNextWord(myScanner), myScanner, parentNode, myInterpreter)
+//                .parseString(myScanner, myInterpreter);
+//    }
+
+
+    protected static boolean checkIfStartOfList(String currentWord, Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException{
+        String toTest = currentWord;
+        toTest = CommandTreeNode.advanceScannerPastComments(toTest, myScanner, myInterpreter);
+        return SlogoRegexChecker.isStartOfList(toTest);
     }
-
-
+    
+    protected static boolean checkIfEndOfList(String currentWord, Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException{
+        String toTest = currentWord;
+        toTest = CommandTreeNode.advanceScannerPastComments(toTest, myScanner, myInterpreter);
+        return SlogoRegexChecker.isEndOfList(toTest);
+    }
+    
+    protected static String advanceScannerPastComments(String currentWord, Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException{
+        
+        String curWord = currentWord;
+        while(SlogoRegexChecker.isStartOfComment(curWord)){
+            new CmdComment(null).parseString(myScanner, myInterpreter);
+            curWord = CommandTreeNode.getNextWord(myScanner); 
+        }
+        return curWord;
+        
+    }
+    
     protected static INonLinearCommand recursiveSlogoFactoryAssertCondition(String nextWord 
                                                                             ,Scanner myScanner
                                                                             , CommandTreeNode parentNode
                                                                             ,ISlogoInterpreter myInterpreter
                                                                             , Predicate<String> myTestCase
                                                                             , String errorMessage) throws UserInputException{
-
-        if(myTestCase.test(nextWord)){
+        String curWord = nextWord;
+        curWord = CommandTreeNode.advanceScannerPastComments(curWord, myScanner, myInterpreter);
+        if(myTestCase.test(curWord)){
             throw new UserInputException(errorMessage);
         }
-        return CommandTreeNode.slogoCommandFactory(nextWord, myScanner, parentNode, myInterpreter).parseString(myScanner, myInterpreter);
+        return CommandTreeNode.slogoCommandFactory(curWord, myScanner, parentNode, myInterpreter).parseString(myScanner, myInterpreter);
 
     }
 
@@ -117,7 +141,13 @@ public abstract class CommandTreeNode implements INonLinearCommand {
 
 
 
-
+    /**
+     * Should be moved into the slogo scanner so that the user does not have to remember to call this safe way of getting
+     * the next element in the scanner
+     * @param myScanner
+     * @return
+     * @throws UserInputException
+     */
     protected static String getNextWord(Scanner myScanner) throws UserInputException{
         String myWord;
         try{
@@ -128,12 +158,55 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         return myWord;
     }
 
+    
+    protected static CommandTreeNode assertVariableNonRecursiveComment(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
+        if(SlogoRegexChecker.isVariable(nextWord)){
+            throw new UserInputException("Expected variable input at this point in parsing");
+        }
+        return slogoNonRecursiveCommentFactory(nextWord, myScanner, myParent, myInterpreter);
+    }
 
+    /**
+     * 
+     * Normal behavior of comments, in order to support lazy recursion implementation is to simply throw the node 
+     * away and then attempt to parse a new  command at the next word. The problem is that for certain commands, they 
+     * need to control the advance of the scanner to check on a word by word basis that certain syntax requirements 
+     * are met (a '[' follows the command name in the to command for example
+     * 
+     * There is only one command type that can be located in improper places but still allow the function to work, 
+     * and that would be a comment command. In the sense that a to declaration will be looking specifically for a 
+     * variable type slogo command next, but the '#' symbol could be found. This version will return null
+     * if a comment was encountered, forcing the command to re-examine the text input to see if it still
+     * matches its syntax requirements
+     * 
+     * @param nextWord
+     * @param myScanner
+     * @param myParent
+     * @param myInterpreter
+     * @return
+     * @throws UserInputException
+     */
+    protected static CommandTreeNode slogoNonRecursiveCommentFactory(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
+
+        if(SlogoRegexChecker.isStartOfComment(nextWord)){
+            new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children //actually need to 
+            return null; 
+        }
+        return checkCommandsExceptComment( nextWord,  myParent,  myInterpreter);
+
+    }
+    
     protected static CommandTreeNode slogoCommandFactory(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
-        // we can assume at this point that the only things that are coming are the words themselves and new line characters
-        // need to fix this to include the required inputs for hte different classes, and then also
-        // include the logic for choosing to instantiate the headnode
-        // include the required list node subtype construction
+        if(SlogoRegexChecker.isStartOfComment(nextWord)){
+            new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children //actually need to 
+            return slogoCommandFactory(CommandTreeNode.getNextWord(myScanner), myScanner, myParent, myInterpreter);
+        }
+        return checkCommandsExceptComment( nextWord,  myParent,  myInterpreter);
+
+    }
+    
+    
+    private static CommandTreeNode checkCommandsExceptComment(String nextWord, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
         CommandTreeNode toReturn = keyWordFunctions(nextWord, myParent);
         if(toReturn != null){
             return toReturn;
@@ -149,15 +222,6 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         if(SlogoRegexChecker.isDouble(nextWord)){
             return new CmdConstant(myParent, Double.parseDouble(nextWord));
         }
-        if(SlogoRegexChecker.isStartOfComment(nextWord)){
-            new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children
-            return slogoCommandFactory(CommandTreeNode.getNextWord(myScanner), myScanner, myParent, myInterpreter);
-        }
-
-        //TODO need to replace the fake checks for the type of command with the pattern syntax matches provided on the website:
-        // http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php
-
-
         // at this point, we have no idea what the input is, we should simply throw a malformed code input error and let the gui
         // handle informing the user
         throw new UserInputException("Please check spelling of all Slogo commands");
@@ -281,7 +345,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         return myValue != CommandTreeNode.DOUBLE_ZERO;
     }
 
-    public static boolean isUserDefinedFunction(String nextWord, ISlogoInterpreter myInterpreter){
+    protected static boolean isUserDefinedFunction(String nextWord, ISlogoInterpreter myInterpreter){
         return (myInterpreter.getFunction(nextWord) != null);
     }
 
