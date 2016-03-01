@@ -42,13 +42,13 @@ public class View extends StaticPane implements Observer {
 	private ViewUIState visuals;
 	private IView model;
 	private Pen pen;
-	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE/2;
-
+	public static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE/2;
+	public static final double ACTOR_WIDTH = 50;
+	public static final double ACTOR_HEIGHT = 50;
 
 	public View(IView model) {
 		this.model = model;
 		addCSS("visual_resources/DefaultView.css");
-		visuals = new ViewUIState();	
 		pen = new Pen(Color.BLACK);
 		addSilentListeners();
 		model.addObserver(this);
@@ -88,7 +88,7 @@ public class View extends StaticPane implements Observer {
 	
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		List<Node> list = new ArrayList<Node>();
-		list.add(factory.get(visuals.getImageProperty(), "Choose Actor Image"));
+		list.add(factory.get(model.getImageProperty(), "Choose Actor Image"));
 		list.add(factory.get(model.getBackgroundColor(), "Background Color"));
 		list.add(factory.get(model.getPenColor(), "Pen Color"));
 		return list;
@@ -108,15 +108,13 @@ public class View extends StaticPane implements Observer {
 	
 	private void draw(Actor turtle) {
 		
-		ImageView view = new ImageView(turtle.getImage());
-		view.setFitWidth(50);
-		view.setFitHeight(50);
+		ImageView view = new ImageView(turtle.getImageProperty().get());
+		view.setFitWidth(ACTOR_WIDTH);
+		view.setFitHeight(ACTOR_HEIGHT);
 		view.setTranslateX(makeXCorrection(turtle.getXLocation()) - view.getFitWidth()/ 2);
 		view.setTranslateY(makeYCorrection(turtle.getYLocation()) - view.getFitHeight()/2);
 		view.setRotate(translateToTurtleAngle(turtle.getHeading()));
 		add(view);
-//		moveTurtle(translateToTurtleX(turtle.getXLocation()), translateToTurtleY(turtle.getYLocation()));
-//		turn(translateToTurtleAngle(turtle.getHeading()));
 	}
 	
 	private void draw(ModelLine line) {

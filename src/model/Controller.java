@@ -40,11 +40,15 @@ public class Controller {
     	String save = scanner.getString();
     	INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(scanner.getSlogoFormattedScanner(), model.getExecutionModel());
         myHead.executeCommand(viewModel, model.getExecutionModel());
-        viewModel.update();
-        update(save);
+        update();
+        updateHistory(save);
     }
     
-    private void update(String input) {
+    public void update() {
+    	viewModel.update();
+	}
+
+	private void updateHistory(String input) {
     	if(input != null && !input.equals("")) {
     		model.addToHistory(input);
     	}

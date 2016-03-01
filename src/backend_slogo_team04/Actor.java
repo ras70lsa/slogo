@@ -4,6 +4,7 @@ import Utilities.Angle;
 import Utilities.Distance;
 import javafx.scene.image.Image;
 import model.ModelLine;
+import properties.ImageProperty;
 
 /**
  * Class for manipulating the Turtle in the model
@@ -17,11 +18,13 @@ import model.ModelLine;
 
 public class Actor {
 
+	public static final String DEFAULT_PATH = "visual_resources/turtle.jpg";
 	private double xLocation;
 	private double yLocation;
 	private double heading;
 	private boolean penIsDown;
 	private boolean showing;
+	private ImageProperty image;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = x;
@@ -29,6 +32,12 @@ public class Actor {
 		showing = true;
 		this.heading = heading;
 		this.penIsDown = penIsDown;
+		image = new ImageProperty();
+		image.set(getDefaultImage());
+	}
+
+	private Image getDefaultImage() {
+		return new Image(getClass().getClassLoader().getResourceAsStream(DEFAULT_PATH));
 	}
 
 	public ModelLine forward(double pixels) {
@@ -102,8 +111,8 @@ public class Actor {
 		return showing;
 	}
 
-	public Image getImage() {
-		return new Image(getClass().getClassLoader().getResourceAsStream("visual_resources/turtle.jpg"));
+	public ImageProperty getImageProperty() {
+		return image;
 	}
 }
 

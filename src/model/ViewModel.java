@@ -9,6 +9,7 @@ import Utilities.Distance;
 import interfaces_slogo_team04.ISlogoModelActions;
 import interfaces_slogo_team04.IView;
 import properties.ColorProperty;
+import properties.ImageProperty;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
@@ -26,6 +27,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
+		addListeners();
+	}
+
+	private void addListeners() {
+		turtle.getImageProperty().addListener(e -> update());
 	}
 
 	@Override
@@ -46,15 +52,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public double back(double pixels) {
 		return forward(-pixels);
 	}
-
-//	public void addNewLineAndNotifyObservers(double oldX, double oldY, double newX, double newY) {
-//		ModelLine newLine = new ModelLine(oldX, oldY, newX, newY);
-//		if (penIsDown) {
-//			lineManager.add(newLine);
-//		}
-//		setChanged();
-//		notifyObservers(newLine);
-//	}
 
 	@Override
 
@@ -193,6 +190,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		setChanged();
 		notifyObservers();
 		
+	}
+
+	@Override
+	public ImageProperty getImageProperty() {
+		return turtle.getImageProperty();
 	}
 }
 

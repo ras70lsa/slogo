@@ -68,6 +68,7 @@ public class Display implements IDisplay {
 		setUpScene();
 		position();
 		addListeners();
+		controller.update();
 	}
 	
 	private void createAccordions() {
