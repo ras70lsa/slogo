@@ -1,9 +1,6 @@
 package model;
 
-import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
-
-import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
@@ -25,57 +22,49 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
 		penColor = new ColorProperty();
-		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2);
-		lineManager = new Stack<ModelLine>();
 		penIsDown = true;
+		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
+		lineManager = new Stack<ModelLine>();
 		isShowing = true;
 	}
 
 	@Override
 	public double forward(double pixels) {
-		double angle = turtle.getHeadingInRadians();
-		double oldX = turtle.getXLocation();
-		double oldY = turtle.getYLocation();
-		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
-				turtle.getYLocation() + Math.sin(angle) * pixels);
-		addNewLineAndNotifyObservers(oldX, oldY, oldX+pixels, oldY+pixels);
+		ModelLine line = turtle.forward(pixels);
+		addLine(line);
 		return pixels;
+	}
+
+	private void addLine(ModelLine line) {
+		if(line!=null) {
+			lineManager.add(line);
+		}
 	}
 
 	@Override
 	public double back(double pixels) {
-//		double angle = turtle.getHeadingInRadians() + Math.PI;
-//		turtle.setHeading(turtle.getHeading()+Angle.HALF_CIRCLE);
-//		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
-//				turtle.getYLocation() + Math.sin(angle) * pixels);
-//		addNewLineAndNotifyObservers(turtle.getXLocation(), turtle.getYLocation());
-//		return pixels;
 		return forward(-pixels);
 	}
 
-	public void addNewLineAndNotifyObservers(double oldX, double oldY, double newX, double newY) {
-		ModelLine newLine = new ModelLine(oldX, oldY, newX, newY);
-		if (penIsDown) {
-			lineManager.add(newLine);
-		}
-		setChanged();
-		notifyObservers(newLine);
-	}
+//	public void addNewLineAndNotifyObservers(double oldX, double oldY, double newX, double newY) {
+//		ModelLine newLine = new ModelLine(oldX, oldY, newX, newY);
+//		if (penIsDown) {
+//			lineManager.add(newLine);
+//		}
+//		setChanged();
+//		notifyObservers(newLine);
+//	}
 
 	@Override
 
 	public double left(double degrees) {
 		turtle.rotateCounterClockwise(degrees);
-		setChanged();
-		notifyObservers();
 		return degrees;
 	}
 
 	@Override
 	public double right(double degrees) {
 		turtle.rotateClockwise(degrees);
-		setChanged();
-		notifyObservers();
 		return degrees;
 	}
 
@@ -84,8 +73,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 		double oldHeading = turtle.getHeading();
 		turtle.setHeading(degrees);
-		setChanged();
-		notifyObservers();
 		return Angle.calculateAngleRotated(oldHeading, turtle.getHeading());
 	}
 
@@ -94,9 +81,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 		double newHeading = Angle.calculateAngleBetweenPoints(turtle.getXLocation(), turtle.getYLocation(), x, y);
 		turtle.setHeading(newHeading);
-
-		setChanged();
-		notifyObservers();
 		return 0;
 	}
 
@@ -104,39 +88,32 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public double setxy(double x, double y) {
 		double oldX = turtle.getXLocation();
 		double oldY = turtle.getYLocation();
-		turtle.setxy(x, y);
-		addNewLineAndNotifyObservers(oldX, oldY, x, y);
+		addLine(turtle.setxy(x, y));
 		return Distance.calculateDistance(oldX, oldY, x, y);
 	}
 
 
 	public double penDown() {
 		penIsDown = true;
-		setChanged();
-		notifyObservers();
-		return 1;
+		turtle.setPenDown(true);
+		return 0;
 	}
 
 	public double penUp() {
 		penIsDown = false;
-		setChanged();
-		notifyObservers();
+		turtle.setPenDown(false);
 		return 0;
 	}
 
 	@Override
 	public double showTurtle() {
-		isShowing = true;
-		setChanged();
-		notifyObservers();
+		turtle.setShowing(true);
 		return 1;
 	}
 
 	@Override
 	public double hideTurtle() {
-		isShowing = false;
-		setChanged();
-		notifyObservers();
+		turtle.setShowing(false);
 		return 0;
 	}
 
@@ -144,8 +121,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public double home() {
 		double oldX = turtle.getXLocation();
 		double oldY = turtle.getYLocation();
-		turtle.setxy(0, 0);
-		addNewLineAndNotifyObservers(oldX, oldY, 0, 0);
+		addLine(turtle.setxy(0, 0));
 		return Distance.calculateDistance(oldX, oldY, 0, 0);
 	}
 
@@ -180,36 +156,24 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double clearScreen() {
-		setChanged();
-		HashSet<ModelLine> toBeDeleted = new HashSet<ModelLine>();
-		while (!lineManager.isEmpty()) {
-			ModelLine next = lineManager.pop();
-			toBeDeleted.add(next);
-		}
-		notifyObservers(toBeDeleted);
+		
+		lineManager.clear();
 		return 0;
 	}
 
 	@Override
-	public List<Action> getHistory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public double isPenDown() {
-		return (penIsDown) ? 1 : 0;
-	
+		return turtle.getPenDown();
 	}
 
 	
-	public static void main(String[] args) {
-		ViewModel test = new ViewModel();
-		test.forward(20);
+//	public static void main(String[] args) {
+//		ViewModel test = new ViewModel();
+//		test.forward(20);
 //		test.back(20);
-		System.out.println(test.xCor());
-		System.out.println(test.yCor());
-	}
+//		System.out.println(test.xCor());
+//		System.out.println(test.yCor());
+//	}
 
 	@Override
 	public ColorProperty getPenColor() {
