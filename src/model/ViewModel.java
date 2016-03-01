@@ -90,13 +90,14 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return Distance.calculateDistance(oldX, oldY, x, y);
 	}
 
-
+	@Override
 	public double penDown() {
 		penIsDown = true;
 		turtle.setPenDown(true);
 		return 0;
 	}
 
+	@Override
 	public double penUp() {
 		penIsDown = false;
 		turtle.setPenDown(false);
@@ -143,10 +144,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return (isShowing) ? 1 : 0;
 	}
 
-	public double getHeading() {
-		return turtle.getHeading();
-	}
-
 	@Override
 	public ColorProperty getBackgroundColor() {
 		return backgroundColor;
@@ -162,15 +159,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public double isPenDown() {
 		return turtle.getPenDown();
 	}
-
-	
-//	public static void main(String[] args) {
-//		ViewModel test = new ViewModel();
-//		test.forward(20);
-//		test.back(20);
-//		System.out.println(test.xCor());
-//		System.out.println(test.yCor());
-//	}
 
 	@Override
 	public ColorProperty getPenColor() {

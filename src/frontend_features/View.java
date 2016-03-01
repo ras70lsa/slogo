@@ -1,7 +1,5 @@
 package frontend_features;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
-
 import Utilities.Angle;
 import backend_slogo_team04.Actor;
 import backend_structures.RGBColor;
@@ -18,23 +14,17 @@ import constants.DisplayConstants;
 import frontend_slogo_team04.State;
 import frontend_slogo_team04.VisualTurtle;
 import interfaces_slogo_team04.IView;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import visual_states.GuiUserOption;
 import visual_states.ViewUIState;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import model.Model;
 import model.ModelLine;
-import model.ViewModel;
 
 public class View extends StaticPane implements Observer {
 
@@ -42,9 +32,12 @@ public class View extends StaticPane implements Observer {
 	private ViewUIState visuals;
 	private IView model;
 	private Pen pen;
-	public static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE/2;
+
+	
 	public static final double ACTOR_WIDTH = 50;
 	public static final double ACTOR_HEIGHT = 50;
+
+	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE / 2;
 
 	public View(IView model) {
 		this.model = model;
@@ -56,6 +49,7 @@ public class View extends StaticPane implements Observer {
 	}
 
 	private void addSilentListeners() {
+
 		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
 		model.getPenColor().addListener((a,b,c) -> updatePenColor(c)); 
 
@@ -63,11 +57,7 @@ public class View extends StaticPane implements Observer {
 
 	private void updatePenColor(RGBColor c) {
 		pen.setPenColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 1.0));
-		
-	}
 
-	private void setPenColor(Color c){
-		pen.setPenColor(c);
 	}
 	
 	public double getMaxWidth() {
@@ -82,10 +72,15 @@ public class View extends StaticPane implements Observer {
 		return scaleFactor;
 	}
 
-	public State getState() {
-		return null;
+	public double getCenterXCor(double imageWidth) {
+		return DisplayConstants.VIEW_WIDTH / 2 - (imageWidth / 2);
 	}
-	
+
+	public double getCenterYCor(double imageHeight) {
+		return DisplayConstants.VIEW_HEIGHT / 2 - (imageHeight / 2);
+
+	}
+
 	protected List<Node> getReleventProperties(GuiUserOption factory) {
 		List<Node> list = new ArrayList<Node>();
 		list.add(factory.get(model.getImageProperty(), "Choose Actor Image"));
@@ -124,39 +119,38 @@ public class View extends StaticPane implements Observer {
 				makeYCorrection(line.getEndY()));
 	}
 
+	public Line drawLine(double startX, double startY, double endX, double endY) {
+		Line n = new Line();
+		n.setStroke(pen.getPenColor());
+		addLine(n, startX, startY, endX, endY);
+		return n;
+	}
+
 	private double makeXCorrection(double x) {
 		
 		return x + DisplayConstants.VIEW_WIDTH /2;
 	}
-	
 	private double makeYCorrection(double y) {
 		
 		return DisplayConstants.VIEW_HEIGHT /2 - y; 
 	}
 
-	public Line drawLine(double startX, double startY, double endX, double endY) {
-		Line n = new Line();
-		n.setStroke(pen.getPenColor());
-		addLine(n ,startX, startY, endX, endY);
-		return n;
-	}
-	
-	public double translateToTurtleAngle(double angle){
+	public double translateToTurtleAngle(double angle) {
 		return -(angle - TURTLE_INITIAL_ANGLE);
 	}
-	
+
 	public void getOptions() {
-		
+
 		List<Node> properties = getReleventProperties(new GuiUserOption());
 		Stage stage = getEmptyStage();
-		VBox box= new VBox();
+		VBox box = new VBox();
 		Group myGroup = (Group) stage.getScene().getRoot();
 		myGroup.getChildren().add(box);
-		for(Node node: properties) {
+		for (Node node : properties) {
 			box.getChildren().add(node);
 		}
 		stage.show();
-		
+
 	}
 }
 
