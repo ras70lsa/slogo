@@ -159,42 +159,24 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
     
-    protected static CommandTreeNode assertVariableNonRecursiveComment(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
-        if(SlogoRegexChecker.isVariable(nextWord)){
-            throw new UserInputException("Expected variable input at this point in parsing");
-        }
-        return slogoNonRecursiveCommentFactory(nextWord, myScanner, myParent, myInterpreter);
-    }
-
-    /**
-     * 
-     * Normal behavior of comments, in order to support lazy recursion implementation is to simply throw the node 
-     * away and then attempt to parse a new  command at the next word. The problem is that for certain commands, they 
-     * need to control the advance of the scanner to check on a word by word basis that certain syntax requirements 
-     * are met (a '[' follows the command name in the to command for example
-     * 
-     * There is only one command type that can be located in improper places but still allow the function to work, 
-     * and that would be a comment command. In the sense that a to declaration will be looking specifically for a 
-     * variable type slogo command next, but the '#' symbol could be found. This version will return null
-     * if a comment was encountered, forcing the command to re-examine the text input to see if it still
-     * matches its syntax requirements
-     * 
-     * @param nextWord
-     * @param myScanner
-     * @param myParent
-     * @param myInterpreter
-     * @return
-     * @throws UserInputException
-     */
-    protected static CommandTreeNode slogoNonRecursiveCommentFactory(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
-
+/**
+ * This is used by the head node, in order to actually allow comments to return, so that we can avoid having parsing errors
+ * @param nextWord
+ * @param myScanner
+ * @param myParent
+ * @param myInterpreter
+ * @return
+ * @throws UserInputException
+ */
+    protected static INonLinearCommand topLevelCommandFactory(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
         if(SlogoRegexChecker.isStartOfComment(nextWord)){
-            new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children //actually need to 
-            return null; 
+            return new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children //actually need to 
+            //return slogoCommandFactory(CommandTreeNode.getNextWord(myScanner), myScanner, myParent, myInterpreter);
         }
-        return checkCommandsExceptComment( nextWord,  myParent,  myInterpreter);
+        return slogoCommandFactory( nextWord, myScanner,  myParent,  myInterpreter).parseString(myScanner, myInterpreter);
 
     }
+ 
     
     protected static CommandTreeNode slogoCommandFactory(String nextWord, Scanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
         if(SlogoRegexChecker.isStartOfComment(nextWord)){
