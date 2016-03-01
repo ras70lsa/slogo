@@ -1,5 +1,6 @@
 package model;
 
+
 public class ModelLine {
 	private double startX, startY, endX, endY;
 	

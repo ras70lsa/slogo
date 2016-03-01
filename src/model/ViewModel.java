@@ -2,6 +2,8 @@ package model;
 
 import backend_slogo_team04.Action;
 import backend_slogo_team04.Actor;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
@@ -213,6 +215,15 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public ColorProperty getPenColor() {
 		return penColor;
+	}
+
+	public List<ModelLine> getLines() {
+		return lineManager;
+	}
+	
+	
+	public Actor getActor() {
+		return turtle;
 	}
 }
 
