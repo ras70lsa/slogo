@@ -40,6 +40,7 @@ public class Controller {
     	String save = scanner.getString();
     	INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(scanner.getSlogoFormattedScanner(), model.getExecutionModel());
         myHead.executeCommand(viewModel, model.getExecutionModel());
+        viewModel.update();
         update(save);
     }
     

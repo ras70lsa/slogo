@@ -2,6 +2,7 @@ package backend_slogo_team04;
 
 import Utilities.Angle;
 import Utilities.Distance;
+import javafx.scene.image.Image;
 import model.ModelLine;
 
 /**
@@ -95,6 +96,14 @@ public class Actor {
 
 	public int getPenDown() {
 		return (penIsDown) ? 1: 0;
+	}
+
+	public boolean getVisible() {
+		return showing;
+	}
+
+	public Image getImage() {
+		return new Image(getClass().getClassLoader().getResourceAsStream("visual_resources/turtle.jpg"));
 	}
 }
 

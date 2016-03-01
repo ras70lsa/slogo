@@ -30,6 +30,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double forward(double pixels) {
+
 		ModelLine line = turtle.forward(pixels);
 		addLine(line);
 		return pixels;
@@ -156,7 +157,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double clearScreen() {
-		
 		lineManager.clear();
 		return 0;
 	}
@@ -184,9 +184,15 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return lineManager;
 	}
 	
-	
 	public Actor getActor() {
 		return turtle;
+	}
+
+	@Override
+	public void update() {
+		setChanged();
+		notifyObservers();
+		
 	}
 }
 
