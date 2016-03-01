@@ -37,12 +37,20 @@ public abstract class StaticPane extends ModularPane {
 		node.setTranslateY(y);
 	}
 	
+	public void add(Node node) {
+		pane.getChildren().add(node);
+	}
+	
 	public void addLine(Line node, double startX, double startY, double endX, double endY){
 		pane.getChildren().add(node);
 		node.setStartX(startX);
 		node.setStartY(startY);
 		node.setEndX(endX);
 		node.setEndY(endY);
+	}
+
+	public void clear() {
+		pane.getChildren().clear();
 	}
 
 }
