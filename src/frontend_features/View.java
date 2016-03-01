@@ -136,10 +136,26 @@ public class View extends StaticPane implements Observer {
 	}
 	
 	private void draw(ModelLine line) {
-		drawLine(translateToLineX(line.getStartX()), 
-				translateToLineY(line.getStartY()), 
-				translateToLineX(line.getEndX()), 
-				translateToLineY(line.getEndY()));
+		double initialX = translateToLineX(line.getStartX());
+		double initialY = translateToLineY(line.getStartY());
+		double endX = translateToLineX(line.getEndX());
+		double endY = translateToLineY(line.getEndY());
+		
+		if(endX<0){
+			drawLine(translateToLineX(getMaxWidth()), initialY,
+					translateToLineX(getMaxWidth()-initialX),
+					endY);
+		}else if(endX>getMaxWidth()){
+			drawLine(0,
+					initialY,
+					translateToLineX(endX-getMaxWidth()),
+					endY);
+		}
+			drawLine(translateToLineX(line.getStartX()), 
+					translateToLineY(line.getStartY()), 
+					translateToLineX(line.getEndX()), 
+					translateToLineY(line.getEndY()));
+		
 	}
 
 	public Line drawLine(double startX, double startY, double endX, double endY) {
