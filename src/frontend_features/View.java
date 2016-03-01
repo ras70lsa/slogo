@@ -131,11 +131,15 @@ public class View extends StaticPane implements Observer {
 	}
 	
 	private void draw(Actor turtle) {
-		System.out.println("this is a turle");
+		moveTurtle(translateToTurtleX(turtle.getXLocation()), translateToTurtleY(turtle.getYLocation()));
+		turn(translateToTurtleAngle(turtle.getHeading()));
 	}
 	
 	private void draw(ModelLine line) {
-		System.out.println("this is a line");
+		drawLine(translateToLineX(line.getStartX()), 
+				translateToLineY(line.getStartY()), 
+				translateToLineX(line.getEndX()), 
+				translateToLineY(line.getEndY()));
 	}
 
 	public Line drawLine(double startX, double startY, double endX, double endY) {

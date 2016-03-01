@@ -38,7 +38,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		double oldY = turtle.getYLocation();
 		turtle.setxy(turtle.getXLocation() + Math.cos(angle) * pixels,
 				turtle.getYLocation() + Math.sin(angle) * pixels);
-		addNewLineAndNotifyObservers(oldX, oldY, oldX+pixels, oldY+pixels);
+		addNewLineAndNotifyObservers(oldX, oldY, turtle.getXLocation(), turtle.getYLocation());
 		return pixels;
 	}
 
