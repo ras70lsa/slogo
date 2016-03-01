@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 
 public class Distance {
 	public static double calculateDistance(double startX, double startY, double endX, double endY){

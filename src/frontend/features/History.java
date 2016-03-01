@@ -8,7 +8,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import visual_states.HistoryUIState;
+import visual.states.HistoryUIState;
 
 
 /**

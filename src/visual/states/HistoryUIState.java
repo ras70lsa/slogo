@@ -1,4 +1,4 @@
-package visual_states;
+package visual.states;
 
 import frontend.slogo.team04.State;
 import javafx.beans.property.BooleanProperty;

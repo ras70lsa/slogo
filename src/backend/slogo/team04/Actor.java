@@ -1,10 +1,10 @@
 package backend.slogo.team04;
 
-import Utilities.Angle;
-import Utilities.Distance;
 import javafx.scene.image.Image;
 import model.ModelLine;
 import properties.ImageProperty;
+import utilities.Angle;
+import utilities.Distance;
 
 /**
  * Class for manipulating the Turtle in the model

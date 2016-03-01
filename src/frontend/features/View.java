@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import Utilities.Angle;
+
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import constants.DisplayConstants;
@@ -18,13 +18,14 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import visual_states.GuiUserOption;
-import visual_states.ViewUIState;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import model.ModelLine;
+import utilities.Angle;
+import visual.states.GuiUserOption;
+import visual.states.ViewUIState;
 
 public class View extends StaticPane implements Observer {
 

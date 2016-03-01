@@ -1,4 +1,4 @@
-package visual_states;
+package visual.states;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;

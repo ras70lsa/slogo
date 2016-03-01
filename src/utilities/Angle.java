@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 
 public class Angle {
 	public static final double HALF_CIRCLE = 180;

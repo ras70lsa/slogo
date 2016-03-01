@@ -35,7 +35,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import model.Controller;
-import visual_states.HistoryUIState;
+import visual.states.HistoryUIState;
 
 /**
  * This class is the class responsible for setting up the interaction with the user.

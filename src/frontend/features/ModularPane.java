@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import visual_states.GuiUserOption;
+import visual.states.GuiUserOption;
 import javafx.scene.layout.VBox;
 import java.util.List;
 import java.util.ResourceBundle;

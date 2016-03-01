@@ -10,7 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldTableCell;
-import visual_states.GuiUserOption;
+import visual.states.GuiUserOption;
 
 /**
  * Variable feature

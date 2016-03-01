@@ -8,7 +8,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import visual_states.GuiUserOption;
+import visual.states.GuiUserOption;
 
 public class LanguageSelector extends Menu  {
 
