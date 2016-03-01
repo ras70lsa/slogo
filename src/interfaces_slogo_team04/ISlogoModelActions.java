@@ -29,6 +29,6 @@ public interface ISlogoModelActions {
     public double isPenDown();
     public double isShowing();
     public double clearScreen();
-    public List<Action> getHistory();
+    public void update();
 
 }

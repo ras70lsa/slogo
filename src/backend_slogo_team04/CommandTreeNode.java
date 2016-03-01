@@ -163,7 +163,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         throw new UserInputException("Please check spelling of all Slogo commands");
     }
 
-    protected boolean isKeyWord(String nextWord){
+    protected static boolean isKeyWord(String nextWord){
         return keyWordFunctions(nextWord, null) != null;
     }
 

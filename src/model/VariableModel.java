@@ -68,4 +68,10 @@ public class VariableModel implements IVariable {
 		return setVariable(name.toLowerCase(), 0d);
 	}
 
+	@Override
+	public void clearVariables() {
+		variables.clear();
+		
+	}
+
 }

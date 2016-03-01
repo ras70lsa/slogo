@@ -66,4 +66,10 @@ public class ExecutionState implements ISlogoInterpreter, IVariable, ICommands {
 		return commands.getCommands();
 	}
 
+	@Override
+	public void clearVariables() {
+		variables.clear();
+		
+	}
+
 }
