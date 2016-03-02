@@ -19,9 +19,13 @@ public class StartScreen extends Screen {
 		start.setLayoutX(DisplayConstants.START_WIDTH/2 - start.getLayoutBounds().getWidth() / 2);
 		start.setLayoutY(DisplayConstants.START_HEIGHT/2 - start.getLayoutBounds().getHeight()/ 2);
 		add(start);
-		start.setOnAction(e -> addAndShowWorkspace("Test"));
-		getStage().close();
+		start.setOnAction(e -> move());
 		
+	}
+
+	private void move() {
+		addAndShowWorkspace("Test");
+		getStage().close();
 	}
 	
 }
