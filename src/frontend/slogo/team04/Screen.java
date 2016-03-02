@@ -52,4 +52,8 @@ public abstract class Screen {
 		workspaces.addNew(name);
 	}
 	
+	protected Stage getStage() {
+		return myStage;
+	}
+	
 }
