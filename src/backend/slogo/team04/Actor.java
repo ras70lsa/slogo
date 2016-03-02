@@ -59,10 +59,14 @@ public class Actor {
 	}
 	
 	public ModelLine setxy(double x, double y) {
-		ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y);
-		xLocation = x;
-		yLocation = y;
-		return newLine;
+		if(penIsDown){
+			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y);
+			xLocation = x;
+			yLocation = y;
+			return newLine;
+		}else{
+			return null;
+		}
 	}
 
 	public double getXLocation() {
