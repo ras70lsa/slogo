@@ -9,31 +9,31 @@ public class BackendTestNullModelActor implements ISlogoModelActions{
     @Override
     public double forward (double pixels) {
         System.out.printf("forward: %f\n", pixels);
-        return 0;
+        return pixels;
     }
 
     @Override
     public double back (double pixels) {
         System.out.printf("back: %f\n", pixels);
-        return 0;
+        return pixels;
     }
 
     @Override
     public double left (double pixels) {
         System.out.printf("left: %f\n", pixels);
-        return 0;
+        return pixels;
     }
 
     @Override
     public double right (double pixels) {
         System.out.printf("right: %f\n", pixels);
-        return 0;
+        return pixels;
     }
 
     @Override
     public double setHeading (double degrees) {
         System.out.printf("setHeading: %f\n", degrees);
-        return 0;
+        return degrees;
     }
 
     @Override

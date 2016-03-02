@@ -31,7 +31,8 @@ public class CmdComment extends CommandTreeNode {
         
         Pattern cached = myScanner.delimiter();
         //myScanner.useDelimiter(SlogoScanner.ALL_NON_NEW_LINE_WHITESPACE_REGEX);
-        myScanner.useDelimiter(REGEX_CHARS_AND_WHITESPACE_LESS_NEWLINE).next(); //"[[\\S]\\t\\x0B\\f\\r ]+"
+        myScanner.useDelimiter(REGEX_CHARS_AND_WHITESPACE_LESS_NEWLINE);//.next(); //"[[\\S]\\t\\x0B\\f\\r ]+"
+        CommandTreeNode.getNextWord(myScanner);
         //System.out.println("Test" + content + ":");
 //        for(int i = 0; i < content.length(); i++){
 //            System.out.printf("%d\n", (int) content.charAt(i));

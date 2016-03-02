@@ -44,18 +44,18 @@ public class CmdTo extends CommandTreeNode {
         List<CmdVariable> listOfVariables = new ArrayList<CmdVariable>();
         List<INonLinearCommand> listOfCommands = new ArrayList<INonLinearCommand>(); 
         myWord = CommandTreeNode.getNextWord(myScanner);
-        if(SlogoRegexChecker.isStartOfList(myWord)){
+        if(CommandTreeNode.checkIfStartOfList(myWord, myScanner, myInterpreter)){
             // grab variables
             myWord = CommandTreeNode.getNextWord(myScanner);
-            while(!SlogoRegexChecker.isEndOfList(myWord)){
+            while(!CommandTreeNode.checkIfEndOfList(myWord, myScanner, myInterpreter)){
                 listOfVariables.add(CommandTreeNode.getVariableOrAssertError(myWord,myScanner, myCommandToCreate, myInterpreter));
                 myWord = CommandTreeNode.getNextWord(myScanner);
             }
             myWord = CommandTreeNode.getNextWord(myScanner);
-            if(SlogoRegexChecker.isStartOfList(myWord)){
+            if(CommandTreeNode.checkIfStartOfList(myWord, myScanner, myInterpreter)){
                 //grabbing and storing the commands
                 myWord = CommandTreeNode.getNextWord(myScanner);
-                while(!SlogoRegexChecker.isEndOfList(myWord)){
+                while(!CommandTreeNode.checkIfEndOfList(myWord, myScanner, myInterpreter)){
                     listOfCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsControlledAdvance(myWord, myScanner, myCommandToCreate, myInterpreter));
                     myWord = CommandTreeNode.getNextWord(myScanner);
                 }
