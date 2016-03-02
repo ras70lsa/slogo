@@ -42,6 +42,9 @@ public class DisplayConstants {
 	public static final double COM_X = DISPLAY_WIDTH -  2 * BUFFER - HISTORY_WIDTH - VAR_WIDTH;
 	public static final double COM_Y = 2 * BUFFER;
 	
+	public static final double START_WIDTH = 400;
+	public static final double START_HEIGHT = 400;
+	
 	public static final String RESOURCES_PATH = "resources.languages/";
 	
 	public static final double USER_OPTION_SIZE = 200;
