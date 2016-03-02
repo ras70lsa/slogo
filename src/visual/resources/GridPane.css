@@ -1,0 +1,41 @@
+.accordion {
+	 -fx-background-color: #e0e0eb;
+}
+
+.list-cell:odd{
+	
+    -fx-background-color: #0000b3;
+    -fx-text-fill: white;
+	
+}
+
+.list-cell:filled:hover { 
+    -fx-background-color:  #c2c2d6; 
+    -fx-text-fill: white; 
+}
+
+.list-cell:even{
+	
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000; 
+	
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
+    -fx-text-fill: white;
+}
+
+
+.list-cell:empty{
+	
+    -fx-background-color: #FFFFFF;
+}
+
+.titled-pane .title:hover {
+    -fx-background-color: #c2c2d6;
+}
+
+.titled-pane .title{
+  
+}

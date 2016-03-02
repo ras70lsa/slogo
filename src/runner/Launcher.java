@@ -1,7 +1,7 @@
 package runner;
 
 
-import frontend_slogo_team04.Display;
+import frontend.slogo.team04.Display;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Controller;

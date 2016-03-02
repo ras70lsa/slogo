@@ -3,8 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-import backend_slogo_team04.Variable;
-import interfaces_slogo_team04.IVariable;
+import backend.slogo.team04.Variable;
+import interfaces.slogo.team04.IVariable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;

@@ -1,11 +1,11 @@
 package model;
 
-import backend_slogo_team04.CommandTreeNode;
-import backend_slogo_team04.INonLinearCommand;
-import backend_slogo_team04.ISlogoInterpreter;
-import backend_slogo_team04.Variable;
-import interfaces_slogo_team04.ICommands;
-import interfaces_slogo_team04.IVariable;
+import backend.slogo.team04.CommandTreeNode;
+import backend.slogo.team04.INonLinearCommand;
+import backend.slogo.team04.ISlogoInterpreter;
+import backend.slogo.team04.Variable;
+import interfaces.slogo.team04.ICommands;
+import interfaces.slogo.team04.IVariable;
 import javafx.beans.property.ListProperty;
 
 public class ExecutionState implements ISlogoInterpreter, IVariable, ICommands {
