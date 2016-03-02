@@ -2,11 +2,12 @@ package frontend.slogo.team04;
 
 import constants.DisplayConstants;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class StartScreen extends Screen {
 
 	public StartScreen(double width, double height, WorkspaceManager workspaces) {
-		super(width, height, workspaces);
+		super(width, height, new Stage(), workspaces);
 		setUpScene();
 	}
 	
@@ -25,6 +26,7 @@ public class StartScreen extends Screen {
 
 	private void move() {
 		addAndShowWorkspace("Test");
+		
 		getStage().close();
 	}
 	

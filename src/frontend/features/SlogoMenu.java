@@ -30,6 +30,7 @@ public class SlogoMenu extends MenuBar {
 	Menu options;
 	Menu help;
 	Menu clear;
+	Menu file;
 	
 	public SlogoMenu(IModel model, IDisplay display) { 
 		this.display = display;
@@ -46,6 +47,7 @@ public class SlogoMenu extends MenuBar {
 	}
 	
 	private void populate() {
+		file.getItems().add(createMenuItem(myBundle.getString("New"), e-> newWorkspace()));
 		clear.getItems().add(createMenuItem(myBundle.getString("History"), e-> clearHistory()));
 		clear.getItems().add(createMenuItem(myBundle.getString("VariableTitle"), e-> clearVariables()));
 		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox()));
@@ -54,14 +56,20 @@ public class SlogoMenu extends MenuBar {
 		options.getItems().add(new LanguageSelector(model.getLangauageProperty()));
 	}
 
+	private void newWorkspace() {
+		display.getManager().addNewAndGo("Again");
+	}
+
 	private void clearVariables() {
 		model.getVariables().clearVariables();
 	}
 
 	private void createMenus() {
+		file = new Menu(myBundle.getString("File"));
 		options = new Menu(myBundle.getString("Options"));
 		help = new Menu(myBundle.getString("Help"));
 		clear =  new Menu(myBundle.getString("Clear"));
+		addMenu(file);
 		addMenu(options);
 		addMenu(help);
 		

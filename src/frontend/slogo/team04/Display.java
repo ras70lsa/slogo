@@ -57,10 +57,13 @@ public class Display extends Screen implements IDisplay {
 	private Accordion leftFeatures;
 	private Accordion rightFeatures;
 	private SlogoMenu menuBar;
+	private WorkspaceManager workspaces;
 	
-	public Display(IModel iModel, Controller controller, double width, double height, WorkspaceManager workspaces) {
-		super(width, height, workspaces);
+	public Display(IModel iModel, Controller controller, double width, double height, Stage 
+			stage, WorkspaceManager workspaces) {
+		super(width, height, stage, workspaces);
 		modules = new ArrayList<Module>();
+		this.workspaces = workspaces;
 		this.controller = controller;
 		model = iModel;
 		setUpScene();
@@ -122,10 +125,6 @@ public class Display extends Screen implements IDisplay {
 			alert.displayError();
 		}
 	}
-
-	public interface FunctionCall {
-		public void call(Module module);
-	}
 	
 	private void position() {
 		gridPane = new GridPane();
@@ -176,6 +175,10 @@ public class Display extends Screen implements IDisplay {
 	
 	public View getView() {
 		return view;
+	}
+	
+	public WorkspaceManager getManager() {
+		return workspaces;
 	}
 
 }

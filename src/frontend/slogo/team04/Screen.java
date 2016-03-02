@@ -17,7 +17,8 @@ public abstract class Screen {
 	private ResourceBundle myBundle;
 	private WorkspaceManager workspaces;
 	
-	public Screen(double width, double height, WorkspaceManager workspaces) { 
+	public Screen(double width, double height, Stage myStage, WorkspaceManager workspaces) { 
+		this.myStage = myStage;
 		myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + ResourceConstants.ENGLISH);
 		this.workspaces = workspaces;
 		setUp(width, height);
@@ -29,7 +30,6 @@ public abstract class Screen {
 	
 	public void setUp(double width, double height) {
 		
-		myStage = new Stage();
 		myGroup = new Group();
 		myScene = new Scene(myGroup,width, height, 
 						DisplayConstants.BACKGROUND_COLOR);
@@ -49,11 +49,20 @@ public abstract class Screen {
 	}
 	
 	protected void addAndShowWorkspace(String name) {
-		workspaces.addNew(name);
+		workspaces.addNewAndGo(name);
+		showMainStage();
 	}
 	
 	protected Stage getStage() {
 		return myStage;
+	}
+	
+	protected Scene getScene() {
+		return myScene;
+	}
+	
+	protected void showMainStage() {
+		workspaces.start();
 	}
 	
 }
