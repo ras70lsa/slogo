@@ -10,6 +10,7 @@ import java.util.Observer;
 
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
+import constants.CSSPathConstants;
 import constants.DisplayConstants;
 import frontend.slogo.team04.State;
 import frontend.slogo.team04.VisualTurtle;
@@ -45,7 +46,7 @@ public class View extends StaticPane implements Observer {
 
 	public View(IView model) {
 		this.model = model;
-		addCSS("visual_resources/DefaultView.css");
+		addCSS(CSSPathConstants.DEFAULT_VIEW);
 		pen = new Pen(Color.BLACK);
 		addSilentListeners();
 		model.addObserver(this);

@@ -43,12 +43,9 @@ import visual.states.HistoryUIState;
  * @author Ryan St Pierre
  *
  */
-public class Display implements IDisplay {
+public class Display extends Screen implements IDisplay {
 
 	private Collection<Module> modules;
-	private Stage myStage;
-	private Group panes;
-	private Scene myScene;
 	private UserTextInput textInput;
 	private History history;
 	private View view;
@@ -61,7 +58,8 @@ public class Display implements IDisplay {
 	private Accordion rightFeatures;
 	private SlogoMenu menuBar;
 	
-	public Display(IModel iModel, Controller controller) {
+	public Display(IModel iModel, Controller controller, double width, double height, WorkspaceManager workspaces) {
+		super(width, height, workspaces);
 		modules = new ArrayList<Module>();
 		this.controller = controller;
 		model = iModel;
@@ -165,25 +163,12 @@ public class Display implements IDisplay {
 		}
 	}
 	
-	private void add(Node node) {
-		panes.getChildren().add(node);
-	}
-	
 	private void createMenuBar() {
 		menuBar = new SlogoMenu(model, this);
 	}
 	
-	public void start() {
-		myStage.show();
-	}
-	
 	public void setUpScene() {
 		
-		myStage = new Stage();
-		panes = new Group();
-		myScene = new Scene(panes, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT, 
-						DisplayConstants.BACKGROUND_COLOR);
-		myStage.setScene(myScene);
 		createModules(controller);
 		createAccordions();
 		createMenuBar();
