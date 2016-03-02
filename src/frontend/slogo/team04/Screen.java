@@ -48,8 +48,8 @@ public abstract class Screen {
 		return myBundle.getString(check);
 	}
 	
-	protected void addAndShowWorkspace(String name) {
-		workspaces.addNewAndGo(name);
+	protected void newWorkspace() {
+		workspaces.go();
 		showMainStage();
 	}
 	

@@ -25,7 +25,7 @@ public class StartScreen extends Screen {
 	}
 
 	private void move() {
-		addAndShowWorkspace("Test");
+		newWorkspace();
 		getStage().close();
 	}
 	
