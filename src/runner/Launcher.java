@@ -1,6 +1,7 @@
 package runner;
 
 
+import constants.DisplayConstants;
 import frontend.slogo.team04.Display;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -21,7 +22,7 @@ public class Launcher extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		Model model = new Model();
 		Controller controller = new Controller(model.getCommunicator(), model.getView());
-		Display display = new Display(model, controller);
+		Display display = new Display(model, controller, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT);
 		display.start();
 		
 	}

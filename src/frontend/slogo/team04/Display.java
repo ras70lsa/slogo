@@ -58,7 +58,8 @@ public class Display extends Screen implements IDisplay {
 	private Accordion rightFeatures;
 	private SlogoMenu menuBar;
 	
-	public Display(IModel iModel, Controller controller) {
+	public Display(IModel iModel, Controller controller, double width, double height) {
+		super(width, height);
 		modules = new ArrayList<Module>();
 		this.controller = controller;
 		model = iModel;

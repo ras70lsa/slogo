@@ -1,10 +1,11 @@
 package backend.slogo.team04;
 
+import java.io.InputStream;
+
 import javafx.scene.image.Image;
 import model.ModelLine;
 import properties.ImageProperty;
 import utilities.Angle;
-import utilities.Distance;
 
 /**
  * Class for manipulating the Turtle in the model
@@ -18,7 +19,7 @@ import utilities.Distance;
 
 public class Actor {
 
-	public static final String DEFAULT_PATH = "visual_resources/slogoTurtle.png";
+	public static final String DEFAULT_PATH = "images/slogoTurtle.png";
 	private double xLocation;
 	private double yLocation;
 	private double heading;

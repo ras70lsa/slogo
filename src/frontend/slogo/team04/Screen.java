@@ -12,19 +12,19 @@ public class Screen {
 	private Group myGroup;
 	private Scene myScene;
 	
-	public Screen() { 
-		setUp();
+	public Screen(double width, double height) { 
+		setUp(width, height);
 	}
 	
 	public void start() {
 		myStage.show();
 	}
 	
-	public void setUp() {
+	public void setUp(double width, double height) {
 		
 		myStage = new Stage();
 		myGroup = new Group();
-		myScene = new Scene(myGroup, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT, 
+		myScene = new Scene(myGroup,width, height, 
 						DisplayConstants.BACKGROUND_COLOR);
 		myStage.setScene(myScene);
 	}
