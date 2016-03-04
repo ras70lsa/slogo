@@ -25,12 +25,7 @@ public class ArchiveWorkspace {
 		}
 	}
 
-	public void print() {
-		System.out.println(savedLines);
-	}
-
 	public Workspace getNew(WorkspaceManager workspaceManager, Stage mainStage) {
-		print();
 		Workspace workspace = new Workspace(workspaceManager, mainStage);
 		workspace.getModel().getViewInterface().getLines().clear();
 		workspace.getModel().getViewInterface().getLines().addAll(savedLines);
