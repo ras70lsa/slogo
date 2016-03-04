@@ -35,9 +35,9 @@ import properties.ImageProperty;
  */
 public class GuiUserOption {
 
-	public void get(File file, String str) {
-		
-	}
+	public static final Color DEFUALT_LABEL_COLOR = Color.BLACK;
+	public static final String OFFSET = "  ";
+	
 	
 	public Node get(BooleanProperty value, String label) {
 		HBox hbox = new HBox();
@@ -49,12 +49,12 @@ public class GuiUserOption {
 	
 	public Node get(ColorProperty color, String title) {
 		HBox hbox = new HBox();
-		hbox.getChildren().add(new Label(title));
-		
 		ColorPicker picker = new ColorPicker();
-		picker.setStyle("-fx-color-label-visible: false;");
 		picker.setOnAction(e -> setColor(picker.getValue(), color));
 		hbox.getChildren().add(picker);
+		Label label = new Label(OFFSET + title);
+		label.setTextFill(DEFUALT_LABEL_COLOR);
+		hbox.getChildren().add(label);
 		return hbox;
 	}
 

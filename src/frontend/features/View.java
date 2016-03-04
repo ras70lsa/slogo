@@ -93,7 +93,8 @@ public class View extends StaticPane implements Observer {
 
 	}
 
-	protected List<Node> getReleventProperties(GuiUserOption factory) {
+	public List<Node> getReleventProperties() {
+		GuiUserOption factory = new GuiUserOption();
 		List<Node> list = new ArrayList<Node>();
 		list.add(factory.get(model.getImageProperty(), "Choose Actor Image"));
 		list.add(factory.get(model.getBackgroundColor(), "Background Color"));
@@ -371,18 +372,7 @@ public class View extends StaticPane implements Observer {
 	private double det(double a, double b, double c, double d){
 		return a * d - b * c;
 	}
-	public void getOptions() {
-
-		List<Node> properties = getReleventProperties(new GuiUserOption());
-		Stage stage = getEmptyStage();
-		VBox box = new VBox();
-		Group myGroup = (Group) stage.getScene().getRoot();
-		myGroup.getChildren().add(box);
-		for (Node node : properties) {
-			box.getChildren().add(node);
-		}
-		stage.show();
-
-	}
+	
+	
 }
 
