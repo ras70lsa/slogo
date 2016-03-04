@@ -12,16 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
 public class SlogoMenu extends MenuBar {
 
@@ -29,6 +25,7 @@ public class SlogoMenu extends MenuBar {
 	IModel model;
 	ResourceBundle myBundle;
 	Menu options;
+	Menu advancedOptions;
 	Menu help;
 	Menu clear;
 
@@ -43,15 +40,28 @@ public class SlogoMenu extends MenuBar {
 	private void createMenuBar() {
 		
 		createMenus();
-		addVisualItem(myBundle.getString("View"), options);
+		//addVisualItem(myBundle.getString("View"), options);
 		populate();
+		advanced();
 	}
 	
+	private void advanced() {
+		ColorPicker c = new ColorPicker();
+		MenuItem item = new MenuItem("Background Color", c);
+		ColorPicker color = new ColorPicker();
+		MenuItem item2 = new MenuItem("Pen Color", color);
+		advancedOptions.getItems().add(item);
+		advancedOptions.getItems().add(item2);
+		
+		
+	}
+
 	private void populate() {
 		clear.getItems().add(createMenuItem(myBundle.getString("History"), e-> clearHistory()));
 		clear.getItems().add(createMenuItem(myBundle.getString("VariableTitle"), e-> clearVariables()));
 		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox()));
 		options.getItems().add(clear);
+		options.getItems().add(advancedOptions);
 		options.getItems().add(new SeparatorMenuItem());
 		options.getItems().add(new LanguageSelector(model.getLangauageProperty()));
 	}
@@ -63,6 +73,7 @@ public class SlogoMenu extends MenuBar {
 	private void createMenus() {
 		addMenu(new FileOption(display.getManager()));
 		options = new Menu(myBundle.getString("Options"));
+		advancedOptions = new Menu("Advanced Options");
 		help = new Menu(myBundle.getString("Help"));
 		clear =  new Menu(myBundle.getString("Clear"));
 		addMenu(options);

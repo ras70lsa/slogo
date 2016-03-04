@@ -2,6 +2,8 @@ package backend.slogo.team04;
 
 import java.io.InputStream;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import model.ModelLine;
 import properties.ImageProperty;
@@ -20,7 +22,7 @@ import utilities.Angle;
 public class Actor {
 
 	public static final String DEFAULT_PATH = "images/slogoTurtle.png";
-	private double xLocation;
+	private DoubleProperty xLocation;
 	private double yLocation;
 	private double heading;
 	private boolean penIsDown;
@@ -28,7 +30,8 @@ public class Actor {
 	private ImageProperty image;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
-		xLocation = x;
+		xLocation = new SimpleDoubleProperty();
+		xLocation.set(x);
 		yLocation = y;
 		showing = true;
 		this.heading = heading;
@@ -52,7 +55,7 @@ public class Actor {
 	}
 	
 	public void setXLocation(double x){
-		xLocation = x;
+		xLocation.set(x);
 	}
 	
 	public void setYLocation(double y){
@@ -62,7 +65,7 @@ public class Actor {
 	public ModelLine setxy(double x, double y) {
 		if(penIsDown){
 			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y);
-			xLocation = x;
+			xLocation.set(x);;
 			yLocation = y;
 			return newLine;
 		}else{
@@ -71,6 +74,10 @@ public class Actor {
 	}
 
 	public double getXLocation() {
+		return xLocation.get();
+	}
+	
+	public DoubleProperty getXProperty() {
 		return xLocation;
 	}
 
@@ -118,6 +125,11 @@ public class Actor {
 
 	public ImageProperty getImageProperty() {
 		return image;
+	}
+	
+	public String toString() {
+		return  "Actor" + xLocation;
+		
 	}
 }
 

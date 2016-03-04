@@ -92,7 +92,7 @@ public class Display extends Screen implements IDisplay {
 	private void makeLeft() {
 		//do nothing for now
 		leftFeatures = new Accordion();
-		LocationFeature actors = new LocationFeature();
+		LocationFeature actors = new LocationFeature(model.getViewInterface());
 		leftFeatures.getPanes().add(actors);
 	}
 
