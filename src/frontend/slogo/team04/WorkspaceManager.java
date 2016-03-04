@@ -23,7 +23,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Model;
 
 public class WorkspaceManager {
 	
@@ -31,7 +33,7 @@ public class WorkspaceManager {
 	private Tab currentTab;
 	private Workspace currentWorkspace;
 	private ListProperty<String> workspaceNames;
-	private ListProperty<Workspace> workspaceValue;
+	private ListProperty<ArchiveWorkspace> workspaceValue;
 	private ResourceBundle myBundle;
 	private Group myGroup;
 	private Scene myScene;
@@ -60,9 +62,10 @@ public class WorkspaceManager {
 	
 
 	public void show(String name) {
-		currentTab.setContent(workspaceValue.get(workspaceNames.indexOf(name)).getGridPane());
+		ArchiveWorkspace archive = workspaceValue.get(workspaceNames.indexOf(name));
+		currentWorkspace = archive.getNew(this, mainStage);
+		currentTab.setContent(currentWorkspace.getGridPane());
 		mainStage.setTitle(name);
-		
 	}
 	
 	public void start() {
@@ -76,9 +79,8 @@ public class WorkspaceManager {
 
 	public void save(String name) {
 		mainStage.setTitle(name);
-		currentTab.setText(name);
 		workspaceNames.add(name);
-		workspaceValue.add(currentWorkspace);
+		workspaceValue.add(new ArchiveWorkspace(currentWorkspace));
 	}
 
 	public void begin() {

@@ -38,7 +38,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		isShowing = true;
 		addListeners(turtle);
 	}
-	
+
 	@Override
 	public void addActor() {
 	

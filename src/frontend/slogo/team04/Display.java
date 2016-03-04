@@ -61,16 +61,17 @@ public class Display implements IDisplay {
 	
 	public Display(IModel iModel, Controller controller, double width, double height, Stage 
 			stage, WorkspaceManager workspaces) {
-		modules = new ArrayList<Module>();
 		this.workspaces = workspaces;
 		this.controller = controller;
 		model = iModel;
+		modules = new ArrayList<Module>();
 		setUpScene();
-		position();
+		position();			
 		addListeners();
 		controller.update();
+		
 	}
-	
+
 	private void createAccordions() {
 		makeLeft();
 		makeRight();

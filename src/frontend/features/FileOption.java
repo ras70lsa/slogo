@@ -59,25 +59,7 @@ public class FileOption extends Menu {
 	}
 	
 	private void create() {
-		//SaveAlert promptSave = new SaveAlert();
-//		if(promptSave.saveDesired()) {
-//			getDialog();
-//		} else{ 
-//			manager.addTab();
-//		}
 		manager.addTab();
 	}
 
-//	private void getDialog() {
-//		TextInputDialog nameInput = new TextInputDialog();
-//		nameInput.show();
-//		nameInput.setOnCloseRequest(e-> saveWorkspace(nameInput));
-//	}
-//	
-//	private void saveWorkspace(TextInputDialog nameInput) {
-//		if(nameInput.getResult()!=null) {
-//			manager.save(nameInput.getResult());
-//			manager.addTab();
-//		}	
-//	}
 }

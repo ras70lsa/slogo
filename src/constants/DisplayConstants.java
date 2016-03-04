@@ -10,7 +10,7 @@ public class DisplayConstants {
 	
 	public static final int BUFFER = 20;
 	
-	public static final double TEXT_HEIGHT = 160;
+	public static final double TEXT_HEIGHT = 127;
 	public static final double TEXT_WIDTH = 500;
 	
 	public static final double TEXT_X = BUFFER;

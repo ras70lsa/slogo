@@ -20,4 +20,5 @@ public interface IView{
 	public ImageProperty getImageProperty();
 	public ListProperty<Actor> getActorProperty();
 	public void addActor();
+	public void update();
 }

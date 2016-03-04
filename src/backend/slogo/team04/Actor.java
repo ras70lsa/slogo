@@ -49,6 +49,10 @@ public class Actor {
 		myLines = new Stack<ModelLine>();
 	}
 	
+	public Actor(Actor save) {
+		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown);
+	}
+
 	private Image getDefaultImage() {
 		return new Image(getClass().getClassLoader().getResourceAsStream(DEFAULT_PATH));
 	}
