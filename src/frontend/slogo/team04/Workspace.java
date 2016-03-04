@@ -2,6 +2,7 @@ package frontend.slogo.team04;
 
 import constants.DisplayConstants;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Controller;
 import model.Model;
@@ -17,8 +18,8 @@ public class Workspace {
 				stage, space);
 	}
 	
-	public Scene getScene() {
-		return display.getScene();
+	public GridPane getGridPane() {
+		return display.getGridPane();
 	}
 
 	
