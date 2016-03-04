@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
-
+import java.util.function.Consumer;
 import backend.slogo.team04.Actor;
 import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.IView;
@@ -52,14 +52,18 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private void addListeners(Actor actor) {
 		actor.getImageProperty().addListener(e -> update());
 	}
+	
+	public void alterActors(Consumer<Actor> action) {
+		actors.stream()
+			.filter((a) -> a.getActive().get())
+			.forEach(action);
+	}
 
 	
 	@Override
 	public double forward(double pixels) {
 
-		actors.stream()
-			.filter((a) -> a.getActive().get())
-			.forEach((a) -> a.forward(pixels));
+		alterActors((a) -> a.forward(pixels));
 		return pixels;
 	}
 
@@ -72,83 +76,86 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double back(double pixels) {
 		
-		for(Actor actor: actors) {
-			if(actor.getActive().get()) {
-				actor.forward(-pixels);
-			}
-		}
+		alterActors((a) -> a.forward(-pixels));
 		return -pixels;
 	}
 
 	@Override
 
 	public double left(double degrees) {
-		turtle.rotateCounterClockwise(degrees);
+		alterActors((a) -> a.rotateCounterClockwise(degrees));
 		return degrees;
 	}
 
 	@Override
 	public double right(double degrees) {
-		turtle.rotateClockwise(degrees);
+		alterActors((a) -> a.rotateClockwise(degrees));
 		return degrees;
 	}
 
 	@Override
 	public double setHeading(double degrees) {
 
-		double oldHeading = turtle.getHeading();
-		turtle.setHeading(degrees);
-		return Angle.calculateAngleRotated(oldHeading, turtle.getHeading());
+		if(actors.get(0) != null) { 
+			double oldHeading = actors.get(0).getHeading();
+			alterActors((a) -> a.setHeading(degrees));
+			actors.get(0).setHeading(degrees);
+			return Angle.calculateAngleRotated(oldHeading, turtle.getHeading());
+		}
+		return 0;
 	}
 
 	@Override
 	public double towards(double x, double y) {
 
-		double newHeading = Angle.calculateAngleBetweenPoints(turtle.getXLocation(), turtle.getYLocation(), x, y);
-		turtle.setHeading(newHeading);
+		alterActors((a) -> {
+			double newHeading = Angle.calculateAngleBetweenPoints(a.getXLocation(), a.getYLocation(), x, y);
+			a.setHeading(newHeading);
+		});
 		return 0;
 	}
 
 	@Override
 	public double setxy(double x, double y) {
-		double oldX = turtle.getXLocation();
-		double oldY = turtle.getYLocation();
-		addLine(turtle.setxy(x, y));
-		return Distance.calculateDistance(oldX, oldY, x, y);
+		if(actors.get(0) != null) {
+			double oldX = actors.get(0).getXLocation();
+			double oldY = actors.get(0).getYLocation();
+			alterActors((a) -> a.setxy(x, y));
+			return Distance.calculateDistance(oldX, oldY, x, y);
+		}
+		
+		return 0;
 	}
 
 	@Override
 	public double penDown() {
 		penIsDown = true;
-		turtle.setPenDown(true);
+		alterActors((a) -> a.setPenDown(true));
 		return 0;
 	}
 
 	@Override
 	public double penUp() {
 		penIsDown = false;
-		turtle.setPenDown(false);
+		alterActors((a) -> a.setPenDown(false));
 		return 0;
 	}
 
 	@Override
 	public double showTurtle() {
-		turtle.setShowing(true);
+		alterActors((a) -> a.setShowing(true));
 		return 1;
 	}
 
 	@Override
 	public double hideTurtle() {
-		turtle.setShowing(false);
+		alterActors((a) -> a.setShowing(true));
 		return 0;
 	}
 
 	@Override
 	public double home() {
-		double oldX = turtle.getXLocation();
-		double oldY = turtle.getYLocation();
-		addLine(turtle.setxy(0, 0));
-		return Distance.calculateDistance(oldX, oldY, 0, 0);
+		return setxy(0,0);
 	}
 
 	@Override
@@ -199,9 +206,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return lineManager;
 	}
 	
-	public Actor getActor() {
-		return turtle;
-	}
 
 	@Override
 	public void update() {
