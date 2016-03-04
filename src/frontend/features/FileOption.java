@@ -48,10 +48,10 @@ public class FileOption extends Menu {
 
 	private void setUp() {
 		MenuItem newWorkspace = new MenuItem(myBundle.getString("New"));
-		open = new Menu("Open");
+		open = new Menu(myBundle.getString("Open"));
 		newWorkspace.setOnAction( e-> create());
 		MenuItem save = new MenuItem(myBundle.getString("Save"));
-		save.setOnAction(e -> getDialog());
+		save.setOnAction(e -> manager.getDialog());
 		this.getItems().add(newWorkspace);
 		this.getItems().add(open);
 		this.getItems().add(save);
@@ -59,23 +59,25 @@ public class FileOption extends Menu {
 	}
 	
 	private void create() {
-		SaveAlert promptSave = new SaveAlert();
-		if(promptSave.saveDesired()) {
-			getDialog();
-		} else{ 
-			manager.go();
-		}
+		//SaveAlert promptSave = new SaveAlert();
+//		if(promptSave.saveDesired()) {
+//			getDialog();
+//		} else{ 
+//			manager.addTab();
+//		}
+		manager.addTab();
 	}
 
-	private void getDialog() {
-		TextInputDialog nameInput = new TextInputDialog();
-		nameInput.show();
-		nameInput.setOnCloseRequest(e-> saveWorkspace(nameInput));
-	}
-	
-	private void saveWorkspace(TextInputDialog nameInput) {
-		if(nameInput.getResult()!=null) {
-			manager.save(nameInput.getResult());
-		}	
-	}
+//	private void getDialog() {
+//		TextInputDialog nameInput = new TextInputDialog();
+//		nameInput.show();
+//		nameInput.setOnCloseRequest(e-> saveWorkspace(nameInput));
+//	}
+//	
+//	private void saveWorkspace(TextInputDialog nameInput) {
+//		if(nameInput.getResult()!=null) {
+//			manager.save(nameInput.getResult());
+//			manager.addTab();
+//		}	
+//	}
 }
