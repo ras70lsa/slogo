@@ -13,4 +13,5 @@ public interface ICommunicator {
 	public void addToHistory(String str);
 	public String getLanguage();
 	public ExecutionState getExecutionModel();
+	public void addActor();
 }

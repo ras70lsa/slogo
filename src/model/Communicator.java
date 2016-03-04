@@ -15,6 +15,10 @@ public class Communicator implements ICommunicator{
 		model.getHistory().add(input);
 		
 	}
+	
+	public void addActor() {
+		model.getViewInterface().addActor();
+	}
 		
 	public String getLanguage() {
 		return model.getLangauage();
