@@ -1,7 +1,7 @@
 package model;
 
-import backend_slogo_team04.INonLinearCommand;
-import interfaces_slogo_team04.ICommands;
+import backend.slogo.team04.INonLinearCommand;
+import interfaces.slogo.team04.ICommands;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;

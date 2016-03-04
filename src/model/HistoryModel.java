@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import backend_slogo_team04.Action;
-import backend_slogo_team04.SlogoScanner;
+import backend.slogo.team04.Action;
+import backend.slogo.team04.SlogoScanner;
 import constants.DisplayConstants;
-import frontend_slogo_team04.State;
-import interfaces_slogo_team04.IHistoryModel;
+import frontend.slogo.team04.State;
+import interfaces.slogo.team04.IHistoryModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;

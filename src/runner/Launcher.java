@@ -1,7 +1,10 @@
 package runner;
 
 
-import frontend_slogo_team04.Display;
+import constants.DisplayConstants;
+import frontend.slogo.team04.Display;
+import frontend.slogo.team04.StartScreen;
+import frontend.slogo.team04.WorkspaceManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Controller;
@@ -19,10 +22,14 @@ public class Launcher extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Model model = new Model();
-		Controller controller = new Controller(model.getCommunicator(), model.getView());
-		Display display = new Display(model, controller);
-		display.start();
+		WorkspaceManager workspaces = new WorkspaceManager();
+		//Model model = new Model();
+		//Controller controller = new Controller(model.getCommunicator(), model.getView());
+		//Display display = new Display(model, controller, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT,
+		//		workspaces);
+		StartScreen start = new StartScreen(DisplayConstants.START_WIDTH, DisplayConstants.START_WIDTH, workspaces);
+		start.start();
+		//display.start();
 		
 	}
 	

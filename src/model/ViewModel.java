@@ -1,18 +1,24 @@
 package model;
 
-import backend_slogo_team04.Actor;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
-import Utilities.Angle;
-import Utilities.Distance;
-import interfaces_slogo_team04.ISlogoModelActions;
-import interfaces_slogo_team04.IView;
+
+import backend.slogo.team04.Actor;
+import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.IView;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import properties.ColorProperty;
 import properties.ImageProperty;
+import utilities.Angle;
+import utilities.Distance;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
+	private ListProperty<Actor> actors;
 	private Actor turtle;
 	private boolean penIsDown;
 	private boolean isShowing;
@@ -25,6 +31,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		penColor = new ColorProperty();
 		penIsDown = true;
 		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
+		ObservableList<Actor> list = FXCollections.observableArrayList();
+		actors = new SimpleListProperty<Actor>(list);
+		actors.add(turtle);
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
 		addListeners();
@@ -180,9 +189,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		
 	}
 
-	@Override
 	public ImageProperty getImageProperty() {
 		return turtle.getImageProperty();
+	}
+
+	@Override
+	public ListProperty<Actor> getActorProperty() {
+		return actors;
 	}
 }
 

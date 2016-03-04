@@ -32,7 +32,7 @@ public class DisplayConstants {
 	public static final double HISTORY_Y = 2 * BUFFER;
 	
 	public static final double VIEW_HEIGHT = 480;
-	public static final int VIEW_WIDTH = 650;
+	public static final double VIEW_WIDTH = 650;
 	
 	public static final double COM_WIDTH = 250;
 	public static final double COM_HEIGHT = HISTORY_HEIGHT - VAR_HEIGHT - BUFFER;
@@ -41,6 +41,9 @@ public class DisplayConstants {
 	
 	public static final double COM_X = DISPLAY_WIDTH -  2 * BUFFER - HISTORY_WIDTH - VAR_WIDTH;
 	public static final double COM_Y = 2 * BUFFER;
+	
+	public static final double START_WIDTH = 400;
+	public static final double START_HEIGHT = 400;
 	
 	public static final String RESOURCES_PATH = "resources.languages/";
 	

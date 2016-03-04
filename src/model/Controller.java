@@ -3,17 +3,17 @@ package model;
 
 import java.util.ResourceBundle;
 
-import backend_slogo_team04.BackendTestNullModelActor;
-import backend_slogo_team04.CmdTreeHeadNode;
-import backend_slogo_team04.INonLinearCommand;
-import backend_slogo_team04.Interpreter;
-import backend_slogo_team04.SlogoScanner;
+import backend.slogo.team04.BackendTestNullModelActor;
+import backend.slogo.team04.CmdTreeHeadNode;
+import backend.slogo.team04.INonLinearCommand;
+import backend.slogo.team04.Interpreter;
+import backend.slogo.team04.SlogoScanner;
 import constants.DisplayConstants;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces_slogo_team04.ICommunicator;
-import interfaces_slogo_team04.IModel;
-import interfaces_slogo_team04.ISlogoModelActions;
+import interfaces.slogo.team04.ICommunicator;
+import interfaces.slogo.team04.IModel;
+import interfaces.slogo.team04.ISlogoModelActions;
 
 
 /**
