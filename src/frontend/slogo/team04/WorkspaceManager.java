@@ -50,7 +50,6 @@ public class WorkspaceManager {
 		myScene = new Scene(myGroup,DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT, 
 						DisplayConstants.BACKGROUND_COLOR);
 		mainStage.setScene(myScene);
-		
 	}
 
 	public void go() {
@@ -77,6 +76,7 @@ public class WorkspaceManager {
 
 	public void save(String name) {
 		mainStage.setTitle(name);
+		currentTab.setText(name);
 		workspaceNames.add(name);
 		workspaceValue.add(currentWorkspace);
 	}
@@ -84,16 +84,22 @@ public class WorkspaceManager {
 	public void begin() {
 		tabs = new TabPane();
 		myGroup.getChildren().add(tabs);
+		tabs.setOnMouseClicked(e -> makeCurrent());
 		addTab();
 		go();
 		start();
 	}
 	
+	private void makeCurrent() {
+		currentTab = tabs.getSelectionModel().getSelectedItem();
+	}
+
 	public void addTab() {
 		currentTab = new Tab();
 		currentTab.setText(myBundle.getString("Active"));
 		currentTab.setOnCloseRequest(e -> attemptedClose(e));
 		tabs.getTabs().add(currentTab);
+		tabs.getSelectionModel().select(currentTab);
 		go();
 	}
 
