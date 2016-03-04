@@ -66,6 +66,11 @@ public class Controller {
 	public void interpretInformation(INonLinearCommand head){
     	
     }
+
+	public void addActor() {
+		model.addActor();
+		
+	}
     
 
 

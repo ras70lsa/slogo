@@ -17,8 +17,7 @@ public class VariableModel implements IVariable {
 	public VariableModel() {
 		ObservableList<Variable> variableList = FXCollections.observableArrayList();
 		variables = new SimpleListProperty<Variable>(variableList);
-		Map<String, Double> map = new HashMap<String, Double>();
-		set(map);
+		
 	}
 
 	public ListProperty<Variable> getVariables() {
@@ -40,7 +39,6 @@ public class VariableModel implements IVariable {
 	public double setVariable(String name, Double value) {
 		
 		if(alreadyThere(name, value) == -1) {
-			System.out.println(name + " " + value);
 			variables.add(new Variable(name.toLowerCase(), value));
 		} 
 		return value;

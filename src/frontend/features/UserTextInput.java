@@ -4,9 +4,12 @@ package frontend.features;
 import constants.CSSPathConstants;
 import exceptions.LogicException;
 import exceptions.UserInputException;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import model.Controller;
 
 /**
@@ -32,15 +35,25 @@ public class UserTextInput extends VPane {
 	}
 	
 	public void setUp() {
-		createGoButton();
+		createButtons();
 		createTextField();
 	}
 
-	private void createGoButton() {
-		Button go = new Button(getString("Go"));
-		go.setOnAction(e -> inputEntered());
-		go.setPrefWidth(50);
-		add(go); 
+	private void createButtons() {
+		HBox hbox = new HBox();
+		hbox.getChildren().add(createButton(getString("Go"), e-> inputEntered()));
+		hbox.getChildren().add(createButton(getString("AddActor"), e-> addActor()));
+		add(hbox);
+	}
+
+	private void addActor() {
+		controller.addActor();
+	}
+
+	private Button createButton(String name, EventHandler<ActionEvent> event) {
+		Button go = new Button(name);
+		go.setOnAction(event);
+		return go;
 	}
 	
 	public void inputEntered() {

@@ -23,9 +23,9 @@ public class SaveAlert extends Alert {
 
 	}
 
-	public boolean saveDesired() {
+	public ButtonType saveDesired() {
 		Optional<ButtonType> selection = this.showAndWait(); 
-		return (selection.get() == YES);
+		return (selection.get());
 	}
 	
 }

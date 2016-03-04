@@ -6,8 +6,11 @@ import javafx.stage.Stage;
 
 public class StartScreen extends Screen {
 
+	private WorkspaceManager workspaces;
+	
 	public StartScreen(double width, double height, WorkspaceManager workspaces) {
 		super(width, height, new Stage(), workspaces);
+		this.workspaces = workspaces;
 		setUpScene();
 	}
 	
@@ -25,7 +28,7 @@ public class StartScreen extends Screen {
 	}
 
 	private void move() {
-		newWorkspace();
+		workspaces.begin();
 		getStage().close();
 	}
 	

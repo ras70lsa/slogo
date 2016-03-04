@@ -43,7 +43,7 @@ import visual.states.HistoryUIState;
  * @author Ryan St Pierre
  *
  */
-public class Display extends Screen implements IDisplay {
+public class Display implements IDisplay {
 
 	private Collection<Module> modules;
 	private UserTextInput textInput;
@@ -61,17 +61,17 @@ public class Display extends Screen implements IDisplay {
 	
 	public Display(IModel iModel, Controller controller, double width, double height, Stage 
 			stage, WorkspaceManager workspaces) {
-		super(width, height, stage, workspaces);
-		modules = new ArrayList<Module>();
 		this.workspaces = workspaces;
 		this.controller = controller;
 		model = iModel;
+		modules = new ArrayList<Module>();
 		setUpScene();
-		position();
+		position();			
 		addListeners();
 		controller.update();
+		
 	}
-	
+
 	private void createAccordions() {
 		makeLeft();
 		makeRight();
@@ -129,7 +129,7 @@ public class Display extends Screen implements IDisplay {
 	private void position() {
 		gridPane = new GridPane();
 		gridPane.getStylesheets().add(CSSPathConstants.GRID_PANE);
-		add(gridPane);
+//		add(gridPane);
 		gridPane.add(leftFeatures, 1, 1, 1, 3);
 		gridPane.add(view.getPane(), 2, 2);
 		gridPane.add(textInput.getPane(), 2, 3);
@@ -179,6 +179,10 @@ public class Display extends Screen implements IDisplay {
 	
 	public WorkspaceManager getManager() {
 		return workspaces;
+	}
+
+	public GridPane getGridPane() {
+		return gridPane;
 	}
 
 }

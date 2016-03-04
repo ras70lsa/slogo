@@ -17,6 +17,7 @@ import frontend.slogo.team04.VisualTurtle;
 import interfaces.slogo.team04.IView;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -31,6 +32,8 @@ import visual.states.ViewUIState;
 public class View extends StaticPane implements Observer {
 
 	private double scaleFactor = 1;
+	public static final double DARKEN_FACTOR = -.75;
+	public static final double FADE_FACTOR = .5;
 	private ViewUIState visuals;
 	private IView model;
 	private Pen pen;
@@ -101,8 +104,10 @@ public class View extends StaticPane implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		clear();
-		if(model.getActor().getVisible()) {
-			draw(model.getActor());
+		for(Actor actor: model.getActorProperty()) {
+			if(actor.getVisible()) {
+				draw(actor);
+			}
 		}
 		for(ModelLine line: model.getLines()) {
 			draw(line);
@@ -113,14 +118,29 @@ public class View extends StaticPane implements Observer {
 	private void draw(Actor turtle) {
 		
 		ImageView view = new ImageView(turtle.getImageProperty().get());
+		view.setOnMouseClicked(e -> turtle.toggleActive());
+		turtle.getActive().addListener((a,b,current) -> handleImage(view, current));
 		view.setFitWidth(ACTOR_WIDTH);
 		view.setFitHeight(ACTOR_HEIGHT);
 		view.setTranslateX(makeXCorrection(turtle.getXLocation()) - view.getFitWidth()/2);
 		view.setTranslateY(makeYCorrection(turtle.getYLocation()) - view.getFitHeight()/2);
 		view.setRotate(translateToTurtleAngle(turtle.getHeading()));
 		add(view);
+		handleImage(view, turtle.getActive().get());
 	}
 	
+	private void handleImage(ImageView view, Boolean active) {
+		ColorAdjust adjust = new ColorAdjust();
+		if(!active) {
+			adjust.setBrightness(DARKEN_FACTOR);
+			view.setOpacity(FADE_FACTOR);
+		} else {
+			adjust.setBrightness(0);
+			view.setOpacity(1);
+		}
+		view.setEffect(adjust);
+	}
+
 	private void draw(ModelLine line) {
 		drawLine(makeXLineCorrection(line.getStartX()), 
 				makeYLineCorrection(line.getStartY()), 
@@ -168,11 +188,11 @@ public class View extends StaticPane implements Observer {
 		 * @param endY
 		 * @return Array of doubles, index 0 is the x location, 1 = y of the intersection point 
 		 */
-	private double[] getCollisionPointWithBoundaryForLine(double startX, double startY, double endX, double endY ){
+	private double[] getCollisionPointWithBoundaryForLine(Actor actor, double startX, double startY, double endX, double endY ){
 		double[] loc = new double[6];
 		loc[0] = adjustStartX(endX)[0];
 		loc[1] = adjustStartY(endY)[0];
-		loc[2] = adjustEndX(endX) + calcX(endY);
+		loc[2] = adjustEndX(endX) + calcX(actor, endY);
 		loc[3] = adjustEndY(endY);
 		loc[4] = adjustStartX(endX)[1];
 		loc[5] = adjustStartY(endY)[1];
@@ -273,8 +293,8 @@ public class View extends StaticPane implements Observer {
 		}
 	}
 	
-	private double calcX(double y){
-		double hyp = y/Math.sin(model.getActor().getHeadingInRadians());
+	private double calcX(Actor actor, double y){
+		double hyp = y/Math.sin(actor.getHeadingInRadians());
 		return Math.sqrt(hyp*hyp-y*y);
 	}
 

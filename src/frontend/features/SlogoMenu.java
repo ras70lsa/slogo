@@ -94,12 +94,6 @@ public class SlogoMenu extends MenuBar {
 	private void addMenu(Menu menu) {
 		this.getMenus().add(menu);
 	}
-
-	private void addVisualItem(String title, Menu file) {
-		MenuItem item = new MenuItem(title);
-		item.setOnAction(e -> display.getView().getOptions());
-		file.getItems().add(item);
-	}
 	
 
 	private void helpBox () {

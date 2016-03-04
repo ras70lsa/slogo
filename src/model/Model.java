@@ -31,7 +31,7 @@ public class Model implements IModel  {
 		communicator = new Communicator(this);
 		view = new ViewModel();
 	}
-	
+
 	public IHistoryModel getHistory() {
 		return history;
 	}

@@ -36,18 +36,30 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		actors.add(turtle);
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
-		addListeners();
-	}
-
-	private void addListeners() {
-		turtle.getImageProperty().addListener(e -> update());
+		addListeners(turtle);
 	}
 
 	@Override
+	public void addActor() {
+	
+		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
+		actors.add(newActor);
+		addListeners(newActor);
+		update();
+		
+	}
+
+	private void addListeners(Actor actor) {
+		actor.getImageProperty().addListener(e -> update());
+	}
+
+	
+	@Override
 	public double forward(double pixels) {
 
-		ModelLine line = turtle.forward(pixels);
-		addLine(line);
+		actors.stream()
+			.filter((a) -> a.getActive().get())
+			.forEach((a) -> a.forward(pixels));
 		return pixels;
 	}
 
@@ -59,7 +71,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double back(double pixels) {
-		return forward(-pixels);
+		
+		for(Actor actor: actors) {
+			if(actor.getActive().get()) {
+				actor.forward(-pixels);
+			}
+		}
+		return -pixels;
 	}
 
 	@Override
@@ -175,6 +193,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public List<ModelLine> getLines() {
+		for(Actor actor: actors) {
+			lineManager.addAll(actor.getMyLines());
+		}
 		return lineManager;
 	}
 	
@@ -197,5 +218,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public ListProperty<Actor> getActorProperty() {
 		return actors;
 	}
+
 }
 

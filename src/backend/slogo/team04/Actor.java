@@ -1,8 +1,13 @@
 package backend.slogo.team04;
 
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.Stack;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import model.ModelLine;
@@ -23,11 +28,13 @@ public class Actor {
 
 	public static final String DEFAULT_PATH = "images/slogoTurtle.png";
 	private DoubleProperty xLocation;
+	private BooleanProperty active;
 	private double yLocation;
 	private double heading;
 	private boolean penIsDown;
 	private boolean showing;
 	private ImageProperty image;
+	private Stack<ModelLine> myLines;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = new SimpleDoubleProperty();
@@ -38,6 +45,12 @@ public class Actor {
 		this.penIsDown = penIsDown;
 		image = new ImageProperty();
 		image.set(getDefaultImage());
+		active = new SimpleBooleanProperty(true);
+		myLines = new Stack<ModelLine>();
+	}
+	
+	public Actor(Actor save) {
+		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown);
 	}
 
 	private Image getDefaultImage() {
@@ -49,6 +62,7 @@ public class Actor {
 		ModelLine newLine = setxy(getXLocation() + Math.cos(angle) * pixels,
 				getYLocation() + Math.sin(angle) * pixels);
 		if (penIsDown) {
+			myLines.add(newLine);
 			return newLine;		
 		}
 		return null;
@@ -130,6 +144,18 @@ public class Actor {
 	public String toString() {
 		return  "Actor" + xLocation;
 		
+	}
+
+	public void toggleActive() {
+		active.set(!active.get());
+	}
+	
+	public BooleanProperty getActive() {
+		return active;
+	}
+
+	public List<ModelLine> getMyLines() {
+		return myLines;
 	}
 }
 

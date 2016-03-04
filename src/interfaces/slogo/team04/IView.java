@@ -15,9 +15,10 @@ public interface IView{
 
 	public void addObserver(Observer o);
 	public List<ModelLine> getLines();
-	public Actor getActor();
 	public ColorProperty getBackgroundColor();
 	public ColorProperty getPenColor();
 	public ImageProperty getImageProperty();
 	public ListProperty<Actor> getActorProperty();
+	public void addActor();
+	public void update();
 }
