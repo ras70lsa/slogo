@@ -1,4 +1,5 @@
-package backend.structures;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * Used to store color generically on the backend (remove the dependency on Java FX)
@@ -6,30 +7,51 @@ package backend.structures;
  */
 public class RGBColor {
 	
-	private double red;
-	private double green;
-	private double blue;
+	private SimpleIntegerProperty red = new SimpleIntegerProperty();
+	private SimpleIntegerProperty green = new SimpleIntegerProperty();
+	private SimpleIntegerProperty blue = new SimpleIntegerProperty();
+	private SimpleIntegerProperty index = new SimpleIntegerProperty();
 	
-	public RGBColor(double red, double green, double blue) {
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
+	public RGBColor(int red, int green, int blue) {
+		getRedProperty().set(red);
+		getGreenProperty().set(green);
+		getBlueProperty().set(blue);
+	}
+	
+	public RGBColor(int red, int green, int blue, int index) {
+		this(red,green,blue);
+		this.index.set(index);
 	}
 	
 	public double getRed() {
+		return red.get();
+	}
+	
+	public IntegerProperty getRedProperty(){
 		return red;
 	}
 	
-	public double getBlue() {
+	public IntegerProperty getGreenProperty(){
+		return green;
+	}
+	
+	public IntegerProperty getBlueProperty(){
 		return blue;
 	}
 	
+	public double getBlue() {
+		return blue.get();
+	}
+	
 	public double getGreen() {
-		return green;
+		return green.get();
 	}
 	
 	public String toString() {
 		return red + " " + green + " " + blue;
 	}
-
+	
+	public int getIndex(){
+		return index.get();
+	}
 }
