@@ -68,7 +68,8 @@ public class View extends StaticPane implements Observer {
 	}
 
 	private void updatePenColor(RGBColor c) {
-		pen.setPenColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 1.0));
+		pen.setPenColor(new Color(c.getRed() / DisplayConstants.RGB_MAX, c.getGreen() / DisplayConstants.RGB_MAX,
+				c.getBlue() / DisplayConstants.RGB_MAX, 1.0));
 
 	}
 	
