@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Stack;
 import java.util.function.Consumer;
 import backend.slogo.team04.Actor;
+import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.IView;
 import javafx.beans.property.ListProperty;
@@ -18,6 +19,8 @@ import utilities.Distance;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
+	private static final int RGB_MAX = 255;
+	private static final int RGB_INTERVAL = 10;
 	private ListProperty<Actor> actors;
 	private Actor turtle;
 	private boolean penIsDown;
@@ -25,6 +28,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
 	private ColorProperty penColor;
+	private ListProperty<RGBColor> colorListProperty;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
@@ -36,6 +40,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		actors.add(turtle);
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
+		generateColorListProperty();
 		addListeners(turtle);
 	}
 
@@ -223,5 +228,20 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return actors;
 	}
 
+	public void generateColorListProperty(){
+		int index = 1;
+		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL){
+			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL){
+				for (int b = 0; b < RGB_MAX; b += RGB_INTERVAL){
+					colorListProperty.add(new RGBColor(r/RGB_MAX,g/RGB_MAX,b/RGB_MAX,index));
+					index ++;
+				}
+			}
+		}
+	}
+	
+	public ListProperty<RGBColor> getColorListProperty(){
+		return colorListProperty;
+	}
 }
 
