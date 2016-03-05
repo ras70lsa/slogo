@@ -13,7 +13,6 @@ import backend.structures.RGBColor;
 import constants.CSSPathConstants;
 import constants.DisplayConstants;
 import frontend.slogo.team04.State;
-import frontend.slogo.team04.VisualTurtle;
 import interfaces.slogo.team04.IView;
 import javafx.scene.Group;
 import javafx.scene.Node;
