@@ -105,13 +105,15 @@ public class View extends StaticPane implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		clear();
+	
+		for(ModelLine line: model.getLines()) {
+			draw(line);
+		}
+		
 		for(Actor actor: model.getActorProperty()) {
 			if(actor.getVisible()) {
 				draw(actor);
 			}
-		}
-		for(ModelLine line: model.getLines()) {
-			draw(line);
 		}
 		
 	}
@@ -150,35 +152,46 @@ public class View extends StaticPane implements Observer {
 	}
 
 	public Line drawLine(double startX, double startY, double endX, double endY) {
-//		double sX, sY, eX, eY;
-//		
-//		if(isInBounds(startX, startY )){
-//			sX = startX;
-//			sY = startY;
-//			eX = endX;
-//			eY = endY;
-//		}else{
-//			double numTimesXWidthRemoved = Math.floor((startX/DisplayConstants.VIEW_WIDTH));
-//			double numTimesYWidthRemoved = Math.floor((startY/DisplayConstants.VIEW_HEIGHT));
-//			sX = startX % DisplayConstants.VIEW_WIDTH;
-//			sY = startY % DisplayConstants.VIEW_HEIGHT;
-//			eX = endX - (numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
-//			eY = endY - (numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
-//		}
+		double sX, sY, eX, eY;
+		
+		if(isInBounds(startX, startY )){
+			sX = startX;
+			sY = startY;
+			eX = endX;
+			eY = endY;
+		}else{
+			double numTimesXWidthRemoved = Math.floor((startX/DisplayConstants.VIEW_WIDTH));
+			double numTimesYWidthRemoved = Math.floor((startY/DisplayConstants.VIEW_HEIGHT));
+			sX = startX % DisplayConstants.VIEW_WIDTH;
+			sY = startY % DisplayConstants.VIEW_HEIGHT;
+			eX = endX - (numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
+			eY = endY - (numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
+		}
 		
 		Line n = new Line();
 		n.setStroke(pen.getPenColor());
 		
-//		if(isInBounds(eX, eY)){
-////			addLine(n, startX, startY, endX, endY);
-//			addLine(n, sX, sY, eX, eY);
-//		}else{
-//			double[] newStartPoints = getCollisionPointWithBoundaryForLine(sX, sY, eX, eY);
-////			addLine(n, startX, startY, newStartPoints[0], newStartPoints[1]);
-//			addLine(n, sX, sY, newStartPoints[2], newStartPoints[3]);
-//			drawLine(newStartPoints[0], newStartPoints[1], newStartPoints[4], newStartPoints[5]);
-//		}
-		addLine(n, startX, startY, endX, endY);
+		if(isInBounds(eX, eY)){
+			addLine(n, sX, sY, eX, eY);
+		}else{
+			Line n2 = new Line();
+			n2.setStartX(sX);
+			n2.setStartY(sY);
+			n2.setEndX(eX);
+			n2.setEndY(eY);
+			double[] originalNewEndPoints = adjustEnd(n2);
+			addLine(n, sX, sY, originalNewEndPoints[0], originalNewEndPoints[1]);
+			System.out.println("Original Starting X " + sX);
+			System.out.println("Original Starting Y " + sY);
+			System.out.println("Original Ending X/New Starting X " + originalNewEndPoints[0]);
+			System.out.println("Original Ending Y/New Starting Y " + originalNewEndPoints[1]);
+			double[] newLine = adjustLine(originalNewEndPoints[0], originalNewEndPoints[1], eX, eY);
+			System.out.println("New Ending X " + newLine[2]);
+			System.out.println("New Ending Y " + newLine[3]);
+			System.out.println("");
+			drawLine(newLine[0], newLine[1], newLine[2], newLine[3]);
+		}
+//		addLine(n, startX, startY, endX, endY);
 		return n;
 	}
 		/**
@@ -189,16 +202,6 @@ public class View extends StaticPane implements Observer {
 		 * @param endY
 		 * @return Array of doubles, index 0 is the x location, 1 = y of the intersection point 
 		 */
-	private double[] getCollisionPointWithBoundaryForLine(Actor actor, double startX, double startY, double endX, double endY ){
-		double[] loc = new double[6];
-		loc[0] = adjustStartX(endX)[0];
-		loc[1] = adjustStartY(endY)[0];
-		loc[2] = adjustEndX(endX) + calcX(actor, endY);
-		loc[3] = adjustEndY(endY);
-		loc[4] = adjustStartX(endX)[1];
-		loc[5] = adjustStartY(endY)[1];
-		return loc;
-	}
 	
 	private boolean checkXBounds(double xLoc){
 		return !(xLoc<0 || xLoc> DisplayConstants.VIEW_WIDTH);
@@ -206,6 +209,22 @@ public class View extends StaticPane implements Observer {
 	
 	private boolean checkYBounds(double yLoc){
 		return !(yLoc<0 || yLoc> DisplayConstants.VIEW_HEIGHT);
+	}
+	
+	private boolean checkTop(double yLoc){
+		return yLoc>0;
+	}
+	
+	private boolean checkBottom(double yLoc){
+		return yLoc<DisplayConstants.VIEW_HEIGHT;
+	}
+	
+	private boolean checkRight(double xLoc){
+		return xLoc<DisplayConstants.VIEW_WIDTH;
+	}
+	
+	private boolean checkLeft(double xLoc){
+		return xLoc>0;
 	}
 	
 	private boolean isInBounds(double xLoc, double yLoc){
@@ -220,119 +239,85 @@ public class View extends StaticPane implements Observer {
 		return DisplayConstants.VIEW_HEIGHT /2 - y; 
 	}
 	
-//	private double adjustX(double x){
-//		if(x<0){
-//			return DisplayConstants.VIEW_WIDTH+x;
-//		}else if(x>DisplayConstants.VIEW_WIDTH){
-//			return x-DisplayConstants.VIEW_WIDTH;
-//		}else{
-//			return x;
-//		}
-//	}
-//	
-//	private double adjustY(double y){
-//		if(y<0){
-//			return DisplayConstants.VIEW_HEIGHT+y;
-//		}else if(y>DisplayConstants.VIEW_HEIGHT){
-//			return y-DisplayConstants.VIEW_HEIGHT;
-//		}else{
-//			return y;
-//		}
-//	}
+	private double[] adjustLine(double sx, double sy, double ex, double ey){
+		double original[] = new double[4];
+		original[0] = sx;
+		original[1] = sy;
+		original[2] = ex;
+		original[3] = ey;
+		
+		if(sy == 0){
+			original[1] = DisplayConstants.VIEW_HEIGHT;
+			original[3] = ey + DisplayConstants.VIEW_HEIGHT;
+		}
+		if(sy == DisplayConstants.VIEW_HEIGHT){
+			original[1] = 0;
+			original[3] = ey - DisplayConstants.VIEW_HEIGHT;
+		}
+		if(sx == 0){
+			original[0] = DisplayConstants.VIEW_WIDTH;
+			original[2] = ex + DisplayConstants.VIEW_WIDTH;
+		}
+		if(sx == DisplayConstants.VIEW_WIDTH){
+			original[0] = 0;
+			original[2] = ex - DisplayConstants.VIEW_WIDTH;
+		}
+		return original;
+	}
 	
-	private double[] adjustStartX(double x){
-		double[] line = new double[2];
-		if(x<0){
-			line[0] = DisplayConstants.VIEW_WIDTH;
-			line[1] = x+DisplayConstants.VIEW_WIDTH;
-			return line;
-		}else if(x>DisplayConstants.VIEW_WIDTH){
-			line[0] = 0;
-			line[1] = x-DisplayConstants.VIEW_WIDTH;
-			return line;
+	private double[] adjustEnd(Line n){
+		double original[] = new double[2];
+		original[0] = n.getEndX();
+		original[1] = n.getEndY();
+		
+		if(checkTop(n.getEndY())==false){
+			System.out.println("Intercept top");
+			return getLineIntersection(n, TopLine);
+			
+		}
+		else if(checkBottom(n.getEndY())==false){
+			System.out.println("Intercept bottom");
+			return getLineIntersection(n, BottomLine);
+		}else if(checkRight(n.getEndX())==false){
+			System.out.println("Intercept right");
+			return getLineIntersection(n, RightLine);
+		}else if(checkLeft(n.getEndX())==false){
+			System.out.println("Intercept left");
+			return getLineIntersection(n, LeftLine);
 		}else{
-			line[0] = x;
-			line[1] = x;
-			return line;
+			return original;
 		}
 	}
 	
-	private double[] adjustStartY(double y){
-		double[] line = new double[2];
-		if(y<0){
-			line[0] = DisplayConstants.VIEW_HEIGHT;
-			line[1] = y + DisplayConstants.VIEW_HEIGHT;
-			return line;
-		}else if(y>DisplayConstants.VIEW_HEIGHT){
-			line[0] = 0;
-			line[1] = y - DisplayConstants.VIEW_HEIGHT;
-			return line;
-		}else{
-			line[0] = y;
-			line[1] = y;
-			return line;
-		}
-	}
-	
-	private double adjustEndX(double x){
-		if(x<0){
-			return 0;
-		}else if(x>DisplayConstants.VIEW_WIDTH){
-			return DisplayConstants.VIEW_WIDTH;
-		}else{
-			return x;
-		}
-	}
-	
-	private double adjustEndY(double y){
-		if(y<0){
-			return 0;
-		}else if(y>DisplayConstants.VIEW_HEIGHT){
-			return DisplayConstants.VIEW_HEIGHT;
-		}else{
-			return y;
-		}
-	}
-	
-	private double calcX(Actor actor, double y){
-		double hyp = y/Math.sin(actor.getHeadingInRadians());
-		return Math.sqrt(hyp*hyp-y*y);
-	}
-
 	private double makeXCorrection(double x) {
-		if(x<(-DisplayConstants.VIEW_WIDTH/2)){
-			return DisplayConstants.VIEW_WIDTH + translateToGridX(x);
+		x = x - DisplayConstants.VIEW_WIDTH/2;
+		double xd = Math.abs(x)%(DisplayConstants.VIEW_WIDTH);
+		if(x<0){
+			return DisplayConstants.VIEW_WIDTH-xd;
 		}
-		else if(x>DisplayConstants.VIEW_WIDTH/2){
-			return x-DisplayConstants.VIEW_WIDTH/2;
+		else if(x>DisplayConstants.VIEW_WIDTH){
+			return xd;
 		}
-		return x + DisplayConstants.VIEW_WIDTH /2;
+		return x;
 	}
 
 	private double makeYCorrection(double y) {
-		if(y<(-DisplayConstants.VIEW_HEIGHT)/2){
-			return -(y+DisplayConstants.VIEW_HEIGHT/2);
+		y = -y - DisplayConstants.VIEW_HEIGHT/2;
+		double yd = Math.abs(y)%(DisplayConstants.VIEW_HEIGHT);
+		if(y<0){
+			return DisplayConstants.VIEW_HEIGHT - yd;
 		}
-		else if(y>DisplayConstants.VIEW_HEIGHT/2){
-			return DisplayConstants.VIEW_HEIGHT-(y-DisplayConstants.VIEW_HEIGHT/2);
+		else if(y>DisplayConstants.VIEW_HEIGHT){
+			return yd;
 		}
-		return DisplayConstants.VIEW_HEIGHT /2 - y; 
+		return y;
 	}
-	
-	private double translateToGridX(double x){
-		return x + DisplayConstants.VIEW_WIDTH/2;
-	}
-	
-	private double translateToGridY(double y){
-		return DisplayConstants.VIEW_HEIGHT/2 -y ;
-	}
-	
 
 	public double translateToTurtleAngle(double angle) {
 		return -(angle - TURTLE_INITIAL_ANGLE);
 	}
 	
-	private double[] getLineIntersction(Line line1, Line line2){
+	private double[] getLineIntersection(Line line1, Line line2){
 		double x1 = line1.getStartX();
 		double x2 = line1.getEndX();
 		double y1 = line1.getStartY();
@@ -373,6 +358,6 @@ public class View extends StaticPane implements Observer {
 		return a * d - b * c;
 	}
 	
-	
+
 }
 
