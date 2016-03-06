@@ -54,7 +54,7 @@ public class Actor {
 	}
 	
 	public Actor(Actor save) {
-		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.getPenDown());
+		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown.get());
 	}
 
 	private Image getDefaultImage() {
@@ -141,8 +141,8 @@ public class Actor {
 		
 	}
 
-	public boolean getPenDown() {
-		return (penIsDown.get()) ? true: false;
+	public int getPenDown() {
+		return (penIsDown.get()) ? 1: 0;
 	}
 	
 	public BooleanProperty getPenDownProperty(){
