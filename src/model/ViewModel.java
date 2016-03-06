@@ -203,7 +203,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		for(Actor actor: actors) {
 			lineManager.addAll(actor.getMyLines());
 		}
-		System.out.println(lineManager);
 		return lineManager;
 	}
 	
