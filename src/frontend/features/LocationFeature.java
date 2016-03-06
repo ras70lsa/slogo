@@ -23,10 +23,22 @@ public class LocationFeature extends TitlePaneFeature {
 		table = new TableView<>();
 		table.setEditable(false);
 		TableColumn<Actor, Number> xLoc = new TableColumn<Actor, Number>();
+		TableColumn<Actor, Number> yLoc = new TableColumn<Actor, Number>();
+		TableColumn<Actor, Number> heading = new TableColumn<Actor, Number>();
+		TableColumn<Actor, Boolean> showing = new TableColumn<Actor, Boolean>();
+		TableColumn<Actor, Boolean> isPenDown = new TableColumn<Actor, Boolean>();
 		xLoc.setText("x");
+		yLoc.setText("y");
+		heading.setText("heading");
+		showing.setText("showing");
+		isPenDown.setText("isPenDown");
 		table.setItems(actors);
 		xLoc.setCellValueFactory(e -> e.getValue().getXProperty());
-		table.getColumns().add(xLoc);
+		yLoc.setCellValueFactory(e -> e.getValue().getYProperty());
+		heading.setCellValueFactory(e ->e.getValue().getHeadingProperty());
+		showing.setCellValueFactory(e -> e.getValue().getVisibileProperty());
+		isPenDown.setCellValueFactory(e -> e.getValue().getPenDownProperty());
+		table.getColumns().addAll(xLoc, yLoc, heading, showing, isPenDown);
 		setContent(table);
 		
 	}

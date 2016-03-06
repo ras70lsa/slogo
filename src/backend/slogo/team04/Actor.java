@@ -28,21 +28,25 @@ public class Actor {
 
 	public static final String DEFAULT_PATH = "images/slogoTurtle.png";
 	private DoubleProperty xLocation;
+	private DoubleProperty yLocation;
 	private BooleanProperty active;
-	private double yLocation;
-	private double heading;
-	private boolean penIsDown;
-	private boolean showing;
+	private DoubleProperty heading;
+	private BooleanProperty penIsDown;
+	private BooleanProperty showing;
 	private ImageProperty image;
 	private Stack<ModelLine> myLines;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = new SimpleDoubleProperty();
 		xLocation.set(x);
-		yLocation = y;
-		showing = true;
-		this.heading = heading;
-		this.penIsDown = penIsDown;
+		yLocation = new SimpleDoubleProperty();
+		yLocation.set(y);
+		showing = new SimpleBooleanProperty();
+		showing.set(true);
+		this.heading = new SimpleDoubleProperty();
+		this.heading.set(heading);
+		this.penIsDown = new SimpleBooleanProperty();
+		this.penIsDown.set(penIsDown);
 		image = new ImageProperty();
 		image.set(getDefaultImage());
 		active = new SimpleBooleanProperty(true);
@@ -50,7 +54,7 @@ public class Actor {
 	}
 	
 	public Actor(Actor save) {
-		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown);
+		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.getPenDown());
 	}
 
 	private Image getDefaultImage() {
@@ -61,7 +65,7 @@ public class Actor {
 		double angle = getHeadingInRadians();
 		ModelLine newLine = setxy(getXLocation() + Math.cos(angle) * pixels,
 				getYLocation() + Math.sin(angle) * pixels);
-		if (penIsDown) {
+		if (penIsDown.get()) {
 			myLines.add(newLine);
 			return newLine;		
 		}
@@ -73,14 +77,14 @@ public class Actor {
 	}
 	
 	public void setYLocation(double y){
-		yLocation = y;
+		yLocation.set(y);
 	}
 	
 	public ModelLine setxy(double x, double y) {
-		if(penIsDown){
+		if(penIsDown.get()){
 			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y);
-			xLocation.set(x);;
-			yLocation = y;
+			xLocation.set(x);
+			yLocation.set(y);
 			return newLine;
 		}else{
 			return null;
@@ -94,25 +98,33 @@ public class Actor {
 	public DoubleProperty getXProperty() {
 		return xLocation;
 	}
-
-	public double getYLocation() {
+	
+	public DoubleProperty getYProperty(){
 		return yLocation;
 	}
 
-	public double getHeading() {
-		return heading;
+	public double getYLocation() {
+		return yLocation.get();
 	}
 
+	public double getHeading() {
+		return heading.get();
+	}
+
+	public DoubleProperty getHeadingProperty(){
+		return heading;
+	}
+	
 	public void setHeading(double heading) {
-		this.heading = Angle.mod360(heading);
+		this.heading.set(Angle.mod360(heading));
 	}
 
 	public void rotateClockwise(double degrees) {
-		this.heading = Angle.mod360(heading - degrees);
+		this.heading.set(Angle.mod360(this.heading.get() - degrees));
 	}
 
 	public void rotateCounterClockwise(double degrees) {
-		this.heading = Angle.mod360(heading + degrees);
+		this.heading.set(Angle.mod360(this.heading.get() + degrees));
 	}
 
 	public double getHeadingInRadians() {
@@ -121,19 +133,27 @@ public class Actor {
 
 	public void setPenDown(boolean down) {
 		// TODO Auto-generated method stub
-		penIsDown = down;
+		penIsDown.set(down);
 	}
 
 	public void setShowing(boolean showing) {
-		this.showing  = showing;
+		this.showing.set(showing);
 		
 	}
 
-	public int getPenDown() {
-		return (penIsDown) ? 1: 0;
+	public boolean getPenDown() {
+		return (penIsDown.get()) ? true: false;
 	}
-
+	
+	public BooleanProperty getPenDownProperty(){
+		return penIsDown;
+	}
+	
 	public boolean getVisible() {
+		return showing.get();
+	}
+	
+	public BooleanProperty getVisibileProperty(){
 		return showing;
 	}
 
