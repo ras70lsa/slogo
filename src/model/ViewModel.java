@@ -244,5 +244,14 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public ListProperty<RGBColor> getColorListProperty(){
 		return colorListProperty;
 	}
+	
+	public int setBackgroundColor(int index){
+		for (RGBColor c:colorListProperty){
+			if (c.getIndex() == index){
+				backgroundColor.set(c);;
+			}
+		}
+		return index;
+	}
 }
 
