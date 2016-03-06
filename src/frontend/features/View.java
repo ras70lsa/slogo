@@ -179,7 +179,11 @@ public class View extends StaticPane implements Observer {
 //			eX = endX - (numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
 //			eY = endY - (numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
 		}
-		
+		System.out.println("SX: " + sX);
+		System.out.println("SY: " + sY);
+		System.out.println("EX: " + eX);
+		System.out.println("EY: " + eY);
+		System.out.println("");
 		Line n = new Line();
 		n.setStroke(pen.getPenColor());
 		
