@@ -234,7 +234,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL){
 			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL){
 				for (int b = 0; b < RGB_MAX; b += RGB_INTERVAL){
-					colorListProperty.add(new RGBColor(r,g,b,index));
+					colorListProperty.add(new RGBColor(r/RGB_MAX,g/RGB_MAX,b/RGB_MAX,index));
 					index ++;
 				}
 			}

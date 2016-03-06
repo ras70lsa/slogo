@@ -16,12 +16,19 @@ public class PreferenceFeature extends TitledPane {
 	public static final double SPACING = 10;
 	private VBox items;
 	private IView view;
+	ColorIndexMenu backgroundPallete;
 	
 	public PreferenceFeature(IView view) {
 		items = new VBox();
 		this.view = view;
 		setUp();
 		populate();
+		addListener();
+	}
+	
+	private void addListener() {
+		backgroundPallete.getSelected().addListener((a,b,c) -> view.getBackgroundColor().set(c));
+		
 	}
 	
 	private void populate() {
@@ -29,7 +36,7 @@ public class PreferenceFeature extends TitledPane {
 		labelAndCombo.setPrefWidth(DisplayConstants.ACCORDION_WIDTH);
 		//To Do: add resource bundle
 		labelAndCombo.getChildren().add(new Label("Background Color"));
-		ColorIndexMenu backgroundPallete = new ColorIndexMenu(view.getColorListProperty());
+		backgroundPallete = new ColorIndexMenu(view.getColorListProperty());
 		labelAndCombo.getChildren().add(backgroundPallete);
 		items.getChildren().add(labelAndCombo);
 	}

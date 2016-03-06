@@ -1,6 +1,8 @@
 package backend.structures;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -12,18 +14,18 @@ public class RGBColor {
 	/**
 	 * Need to reconsider changed. RGB Color should not be responsible for holding index. 
 	 */
-	private SimpleIntegerProperty red = new SimpleIntegerProperty();
-	private SimpleIntegerProperty green = new SimpleIntegerProperty();
-	private SimpleIntegerProperty blue = new SimpleIntegerProperty();
-	private SimpleIntegerProperty index = new SimpleIntegerProperty();
+	private DoubleProperty red = new SimpleDoubleProperty();
+	private DoubleProperty green = new SimpleDoubleProperty();
+	private DoubleProperty blue = new SimpleDoubleProperty();
+	private IntegerProperty index = new SimpleIntegerProperty();
 	
-	public RGBColor(int red, int green, int blue) {
-		getRedProperty().set(red);
-		getGreenProperty().set(green);
-		getBlueProperty().set(blue);
+	public RGBColor(double d, double e, double f) {
+		getRedProperty().set(d);
+		getGreenProperty().set(e);
+		getBlueProperty().set(f);
 	}
 	
-	public RGBColor(int red, int green, int blue, int index) {
+	public RGBColor(double red, double green, double blue, int index) {
 		this(red,green,blue);
 		this.index.set(index);
 	}
@@ -32,15 +34,15 @@ public class RGBColor {
 		return red.get();
 	}
 	
-	public IntegerProperty getRedProperty(){
+	public DoubleProperty getRedProperty(){
 		return red;
 	}
 	
-	public IntegerProperty getGreenProperty(){
+	public DoubleProperty getGreenProperty(){
 		return green;
 	}
 	
-	public IntegerProperty getBlueProperty(){
+	public DoubleProperty getBlueProperty(){
 		return blue;
 	}
 	

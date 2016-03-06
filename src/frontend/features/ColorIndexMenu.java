@@ -14,22 +14,38 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
+import properties.ColorProperty;
 
 public class ColorIndexMenu extends ComboBox<RGBColor> {
 
 	private static final int REC_WIDTH = 150;
 	private static final int TOTAL_WIDTH = 260;
+	private static final int TOTAL_HEIGHT = 50;
 	private static final int REC_HEIGHT = 30;
 	private static final int HBOX_SPACING = 5;
 	private static final int RECTANGLE_TOP_MARGIN = 2;
 	private static final int RECTANGLE_RIGHT_MARGIN = 3;
 	private static final int RECTANGLE_BOTTOM_MARGIN = 2;
 	private static final int RECTANGLE_LEFT_MARGIN = 5;
+	private ColorProperty currentColor;
 
 	public ColorIndexMenu(ListProperty<RGBColor> data) {
 		super();
+		currentColor = new ColorProperty();
 		this.setPrefWidth(TOTAL_WIDTH);
+		this.setPrefHeight(TOTAL_HEIGHT);
 		addChildren(data);
+		addSelection();
+	}
+
+	private void addSelection() {
+		this.setOnAction(e -> {
+			currentColor.set(this.getSelectionModel().getSelectedItem());
+		});
+	}
+
+	public ColorProperty getSelected() {
+		return currentColor;
 	}
 
 	public void addChildren(ListProperty<RGBColor> data) {
@@ -63,9 +79,9 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 							setGraphic(null);
 						} else {
 							text.setText(Integer.toString(item.getIndex()));
-							rectangle.setFill(new Color(item.getRed() / DisplayConstants.RGB_MAX,
-									item.getGreen() / DisplayConstants.RGB_MAX,
-									item.getBlue() / DisplayConstants.RGB_MAX, 1));
+							rectangle.setFill(new Color(item.getRed(),
+									item.getGreen(),
+									item.getBlue(), 1));
 							setGraphic(group);
 						}
 					}
