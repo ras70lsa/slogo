@@ -19,8 +19,8 @@ import utilities.Distance;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
-	private static final int RGB_MAX = 255;
-	private static final int RGB_INTERVAL = 10;
+	private static final double RGB_MAX = 255;
+	private static final double RGB_INTERVAL = 255/ 2 + 1;
 	private ListProperty<Actor> actors;
 	private Actor turtle;
 	private boolean penIsDown;
@@ -229,11 +229,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public void generateColorListProperty(){
+		colorListProperty = new SimpleListProperty(FXCollections.observableArrayList());
 		int index = 1;
 		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL){
 			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL){
 				for (int b = 0; b < RGB_MAX; b += RGB_INTERVAL){
-					colorListProperty.add(new RGBColor(r/RGB_MAX,g/RGB_MAX,b/RGB_MAX,index));
+					colorListProperty.add(new RGBColor(r,g,b,index));
 					index ++;
 				}
 			}

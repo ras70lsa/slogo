@@ -12,6 +12,7 @@ import frontend.features.CommandFeature;
 import frontend.features.History;
 import frontend.features.LocationFeature;
 import frontend.features.Module;
+import frontend.features.PreferenceFeature;
 import frontend.features.SlogoMenu;
 import frontend.features.UserTextInput;
 import frontend.features.VariableFeature;
@@ -94,6 +95,7 @@ public class Display implements IDisplay {
 		leftFeatures = new Accordion();
 		LocationFeature actors = new LocationFeature(model.getViewInterface());
 		leftFeatures.getPanes().add(actors);
+		leftFeatures.getPanes().add(new PreferenceFeature(model.getViewInterface()));
 	}
 
 	public IModel getHistoryModel() {

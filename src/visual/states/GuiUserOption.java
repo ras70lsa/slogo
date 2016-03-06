@@ -59,7 +59,8 @@ public class GuiUserOption {
 	}
 
 	private void setColor(Color frontEnd, ColorProperty color) {
-		RGBColor next = new RGBColor(frontEnd.getRed(), frontEnd.getGreen(), frontEnd.getBlue());
+		//Needs to be fixed. Need to talk about chances to RGB color
+		RGBColor next = new RGBColor((int)frontEnd.getRed(), (int)frontEnd.getGreen(), (int)frontEnd.getBlue());
 		color.set(next);
 	}
 

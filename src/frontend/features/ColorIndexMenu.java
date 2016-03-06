@@ -17,16 +17,18 @@ import javafx.util.Callback;
 
 public class ColorIndexMenu extends ComboBox<RGBColor> {
 
-	private static final int REC_WIDTH = 50;
-	private static final int REC_HEIGHT = 10;
-	private static final int HBOX_SPACING = 10;
+	private static final int REC_WIDTH = 150;
+	private static final int TOTAL_WIDTH = 260;
+	private static final int REC_HEIGHT = 30;
+	private static final int HBOX_SPACING = 5;
 	private static final int RECTANGLE_TOP_MARGIN = 2;
-	private static final int RECTANGLE_RIGHT_MARGIN = 5;
+	private static final int RECTANGLE_RIGHT_MARGIN = 3;
 	private static final int RECTANGLE_BOTTOM_MARGIN = 2;
-	private static final int RECTANGLE_LEFT_MARGIN = 10;
+	private static final int RECTANGLE_LEFT_MARGIN = 5;
 
 	public ColorIndexMenu(ListProperty<RGBColor> data) {
 		super();
+		this.setPrefWidth(TOTAL_WIDTH);
 		addChildren(data);
 	}
 
@@ -45,10 +47,9 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 						setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 						group = new Group();
 						HBox hbox = new HBox(HBOX_SPACING);
-						rectangle = new Rectangle(REC_HEIGHT, REC_WIDTH);
+						rectangle = new Rectangle(REC_WIDTH, REC_HEIGHT);
 						text = new TextField();
 						hbox.getChildren().addAll(rectangle, text);
-						group.getChildren().add(hbox);
 						HBox.setMargin(rectangle, new Insets(RECTANGLE_TOP_MARGIN, RECTANGLE_RIGHT_MARGIN,
 								RECTANGLE_BOTTOM_MARGIN, RECTANGLE_LEFT_MARGIN));
 						text.setPrefHeight(10);

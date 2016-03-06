@@ -9,6 +9,9 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class RGBColor {
 	
+	/**
+	 * Need to reconsider changed. RGB Color should not be responsible for holding index. 
+	 */
 	private SimpleIntegerProperty red = new SimpleIntegerProperty();
 	private SimpleIntegerProperty green = new SimpleIntegerProperty();
 	private SimpleIntegerProperty blue = new SimpleIntegerProperty();
