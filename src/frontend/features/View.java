@@ -153,7 +153,7 @@ public class View extends StaticPane implements Observer {
 	public Line drawLine(double startX, double startY, double endX, double endY) {
 		double sX, sY, eX, eY;
 		
-		if(isInBounds(startX, startY )){
+		if(isInBounds(startX, startY)){
 			sX = startX;
 			sY = startY;
 			eX = endX;
@@ -161,10 +161,22 @@ public class View extends StaticPane implements Observer {
 		}else{
 			double numTimesXWidthRemoved = Math.floor((startX/DisplayConstants.VIEW_WIDTH));
 			double numTimesYWidthRemoved = Math.floor((startY/DisplayConstants.VIEW_HEIGHT));
-			sX = startX % DisplayConstants.VIEW_WIDTH;
-			sY = startY % DisplayConstants.VIEW_HEIGHT;
-			eX = endX - (numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
-			eY = endY - (numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
+			sX = Math.abs(startX) % DisplayConstants.VIEW_WIDTH;
+			sY = Math.abs(startY) % DisplayConstants.VIEW_HEIGHT;
+			if(startX<0){
+				sX = DisplayConstants.VIEW_WIDTH-sX;
+				eX = endX+(numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
+			}else{
+				eX = endX-(numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
+			}
+			if(startY<0){
+				sY = DisplayConstants.VIEW_HEIGHT-sY;
+				eY = endY+(numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
+			}else{
+				eY = endY-(numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
+			}
+//			eX = endX - (numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
+//			eY = endY - (numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
 		}
 		
 		Line n = new Line();
@@ -245,19 +257,19 @@ public class View extends StaticPane implements Observer {
 		original[2] = ex;
 		original[3] = ey;
 		
-		if(sy == 0){
+		if(Math.floor(sy) == 0){
 			original[1] = DisplayConstants.VIEW_HEIGHT;
 			original[3] = ey + DisplayConstants.VIEW_HEIGHT;
 		}
-		if(sy == DisplayConstants.VIEW_HEIGHT){
+		if(Math.floor(sy) == DisplayConstants.VIEW_HEIGHT){
 			original[1] = 0;
 			original[3] = ey - DisplayConstants.VIEW_HEIGHT;
 		}
-		if(sx == 0){
+		if(Math.floor(sx) == 0){
 			original[0] = DisplayConstants.VIEW_WIDTH;
 			original[2] = ex + DisplayConstants.VIEW_WIDTH;
 		}
-		if(sx == DisplayConstants.VIEW_WIDTH){
+		if(Math.floor(sx) == DisplayConstants.VIEW_WIDTH){
 			original[0] = 0;
 			original[2] = ex - DisplayConstants.VIEW_WIDTH;
 		}
@@ -286,6 +298,35 @@ public class View extends StaticPane implements Observer {
 		}else{
 			return original;
 		}
+	}
+	
+	private double[] adjustStart(Line n){
+		double original[] = new double[2];
+		original[0] = n.getStartX();
+		original[1] = n.getStartY();
+		original[2] = n.getEndX();
+		original[3] = n.getEndY();
+		if(checkTop(n.getEndY())==false){
+			System.out.println("Intercept top");
+			original[1] = original[1] + DisplayConstants.VIEW_HEIGHT;
+			original[3] = original[3] + DisplayConstants.VIEW_HEIGHT;
+		}
+		else if(checkBottom(n.getEndY())==false){
+			System.out.println("Intercept bottom");
+			original[1] = original[1] - DisplayConstants.VIEW_HEIGHT;
+			original[3] = original[3] - DisplayConstants.VIEW_HEIGHT;
+			
+		}else if(checkRight(n.getEndX())==false){
+			System.out.println("Intercept right");
+			original[0] = original[0] + DisplayConstants.VIEW_WIDTH;
+			original[2] = original[2] + DisplayConstants.VIEW_WIDTH;
+			
+		}else if(checkLeft(n.getEndX())==false){
+			System.out.println("Intercept left");
+			original[0] = original[0] - DisplayConstants.VIEW_WIDTH;
+			original[2] = original[2] - DisplayConstants.VIEW_WIDTH;
+		}
+			return original;
 	}
 	
 	private double makeXCorrection(double x) {
