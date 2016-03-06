@@ -85,6 +85,7 @@ public class Actor {
 			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y);
 			xLocation.set(x);
 			yLocation.set(y);
+			myLines.add(newLine);
 			return newLine;
 		}else{
 			return null;

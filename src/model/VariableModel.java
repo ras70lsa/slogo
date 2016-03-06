@@ -17,7 +17,6 @@ public class VariableModel implements IVariable {
 	public VariableModel() {
 		ObservableList<Variable> variableList = FXCollections.observableArrayList();
 		variables = new SimpleListProperty<Variable>(variableList);
-		
 	}
 
 	public ListProperty<Variable> getVariables() {

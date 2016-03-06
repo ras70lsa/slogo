@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
 
+
 /**
  * Encapsulates the actions taken (information needed when parsing a single block of text from the front end) so that we can track
  * what we have done, so that we can implement redo-undo functionality later
@@ -15,8 +16,9 @@ import model.Model;
  */
 public class Action {
 	
-
 	private Model model;
+
+	
 	private Map<String, Double> variables;
 	private Map<String, INonLinearCommand> commands;
 	private StringProperty input;
