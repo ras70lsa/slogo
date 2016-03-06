@@ -66,7 +66,6 @@ public class Actor {
 		ModelLine newLine = setxy(getXLocation() + Math.cos(angle) * pixels,
 				getYLocation() + Math.sin(angle) * pixels);
 		if (penIsDown.get()) {
-			myLines.add(newLine);
 			return newLine;		
 		}
 		return null;
