@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observer;
 
 import backend.slogo.team04.Actor;
+import backend.structures.RGBColor;
 import javafx.beans.property.ListProperty;
 import model.ModelLine;
 import properties.ColorProperty;
@@ -19,6 +20,7 @@ public interface IView{
 	public ColorProperty getPenColor();
 	public ImageProperty getImageProperty();
 	public ListProperty<Actor> getActorProperty();
+	public ListProperty<RGBColor> getColorListProperty();
 	public void addActor();
 	public void update();
 }

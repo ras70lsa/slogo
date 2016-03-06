@@ -13,7 +13,6 @@ import backend.structures.RGBColor;
 import constants.CSSPathConstants;
 import constants.DisplayConstants;
 import frontend.slogo.team04.State;
-import frontend.slogo.team04.VisualTurtle;
 import interfaces.slogo.team04.IView;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -68,7 +67,8 @@ public class View extends StaticPane implements Observer {
 	}
 
 	private void updatePenColor(RGBColor c) {
-		pen.setPenColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 1.0));
+		pen.setPenColor(new Color(c.getRed() / DisplayConstants.RGB_MAX, c.getGreen() / DisplayConstants.RGB_MAX,
+				c.getBlue() / DisplayConstants.RGB_MAX, 1.0));
 
 	}
 	
@@ -93,7 +93,8 @@ public class View extends StaticPane implements Observer {
 
 	}
 
-	protected List<Node> getReleventProperties(GuiUserOption factory) {
+	public List<Node> getReleventProperties() {
+		GuiUserOption factory = new GuiUserOption();
 		List<Node> list = new ArrayList<Node>();
 		list.add(factory.get(model.getImageProperty(), "Choose Actor Image"));
 		list.add(factory.get(model.getBackgroundColor(), "Background Color"));
@@ -398,18 +399,6 @@ public class View extends StaticPane implements Observer {
 		return a * d - b * c;
 	}
 	
-	public void getOptions() {
 
-		List<Node> properties = getReleventProperties(new GuiUserOption());
-		Stage stage = getEmptyStage();
-		VBox box = new VBox();
-		Group myGroup = (Group) stage.getScene().getRoot();
-		myGroup.getChildren().add(box);
-		for (Node node : properties) {
-			box.getChildren().add(node);
-		}
-		stage.show();
-
-	}
 }
 

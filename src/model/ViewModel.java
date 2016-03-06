@@ -3,8 +3,9 @@ package model;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
-
+import java.util.function.Consumer;
 import backend.slogo.team04.Actor;
+import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.IView;
 import javafx.beans.property.ListProperty;
@@ -18,6 +19,8 @@ import utilities.Distance;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
+	private static final double RGB_MAX = 255;
+	private static final double RGB_INTERVAL = 255/ 2 + 1;
 	private ListProperty<Actor> actors;
 	private Actor turtle;
 	private boolean penIsDown;
@@ -25,6 +28,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
 	private ColorProperty penColor;
+	private ListProperty<RGBColor> colorListProperty;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
@@ -36,6 +40,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		actors.add(turtle);
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
+		generateColorListProperty();
 		addListeners(turtle);
 	}
 
@@ -52,14 +57,18 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private void addListeners(Actor actor) {
 		actor.getImageProperty().addListener(e -> update());
 	}
+	
+	public void alterActors(Consumer<Actor> action) {
+		actors.stream()
+			.filter((a) -> a.getActive().get())
+			.forEach(action);
+	}
 
 	
 	@Override
 	public double forward(double pixels) {
 
-		actors.stream()
-			.filter((a) -> a.getActive().get())
-			.forEach((a) -> a.forward(pixels));
+		alterActors((a) -> a.forward(pixels));
 		return pixels;
 	}
 
@@ -72,83 +81,86 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double back(double pixels) {
 		
-		for(Actor actor: actors) {
-			if(actor.getActive().get()) {
-				actor.forward(-pixels);
-			}
-		}
+		alterActors((a) -> a.forward(-pixels));
 		return -pixels;
 	}
 
 	@Override
 
 	public double left(double degrees) {
-		turtle.rotateCounterClockwise(degrees);
+		alterActors((a) -> a.rotateCounterClockwise(degrees));
 		return degrees;
 	}
 
 	@Override
 	public double right(double degrees) {
-		turtle.rotateClockwise(degrees);
+		alterActors((a) -> a.rotateClockwise(degrees));
 		return degrees;
 	}
 
 	@Override
 	public double setHeading(double degrees) {
 
-		double oldHeading = turtle.getHeading();
-		turtle.setHeading(degrees);
-		return Angle.calculateAngleRotated(oldHeading, turtle.getHeading());
+		if(actors.get(0) != null) { 
+			double oldHeading = actors.get(0).getHeading();
+			alterActors((a) -> a.setHeading(degrees));
+			actors.get(0).setHeading(degrees);
+			return Angle.calculateAngleRotated(oldHeading, turtle.getHeading());
+		}
+		return 0;
 	}
 
 	@Override
 	public double towards(double x, double y) {
 
-		double newHeading = Angle.calculateAngleBetweenPoints(turtle.getXLocation(), turtle.getYLocation(), x, y);
-		turtle.setHeading(newHeading);
+		alterActors((a) -> {
+			double newHeading = Angle.calculateAngleBetweenPoints(a.getXLocation(), a.getYLocation(), x, y);
+			a.setHeading(newHeading);
+		});
 		return 0;
 	}
 
 	@Override
 	public double setxy(double x, double y) {
-		double oldX = turtle.getXLocation();
-		double oldY = turtle.getYLocation();
-		addLine(turtle.setxy(x, y));
-		return Distance.calculateDistance(oldX, oldY, x, y);
+		if(actors.get(0) != null) {
+			double oldX = actors.get(0).getXLocation();
+			double oldY = actors.get(0).getYLocation();
+			alterActors((a) -> a.setxy(x, y));
+			return Distance.calculateDistance(oldX, oldY, x, y);
+		}
+		
+		return 0;
 	}
 
 	@Override
 	public double penDown() {
 		penIsDown = true;
-		turtle.setPenDown(true);
+		alterActors((a) -> a.setPenDown(true));
 		return 0;
 	}
 
 	@Override
 	public double penUp() {
 		penIsDown = false;
-		turtle.setPenDown(false);
+		alterActors((a) -> a.setPenDown(false));
 		return 0;
 	}
 
 	@Override
 	public double showTurtle() {
-		turtle.setShowing(true);
+		alterActors((a) -> a.setShowing(true));
 		return 1;
 	}
 
 	@Override
 	public double hideTurtle() {
-		turtle.setShowing(false);
+		alterActors((a) -> a.setShowing(true));
 		return 0;
 	}
 
 	@Override
 	public double home() {
-		double oldX = turtle.getXLocation();
-		double oldY = turtle.getYLocation();
-		addLine(turtle.setxy(0, 0));
-		return Distance.calculateDistance(oldX, oldY, 0, 0);
+		return setxy(0,0);
 	}
 
 	@Override
@@ -199,9 +211,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return lineManager;
 	}
 	
-	public Actor getActor() {
-		return turtle;
-	}
 
 	@Override
 	public void update() {
@@ -228,5 +237,30 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return index;
 	}
 
+	public void generateColorListProperty(){
+		colorListProperty = new SimpleListProperty(FXCollections.observableArrayList());
+		int index = 1;
+		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL){
+			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL){
+				for (int b = 0; b < RGB_MAX; b += RGB_INTERVAL){
+					colorListProperty.add(new RGBColor(r/RGB_MAX,g/RGB_MAX,b/RGB_MAX,index));
+					index ++;
+				}
+			}
+		}
+	}
+	
+	public ListProperty<RGBColor> getColorListProperty(){
+		return colorListProperty;
+	}
+	
+	public int setBackgroundColor(int index){
+		for (RGBColor c:colorListProperty){
+			if (c.getIndex() == index){
+				backgroundColor.set(c);;
+			}
+		}
+		return index;
+	}
 }
 

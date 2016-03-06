@@ -11,6 +11,7 @@ import interfaces.slogo.team04.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.CustomMenuItem;
@@ -46,14 +47,11 @@ public class SlogoMenu extends MenuBar {
 	}
 	
 	private void advanced() {
-		ColorPicker c = new ColorPicker();
-		MenuItem item = new MenuItem("Background Color", c);
-		ColorPicker color = new ColorPicker();
-		MenuItem item2 = new MenuItem("Pen Color", color);
-		advancedOptions.getItems().add(item);
-		advancedOptions.getItems().add(item2);
 		
-		
+		for(Node node: display.getView().getReleventProperties()) {
+			MenuItem item = new MenuItem("", node);
+			advancedOptions.getItems().add(item);
+		}
 	}
 
 	private void populate() {

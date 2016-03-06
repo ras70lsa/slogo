@@ -54,4 +54,6 @@ public class DisplayConstants {
 			"Italian", "Portuguese", "Russian", "Spanish"};
 	
 	public static final int HTML_SIZE = 600;
+	
+	public static final int RGB_MAX = 255;
 }
