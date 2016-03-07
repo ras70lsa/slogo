@@ -33,6 +33,7 @@ public class Actor {
 	private DoubleProperty heading;
 	private BooleanProperty penIsDown;
 	private BooleanProperty showing;
+	//Should be simple image? Decide later
 	private ImageProperty image;
 	private Stack<ModelLine> myLines;
 
@@ -66,7 +67,6 @@ public class Actor {
 		ModelLine newLine = setxy(getXLocation() + Math.cos(angle) * pixels,
 				getYLocation() + Math.sin(angle) * pixels);
 		if (penIsDown.get()) {
-			myLines.add(newLine);
 			return newLine;		
 		}
 		return null;
@@ -158,8 +158,8 @@ public class Actor {
 		return showing;
 	}
 
-	public ImageProperty getImageProperty() {
-		return image;
+	public void setImageProperty(Image updatedImage) {
+		image.set(updatedImage);
 	}
 	
 	public String toString() {
@@ -177,6 +177,10 @@ public class Actor {
 
 	public List<ModelLine> getMyLines() {
 		return myLines;
+	}
+
+	public Image getImage() {
+		return image.get();
 	}
 }
 

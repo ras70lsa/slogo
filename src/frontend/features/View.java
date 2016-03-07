@@ -120,7 +120,7 @@ public class View extends StaticPane implements Observer {
 	
 	private void draw(Actor turtle) {
 		
-		ImageView view = new ImageView(turtle.getImageProperty().get());
+		ImageView view = new ImageView(turtle.getImage());
 		view.setOnMouseClicked(e -> turtle.toggleActive());
 		turtle.getActive().addListener((a,b,current) -> handleImage(view, current));
 		view.setFitWidth(ACTOR_WIDTH);

@@ -91,11 +91,12 @@ public class Display implements IDisplay {
 	}
 
 	private void makeLeft() {
-		//do nothing for now
 		leftFeatures = new Accordion();
 		LocationFeature actors = new LocationFeature(model.getViewInterface());
 		leftFeatures.getPanes().add(actors);
-		leftFeatures.getPanes().add(new PreferenceFeature(model.getViewInterface()));
+		PreferenceFeature pallets = new PreferenceFeature(model.getViewInterface());
+		leftFeatures.getPanes().add(pallets);
+		leftFeatures.setExpandedPane(pallets);
 	}
 
 	public IModel getHistoryModel() {

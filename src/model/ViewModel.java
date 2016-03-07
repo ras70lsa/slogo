@@ -29,6 +29,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private ColorProperty backgroundColor;
 	private ColorProperty penColor;
 	private ListProperty<RGBColor> colorListProperty;
+	private ImageProperty currentActiveImage;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
@@ -41,6 +42,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
 		generateColorListProperty();
+		currentActiveImage = new ImageProperty();
 		addListeners(turtle);
 	}
 
@@ -55,7 +57,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	private void addListeners(Actor actor) {
-		actor.getImageProperty().addListener(e -> update());
+		currentActiveImage.addListener((z,b,c) -> {
+			alterActors((a) -> a.setImageProperty(c));
+			update();
+		});
 	}
 	
 	public void alterActors(Consumer<Actor> action) {
@@ -220,7 +225,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public ImageProperty getImageProperty() {
-		return turtle.getImageProperty();
+		return currentActiveImage;
 	}
 
 	@Override
