@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
+import backend.structures.Pen;
+import backend.structures.RGBColor;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -36,6 +38,7 @@ public class Actor {
 	//Should be simple image? Decide later
 	private ImageProperty image;
 	private Stack<ModelLine> myLines;
+	private Pen pen;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = new SimpleDoubleProperty();
@@ -48,6 +51,7 @@ public class Actor {
 		this.heading.set(heading);
 		this.penIsDown = new SimpleBooleanProperty();
 		this.penIsDown.set(penIsDown);
+		pen = new Pen(new RGBColor(0,0,0));
 		image = new ImageProperty();
 		image.set(getDefaultImage());
 		active = new SimpleBooleanProperty(true);
@@ -82,7 +86,7 @@ public class Actor {
 	
 	public ModelLine setxy(double x, double y) {
 		if(penIsDown.get()){
-			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y);
+			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y, pen.getPenColor());
 			xLocation.set(x);
 			yLocation.set(y);
 			myLines.add(newLine);
@@ -181,6 +185,10 @@ public class Actor {
 
 	public Image getImage() {
 		return image.get();
+	}
+	
+	public void setPenColor(RGBColor color) {
+		pen.setPenColor(color);
 	}
 }
 

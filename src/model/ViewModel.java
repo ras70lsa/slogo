@@ -61,6 +61,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 			alterActors((a) -> a.setImageProperty(c));
 			update();
 		});
+		penColor.addListener((z,b,c) -> {
+			alterActors((a)-> a.setPenColor(c));
+		});
 	}
 	
 	public void alterActors(Consumer<Actor> action) {
