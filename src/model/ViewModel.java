@@ -88,12 +88,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return pixels;
 	}
 
-	private void addLine(ModelLine line) {
-		if(line!=null) {
-			lineManager.add(line);
-		}
-	}
-
 	@Override
 	public double back(double pixels) {
 		
@@ -221,6 +215,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public List<ModelLine> getLines() {
+		lineManager.clear();
 		for(Actor actor: actors) {
 			lineManager.addAll(actor.getMyLines());
 		}
@@ -243,6 +238,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public ListProperty<Actor> getActorProperty() {
 		return actors;
 	}
+	
 
 	public void generateColorListProperty(){
 		colorListProperty = new SimpleListProperty(FXCollections.observableArrayList());
@@ -261,6 +257,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return colorListProperty;
 	}
 	
+
 	public int setBackgroundColor(int index){
 		for (RGBColor c:colorListProperty){
 			if (c.getIndex() == index){
@@ -281,5 +278,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public DoubleProperty getPenWidth() {
 		return currentPenWidth;
 	}
+
 }
 
