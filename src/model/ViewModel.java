@@ -241,7 +241,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	
 
 	public void generateColorListProperty(){
-		colorListProperty = new SimpleListProperty(FXCollections.observableArrayList());
+		colorListProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
 		int index = 1;
 		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL){
 			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL){
