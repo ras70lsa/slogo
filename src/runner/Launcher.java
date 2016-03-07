@@ -27,9 +27,9 @@ public class Launcher extends Application{
 		//Controller controller = new Controller(model.getCommunicator(), model.getView());
 		//Display display = new Display(model, controller, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT,
 		//		workspaces);
-		StartScreen start = new StartScreen(DisplayConstants.START_WIDTH, DisplayConstants.START_WIDTH, workspaces);
-		start.start();
-		//display.start();
+		//StartScreen start = new StartScreen(DisplayConstants.START_WIDTH, DisplayConstants.START_WIDTH, workspaces);
+		//start.start();
+		workspaces.begin();
 		
 	}
 	
