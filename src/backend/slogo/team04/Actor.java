@@ -87,8 +87,7 @@ public class Actor {
 	
 	public ModelLine setxy(double x, double y) {
 		if(penIsDown.get()){
-			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y, pen.getPenColor(),
-					pen.getStyle());
+			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y, pen);
 			xLocation.set(x);
 			yLocation.set(y);
 			myLines.add(newLine);
@@ -195,6 +194,10 @@ public class Actor {
 	
 	public void setPenStyle(String selectedItem) {
 		pen.setStyle(selectedItem);
+	}
+	
+	public void setPenWidth(double d) {
+		pen.setLineWidth(d);
 	}
 }
 

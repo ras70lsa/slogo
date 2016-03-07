@@ -165,6 +165,7 @@ public class View extends StaticPane implements Observer {
 		n.getStrokeDashArray().addAll(line.getStyle());
 		Color color = new Color(line.getColor().getRed(), line.getColor().getGreen(), line.getColor().getBlue(), ALPHA);
 		n.setStroke(color);
+		n.setStrokeWidth(line.getWidth());
 		
 		if(isInBounds(eX, eY)){
 			addLine(n, sX, sY, eX, eY);

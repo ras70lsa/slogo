@@ -72,4 +72,7 @@ public class Pen {
 		style = styles.get(selectedItem);
 	}
 	
+	public void setLineWidth(double width) {
+		strokeWidth = width;
+	}
 }

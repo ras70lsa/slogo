@@ -8,7 +8,9 @@ import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.IView;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,10 +33,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private ColorProperty penColor;
 	private ListProperty<RGBColor> colorListProperty;
 	private ImageProperty currentActiveImage;
+	private DoubleProperty currentPenWidth;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
 		penColor = new ColorProperty();
+		currentPenWidth = new SimpleDoubleProperty();
 		penIsDown = true;
 		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
 		ObservableList<Actor> list = FXCollections.observableArrayList();
@@ -64,6 +68,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		});
 		penColor.addListener((z,b,c) -> {
 			alterActors((a)-> a.setPenColor(c));
+		});
+		currentPenWidth.addListener((z,b,c) -> {
+			alterActors((a) -> a.setPenWidth(c.doubleValue()));
 		});
 	}
 	
@@ -269,6 +276,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		
 		alterActors((a) -> a.setPenStyle(selectedItem));
 		
+	}
+	
+	public DoubleProperty getPenWidth() {
+		return currentPenWidth;
 	}
 }
 

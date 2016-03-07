@@ -17,12 +17,15 @@ import model.ModelLine.Style;
 public class PreferenceFeature extends TitledPane {
 
 	public static final double SPACING = 10;
+	public static final double HALF = .5;
+	public static final int WIDTH_MIN = 2;
+	public static final int WIDTH_MAX = 16;
 	private VBox items;
 	private IView view;
-	ColorIndexMenu backgroundPallete;
+	private ColorIndexMenu backgroundPallete;
 	
 	public PreferenceFeature(IView view) {
-		items = new VBox();
+		items = new VBox(SPACING);
 		this.view = view;
 		setUp();
 		addListener();
@@ -49,18 +52,48 @@ public class PreferenceFeature extends TitledPane {
 		//To Do add resource Bundle
 		this.setText("Pallet Options");
 		populate();
-		addPenCombo();
-		
+		items.getChildren().add(new HBox(addPenCombo(), andPenWidthCombo()));
 	}
 
-	private void addPenCombo() {
-		ComboBox<String> penStyle = new ComboBox<>();
-		items.getChildren().add(new Label("Pen Style"));
-		items.getChildren().add(penStyle);
+	private VBox andPenWidthCombo() {
+		ComboBox<String> penWidth = getComboBox();
+		VBox vbox = getVBoxWithSpacing();
+		vbox.getChildren().add(new Label("Pen Width"));
+		vbox.getChildren().add(penWidth);
+		for(int i= WIDTH_MIN; i<= WIDTH_MAX; i+=2) {
+			penWidth.getItems().add(i + "");
+		}
+		penWidth.setOnAction(e -> view.getPenWidth().set(getDoubleSelction(penWidth.getSelectionModel().getSelectedItem())));
+		return vbox;
+	}
+
+	private VBox getVBoxWithSpacing() {
+		VBox vbox = new VBox(SPACING);
+		vbox.setPrefWidth(DisplayConstants.ACCORDION_WIDTH);
+		return vbox;
+	}
+
+	private double getDoubleSelction(String string) {
+		
+		return Double.parseDouble(string);
+	}
+
+	private VBox addPenCombo() {
+		ComboBox<String> penStyle = getComboBox();
+		VBox vbox = getVBoxWithSpacing();
+		vbox.getChildren().add(new Label("Pen Style"));
+		vbox.getChildren().add(penStyle);
 		penStyle.getItems().add(ModelLine.SOLID);
 		penStyle.getItems().add(ModelLine.DOTTED);
 		penStyle.getItems().add(ModelLine.DASHED);
 		penStyle.setOnAction(e -> penStyleSelected(penStyle.getSelectionModel().getSelectedItem()));
+		return vbox;
+	}
+
+	private ComboBox<String> getComboBox() {
+		ComboBox<String> combo = new ComboBox<>();
+		combo.setPrefWidth(DisplayConstants.ACCORDION_WIDTH * HALF);
+		return combo;
 	}
 
 	private void penStyleSelected(String selectedItem) {
