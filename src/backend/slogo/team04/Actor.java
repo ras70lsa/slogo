@@ -5,12 +5,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
+import backend.structures.Pen;
+import backend.structures.RGBColor;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import model.ModelLine;
+import model.ModelLine.Style;
 import properties.ImageProperty;
 import utilities.Angle;
 
@@ -33,8 +36,10 @@ public class Actor {
 	private DoubleProperty heading;
 	private BooleanProperty penIsDown;
 	private BooleanProperty showing;
+	//Should be simple image? Decide later
 	private ImageProperty image;
 	private Stack<ModelLine> myLines;
+	private Pen pen;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = new SimpleDoubleProperty();
@@ -47,6 +52,7 @@ public class Actor {
 		this.heading.set(heading);
 		this.penIsDown = new SimpleBooleanProperty();
 		this.penIsDown.set(penIsDown);
+		pen = new Pen(new RGBColor(0,0,0));
 		image = new ImageProperty();
 		image.set(getDefaultImage());
 		active = new SimpleBooleanProperty(true);
@@ -81,7 +87,7 @@ public class Actor {
 	
 	public ModelLine setxy(double x, double y) {
 		if(penIsDown.get()){
-			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y);
+			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y, pen);
 			xLocation.set(x);
 			yLocation.set(y);
 			myLines.add(newLine);
@@ -157,8 +163,8 @@ public class Actor {
 		return showing;
 	}
 
-	public ImageProperty getImageProperty() {
-		return image;
+	public void setImageProperty(Image updatedImage) {
+		image.set(updatedImage);
 	}
 	
 	public String toString() {
@@ -176,6 +182,22 @@ public class Actor {
 
 	public List<ModelLine> getMyLines() {
 		return myLines;
+	}
+
+	public Image getImage() {
+		return image.get();
+	}
+	
+	public void setPenColor(RGBColor color) {
+		pen.setPenColor(color);
+	}
+	
+	public void setPenStyle(String selectedItem) {
+		pen.setStyle(selectedItem);
+	}
+	
+	public void setPenWidth(double d) {
+		pen.setLineWidth(d);
 	}
 }
 

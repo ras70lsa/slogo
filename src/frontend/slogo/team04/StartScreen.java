@@ -4,6 +4,10 @@ import constants.DisplayConstants;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+ * Used for debugging workspace feature. SHOULD BE DELETED
+ *
+ */
 public class StartScreen extends Screen {
 
 	private WorkspaceManager workspaces;

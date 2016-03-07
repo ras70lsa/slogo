@@ -9,10 +9,13 @@ import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.IView;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.ModelLine.Style;
 import properties.ColorProperty;
 import properties.ImageProperty;
 import utilities.Angle;
@@ -30,10 +33,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private ColorProperty backgroundColor;
 	private ColorProperty penColor;
 	private ListProperty<RGBColor> colorListProperty;
+	private ImageProperty currentActiveImage;
+	private DoubleProperty currentPenWidth;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
 		penColor = new ColorProperty();
+		currentPenWidth = new SimpleDoubleProperty();
 		penIsDown = true;
 		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
 		ObservableList<Actor> list = FXCollections.observableArrayList();
@@ -42,6 +48,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
 		generateColorListProperty();
+		currentActiveImage = new ImageProperty();
 		addListeners(turtle);
 	}
 
@@ -56,7 +63,16 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	private void addListeners(Actor actor) {
-		actor.getImageProperty().addListener(e -> update());
+		currentActiveImage.addListener((z,b,c) -> {
+			alterActors((a) -> a.setImageProperty(c));
+			update();
+		});
+		penColor.addListener((z,b,c) -> {
+			alterActors((a)-> a.setPenColor(c));
+		});
+		currentPenWidth.addListener((z,b,c) -> {
+			alterActors((a) -> a.setPenWidth(c.doubleValue()));
+		});
 	}
 	
 	public void alterActors(Consumer<Actor> action) {
@@ -216,7 +232,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public ImageProperty getImageProperty() {
-		return turtle.getImageProperty();
+		return currentActiveImage;
 	}
 
 	@Override
@@ -224,17 +240,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return actors;
 	}
 	
-	public int setBackgroundColor(int index){
-		for (RGBColor c:colorListProperty){
-			if (c.getIndex() == index){
-				backgroundColor.set(c);;
-			}
-		}
-		return index;
-	}
 
 	public void generateColorListProperty(){
-		colorListProperty = new SimpleListProperty(FXCollections.observableArrayList());
+		colorListProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
 		int index = 1;
 		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL){
 			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL){
@@ -250,10 +258,33 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return colorListProperty;
 	}
 	
-	public int setShape(int index){
-		alterActors((a) -> a.setShape(TurtleShape.values()[index]));
+
+	public int setBackgroundColor(int index){
+		for (RGBColor c:colorListProperty){
+			if (c.getIndex() == index){
+				backgroundColor.set(c);;
+			}
+		}
 		return index;
 	}
+
+	//Good place for reflection
+	@Override
+	public void setPenStyle(String selectedItem) {
+		
+		alterActors((a) -> a.setPenStyle(selectedItem));
+		
+	}
 	
+	//Looks like work was done on master
+//	public int setShape(int index){
+//		alterActors((a) -> a.setShape(TurtleShape.values()[index]));
+//		return index;
+//	}
+	
+	public DoubleProperty getPenWidth() {
+		return currentPenWidth;
+	}
+
 }
 
