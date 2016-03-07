@@ -71,7 +71,7 @@ public class SlogoMenu extends MenuBar {
 	private void createMenus() {
 		addMenu(new FileOption(display.getManager()));
 		options = new Menu(myBundle.getString("Options"));
-		advancedOptions = new Menu("Advanced Options");
+		advancedOptions = new Menu(myBundle.getString("AdvancedOptions"));
 		help = new Menu(myBundle.getString("Help"));
 		clear =  new Menu(myBundle.getString("Clear"));
 		addMenu(options);
