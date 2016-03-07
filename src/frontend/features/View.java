@@ -141,10 +141,10 @@ public class View extends StaticPane implements Observer {
 		drawLine(makeXLineCorrection(line.getStartX()), 
 				makeYLineCorrection(line.getStartY()), 
 				makeXLineCorrection(line.getEndX()), 
-				makeYLineCorrection(line.getEndY()), line.getColor());
+				makeYLineCorrection(line.getEndY()), line);
 	}
 
-	public Line drawLine(double startX, double startY, double endX, double endY, RGBColor stroke) {
+	public Line drawLine(double startX, double startY, double endX, double endY, ModelLine line) {
 		double sX, sY, eX, eY;
 		
 		if(isInBounds(startX, startY )){
@@ -162,7 +162,8 @@ public class View extends StaticPane implements Observer {
 		}
 		
 		Line n = new Line();
-		Color color = new Color(stroke.getRed(), stroke.getGreen(), stroke.getBlue(), ALPHA);
+		n.getStrokeDashArray().addAll(line.getStyle());
+		Color color = new Color(line.getColor().getRed(), line.getColor().getGreen(), line.getColor().getBlue(), ALPHA);
 		n.setStroke(color);
 		
 		if(isInBounds(eX, eY)){
@@ -183,7 +184,7 @@ public class View extends StaticPane implements Observer {
 			System.out.println("New Ending X " + newLine[2]);
 			System.out.println("New Ending Y " + newLine[3]);
 			System.out.println("");
-			drawLine(newLine[0], newLine[1], newLine[2], newLine[3], stroke);
+			drawLine(newLine[0], newLine[1], newLine[2], newLine[3], line);
 		}
 //		addLine(n, startX, startY, endX, endY);
 		return n;

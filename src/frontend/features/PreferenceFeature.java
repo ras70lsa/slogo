@@ -6,10 +6,13 @@ import interfaces.slogo.team04.IView;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.ModelLine;
+import model.ModelLine.Style;
 
 public class PreferenceFeature extends TitledPane {
 
@@ -22,7 +25,6 @@ public class PreferenceFeature extends TitledPane {
 		items = new VBox();
 		this.view = view;
 		setUp();
-		populate();
 		addListener();
 	}
 	
@@ -46,6 +48,22 @@ public class PreferenceFeature extends TitledPane {
 		this.setContent(items);
 		//To Do add resource Bundle
 		this.setText("Pallet Options");
+		populate();
+		addPenCombo();
 		
+	}
+
+	private void addPenCombo() {
+		ComboBox<String> penStyle = new ComboBox<>();
+		items.getChildren().add(new Label("Pen Style"));
+		items.getChildren().add(penStyle);
+		penStyle.getItems().add(ModelLine.SOLID);
+		penStyle.getItems().add(ModelLine.DOTTED);
+		penStyle.getItems().add(ModelLine.DASHED);
+		penStyle.setOnAction(e -> penStyleSelected(penStyle.getSelectionModel().getSelectedItem()));
+	}
+
+	private void penStyleSelected(String selectedItem) {
+		view.setPenStyle(selectedItem);
 	}
 }

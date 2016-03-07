@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import model.ModelLine;
+import model.ModelLine.Style;
 import properties.ImageProperty;
 import utilities.Angle;
 
@@ -86,7 +87,8 @@ public class Actor {
 	
 	public ModelLine setxy(double x, double y) {
 		if(penIsDown.get()){
-			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y, pen.getPenColor());
+			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y, pen.getPenColor(),
+					pen.getStyle());
 			xLocation.set(x);
 			yLocation.set(y);
 			myLines.add(newLine);
@@ -189,6 +191,10 @@ public class Actor {
 	
 	public void setPenColor(RGBColor color) {
 		pen.setPenColor(color);
+	}
+	
+	public void setPenStyle(String selectedItem) {
+		pen.setStyle(selectedItem);
 	}
 }
 

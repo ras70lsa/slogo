@@ -23,4 +23,5 @@ public interface IView{
 	public ListProperty<RGBColor> getColorListProperty();
 	public void addActor();
 	public void update();
+	public void setPenStyle(String selectedItem);
 }

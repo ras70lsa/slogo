@@ -12,6 +12,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.ModelLine.Style;
 import properties.ColorProperty;
 import properties.ImageProperty;
 import utilities.Angle;
@@ -260,6 +261,14 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 			}
 		}
 		return index;
+	}
+
+	//Good place for reflection
+	@Override
+	public void setPenStyle(String selectedItem) {
+		
+		alterActors((a) -> a.setPenStyle(selectedItem));
+		
 	}
 }
 
