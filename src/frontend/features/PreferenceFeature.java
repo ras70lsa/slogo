@@ -1,7 +1,10 @@
 package frontend.features;
 
+import java.util.ResourceBundle;
+
 import backend.structures.RGBColor;
 import constants.DisplayConstants;
+import constants.ResourceConstants;
 import interfaces.slogo.team04.IView;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -23,8 +26,11 @@ public class PreferenceFeature extends TitledPane {
 	private VBox items;
 	private IView view;
 	private ColorIndexMenu backgroundPallete;
+	ResourceBundle myBundle;
 	
 	public PreferenceFeature(IView view) {
+		myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH +
+    			ResourceConstants.ENGLISH);
 		items = new VBox(SPACING);
 		this.view = view;
 		setUp();
@@ -40,7 +46,7 @@ public class PreferenceFeature extends TitledPane {
 		VBox labelAndCombo = new VBox(SPACING);
 		labelAndCombo.setPrefWidth(DisplayConstants.ACCORDION_WIDTH);
 		//To Do: add resource bundle
-		labelAndCombo.getChildren().add(new Label("Background Color"));
+		labelAndCombo.getChildren().add(new Label(myBundle.getString("BackgroundColor")));
 		backgroundPallete = new ColorIndexMenu(view.getColorListProperty());
 		labelAndCombo.getChildren().add(backgroundPallete);
 		items.getChildren().add(labelAndCombo);
@@ -50,7 +56,7 @@ public class PreferenceFeature extends TitledPane {
 		
 		this.setContent(items);
 		//To Do add resource Bundle
-		this.setText("Pallet Options");
+		this.setText(myBundle.getString("Palette"));
 		populate();
 		items.getChildren().add(new HBox(addPenCombo(), andPenWidthCombo()));
 	}
@@ -58,7 +64,7 @@ public class PreferenceFeature extends TitledPane {
 	private VBox andPenWidthCombo() {
 		ComboBox<String> penWidth = getComboBox();
 		VBox vbox = getVBoxWithSpacing();
-		vbox.getChildren().add(new Label("Pen Width"));
+		vbox.getChildren().add(new Label(myBundle.getString("PenWidth")));
 		vbox.getChildren().add(penWidth);
 		for(int i= WIDTH_MIN; i<= WIDTH_MAX; i+=2) {
 			penWidth.getItems().add(i + "");
@@ -81,7 +87,7 @@ public class PreferenceFeature extends TitledPane {
 	private VBox addPenCombo() {
 		ComboBox<String> penStyle = getComboBox();
 		VBox vbox = getVBoxWithSpacing();
-		vbox.getChildren().add(new Label("Pen Style"));
+		vbox.getChildren().add(new Label(myBundle.getString("PenStyle")));
 		vbox.getChildren().add(penStyle);
 		penStyle.getItems().add(ModelLine.SOLID);
 		penStyle.getItems().add(ModelLine.DOTTED);
