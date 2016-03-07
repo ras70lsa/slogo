@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.function.Consumer;
+import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -249,6 +250,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return colorListProperty;
 	}
 	
+	public int setShape(int index){
+		alterActors((a) -> a.setShape(TurtleShape.values()[index]));
+		return index;
+	}
 	
 }
 
