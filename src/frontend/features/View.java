@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import backend.slogo.team04.Actor;
+import backend.structures.Pen;
 import backend.structures.RGBColor;
 import constants.CSSPathConstants;
 import constants.DisplayConstants;
@@ -31,11 +32,11 @@ import visual.states.ViewUIState;
 public class View extends StaticPane implements Observer {
 
 	private double scaleFactor = 1;
+	public static final double ALPHA = 1;
 	public static final double DARKEN_FACTOR = -.75;
 	public static final double FADE_FACTOR = .5;
 	private ViewUIState visuals;
 	private IView model;
-	private Pen pen;
 	private Line TopLine;
 	private Line RightLine;
 	private Line LeftLine;
@@ -49,7 +50,6 @@ public class View extends StaticPane implements Observer {
 	public View(IView model) {
 		this.model = model;
 		addCSS(CSSPathConstants.DEFAULT_VIEW);
-		pen = new Pen(Color.BLACK);
 		addSilentListeners();
 		model.addObserver(this);
 		TopLine = new Line(0, 0, DisplayConstants.VIEW_WIDTH, 0);
@@ -62,16 +62,9 @@ public class View extends StaticPane implements Observer {
 	private void addSilentListeners() {
 
 		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
-		model.getPenColor().addListener((a,b,c) -> updatePenColor(c)); 
 
 	}
 
-	private void updatePenColor(RGBColor c) {
-		pen.setPenColor(new Color(c.getRed() / DisplayConstants.RGB_MAX, c.getGreen() / DisplayConstants.RGB_MAX,
-				c.getBlue() / DisplayConstants.RGB_MAX, 1.0));
-
-	}
-	
 	public double getMaxWidth() {
 		return DisplayConstants.VIEW_WIDTH;
 	}
@@ -120,7 +113,7 @@ public class View extends StaticPane implements Observer {
 	
 	private void draw(Actor turtle) {
 		
-		ImageView view = new ImageView(turtle.getImageProperty().get());
+		ImageView view = new ImageView(turtle.getImage());
 		view.setOnMouseClicked(e -> turtle.toggleActive());
 		turtle.getActive().addListener((a,b,current) -> handleImage(view, current));
 		view.setFitWidth(ACTOR_WIDTH);
@@ -148,10 +141,10 @@ public class View extends StaticPane implements Observer {
 		drawLine(makeXLineCorrection(line.getStartX()), 
 				makeYLineCorrection(line.getStartY()), 
 				makeXLineCorrection(line.getEndX()), 
-				makeYLineCorrection(line.getEndY()));
+				makeYLineCorrection(line.getEndY()), line);
 	}
 
-	public Line drawLine(double startX, double startY, double endX, double endY) {
+	public Line drawLine(double startX, double startY, double endX, double endY, ModelLine line) {
 		double sX, sY, eX, eY;
 		
 		if(isInBounds(startX, startY)){
@@ -186,7 +179,10 @@ public class View extends StaticPane implements Observer {
 		System.out.println("EY: " + eY);
 		System.out.println("");
 		Line n = new Line();
-		n.setStroke(pen.getPenColor());
+		n.getStrokeDashArray().addAll(line.getStyle());
+		Color color = new Color(line.getColor().getRed(), line.getColor().getGreen(), line.getColor().getBlue(), ALPHA);
+		n.setStroke(color);
+		n.setStrokeWidth(line.getWidth());
 		
 		if(isInBounds(eX, eY)){
 			addLine(n, sX, sY, eX, eY);
@@ -206,7 +202,7 @@ public class View extends StaticPane implements Observer {
 			System.out.println("New Ending X " + newLine[2]);
 			System.out.println("New Ending Y " + newLine[3]);
 			System.out.println("");
-			drawLine(newLine[0], newLine[1], newLine[2], newLine[3]);
+			drawLine(newLine[0], newLine[1], newLine[2], newLine[3], line);
 		}
 //		addLine(n, startX, startY, endX, endY);
 		return n;

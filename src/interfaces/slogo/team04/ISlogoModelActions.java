@@ -8,7 +8,6 @@ import backend.slogo.team04.Action;
  * This class represents all actionable things that are present in the Slogo language, things that do not control flow or change internal
  * state like variables but instead should result in changes to the drawn screen.
  * @author jonathanim
- *
  */
 public interface ISlogoModelActions {
     double forward(double pixels);
@@ -27,8 +26,8 @@ public interface ISlogoModelActions {
     double isShowing();
     double clearScreen();
     void update();
-	double xCor();
-	double yCor();
-	double heading();
+    double xCor();
+    double yCor();
+    double heading();
 
 }

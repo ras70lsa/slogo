@@ -102,7 +102,6 @@ public class WorkspaceManager {
 		currentTab.setOnCloseRequest(e -> attemptedClose(e));
 		tabs.getTabs().add(currentTab);
 		tabs.getSelectionModel().select(currentTab);
-		go();
 	}
 
 	/**

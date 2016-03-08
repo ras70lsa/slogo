@@ -6,7 +6,9 @@ import javafx.beans.property.StringProperty;
 
 public interface IVariable {
 
-	public ListProperty<Variable> getVariables();
+	ListProperty<Variable> getVariables();
 
-	public void clearVariables();
+	void clearVariables();
+	
+	ListProperty<ListProperty<Variable>> getStack();
 }

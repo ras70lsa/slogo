@@ -2,6 +2,8 @@ package backend.slogo.team04;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.beans.property.ListProperty;
 /**
  * This class h
  * @author jonathanim
@@ -66,6 +68,7 @@ public class Interpreter implements ISlogoInterpreter {
         }
         return this.slogoVariables.get(variable.toLowerCase());
     }
+
 
 
 }
