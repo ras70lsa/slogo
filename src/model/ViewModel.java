@@ -64,14 +64,17 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	private void addListeners(Actor actor) {
 		currentActiveImage.addListener((z,b,c) -> {
-			alterActors((a) -> a.setImageProperty(c));
+			actors.stream()
+				.forEach((a) -> a.setImageProperty(c));
 			update();
 		});
 		penColor.addListener((z,b,c) -> {
-			alterActors((a)-> a.setPenColor(c));
+			actors.stream()
+				.forEach((a) -> a.setPenColor(c));
 		});
 		currentPenWidth.addListener((z,b,c) -> {
-			alterActors((a) -> a.setPenWidth(c.doubleValue()));
+			actors.stream()
+				.forEach((a) -> a.setPenWidth(c.doubleValue()));
 		});
 	}
 	
@@ -272,7 +275,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public void setPenStyle(String selectedItem) {
 		
-		alterActors((a) -> a.setPenStyle(selectedItem));
+		actors.stream()
+			.forEach((a) -> a.setPenStyle(selectedItem));
 		
 	}
 	
