@@ -45,11 +45,13 @@ public class VariableFeature extends TitlePaneFeature {
 	}
 
 	private void drawTabs() {
+		tabs.getTabs().clear();
 		int counter = 1;
 		for(ListProperty<Variable> level: stack) {
 			Tab tab = new Tab("Level " + counter);
 			tabs.getTabs().add(tab);
 			tab.setContent(createTableView(level));
+			tabs.getSelectionModel().select(tab);
 			counter++;
 		}
 	}

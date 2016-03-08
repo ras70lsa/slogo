@@ -20,17 +20,6 @@ public class VariableModel implements IVariable {
 	public VariableModel() {
 		currentLevel=-1;
 		stack = new SimpleListProperty<>(FXCollections.observableArrayList());
-		incept();
-		Map<String, Double> test = new HashMap<>();
-		test.put("Ryan", 1d);
-		set(test);
-		incept();
-		kick();
-		incept();
-		test = new HashMap<>();
-		test.put("jess", 100d);
-		set(test);
-		
 	}
 
 	public ListProperty<Variable> getVariables() {
@@ -53,7 +42,6 @@ public class VariableModel implements IVariable {
 	}
 
 	public double setVariable(String name, Double value) {
-		
 		if(alreadyThere(name, value) == -1) {
 			getCurrentList().add(new Variable(name.toLowerCase(), value));
 		} 
