@@ -6,6 +6,7 @@ import interfaces.slogo.team04.IView;
 import javafx.beans.property.ListProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 
 public class LocationFeature extends TitlePaneFeature {
 
@@ -27,11 +28,11 @@ public class LocationFeature extends TitlePaneFeature {
 		TableColumn<Actor, Number> heading = new TableColumn<Actor, Number>();
 		TableColumn<Actor, Boolean> showing = new TableColumn<Actor, Boolean>();
 		TableColumn<Actor, Boolean> isPenDown = new TableColumn<Actor, Boolean>();
-		xLoc.setText("x");
-		yLoc.setText("y");
-		heading.setText("heading");
-		showing.setText("showing");
-		isPenDown.setText("isPenDown");
+		xLoc.setText("Virtual x");
+		yLoc.setText("Virtual y");
+		heading.setText("Heading");
+		showing.setText("Showing");
+		isPenDown.setText("IsPenDown?");
 		table.setItems(actors);
 		xLoc.setCellValueFactory(e -> e.getValue().getXProperty());
 		yLoc.setCellValueFactory(e -> e.getValue().getYProperty());
