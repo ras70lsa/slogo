@@ -87,7 +87,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	
 	@Override
 	public double forward(double pixels) {
-
 		alterActors((a) -> a.forward(pixels));
 		return pixels;
 	}
@@ -282,7 +281,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	
 
 	public int setShape(int index){
-		System.out.println("index " + TurtleShape.values()[index-1]);
 		alterActors((a) -> a.setShape(TurtleShape.values()[index-1]));
 		return index;
 	}
