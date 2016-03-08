@@ -20,6 +20,7 @@ public class VariableModel implements IVariable {
 	public VariableModel() {
 		currentLevel=-1;
 		stack = new SimpleListProperty<>(FXCollections.observableArrayList());
+		incept();
 	}
 
 	public ListProperty<Variable> getVariables() {

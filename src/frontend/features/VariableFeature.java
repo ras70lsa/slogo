@@ -46,14 +46,21 @@ public class VariableFeature extends TitlePaneFeature {
 
 	private void drawTabs() {
 		tabs.getTabs().clear();
-		int counter = 1;
+		int counter = 0;
 		for(ListProperty<Variable> level: stack) {
-			Tab tab = new Tab("Level " + counter);
+			Tab tab = new Tab(getTitle(counter));
 			tabs.getTabs().add(tab);
 			tab.setContent(createTableView(level));
 			tabs.getSelectionModel().select(tab);
 			counter++;
 		}
+	}
+
+	private String getTitle(int input) {
+		if(input==0) {
+			return getString("Global");
+		} 
+		return getString("Scope") + " " + input;
 	}
 
 	private TableView<Variable> createTableView(ListProperty<Variable> level) {
