@@ -62,6 +62,7 @@ public class Actor {
 	
 	public Actor(Actor save) {
 		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown.get());
+		myLines.addAll(save.getMyLines());
 	}
 
 	
