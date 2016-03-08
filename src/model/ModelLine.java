@@ -9,7 +9,8 @@ public class ModelLine {
 	private Style style;
 	private double width;
 	public static final double DASH_WIDTH = 5d;
-	public static final double DOTTED_WIDTH = 2d;
+	public static final double DOTTED_WIDTH = .1d;
+	public static final double DOTTED_WIDTH_SPACE = 18d;
 	public static final String DOTTED = "Dotted";
 	public static final String SOLID = "Solid";
 	public static final String DASHED = "Dashed";
@@ -29,7 +30,7 @@ public class ModelLine {
 		
 		SOLID(new Double[]{}),
 		DASHED(new Double[]{DASH_WIDTH, DASH_WIDTH}),
-		DOTTED(new Double[]{DOTTED_WIDTH, DOTTED_WIDTH});
+		DOTTED(new Double[]{DOTTED_WIDTH, DOTTED_WIDTH_SPACE});
 		
 		private Double[] style;
 		Style(Double[] style) {

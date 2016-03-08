@@ -3,12 +3,13 @@ package model;
 import backend.slogo.team04.CommandTreeNode;
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.ISlogoInterpreter;
+import backend.slogo.team04.ISlogoInterpreterVariableScope;
 import backend.slogo.team04.Variable;
 import interfaces.slogo.team04.ICommands;
 import interfaces.slogo.team04.IVariable;
 import javafx.beans.property.ListProperty;
 
-public class ExecutionState implements ISlogoInterpreter, IVariable, ICommands {
+public class ExecutionState implements ISlogoInterpreterVariableScope, IVariable, ICommands {
 
 	private CommandModel commands;
 	private VariableModel variables;
@@ -70,6 +71,23 @@ public class ExecutionState implements ISlogoInterpreter, IVariable, ICommands {
 	public void clearVariables() {
 		variables.clear();
 		
+	}
+
+	@Override
+	public void incept() {
+		// TODO Auto-generated method stub
+		variables.incept();
+	}
+
+	@Override
+	public void kick() {
+		// TODO Auto-generated method stub
+		variables.kick();
+	}
+
+	@Override
+	public ListProperty<ListProperty<Variable>> getStack() {
+		return variables.getStack();
 	}
 
 }

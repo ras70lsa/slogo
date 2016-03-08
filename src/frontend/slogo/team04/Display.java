@@ -103,6 +103,7 @@ public class Display implements IDisplay {
 		return model;
 		
 	}
+	
 	private void createModules(Controller controller) {
 		textInput= new UserTextInput(controller);
 		view = new View(model.getViewInterface());

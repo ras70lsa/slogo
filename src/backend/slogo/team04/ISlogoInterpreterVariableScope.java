@@ -1,5 +1,7 @@
 package backend.slogo.team04;
 
+import javafx.beans.property.ListProperty;
+
 public interface ISlogoInterpreterVariableScope extends ISlogoInterpreter{
 
     
@@ -17,7 +19,7 @@ public interface ISlogoInterpreterVariableScope extends ISlogoInterpreter{
     void incept();
     
     
-    
+   
     
     /**
      * This method will case the state tracking object to 'pop up' one level, forgetting the variables that it currently 
