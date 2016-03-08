@@ -6,7 +6,7 @@ package interfaces.slogo.team04;
  * @author jonathanim
  *
  */
-public interface ISlogoModelActionsExended extends ISlogoModelActions{
+public interface ISlogoModelActionsExtended extends ISlogoModelActions{
     double forward(double pixels, double turtleID);
     double back(double pixels, double turtleID);
     double left(double pixels, double turtleID);
@@ -64,6 +64,8 @@ public interface ISlogoModelActionsExended extends ISlogoModelActions{
     void pushCurrentActive();
     
     void popCurrentActive();
+    
+    //TODO we need to add the ability to have a condition here
     
     
     

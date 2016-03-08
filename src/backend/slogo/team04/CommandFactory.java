@@ -3,7 +3,7 @@ package backend.slogo.team04;
 import java.util.function.Predicate;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 public class CommandFactory {
 
@@ -221,7 +221,7 @@ public class CommandFactory {
     }
 
     //parsing checks that are dependent upon state will remain here
-    protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException{
+    protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException{
         double myValue = myCommand.executeCommand(myController, myInterpreter);
         return myValue != CommandTreeNode.DOUBLE_ZERO;
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdTo extends CommandTreeNode {
@@ -20,7 +20,7 @@ public class CmdTo extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         //should never directly do anything, should only create command nodes which are stored in the interpreter and are grabbed and run themselves
         //TODO make this refer to a resource bundle
         return isInitializedCorrectly;

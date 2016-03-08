@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdCommand extends CommandTreeNode {
@@ -21,7 +21,7 @@ public class CmdCommand extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         int i = 0;
         for(CmdVariable var: listOfVariables){ //TODO the list of variables lives in the interpreter, either we pass or lambda, null error
             var.setVariableValue(listOfVariableAssignments.get(i).executeCommand(myController, myInterpreter), myInterpreter);

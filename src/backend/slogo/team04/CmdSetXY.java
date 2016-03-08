@@ -2,7 +2,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdSetXY extends CommandTreeNode {
@@ -15,7 +15,7 @@ public class CmdSetXY extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         return myController.setxy(myX.executeCommand(myController, myInterpreter)
                                   , myY.executeCommand(myController, myInterpreter));
     }

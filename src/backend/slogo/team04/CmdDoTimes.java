@@ -3,7 +3,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdDoTimes extends CommandTreeNode {
@@ -15,7 +15,7 @@ public class CmdDoTimes extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double lastSeenCommandValue = 0;
         for(int i = 1; i <= myLimit.executeCommand(myController, myInterpreter); i++){
             myVariable.setVariableValue((double) i, myInterpreter);

@@ -2,7 +2,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdAtan extends CommandTreeNode {
@@ -13,7 +13,7 @@ public class CmdAtan extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double valOne;
         valOne = inputValue.executeCommand(myController, myInterpreter);
         return Math.atan(valOne); //even though language specifies degrees, i think this is the proper way to use arctan, forgot all trig

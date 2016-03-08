@@ -3,7 +3,7 @@ package backend.slogo.team04;
 import java.util.regex.Pattern;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 /**
  * Will just eat things until it sees a new line
@@ -17,7 +17,7 @@ public class CmdComment extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         // TODO Auto-generated method stub
         return 0;
     }

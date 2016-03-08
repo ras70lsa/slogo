@@ -2,7 +2,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 public class CmdCos extends CommandTreeNode {
     private INonLinearCommand inputValue; // the two nodes that we need to grab
@@ -12,7 +12,7 @@ public class CmdCos extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double valOne;
         valOne = inputValue.executeCommand(myController, myInterpreter);
         return Math.cos(Math.toRadians(valOne));

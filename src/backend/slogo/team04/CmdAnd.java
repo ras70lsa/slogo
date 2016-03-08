@@ -2,7 +2,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdAnd extends CommandTreeNode {
@@ -16,7 +16,7 @@ public class CmdAnd extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         boolean testOneNonZero, testTwoNonZero;
         testOneNonZero = CommandFactory.isNonZero(testOne, myController, myInterpreter);
         testTwoNonZero = CommandFactory.isNonZero(testTwo, myController, myInterpreter);

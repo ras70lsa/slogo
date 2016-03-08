@@ -57,13 +57,9 @@ public class BackendTest {
         
         try {
             INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(testScanner, myTestInterpreter);
-            myHead.executeCommand(modelActor, myTestInterpreter);
+            //myHead.executeCommand(modelActor, myTestInterpreter);
         }
         catch (UserInputException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (LogicException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

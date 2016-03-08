@@ -5,22 +5,26 @@ import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
-public class CmdXCor extends CommandTreeNode {
+public class CmdSetPenColor extends CommandTreeNode {
 
 
 
-    public CmdXCor (CommandTreeNode myParent) {
+    public CmdSetPenColor (CommandTreeNode myParent) {
         super(myParent);
+
     }
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.xCor();
+
     }
+    
+    
+
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        return this;
+        
     }
 
 }

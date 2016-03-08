@@ -2,7 +2,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 /**
  * We will construct our parsing/interpreting tree using concretes instances of this abstract
@@ -23,7 +23,7 @@ public interface INonLinearCommand {
      * @throws LogicException TODO
      * 
      */
-    public abstract double executeCommand(ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException;
+    public abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException;
     
 
    
