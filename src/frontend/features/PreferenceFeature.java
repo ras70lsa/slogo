@@ -49,7 +49,8 @@ public class PreferenceFeature extends TitledPane {
 		//To Do: add resource bundle
 		labelAndCombo.getChildren().add(new Label(myBundle.getString("BackgroundColor")));
 		backgroundPallete = new ColorIndexMenu(view.getColorListProperty());
-		labelAndCombo.getChildren().add(backgroundPallete);
+		shapeIndex = new ShapeIndexMenu();
+		labelAndCombo.getChildren().addAll(backgroundPallete,shapeIndex);
 		items.getChildren().add(labelAndCombo);
 	}
 
