@@ -22,7 +22,7 @@ public class CmdMake extends CommandTreeNode {
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         // grab a variable command
-        myVariable = CommandFactory.getVariableOrAssertError(SlogoScanner.getNextWord(), myScanner, this, myInterpreter);
+        myVariable = CommandFactory.getVariableOrAssertError(myScanner.getNextWord(), myScanner, this, myInterpreter);
         
         // grab an expression and then assign the value to the variable
         

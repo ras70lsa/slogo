@@ -5,7 +5,7 @@ import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
 
 public class CmdCos extends CommandTreeNode {
-    private INonLinearCommand expOne; // the two nodes that we need to grab
+    private INonLinearCommand inputValue; // the two nodes that we need to grab
 
     public CmdCos(CommandTreeNode myParent) {
         super(myParent);
@@ -14,13 +14,13 @@ public class CmdCos extends CommandTreeNode {
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double valOne;
-        valOne = expOne.executeCommand(myController, myInterpreter);
+        valOne = inputValue.executeCommand(myController, myInterpreter);
         return Math.cos(Math.toRadians(valOne));
     }
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        expOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        inputValue = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
 

@@ -1,21 +1,14 @@
 package frontend.slogo.team04;
 
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import backend.slogo.team04.Variable;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
 import frontend.features.SaveAlert;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.MapProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleMapProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,9 +16,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.Model;
 
 public class WorkspaceManager {
 	

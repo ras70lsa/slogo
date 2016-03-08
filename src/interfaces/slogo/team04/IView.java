@@ -1,7 +1,6 @@
 package interfaces.slogo.team04;
 
 
-import java.io.File;
 import java.util.List;
 import java.util.Observer;
 

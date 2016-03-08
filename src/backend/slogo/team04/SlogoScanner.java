@@ -11,12 +11,13 @@ import exceptions.UserInputException;
 
 public class SlogoScanner {
     protected static final String ALL_NEW_LINE_CHARACTERS = "[\\n]";
-    protected static final String ALL_NON_NEW_LINE_REGEX = "[[\\S]\\t\\x0B\\f\\r ]+";
+    public static final String ALL_NON_NEW_LINE_REGEX = "[[\\S]\\t\\x0B\\f\\r ]+";
     protected static final String ALL_WHITESPACE_REGEX = "[\\s]+";
     
     //slogo words include different characters from the standard java /w, need to write our own boundary regex
 
-    protected static final String SLOGO_WORD_BOUNDARY = "(?:(?=[a-zA-Z0-9\\?\\+\\*-~%/])(?<![a-zA-Z0-9\\?\\+\\*-~%/])|(?<=[a-zA-Z0-9\\?\\+\\*-~%/])(?![a-zA-Z0-9\\?\\+\\*-~%/]))";
+    //this enables us to include all the characters used by slogo commands as part of 'words'
+    protected static final String SLOGO_WORD_BOUNDARY = "(?:(?=[a-zA-Z0-9\\[\\]\\(\\)\\?\\+\\*-~%/])(?<![a-zA-Z0-9\\[\\]\\(\\)\\?\\+\\*-~%/])|(?<=[a-zA-Z0-9\\[\\]\\(\\)\\?\\+\\*-~%/])(?![a-zA-Z0-9\\[\\]\\(\\)\\?\\+\\*-~%/]))";
     //SO MUCH PAIN ^^^ the % can't go between the - and the ~    
     
 
@@ -45,10 +46,19 @@ public class SlogoScanner {
         }
         this.myScanner.useDelimiter(ALL_WHITESPACE_REGEX);
     }
-
-    public Scanner getSlogoFormattedScanner(){
-        return this.myScanner;
+    public Pattern delimiter(){
+        return myScanner.delimiter();
     }
+    
+    public void useDelimiter(Pattern pattern){
+        myScanner.useDelimiter(pattern);
+    }
+    
+    public void useDelimiter(String pattern){
+        myScanner.useDelimiter(pattern);
+    }
+    
+   
 
     public String getLanguageConvertedCode(ResourceBundle myResourceBundle) {
         replace(myResourceBundle);
@@ -71,6 +81,18 @@ public class SlogoScanner {
         replaceReverse(myResourceBundle);
         return str;
     }
+    
+    public boolean hasNext(){
+        return this.myScanner.hasNext();
+    }
+    
+//    /**
+//     * This should only be used by {@link CmdTreeHeadNode#parseString(SlogoScanner, ISlogoInterpreter)} because 
+//     * @return
+//     */
+//    protected String uncheckedNext(){
+//        return this.myScanner.next();
+//    }
 
     private void replaceReverse(ResourceBundle myBundle ) {
         for(String key: myBundle.keySet()) {

@@ -10,7 +10,7 @@ import interfaces.slogo.team04.ISlogoModelActions;
  *
  */
 public class CmdANullOne extends CommandTreeNode {
-    private INonLinearCommand testOne, testTwo; // the two nodes that we need to grab
+   
 
 
 

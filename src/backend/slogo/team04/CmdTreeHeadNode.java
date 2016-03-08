@@ -34,8 +34,7 @@ public class CmdTreeHeadNode extends CommandTreeNode {
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         while(myScanner.hasNext()){
-            //myChildren.add(CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter));
-            myChildren.add(CommandFactory.topLevelCommandFactory( myScanner.next(),  myScanner, this ,  myInterpreter));
+            myChildren.add(CommandFactory.topLevelCommandFactory( myScanner.getNextWord(),  myScanner, this ,  myInterpreter));
         }
         return this;
     }

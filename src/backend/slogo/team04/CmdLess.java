@@ -34,9 +34,7 @@ public class CmdLess extends CommandTreeNode {
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         expressionOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         expressionTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-        
-        //expressionOne = new CmdANullOne(null);
-        //expressionTwo = new CmdANullTwo(null);
+
         return this;
     }
 

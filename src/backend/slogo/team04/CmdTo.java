@@ -28,11 +28,10 @@ public class CmdTo extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        // TODO Auto-generated method stub
-        String myWord = SlogoScanner.getNextWord();
+        String myWord = myScanner.getNextWord();
         
         //check to see if this is a valid command word type
-        if(SlogoRegexChecker.couldBeCommand(myWord) && !CommandFactory.isKeyWord(myWord)){
+        if(SlogoRegexChecker.conformsToCmdNamingConventions(myWord) && !CommandFactory.isKeyWord(myWord)){
             this.myCommandName = myWord;
         }else{
             throw new UserInputException("Improperly named command detected");
@@ -42,27 +41,28 @@ public class CmdTo extends CommandTreeNode {
         CmdCommand myCommandToCreate = new CmdCommand(null, myWord); // command float on their own, do not have any parent as they are not really part of tree
         List<CmdVariable> listOfVariables = new ArrayList<CmdVariable>();
         List<INonLinearCommand> listOfCommands = new ArrayList<INonLinearCommand>(); 
-        myWord = SlogoScanner.getNextWord();
-        if(SlogoScanner.checkIfStartOfList(myWord, myInterpreter)){
+        myWord = myScanner.getNextWord();
+        if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
             // grab variables
-            myWord = SlogoScanner.getNextWord();
-            while(!SlogoScanner.checkIfEndOfList(myWord, myInterpreter)){
+            myWord = myScanner.getNextWord();
+            while(!myScanner.checkIfEndOfList(myWord, myInterpreter)){
                 listOfVariables.add(CommandFactory.getVariableOrAssertError(myWord,myScanner, myCommandToCreate, myInterpreter));
-                myWord = SlogoScanner.getNextWord();
+                myWord = myScanner.getNextWord();
             }
-            myWord = SlogoScanner.getNextWord();
-            if(SlogoScanner.checkIfStartOfList(myWord, myInterpreter)){
+            myInterpreter.putFunction(myCommandName, myCommandToCreate); //i think this supports reucrsion
+            myWord = myScanner.getNextWord();
+            if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
                 //grabbing and storing the commands
-                myWord = SlogoScanner.getNextWord();
-                while(!SlogoScanner.checkIfEndOfList(myWord, myInterpreter)){
+                myWord = myScanner.getNextWord();
+                while(!myScanner.checkIfEndOfList(myWord, myInterpreter)){
                     listOfCommands.add(CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myWord, myScanner, myCommandToCreate, myInterpreter));
-                    myWord = SlogoScanner.getNextWord();
+                    myWord = myScanner.getNextWord();
                 }
                 isInitializedCorrectly = CommandTreeNode.DOUBLE_ONE; // construction was properly done
                 // adding adding the calculated state to the command and then adding it to the stored list in the interpreter
                 myCommandToCreate.setMyState(listOfVariables, listOfCommands);
-                myInterpreter.putFunction(myCommandName, myCommandToCreate); //TODO to support recursion i think all i need is to move this line
-                //before the //grabbing and storing the commands section
+                //myInterpreter.putFunction(myCommandName, myCommandToCreate); //TODO before support recursion  
+ 
             }else{
                 throw new UserInputException("Command list not closed by bracket");
             }

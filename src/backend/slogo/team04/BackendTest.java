@@ -2,7 +2,6 @@ package backend.slogo.team04;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import constants.DisplayConstants;
@@ -11,7 +10,8 @@ import exceptions.UserInputException;
 
 public class BackendTest {
 
-
+    //throwaway code anyways
+    @SuppressWarnings("resource")
     public static void main(String [] args){
 
         //we are going to test the code used to 
@@ -56,7 +56,7 @@ public class BackendTest {
         Interpreter myTestInterpreter = new Interpreter();
         
         try {
-            INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(testScanner.getSlogoFormattedScanner(), myTestInterpreter);
+            INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(testScanner, myTestInterpreter);
             myHead.executeCommand(modelActor, myTestInterpreter);
         }
         catch (UserInputException e) {

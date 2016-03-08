@@ -24,8 +24,7 @@ public class CmdListOfCommands extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController,
-                                  ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double lastValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : myCommands){
             lastValue = cmd.executeCommand(myController, myInterpreter);
@@ -37,12 +36,12 @@ public class CmdListOfCommands extends CommandTreeNode {
     public INonLinearCommand parseString (SlogoScanner myScanner,
                                           ISlogoInterpreter myInterpreter) throws UserInputException {
 
-        String myNextWord = SlogoScanner.getNextWord();
-        if(SlogoScanner.checkIfStartOfList(myNextWord, myInterpreter)){
-            myNextWord = SlogoScanner.getNextWord();
-            while(!SlogoScanner.checkIfEndOfList(myNextWord, myInterpreter)){
+        String myNextWord = myScanner.getNextWord();
+        if(myScanner.checkIfStartOfList(myNextWord, myInterpreter)){
+            myNextWord = myScanner.getNextWord();
+            while(!myScanner.checkIfEndOfList(myNextWord, myInterpreter)){
                 myCommands.add(CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
-                myNextWord = SlogoScanner.getNextWord();
+                myNextWord = myScanner.getNextWord();
             }
         }else{
             throw new UserInputException("List of commands failed");

@@ -6,8 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActions;
 
 
 public class CmdRepeat extends CommandTreeNode {
-   //TODO change this to a resource bundle reference
-    private static final String REP_COUNT_VAR_NAME = ":repcount"; //TODO resource bundle perhaps so langauge change
+    private static final String REP_COUNT_VAR_NAME = ":repcount";
     private CmdVariable myRepCount;
     private INonLinearCommand myExpression, myCommands;
     
@@ -16,14 +15,13 @@ public class CmdRepeat extends CommandTreeNode {
 
     public CmdRepeat (CommandTreeNode myParent) {
         super(myParent);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double limit = myExpression.executeCommand(myController, myInterpreter);
-        double lastValueSeen = 0d;
-        for(double i = 1d; i <= limit; i+=1d){
+        double lastValueSeen = CommandTreeNode.DOUBLE_ZERO;
+        for(double i = CommandTreeNode.DOUBLE_ONE; i <= limit; i+=CommandTreeNode.DOUBLE_ONE){
             myRepCount.setVariableValue(i, myInterpreter);
             lastValueSeen = myCommands.executeCommand(myController, myInterpreter);
         }

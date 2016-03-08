@@ -65,7 +65,7 @@ public class SlogoRegexChecker {
     }
 
     private final static String COMMAND_PATTERN = "[a-zA-Z_]+(\\?)?";
-    public static boolean couldBeCommand(String myString){
+    public static boolean conformsToCmdNamingConventions(String myString){
         return Pattern.matches(COMMAND_PATTERN , myString);
     }
 

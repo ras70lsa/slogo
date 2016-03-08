@@ -34,7 +34,6 @@ public class CmdCommand extends CommandTreeNode {
         }
         return lastCommandValue;
     }
-    //TODO we need to make this code create mutliple copies of itself when called to acutally run
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {

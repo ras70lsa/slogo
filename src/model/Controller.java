@@ -6,13 +6,11 @@ import java.util.ResourceBundle;
 import backend.slogo.team04.BackendTestNullModelActor;
 import backend.slogo.team04.CmdTreeHeadNode;
 import backend.slogo.team04.INonLinearCommand;
-import backend.slogo.team04.Interpreter;
 import backend.slogo.team04.SlogoScanner;
 import constants.DisplayConstants;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ICommunicator;
-import interfaces.slogo.team04.IModel;
 import interfaces.slogo.team04.ISlogoModelActions;
 
 

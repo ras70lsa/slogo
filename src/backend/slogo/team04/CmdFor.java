@@ -26,13 +26,13 @@ public class CmdFor extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        String nextString = SlogoScanner.getNextWord();
-        if(SlogoScanner.checkIfStartOfList(nextString, myInterpreter)){
-            myVariable = CommandFactory.getVariableOrAssertError(SlogoScanner.getNextWord(), myScanner, this, myInterpreter);
+        String nextString = myScanner.getNextWord();
+        if(myScanner.checkIfStartOfList(nextString, myInterpreter)){
+            myVariable = CommandFactory.getVariableOrAssertError(myScanner.getNextWord(), myScanner, this, myInterpreter);
             myStart = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
             myEnd = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
             myIncrement = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            if(SlogoScanner.checkIfEndOfList(SlogoScanner.getNextWord(), myInterpreter)){
+            if(myScanner.checkIfEndOfList(myScanner.getNextWord(), myInterpreter)){
                 cmdList = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
             }else{
                 throw new UserInputException("Expected closing list bracket");
