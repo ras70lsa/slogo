@@ -2,7 +2,6 @@ package frontend.features;
 
 import java.util.ResourceBundle;
 
-import constants.CSSPathConstants;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
 import frontend.slogo.team04.LanguageSelector;
@@ -10,11 +9,7 @@ import interfaces.slogo.team04.IDisplay;
 import interfaces.slogo.team04.IModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -57,7 +52,8 @@ public class SlogoMenu extends MenuBar {
 	private void populate() {
 		clear.getItems().add(createMenuItem(myBundle.getString("History"), e-> clearHistory()));
 		clear.getItems().add(createMenuItem(myBundle.getString("VariableTitle"), e-> clearVariables()));
-		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox()));
+		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox("Basic")));
+		help.getItems().add(createMenuItem(myBundle.getString("CommandHelpAdvanced"), e-> helpBox("Extended")));
 		options.getItems().add(clear);
 		options.getItems().add(advancedOptions);
 		options.getItems().add(new SeparatorMenuItem());
@@ -94,9 +90,8 @@ public class SlogoMenu extends MenuBar {
 	}
 	
 
-	private void helpBox () {
-		
-		HTMLDisplay display = new HTMLDisplay();
+	private void helpBox (String type) {
+		HTMLDisplay display = new HTMLDisplay(type);
 		display.show();
    }
 }
