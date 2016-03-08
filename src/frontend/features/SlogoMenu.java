@@ -52,7 +52,8 @@ public class SlogoMenu extends MenuBar {
 	private void populate() {
 		clear.getItems().add(createMenuItem(myBundle.getString("History"), e-> clearHistory()));
 		clear.getItems().add(createMenuItem(myBundle.getString("VariableTitle"), e-> clearVariables()));
-		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox()));
+		help.getItems().add(createMenuItem(myBundle.getString("CommandHelp"), e-> helpBox("Basic")));
+		help.getItems().add(createMenuItem(myBundle.getString("CommandHelpAdvanced"), e-> helpBox("Extended")));
 		options.getItems().add(clear);
 		options.getItems().add(advancedOptions);
 		options.getItems().add(new SeparatorMenuItem());
@@ -89,9 +90,8 @@ public class SlogoMenu extends MenuBar {
 	}
 	
 
-	private void helpBox () {
-		
-		HTMLDisplay display = new HTMLDisplay();
+	private void helpBox (String type) {
+		HTMLDisplay display = new HTMLDisplay(type);
 		display.show();
    }
 }
