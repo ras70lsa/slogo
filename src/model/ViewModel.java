@@ -202,7 +202,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double clearScreen() {
-		lineManager.clear();
+		actors.stream()
+			.forEach((a) -> a.clearLines());
 		return 0;
 	}
 

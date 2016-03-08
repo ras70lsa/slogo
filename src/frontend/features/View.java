@@ -137,20 +137,37 @@ public class View extends StaticPane implements Observer {
 	public Line drawLine(double startX, double startY, double endX, double endY, ModelLine line) {
 		double sX, sY, eX, eY;
 		
-		if(isInBounds(startX, startY )){
+		if(isInBounds(startX, startY)){
 			sX = startX;
 			sY = startY;
 			eX = endX;
 			eY = endY;
 		}else{
+			System.out.println("Out of Bounds!");
 			double numTimesXWidthRemoved = Math.floor((startX/DisplayConstants.VIEW_WIDTH));
 			double numTimesYWidthRemoved = Math.floor((startY/DisplayConstants.VIEW_HEIGHT));
-			sX = startX % DisplayConstants.VIEW_WIDTH;
-			sY = startY % DisplayConstants.VIEW_HEIGHT;
+			sX = Math.abs(startX) % DisplayConstants.VIEW_WIDTH;
+			sY = Math.abs(startY) % DisplayConstants.VIEW_HEIGHT;
+			if(startX<0){
+				sX = DisplayConstants.VIEW_WIDTH-sX;
+				eX = endX+(numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
+			}else{
+				eX = endX-(numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
+			}
+			if(startY<0){
+				sY = DisplayConstants.VIEW_HEIGHT-sY;
+				eY = endY+(numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
+			}else{
+				eY = endY-(numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
+			}
 			eX = endX - (numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
 			eY = endY - (numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
 		}
-		
+		System.out.println("SX: " + sX);
+		System.out.println("SY: " + sY);
+		System.out.println("EX: " + eX);
+		System.out.println("EY: " + eY);
+		System.out.println("");
 		Line n = new Line();
 		n.getStrokeDashArray().addAll(line.getStyle());
 		Color color = new Color(line.getColor().getRed(), line.getColor().getGreen(), line.getColor().getBlue(), ALPHA);
@@ -232,20 +249,20 @@ public class View extends StaticPane implements Observer {
 		original[2] = ex;
 		original[3] = ey;
 		
-		if(sy == 0){
-			original[1] = DisplayConstants.VIEW_HEIGHT;
+		if(Math.round(sy) == 0){
+			original[1] = DisplayConstants.VIEW_HEIGHT-1;
 			original[3] = ey + DisplayConstants.VIEW_HEIGHT;
 		}
-		if(sy == DisplayConstants.VIEW_HEIGHT){
-			original[1] = 0;
+		if(Math.round(sy) == DisplayConstants.VIEW_HEIGHT){
+			original[1] = 1;
 			original[3] = ey - DisplayConstants.VIEW_HEIGHT;
 		}
-		if(sx == 0){
-			original[0] = DisplayConstants.VIEW_WIDTH;
+		if(Math.round(sx) == 0){
+			original[0] = DisplayConstants.VIEW_WIDTH-1;
 			original[2] = ex + DisplayConstants.VIEW_WIDTH;
 		}
-		if(sx == DisplayConstants.VIEW_WIDTH){
-			original[0] = 0;
+		if(Math.round(sx) == DisplayConstants.VIEW_WIDTH){
+			original[0] = 1;
 			original[2] = ex - DisplayConstants.VIEW_WIDTH;
 		}
 		return original;
@@ -256,24 +273,110 @@ public class View extends StaticPane implements Observer {
 		original[0] = n.getEndX();
 		original[1] = n.getEndY();
 		
-		if(checkTop(n.getEndY())==false){
+//		if(checkTop(n.getEndY())==false){
+//			System.out.println("Intercept top");
+//			return getLineIntersection(n, TopLine);
+//			
+//		}
+//		else if(checkBottom(n.getEndY())==false){
+//			System.out.println("Intercept bottom");
+//			return getLineIntersection(n, BottomLine);
+//		}else if(checkRight(n.getEndX())==false){
+//			System.out.println("Intercept right");
+//			return getLineIntersection(n, RightLine);
+//		}else if(checkLeft(n.getEndX())==false){
+//			System.out.println("Intercept left");
+//			return getLineIntersection(n, LeftLine);
+//		}else{
+//			return original;
+//		}
+		
+		if(linesIntersect(n, TopLine)==true){
 			System.out.println("Intercept top");
-			return getLineIntersection(n, TopLine);
-			
+			return getLineIntersection(n, TopLine);	
 		}
-		else if(checkBottom(n.getEndY())==false){
+		else if(linesIntersect(n, BottomLine)==true){
 			System.out.println("Intercept bottom");
 			return getLineIntersection(n, BottomLine);
-		}else if(checkRight(n.getEndX())==false){
+		}else if(linesIntersect(n, RightLine)==true){
 			System.out.println("Intercept right");
 			return getLineIntersection(n, RightLine);
-		}else if(checkLeft(n.getEndX())==false){
+		}else if(linesIntersect(n, LeftLine)==true){
 			System.out.println("Intercept left");
 			return getLineIntersection(n, LeftLine);
 		}else{
 			return original;
 		}
 	}
+	
+	 public boolean linesIntersect(Line line1, Line line2){
+	      // Return false if either of the lines have zero length
+		 double x1 = line1.getStartX();
+			double x2 = line1.getEndX();
+			double y1 = line1.getStartY();
+			double y2 = line1.getEndY();
+			
+			double x3 = line2.getStartX();
+			double x4 = line2.getEndX();
+			double y3 = line2.getStartY();
+			double y4 = line2.getEndY();
+			
+	      if (x1 == x2 && y1 == y2 ||
+	            x3 == x4 && y3 == y4){
+	         return false;
+	      }
+	      // Fastest method, based on Franklin Antonio's "Faster Line Segment Intersection" topic "in Graphics Gems III" book (http://www.graphicsgems.org/)
+	      double ax = x2-x1;
+	      double ay = y2-y1;
+	      double bx = x3-x4;
+	      double by = y3-y4;
+	      double cx = x1-x3;
+	      double cy = y1-y3;
+
+	      double alphaNumerator = by*cx - bx*cy;
+	      double commonDenominator = ay*bx - ax*by;
+	      if (commonDenominator > 0){
+	         if (alphaNumerator < 0 || alphaNumerator > commonDenominator){
+	            return false;
+	         }
+	      }else if (commonDenominator < 0){
+	         if (alphaNumerator > 0 || alphaNumerator < commonDenominator){
+	            return false;
+	         }
+	      }
+	      double betaNumerator = ax*cy - ay*cx;
+	      if (commonDenominator > 0){
+	         if (betaNumerator < 0 || betaNumerator > commonDenominator){
+	            return false;
+	         }
+	      }else if (commonDenominator < 0){
+	         if (betaNumerator > 0 || betaNumerator < commonDenominator){
+	            return false;
+	         }
+	      }
+	      if (commonDenominator == 0){
+	         // This code wasn't in Franklin Antonio's method. It was added by Keith Woodward.
+	         // The lines are parallel.
+	         // Check if they're collinear.
+	         double y3LessY1 = y3-y1;
+	         double collinearityTestForP3 = x1*(y2-y3) + x2*(y3LessY1) + x3*(y1-y2);   // see http://mathworld.wolfram.com/Collinear.html
+	         // If p3 is collinear with p1 and p2 then p4 will also be collinear, since p1-p2 is parallel with p3-p4
+	         if (collinearityTestForP3 == 0){
+	            // The lines are collinear. Now check if they overlap.
+	            if (x1 >= x3 && x1 <= x4 || x1 <= x3 && x1 >= x4 ||
+	                  x2 >= x3 && x2 <= x4 || x2 <= x3 && x2 >= x4 ||
+	                  x3 >= x1 && x3 <= x2 || x3 <= x1 && x3 >= x2){
+	               if (y1 >= y3 && y1 <= y4 || y1 <= y3 && y1 >= y4 ||
+	                     y2 >= y3 && y2 <= y4 || y2 <= y3 && y2 >= y4 ||
+	                     y3 >= y1 && y3 <= y2 || y3 <= y1 && y3 >= y2){
+	                  return true;
+	               }
+	            }
+	         }
+	         return false;
+	      }
+	      return true;
+	   }
 	
 	private double makeXCorrection(double x) {
 		x = x - DisplayConstants.VIEW_WIDTH/2;
