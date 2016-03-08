@@ -1,9 +1,12 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
+
 import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
@@ -279,7 +282,18 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		
 	}
 	
-
+	public int setPalette(int index, int r, int g, int b){
+		//TODO
+		return index;
+	}
+	
+	public int Shape(){
+		ArrayList<Actor> activeActors = new ArrayList<Actor>();
+		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);;
+		int listIndex = TurtleShape.valueOf(activeActors.get(0).getShape().toString()).ordinal();
+		return listIndex + 1;
+	}
+	
 	public int setShape(int index){
 		alterActors((a) -> a.setShape(TurtleShape.values()[index-1]));
 		return index;

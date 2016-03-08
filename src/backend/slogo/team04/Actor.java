@@ -41,6 +41,7 @@ public class Actor {
 	private ImageProperty image;
 	private Stack<ModelLine> myLines;
 	private Pen pen;
+	private TurtleShape myShape;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = new SimpleDoubleProperty();
@@ -199,6 +200,7 @@ public class Actor {
 	}
 	
 	public void setShape(TurtleShape shape){
+		myShape = shape;
 		Image newImage = null;
 		switch (shape) {
 		case RECTANGLE:
@@ -215,6 +217,9 @@ public class Actor {
 		}
 	}
 	
+	public TurtleShape getShape(){
+		return myShape;
+	}
 	
 	public void setPenStyle(String selectedItem) {
 		pen.setStyle(selectedItem);
