@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
+import frontend.features.TurtleShape;
 import backend.structures.Pen;
 import backend.structures.RGBColor;
 import javafx.beans.property.BooleanProperty;
@@ -54,7 +55,7 @@ public class Actor {
 		this.penIsDown.set(penIsDown);
 		pen = new Pen(new RGBColor(0,0,0));
 		image = new ImageProperty();
-		image.set(getDefaultImage());
+		image.set(getImage(DEFAULT_PATH));
 		active = new SimpleBooleanProperty(true);
 		myLines = new Stack<ModelLine>();
 	}
@@ -63,8 +64,9 @@ public class Actor {
 		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown.get());
 	}
 
-	private Image getDefaultImage() {
-		return new Image(getClass().getClassLoader().getResourceAsStream(DEFAULT_PATH));
+	
+	private Image getImage(String path){
+		return new Image(getClass().getClassLoader().getResourceAsStream(path));
 	}
 
 	public ModelLine forward(double pixels) {
@@ -190,6 +192,24 @@ public class Actor {
 	
 	public void setPenColor(RGBColor color) {
 		pen.setPenColor(color);
+	}
+	
+	public void setShape(TurtleShape shape){
+		Image newImage;
+		switch (shape) {
+		case RECTANGLE:
+			newImage = getImage("images/rectangle.png");
+			break;
+		case CIRCLE:
+			newImage = getImage("images/circle.png");
+			image.set(newImage);
+			break;
+		case ELLIPSE:
+			newImage = getImage("images/ellipse.png");
+			break;
+		default:	
+			
+		}
 	}
 	
 	public void setPenStyle(String selectedItem) {
