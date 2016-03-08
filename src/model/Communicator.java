@@ -1,6 +1,5 @@
 package model;
 
-import backend.slogo.team04.ISlogoInterpreter;
 import interfaces.slogo.team04.ICommunicator;
 import interfaces.slogo.team04.IModel;
 

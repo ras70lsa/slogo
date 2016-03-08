@@ -2,7 +2,6 @@ package backend.slogo.team04;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -35,12 +34,11 @@ public class CmdCommand extends CommandTreeNode {
         }
         return lastCommandValue;
     }
-    //TODO we need to make this code create mutliple copies of itself when called to acutally run
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         for (int i = 0; i < listOfVariables.size(); i++) {
-            listOfVariableAssignments.add(CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter));
+            listOfVariableAssignments.add(CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter));
         }
         return this;
     }

@@ -1,6 +1,5 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -19,7 +18,7 @@ public class CmdIfElse extends CommandTreeNode {
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         // TODO Auto-generated method stub
         INonLinearCommand cmdToExecute;
-        if(CommandTreeNode.isNonZero(myExpression, myController, myInterpreter)){
+        if(CommandFactory.isNonZero(myExpression, myController, myInterpreter)){
             cmdToExecute = trueCommands;
         }else{
             cmdToExecute = falseCommands;
@@ -28,9 +27,9 @@ public class CmdIfElse extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         // TODO Auto-generated method stub
-        myExpression = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        myExpression = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         trueCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
         falseCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
         return this;

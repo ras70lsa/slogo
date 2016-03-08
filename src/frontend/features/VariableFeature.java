@@ -1,18 +1,12 @@
 package frontend.features;
 
-import java.util.List;
-
 import backend.slogo.team04.Variable;
 import interfaces.slogo.team04.IVariable;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldTableCell;
-import visual.states.GuiUserOption;
 import javafx.beans.property.ListProperty;
 
 /**

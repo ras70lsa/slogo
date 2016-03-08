@@ -2,20 +2,15 @@ package frontend.features;
 
 import java.util.ResourceBundle;
 
-import backend.structures.RGBColor;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
 import interfaces.slogo.team04.IView;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ModelLine;
-import model.ModelLine.Style;
 
 public class PreferenceFeature extends TitledPane {
 

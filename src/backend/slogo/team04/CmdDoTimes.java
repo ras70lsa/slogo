@@ -1,7 +1,6 @@
 package backend.slogo.team04;
 
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -27,24 +26,19 @@ public class CmdDoTimes extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        String myWord = CommandTreeNode.getNextWord(myScanner);
-        if(CommandTreeNode.checkIfStartOfList(myWord, myScanner, myInterpreter)){
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        String myWord = myScanner.getNextWord();
+        if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
             // grab variable and then the limit factor
-            myWord = CommandTreeNode.getNextWord(myScanner);
-            myVariable = CommandTreeNode.getVariableOrAssertError(myWord,myScanner, this, myInterpreter);
-            myLimit = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            myWord = CommandTreeNode.getNextWord(myScanner);
-            if(CommandTreeNode.checkIfEndOfList(myWord, myScanner, myInterpreter)){
-
-
+            myWord = myScanner.getNextWord();
+            myVariable = CommandFactory.getVariableOrAssertError(myWord,myScanner, this, myInterpreter);
+            myLimit = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+            myWord = myScanner.getNextWord();
+            if(myScanner.checkIfEndOfList(myWord, myInterpreter)){
                 myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
             } else{
                 throw new UserInputException("Variable and limits declaration not closed with bracket");
             }
-
-
-
 
         }else{
             throw new UserInputException("Expected variable and limits declaration");

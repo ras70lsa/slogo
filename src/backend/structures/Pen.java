@@ -3,7 +3,6 @@ package backend.structures;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import model.ModelLine;
 import model.ModelLine.Style;

@@ -1,29 +1,19 @@
 package frontend.features;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
 import backend.slogo.team04.Actor;
-import backend.structures.Pen;
-import backend.structures.RGBColor;
 import constants.CSSPathConstants;
 import constants.DisplayConstants;
-import frontend.slogo.team04.State;
 import interfaces.slogo.team04.IView;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 import model.ModelLine;
 import utilities.Angle;
 import visual.states.GuiUserOption;
