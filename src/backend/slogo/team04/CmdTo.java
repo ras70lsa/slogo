@@ -62,7 +62,8 @@ public class CmdTo extends CommandTreeNode {
                 isInitializedCorrectly = CommandTreeNode.DOUBLE_ONE; // construction was properly done
                 // adding adding the calculated state to the command and then adding it to the stored list in the interpreter
                 myCommandToCreate.setMyState(listOfVariables, listOfCommands);
-                myInterpreter.putFunction(myCommandName, myCommandToCreate);
+                myInterpreter.putFunction(myCommandName, myCommandToCreate); //TODO to support recursion i think all i need is to move this line
+                //before the //grabbing and storing the commands section
             }else{
                 throw new UserInputException("Command list not closed by bracket");
             }

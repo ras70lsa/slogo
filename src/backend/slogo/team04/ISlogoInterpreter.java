@@ -15,5 +15,8 @@ public interface ISlogoInterpreter {
     double setVariableValue (String variable, Double value);
 
     double getVariableValue (String variable);
+    
+    
+
 
 }
