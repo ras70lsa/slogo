@@ -50,7 +50,7 @@ public class ShapeIndexMenu extends ComboBox<TurtleShape>{
 							setGraphic(null);
 						} else {
 							Shape shape = this.getShape(item);
-							setText(item.toString());
+							setText(Integer.toString(TurtleShape.valueOf(item.toString()).ordinal()+1));
 							setGraphic(shape);
 						}
 					}
