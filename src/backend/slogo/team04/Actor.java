@@ -1,7 +1,5 @@
 package backend.slogo.team04;
 
-import java.io.InputStream;
-import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
@@ -14,7 +12,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import model.ModelLine;
-import model.ModelLine.Style;
 import properties.ImageProperty;
 import utilities.Angle;
 
@@ -218,6 +215,10 @@ public class Actor {
 	
 	public void setPenWidth(double d) {
 		pen.setLineWidth(d);
+	}
+	
+	public void clearLines() {
+		myLines.clear();
 	}
 }
 

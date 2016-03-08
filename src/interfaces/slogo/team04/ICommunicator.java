@@ -1,6 +1,5 @@
 package interfaces.slogo.team04;
 
-import backend.slogo.team04.ISlogoInterpreter;
 import model.ExecutionState;
 
 /**

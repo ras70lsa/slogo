@@ -1,7 +1,6 @@
 package frontend.features;
 
 import backend.slogo.team04.Actor;
-import backend.slogo.team04.Variable;
 import interfaces.slogo.team04.IView;
 import javafx.beans.property.ListProperty;
 import javafx.scene.control.TableColumn;

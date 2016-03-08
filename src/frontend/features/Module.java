@@ -1,6 +1,5 @@
 package frontend.features;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 /**

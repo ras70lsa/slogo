@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.function.Consumer;
-import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -15,7 +14,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.ModelLine.Style;
 import properties.ColorProperty;
 import properties.ImageProperty;
 import utilities.Angle;
@@ -204,7 +202,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double clearScreen() {
-		lineManager.clear();
+		actors.stream()
+			.forEach((a) -> a.clearLines());
 		return 0;
 	}
 

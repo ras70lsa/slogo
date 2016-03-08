@@ -1,11 +1,7 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import backend.slogo.team04.Action;
 import backend.slogo.team04.SlogoScanner;
 import constants.DisplayConstants;
 import frontend.slogo.team04.State;
@@ -15,8 +11,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import properties.ColorProperty;
 
 public class HistoryModel extends State implements IHistoryModel{
 

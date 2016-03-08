@@ -2,7 +2,6 @@ package interfaces.slogo.team04;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.text.Text;
 
 public interface IHistoryModel  {
 

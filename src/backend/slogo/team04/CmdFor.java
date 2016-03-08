@@ -1,6 +1,5 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -26,14 +25,14 @@ public class CmdFor extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        String nextString = CommandTreeNode.getNextWord(myScanner);
-        if(CommandTreeNode.checkIfStartOfList(nextString, myScanner, myInterpreter)){
-            myVariable = CommandTreeNode.getVariableOrAssertError(CommandTreeNode.getNextWord(myScanner), myScanner, this, myInterpreter);
-            myStart = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            myEnd = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            myIncrement = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            if(CommandTreeNode.checkIfEndOfList(CommandTreeNode.getNextWord(myScanner), myScanner, myInterpreter)){
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        String nextString = myScanner.getNextWord();
+        if(myScanner.checkIfStartOfList(nextString, myInterpreter)){
+            myVariable = CommandFactory.getVariableOrAssertError(myScanner.getNextWord(), myScanner, this, myInterpreter);
+            myStart = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+            myEnd = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+            myIncrement = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+            if(myScanner.checkIfEndOfList(myScanner.getNextWord(), myInterpreter)){
                 cmdList = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
             }else{
                 throw new UserInputException("Expected closing list bracket");
