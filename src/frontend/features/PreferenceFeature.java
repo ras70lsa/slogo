@@ -40,7 +40,7 @@ public class PreferenceFeature extends TitledPane {
 	
 	private void addListener() {
 		backgroundPallete.getSelected().addListener((a,b,c) -> view.getBackgroundColor().set(c));
-		shapeIndex.getSelected().addListener((a,b,c) -> view.setShape((int) c));
+		shapeIndex.getSelected().addListener((a,b,c) -> view.setShape((int) c+1));
 	}
 	
 	private void populate() {
