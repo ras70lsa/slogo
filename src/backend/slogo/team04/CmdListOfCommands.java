@@ -2,7 +2,6 @@ package backend.slogo.team04;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -35,15 +34,15 @@ public class CmdListOfCommands extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner,
+    public INonLinearCommand parseString (SlogoScanner myScanner,
                                           ISlogoInterpreter myInterpreter) throws UserInputException {
 
-        String myNextWord = CommandTreeNode.getNextWord(myScanner);
-        if(CommandTreeNode.checkIfStartOfList(myNextWord, myScanner, myInterpreter)){
-            myNextWord = CommandTreeNode.getNextWord(myScanner);
-            while(!CommandTreeNode.checkIfEndOfList(myNextWord, myScanner, myInterpreter)){
-                myCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
-                myNextWord = CommandTreeNode.getNextWord(myScanner);
+        String myNextWord = SlogoScanner.getNextWord();
+        if(SlogoScanner.checkIfStartOfList(myNextWord, myInterpreter)){
+            myNextWord = SlogoScanner.getNextWord();
+            while(!SlogoScanner.checkIfEndOfList(myNextWord, myInterpreter)){
+                myCommands.add(CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
+                myNextWord = SlogoScanner.getNextWord();
             }
         }else{
             throw new UserInputException("List of commands failed");

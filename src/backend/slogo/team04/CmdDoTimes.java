@@ -1,7 +1,6 @@
 package backend.slogo.team04;
 
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -27,15 +26,15 @@ public class CmdDoTimes extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        String myWord = CommandTreeNode.getNextWord(myScanner);
-        if(CommandTreeNode.checkIfStartOfList(myWord, myScanner, myInterpreter)){
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        String myWord = SlogoScanner.getNextWord();
+        if(SlogoScanner.checkIfStartOfList(myWord, myInterpreter)){
             // grab variable and then the limit factor
-            myWord = CommandTreeNode.getNextWord(myScanner);
-            myVariable = CommandTreeNode.getVariableOrAssertError(myWord,myScanner, this, myInterpreter);
-            myLimit = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-            myWord = CommandTreeNode.getNextWord(myScanner);
-            if(CommandTreeNode.checkIfEndOfList(myWord, myScanner, myInterpreter)){
+            myWord = SlogoScanner.getNextWord();
+            myVariable = CommandFactory.getVariableOrAssertError(myWord,myScanner, this, myInterpreter);
+            myLimit = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+            myWord = SlogoScanner.getNextWord();
+            if(SlogoScanner.checkIfEndOfList(myWord, myInterpreter)){
 
 
                 myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);

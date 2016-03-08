@@ -2,10 +2,12 @@ package backend.slogo.team04;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import exceptions.UserInputException;
 
 public class SlogoScanner {
     protected static final String ALL_NEW_LINE_CHARACTERS = "[\\n]";
@@ -86,6 +88,45 @@ public class SlogoScanner {
 
     public String getString() {
         return str;
+    }
+
+    protected boolean checkIfStartOfList(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
+        String toTest = currentWord;
+        toTest = advanceScannerPastComments(toTest, myInterpreter);
+        return SlogoRegexChecker.isStartOfList(toTest);
+    }
+
+    protected boolean checkIfEndOfList(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
+        String toTest = currentWord;
+        toTest = advanceScannerPastComments(toTest, myInterpreter);
+        return SlogoRegexChecker.isEndOfList(toTest);
+    }
+
+    protected String advanceScannerPastComments(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
+        
+        String curWord = currentWord;
+        while(SlogoRegexChecker.isStartOfComment(curWord)){
+            new CmdComment(null).parseString(this, myInterpreter);
+            curWord = this.getNextWord(); 
+        }
+        return curWord;
+        
+    }
+
+    /**
+     * Should be moved into the slogo scanner so that the user does not have to remember to call this safe way of getting
+     * the next element in the scanner
+     * @return
+     * @throws UserInputException
+     */
+    protected String getNextWord() throws UserInputException{
+        String myWord;
+        try{
+            myWord = myScanner.next();
+        }catch(NoSuchElementException e){
+            throw new UserInputException("Incomplete Slogo commands detected"); //TODO make this use resource bundles later
+        }
+        return myWord;
     }
 
 }

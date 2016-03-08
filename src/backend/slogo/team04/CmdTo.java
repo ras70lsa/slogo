@@ -2,7 +2,6 @@ package backend.slogo.team04;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -28,12 +27,12 @@ public class CmdTo extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         // TODO Auto-generated method stub
-        String myWord = CommandTreeNode.getNextWord(myScanner);
+        String myWord = SlogoScanner.getNextWord();
         
         //check to see if this is a valid command word type
-        if(SlogoRegexChecker.couldBeCommand(myWord) && !CommandTreeNode.isKeyWord(myWord)){
+        if(SlogoRegexChecker.couldBeCommand(myWord) && !CommandFactory.isKeyWord(myWord)){
             this.myCommandName = myWord;
         }else{
             throw new UserInputException("Improperly named command detected");
@@ -43,21 +42,21 @@ public class CmdTo extends CommandTreeNode {
         CmdCommand myCommandToCreate = new CmdCommand(null, myWord); // command float on their own, do not have any parent as they are not really part of tree
         List<CmdVariable> listOfVariables = new ArrayList<CmdVariable>();
         List<INonLinearCommand> listOfCommands = new ArrayList<INonLinearCommand>(); 
-        myWord = CommandTreeNode.getNextWord(myScanner);
-        if(CommandTreeNode.checkIfStartOfList(myWord, myScanner, myInterpreter)){
+        myWord = SlogoScanner.getNextWord();
+        if(SlogoScanner.checkIfStartOfList(myWord, myInterpreter)){
             // grab variables
-            myWord = CommandTreeNode.getNextWord(myScanner);
-            while(!CommandTreeNode.checkIfEndOfList(myWord, myScanner, myInterpreter)){
-                listOfVariables.add(CommandTreeNode.getVariableOrAssertError(myWord,myScanner, myCommandToCreate, myInterpreter));
-                myWord = CommandTreeNode.getNextWord(myScanner);
+            myWord = SlogoScanner.getNextWord();
+            while(!SlogoScanner.checkIfEndOfList(myWord, myInterpreter)){
+                listOfVariables.add(CommandFactory.getVariableOrAssertError(myWord,myScanner, myCommandToCreate, myInterpreter));
+                myWord = SlogoScanner.getNextWord();
             }
-            myWord = CommandTreeNode.getNextWord(myScanner);
-            if(CommandTreeNode.checkIfStartOfList(myWord, myScanner, myInterpreter)){
+            myWord = SlogoScanner.getNextWord();
+            if(SlogoScanner.checkIfStartOfList(myWord, myInterpreter)){
                 //grabbing and storing the commands
-                myWord = CommandTreeNode.getNextWord(myScanner);
-                while(!CommandTreeNode.checkIfEndOfList(myWord, myScanner, myInterpreter)){
-                    listOfCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsControlledAdvance(myWord, myScanner, myCommandToCreate, myInterpreter));
-                    myWord = CommandTreeNode.getNextWord(myScanner);
+                myWord = SlogoScanner.getNextWord();
+                while(!SlogoScanner.checkIfEndOfList(myWord, myInterpreter)){
+                    listOfCommands.add(CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myWord, myScanner, myCommandToCreate, myInterpreter));
+                    myWord = SlogoScanner.getNextWord();
                 }
                 isInitializedCorrectly = CommandTreeNode.DOUBLE_ONE; // construction was properly done
                 // adding adding the calculated state to the command and then adding it to the stored list in the interpreter

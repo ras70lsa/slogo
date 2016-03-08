@@ -1,6 +1,5 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -32,8 +31,8 @@ public class CmdRepeat extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        myExpression = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);     
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        myExpression = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);     
         myRepCount = new CmdVariable(this, REP_COUNT_VAR_NAME);
         myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
         return this;

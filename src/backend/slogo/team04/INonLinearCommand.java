@@ -1,6 +1,5 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -36,7 +35,7 @@ public interface INonLinearCommand {
      * @return
      * @throws UserInputException TODO
      */
-    public abstract INonLinearCommand parseString(Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException;
+    public abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException;
     
    
 }

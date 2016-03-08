@@ -1,6 +1,5 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import java.util.regex.Pattern;
 import exceptions.LogicException;
 import exceptions.UserInputException;
@@ -27,12 +26,12 @@ public class CmdComment extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         
         Pattern cached = myScanner.delimiter();
         //myScanner.useDelimiter(SlogoScanner.ALL_NON_NEW_LINE_WHITESPACE_REGEX);
         myScanner.useDelimiter(REGEX_CHARS_AND_WHITESPACE_LESS_NEWLINE);//.next(); //"[[\\S]\\t\\x0B\\f\\r ]+"
-        CommandTreeNode.getNextWord(myScanner);
+        SlogoScanner.getNextWord();
         //System.out.println("Test" + content + ":");
 //        for(int i = 0; i < content.length(); i++){
 //            System.out.printf("%d\n", (int) content.charAt(i));

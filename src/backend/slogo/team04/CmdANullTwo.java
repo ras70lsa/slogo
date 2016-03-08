@@ -1,10 +1,15 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
 
+
+/**
+ * Null class for cmd testing
+ * @author jonathanim
+ *
+ */
 public class CmdANullTwo extends CommandTreeNode {
     private INonLinearCommand testOne, testTwo; // the two nodes that we need to grab
 
@@ -23,7 +28,7 @@ public class CmdANullTwo extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         return this;
     }
 

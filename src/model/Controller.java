@@ -38,7 +38,7 @@ public class Controller {
     public void parseString(String stringToParse) throws UserInputException, LogicException{
     	SlogoScanner scanner = getProperScanner(stringToParse);
     	String save = scanner.getString();
-    	INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(scanner.getSlogoFormattedScanner(), model.getExecutionModel());
+    	INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(scanner, model.getExecutionModel());
         myHead.executeCommand(viewModel, model.getExecutionModel());
         update();
         updateHistory(save);
