@@ -99,6 +99,9 @@ public class Actor {
 		}
 	}
 
+	public Image getImageResult(){
+		return image.getValue();
+	}
 	public double getXLocation() {
 		return xLocation.get();
 	}
@@ -195,22 +198,22 @@ public class Actor {
 	}
 	
 	public void setShape(TurtleShape shape){
-		Image newImage;
+		Image newImage = null;
 		switch (shape) {
 		case RECTANGLE:
-			newImage = getImage("images/rectangle.png");
+			image.set(getImage("images/rectangle.png"));
 			break;
 		case CIRCLE:
-			newImage = getImage("images/circle.png");
-			image.set(newImage);
+			image.set(getImage("images/circle.png"));
 			break;
 		case ELLIPSE:
-			newImage = getImage("images/ellipse.png");
+			image.set(getImage("images/ellipse.png"));;
 			break;
 		default:	
 			
 		}
 	}
+	
 	
 	public void setPenStyle(String selectedItem) {
 		pen.setStyle(selectedItem);
