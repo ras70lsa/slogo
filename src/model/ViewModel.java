@@ -280,11 +280,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		
 	}
 	
-	//Looks like work was done on master
-//	public int setShape(int index){
-//		alterActors((a) -> a.setShape(TurtleShape.values()[index]));
-//		return index;
-//	}
+
+	public int setShape(int index){
+		System.out.println("index " + TurtleShape.values()[index-1]);
+		alterActors((a) -> a.setShape(TurtleShape.values()[index-1]));
+		return index;
+	}
 	
 	public DoubleProperty getPenWidth() {
 		return currentPenWidth;
