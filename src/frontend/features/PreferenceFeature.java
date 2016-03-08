@@ -49,8 +49,7 @@ public class PreferenceFeature extends TitledPane {
 		//To Do: add resource bundle
 		labelAndCombo.getChildren().add(new Label(myBundle.getString("BackgroundColor")));
 		backgroundPallete = new ColorIndexMenu(view.getColorListProperty());
-		shapeIndex = new ShapeIndexMenu();
-		labelAndCombo.getChildren().addAll(backgroundPallete,shapeIndex);
+		labelAndCombo.getChildren().addAll(backgroundPallete,addColorIndexCombo());
 		items.getChildren().add(labelAndCombo);
 	}
 
@@ -63,6 +62,15 @@ public class PreferenceFeature extends TitledPane {
 		items.getChildren().add(new HBox(addPenCombo(), andPenWidthCombo()));
 	}
 
+
+	private VBox addColorIndexCombo(){
+		shapeIndex = new ShapeIndexMenu();
+		VBox vbox = getVBoxWithSpacing();
+		vbox.getChildren().add(new Label(myBundle.getString("ShapeIndex")));
+		vbox.getChildren().add(shapeIndex);
+		return vbox;
+	}
+	
 	private VBox andPenWidthCombo() {
 		ComboBox<String> penWidth = getComboBox();
 		VBox vbox = getVBoxWithSpacing();
