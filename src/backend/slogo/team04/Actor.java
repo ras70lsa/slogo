@@ -219,5 +219,9 @@ public class Actor {
 	public void setPenWidth(double d) {
 		pen.setLineWidth(d);
 	}
+	
+	public void clearLines() {
+		myLines.clear();
+	}
 }
 
