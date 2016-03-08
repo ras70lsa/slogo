@@ -26,7 +26,7 @@ import utilities.Distance;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
-	private static final double RGB_MAX = 255;
+	private static final double RGB_MAX = 255.0;
 	private static final double RGB_INTERVAL = 255/ 2 + 1;
 	private ListProperty<Actor> actors;
 	private Actor turtle;
@@ -304,5 +304,27 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return currentPenWidth;
 	}
 
+	public int setPalette(int index, int r, int g, int b) {
+		boolean hasColor = false;
+		int maxIndex = -1;
+		for (RGBColor c : colorListProperty) {
+			maxIndex = (c.getIndex() > maxIndex) ? c.getIndex() : maxIndex;
+			if (c.getRed() == r / RGB_MAX && c.getGreen() == g / RGB_MAX && c.getBlue() == b / RGB_MAX) {
+				c.setIndex(index);
+				hasColor = true;
+			}
+		}
+
+		RGBColor newColor = null;
+		for (RGBColor c : colorListProperty) {
+			if (c.getIndex() == index) {
+				c.setIndex(maxIndex + 1);
+				newColor = (!hasColor) ? new RGBColor(r / RGB_MAX, g / RGB_MAX, b / RGB_MAX, index) : newColor;
+			}
+		}
+		colorListProperty.add(newColor);
+		Collections.sort(colorListProperty);
+		return index;
+	}
 }
 
