@@ -26,6 +26,7 @@ public class PreferenceFeature extends TitledPane {
 	private VBox items;
 	private IView view;
 	private ColorIndexMenu backgroundPallete;
+	private ShapeIndexMenu shapeIndex;
 	ResourceBundle myBundle;
 	
 	public PreferenceFeature(IView view) {
@@ -39,7 +40,7 @@ public class PreferenceFeature extends TitledPane {
 	
 	private void addListener() {
 		backgroundPallete.getSelected().addListener((a,b,c) -> view.getBackgroundColor().set(c));
-		
+		shapeIndex.getSelected().addListener((a,b,c) -> view.setShape((int) c));
 	}
 	
 	private void populate() {
