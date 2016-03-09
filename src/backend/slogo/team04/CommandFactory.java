@@ -121,42 +121,42 @@ public class CommandFactory {
         switch(nextWord){
             // TURTLE COMMANDS
             case CmdForward.MY_KEY:
-                return new CmdForward(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdForward(myParent));
             case CmdBack.MY_KEY:
-                return new CmdBack(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdBack(myParent));
             case CmdLeft.MY_KEY:
-                return new CmdLeft(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdLeft(myParent));
             case CmdRight.MY_KEY:
-                return new CmdRight(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdRight(myParent));
             case CmdSetHeading.MY_KEY:
-                return new CmdSetHeading(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdSetHeading(myParent));
             case CmdTowards.MY_KEY:
-                return new CmdTowards(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdTowards(myParent));
             case CmdSetXY.MY_KEY:
-                return new CmdSetXY(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdSetXY(myParent));
             case CmdPenDown.MY_KEY:
-                return new CmdPenDown(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdPenDown(myParent));
             case CmdPenUp.MY_KEY:
-                return new CmdPenUp(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdPenUp(myParent));
             case CmdShowTurtle.MY_KEY:
-                return new CmdShowTurtle(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdShowTurtle(myParent));
             case CmdHideTurtle.MY_KEY:
-                return new CmdHideTurtle(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdHideTurtle(myParent));
             case CmdHome.MY_KEY:
-                return new CmdHome(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdHome(myParent));
             case CmdClearScreen.MY_KEY:
                 return new CmdClearScreen(myParent);
                 // TURTLE QUERIES
             case CmdXCor.MY_KEY:
-                return new CmdXCor(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdXCor(myParent));
             case CmdYCor.MY_KEY:
-                return new CmdYCor(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdYCor(myParent));
             case CmdHeading.MY_KEY:
-                return new CmdHeading(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdHeading(myParent));
             case CmdIsPenDown.MY_KEY:
-                return new CmdIsPenDown(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdIsPenDown(myParent));
             case CmdIsShowing.MY_KEY:
-                return new CmdIsShowing(myParent);
+                return runCommandOnActiveTurtles(myParent, new CmdIsShowing(myParent));
                 // MATH OPERATIONS
             case CmdSum.MY_KEY:
                 return new CmdSum(myParent);
@@ -252,6 +252,14 @@ public class CommandFactory {
             default:
                 return null;
         }
+    }
+    
+    private static CommandTreeNode runCommandOnActiveTurtles(CommandTreeNode myParent, CommandTreeNode originalChild){
+        CmdExecuteIfCurrentTurtleActive myTurtleActiveChecker = new CmdExecuteIfCurrentTurtleActive(myParent);
+        CmdIDIterator myIterator = new CmdIDIterator(myParent, myTurtleActiveChecker, originalChild);
+        myTurtleActiveChecker.setMyParent(myIterator);
+        originalChild.setMyParent(myIterator); // so that current active turtle id references are passed properly
+        return myIterator;
     }
 
     protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException{
