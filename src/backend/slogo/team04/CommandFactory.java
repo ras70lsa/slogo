@@ -66,6 +66,7 @@ public class CommandFactory {
 
     /**
      * This is used by the head node, in order to actually allow comments to return, so that we can avoid having parsing errors
+     * where if you recursively try to parse the next node by throwing away the current one
      * @param nextWord
      * @param myScanner
      * @param myParent

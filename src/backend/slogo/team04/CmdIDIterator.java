@@ -16,14 +16,15 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
  *
  */
 public class CmdIDIterator extends CommandTreeNode {
-    private INonLinearCommand myConditionalNode; //this does not have to be checked, will happen in construction
+    private INonLinearCommand myConditionalNode, commandsToRunIfSatisfied; //this does not have to be checked, will happen in construction
     private double currentTurtleID;
 
 
 
-    public CmdIDIterator (CommandTreeNode myParent, INonLinearCommand myConditionalNode) {
+    public CmdIDIterator (CommandTreeNode myParent, INonLinearCommand myConditionalNode, INonLinearCommand commandsToRunIfSatisfied) {
         super(myParent);
         this.myConditionalNode = myConditionalNode;
+        this.commandsToRunIfSatisfied = commandsToRunIfSatisfied;
         currentTurtleID = Double.NaN;
     }
     
@@ -44,12 +45,14 @@ public class CmdIDIterator extends CommandTreeNode {
             someTurtleHasActed = false;
             
             for(int i = 0; i < isTurtleActiveArray.length; i++){
-                if(!turtleHasActed.get(i) ){ // now this code will always iterate through everything untill nothing changes
+                this.currentTurtleID = (double) i;
+                double myCondVal = myConditionalNode.executeCommand(myController, myInterpreter); //checking if the test allows us to run
+                if(myCondVal == CommandTreeNode.DOUBLE_ONE && !turtleHasActed.get(i) ){ // now this code will always iterate through everything untill nothing changes
                     someTurtleHasActed = true;
                     turtleHasActed.set(i, true);
-                    this.currentTurtleID = (double) i;
+                    //this.currentTurtleID = (double) i;
                     //now run the code with this turtle id value
-                    reassignVariableIfNotNaN(toReturn, this.myConditionalNode.executeCommand(myController, myInterpreter));
+                    reassignVariableIfNotNaN(toReturn, this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter));
                 }
             }
         }

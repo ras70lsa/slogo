@@ -7,6 +7,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 public class CmdAskWith extends CommandTreeNode {
     protected final static String MY_KEY = "AskWith";
+    private CommandTreeNode myIDIterator , myCondition, myCmdListOfCommands;
 
 
 
@@ -17,15 +18,40 @@ public class CmdAskWith extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-
+        return myIDIterator.executeCommand(myController, myInterpreter);
     }
-    
-    
+
+
 
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        String myWord;
+        myWord = myScanner.getNextWord();
+        if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
+            // grab variables
+            myWord = myScanner.getNextWord();
+            myCondition = (CommandTreeNode) CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myWord, myScanner, this, myInterpreter);
+            myWord = myScanner.getNextWord();
+            if(myScanner.checkIfEndOfList(myWord, myInterpreter)){
+                myCmdListOfCommands = (CommandTreeNode) new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
+            }else{
+                throw new UserInputException("Closing bracket not found");
+            }
+
+        }
+        else{
+            throw new UserInputException("Opening bracket not found for CmdTell");
+        }
         
+        
+        //fixing tree parent references to pass the proper current id value
+        myIDIterator = new CmdIDIterator(this, myCondition, myCmdListOfCommands);
+        myCondition.setMyParent(myIDIterator);
+        myCmdListOfCommands.setMyParent(myIDIterator);
+        return this;
+
+
     }
 
 }

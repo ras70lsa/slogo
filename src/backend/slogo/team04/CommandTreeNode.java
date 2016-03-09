@@ -27,6 +27,10 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     protected CommandTreeNode getMyParent(){
         return this.myParent;
     }
+    
+    protected void setMyParent(CommandTreeNode myParent){
+        this.myParent = myParent;
+    }
 
 
 
