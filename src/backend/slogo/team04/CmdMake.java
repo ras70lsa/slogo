@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdMake extends CommandTreeNode {
+    protected final static String MY_KEY = "MakeVariable";
     private CmdVariable myVariable;
     private INonLinearCommand myExpression;
 

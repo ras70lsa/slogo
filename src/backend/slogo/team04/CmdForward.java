@@ -4,8 +4,11 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
+   
 
 public class CmdForward extends CommandTreeNode {
+    protected final static String MY_KEY = "Forward";
+    
     private INonLinearCommand myValue; 
 
 

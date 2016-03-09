@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdIsPenDown extends CommandTreeNode {
+    protected final static String MY_KEY = "IsPenDown";
     public CmdIsPenDown (CommandTreeNode myParent) {
         super(myParent);
     }

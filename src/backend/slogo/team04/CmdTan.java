@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdTan extends CommandTreeNode {
+    protected final static String MY_KEY = "Tangent";
     private INonLinearCommand inputValue; // the two nodes that we need to grab
 
     public CmdTan(CommandTreeNode myParent) {

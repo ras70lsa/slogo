@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdLeft extends CommandTreeNode {
+    protected final static String MY_KEY = "Left";
     private INonLinearCommand myValue;
 
 

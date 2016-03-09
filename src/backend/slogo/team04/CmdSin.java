@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdSin extends CommandTreeNode {
+    protected final static String MY_KEY = "Sine";
     private INonLinearCommand inputValue; // the two nodes that we need to grab
 
     public CmdSin(CommandTreeNode myParent) {

@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdRandom extends CommandTreeNode {
+    protected final static String MY_KEY = "Random";
     private INonLinearCommand expOne; // the two nodes that we need to grab
 
     public CmdRandom(CommandTreeNode myParent) {

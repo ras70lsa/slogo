@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdSetPenColor extends CommandTreeNode {
+    protected final static String MY_KEY = "SetPenColor";
     private INonLinearCommand myChild;
 
 
@@ -18,7 +19,7 @@ public class CmdSetPenColor extends CommandTreeNode {
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double myProposedIndex = myChild.executeCommand(myController, myInterpreter);
-        if(SlogoRegexChecker.isIndexValue(myProposedIndex)){
+        if(SlogoRegexChecker.isPostiveIndex(myProposedIndex)){
             return myController.setPenColor((int) myProposedIndex);
         }else{
             throw new LogicException("Expected integer like index value as input to SetPenColor");

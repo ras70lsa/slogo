@@ -7,6 +7,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdDoTimes extends CommandTreeNode {
+    protected final static String MY_KEY = "DoTimes";
 
     private CmdVariable myVariable;
     private INonLinearCommand myLimit, myCommands;

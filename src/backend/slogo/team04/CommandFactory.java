@@ -101,7 +101,7 @@ public class CommandFactory {
             return new CmdVariable(myParent, nextWord);
         }
         if(CommandFactory.isUserDefinedFunction(nextWord, myInterpreter)){
-            return ((CmdCommand) myInterpreter.getFunction(nextWord)).createClone(); // this is erasing the stored information, need to recall the
+            return ((CmdCommand) myInterpreter.getFunction(nextWord)).createClone(myParent); // this is erasing the stored information, need to recall the
             //function as stored and have parse a new version everytime that it needs to run
         }
         if(SlogoRegexChecker.isDouble(nextWord)){
@@ -119,132 +119,132 @@ public class CommandFactory {
     private static CommandTreeNode keyWordFunctions (String nextWord, CommandTreeNode myParent) {
         switch(nextWord){
             // TURTLE COMMANDS
-            case "Forward":
+            case CmdForward.MY_KEY:
                 return new CmdForward(myParent);
-            case "Backward":
+            case CmdBack.MY_KEY:
                 return new CmdBack(myParent);
-            case "Left":
+            case CmdLeft.MY_KEY:
                 return new CmdLeft(myParent);
-            case "Right":
+            case CmdRight.MY_KEY:
                 return new CmdRight(myParent);
-            case "SetHeading":
+            case CmdSetHeading.MY_KEY:
                 return new CmdSetHeading(myParent);
-            case "SetTowards":
+            case CmdTowards.MY_KEY:
                 return new CmdTowards(myParent);
-            case "SetPosition":
+            case CmdSetXY.MY_KEY:
                 return new CmdSetXY(myParent);
-            case "PenDown":
+            case CmdPenDown.MY_KEY:
                 return new CmdPenDown(myParent);
-            case "PenUp":
+            case CmdPenUp.MY_KEY:
                 return new CmdPenUp(myParent);
-            case "ShowTurtle":
+            case CmdShowTurtle.MY_KEY:
                 return new CmdShowTurtle(myParent);
-            case "HideTurtle":
+            case CmdHideTurtle.MY_KEY:
                 return new CmdHideTurtle(myParent);
-            case "Home":
+            case CmdHome.MY_KEY:
                 return new CmdHome(myParent);
-            case "ClearScreen":
+            case CmdClearScreen.MY_KEY:
                 return new CmdClearScreen(myParent);
                 // TURTLE QUERIES
-            case "XCoordinate":
+            case CmdXCor.MY_KEY:
                 return new CmdXCor(myParent);
-            case "YCoordinate":
+            case CmdYCor.MY_KEY:
                 return new CmdYCor(myParent);
-            case "Heading":
+            case CmdHeading.MY_KEY:
                 return new CmdHeading(myParent);
-            case "IsPenDown":
+            case CmdIsPenDown.MY_KEY:
                 return new CmdIsPenDown(myParent);
-            case "IsShowing":
+            case CmdIsShowing.MY_KEY:
                 return new CmdIsShowing(myParent);
                 // MATH OPERATIONS
-            case "Sum":
+            case CmdSum.MY_KEY:
                 return new CmdSum(myParent);
-            case "Difference":
+            case CmdDifference.MY_KEY:
                 return new CmdDifference(myParent);
-            case "Product":
+            case CmdProduct.MY_KEY:
                 return new CmdProduct(myParent);
-            case "Quotient":
+            case CmdQuotient.MY_KEY:
                 return new CmdQuotient(myParent);
-            case "Remainder":
+            case CmdRemainder.MY_KEY:
                 return new CmdRemainder(myParent);
-            case "Minus":
+            case CmdMinus.MY_KEY:
                 return new CmdMinus(myParent);
-            case "Random":
+            case CmdRandom.MY_KEY:
                 return new CmdRandom(myParent);
-            case "Sine":
+            case CmdSin.MY_KEY:
                 return new CmdSin(myParent);
-            case "Cosine":
+            case CmdCos.MY_KEY:
                 return new CmdCos(myParent);
-            case "Tangent":
+            case CmdTan.MY_KEY:
                 return new CmdTan(myParent);
-            case "ArcTangent":
+            case CmdAtan.MY_KEY:
                 return new CmdAtan(myParent);
-            case "NaturalLog":
+            case CmdLog.MY_KEY:
                 return new CmdLog(myParent);
-            case "Power":
+            case CmdPow.MY_KEY:
                 return new CmdPow(myParent);
-            case "Pi":
+            case CmdPi.MY_KEY:
                 return new CmdPi(myParent);
                 //BOOLEAN OPERATIONS
-            case "LessThan":
+            case CmdLess.MY_KEY:
                 return new CmdLess(myParent);
-            case "GreaterThan":
+            case CmdGreater.MY_KEY:
                 return new CmdGreater(myParent);
-            case "Equal":
+            case CmdEqual.MY_KEY:
                 return new CmdEqual(myParent);
-            case "NotEqual":
+            case CmdNotEqual.MY_KEY:
                 return new CmdNotEqual(myParent);
-            case "And":
+            case CmdAnd.MY_KEY:
                 return new CmdAnd(myParent);
-            case "Or":
+            case CmdOr.MY_KEY:
                 return new CmdOr(myParent);
-            case "Not":
+            case CmdNot.MY_KEY:
                 return new CmdNot(myParent);
                 // Variables, Control, and User-Defined Commands
-            case "MakeVariable":
+            case CmdMake.MY_KEY:
                 return new CmdMake(myParent);
-            case "Repeat":
+            case CmdRepeat.MY_KEY:
                 return new CmdRepeat(myParent);
-            case "DoTimes":
+            case CmdDoTimes.MY_KEY:
                 return new CmdDoTimes(myParent);
-            case "For":
+            case CmdFor.MY_KEY:
                 return new CmdFor(myParent);
-            case "If":
+            case CmdIf.MY_KEY:
                 return new CmdIf(myParent);
-            case "IfElse":
+            case CmdIfElse.MY_KEY:
                 return new CmdIfElse(myParent);
-            case "MakeUserInstruction": //logic to prevent collision of existing commands will belong to the cmdTo class itself
+            case CmdTo.MY_KEY: //logic to prevent collision of existing commands will belong to the cmdTo class itself
                 return new CmdTo(myParent);
                 //we are now implementing the extension commands
                 //display commands
-            case "SetBackground":
+            case CmdSetBackground.MY_KEY:
                 return new CmdSetBackground(myParent);
-            case "SetPenColor":
+            case CmdSetPenColor.MY_KEY:
                 return new CmdSetPenColor(myParent);
-            case "SetPenSize":
+            case CmdSetPenSize.MY_KEY:
                 return new CmdSetPenSize(myParent);
-            case "SetShape":
+            case CmdSetShape.MY_KEY:
                 return new CmdSetShape(myParent);
-            case "SetPalette":
+            case CmdSetPalette.MY_KEY:
                 return new CmdSetPalette(myParent);
-            case "GetPenColor":
+            case CmdPenColor.MY_KEY:
                 return new CmdPenColor(myParent);
-            case "GetShape":
+            case CmdShape.MY_KEY:
                 return new CmdShape(myParent);
-            case "Stamp":
+            case CmdStamp.MY_KEY:
                 return new CmdStamp(myParent);
-            case "ClearStamps":
+            case CmdClearStamps.MY_KEY:
                 return new CmdClearStamps(myParent);
                 //Multiple turtle commands
-            case "ID":
+            case CmdID.MY_KEY:
                 return new CmdID(myParent);
-            case "Turtles":
+            case CmdTurtles.MY_KEY:
                 return new CmdTurtles(myParent);
-            case "Tell":
+            case CmdTell.MY_KEY:
                 return new CmdTell(myParent);
-            case "Ask":
+            case CmdAsk.MY_KEY:
                 return new CmdAsk(myParent);
-            case "AskWith":
+            case CmdAskWith.MY_KEY:
                 return new CmdAskWith(myParent);
             default:
                 return null;

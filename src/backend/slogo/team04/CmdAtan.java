@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdAtan extends CommandTreeNode {
+    protected final static String MY_KEY = "ArcTangent";
     private INonLinearCommand inputValue; 
 
     public CmdAtan(CommandTreeNode myParent) {

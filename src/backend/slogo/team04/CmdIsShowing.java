@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdIsShowing extends CommandTreeNode {
+    protected final static String MY_KEY = "IsShowing";
     public CmdIsShowing (CommandTreeNode myParent) {
         super(myParent);
     }

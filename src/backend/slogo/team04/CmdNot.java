@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdNot extends CommandTreeNode {
+    protected final static String MY_KEY = "Not";
     private INonLinearCommand testOne; 
 
     public CmdNot (CommandTreeNode myParent) {

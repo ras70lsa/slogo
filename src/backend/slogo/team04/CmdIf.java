@@ -7,6 +7,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdIf extends CommandTreeNode {
+    protected final static String MY_KEY = "If";
     private INonLinearCommand myExpression;
     private INonLinearCommand myListOfCommands;
 

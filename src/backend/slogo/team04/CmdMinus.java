@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdMinus extends CommandTreeNode {
+    protected final static String MY_KEY = "Minus";
     private INonLinearCommand expOne; // the two nodes that we need to grab
 
     public CmdMinus(CommandTreeNode myParent) {

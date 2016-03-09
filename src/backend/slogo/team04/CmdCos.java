@@ -5,6 +5,7 @@ import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 public class CmdCos extends CommandTreeNode {
+    protected final static String MY_KEY = "Cosine";
     private INonLinearCommand inputValue; // the two nodes that we need to grab
 
     public CmdCos(CommandTreeNode myParent) {

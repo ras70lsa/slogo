@@ -85,8 +85,17 @@ public class SlogoRegexChecker {
     }
     
     
+    public static boolean isPostiveIndex(double myDouble){
+        return isPostive(myDouble) && isIndexValue(myDouble);
+    }
     
-    public static boolean isIndexValue(double myDouble){
+    
+    private static boolean isPostive(double myDouble){
+        return myDouble > 0d;
+    }
+    
+    
+    private static boolean isIndexValue(double myDouble){
         return (int) myDouble == myDouble;
     }
     

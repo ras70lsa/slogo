@@ -50,6 +50,18 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         return this.myParent.getCurrentActiveTurtleID();
     }
 
+    
+    protected int[] convertIntegerArrayToIntArray(Integer[] toConvert){
+        if(toConvert.length == 0){
+            return null;
+        }
+        int[] toReturn = new int[toConvert.length];
+        for(int i = 0; i < toConvert.length; i++){
+            toReturn[i] = toConvert[i].intValue(); 
+        }
+        return toReturn;
+        
+    }
    
 
 

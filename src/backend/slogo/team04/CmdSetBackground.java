@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdSetBackground extends CommandTreeNode {
+    protected final static String MY_KEY = "SetBackground";
     private INonLinearCommand myChild;
 
 
@@ -18,7 +19,7 @@ public class CmdSetBackground extends CommandTreeNode {
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double myProposedIndex = myChild.executeCommand(myController, myInterpreter);
-        if(SlogoRegexChecker.isIndexValue(myProposedIndex)){
+        if(SlogoRegexChecker.isPostiveIndex(myProposedIndex)){
             return myController.setBackground((int) myProposedIndex);
         }else{
             throw new LogicException("Expected integer like index value as input to SetBackground");

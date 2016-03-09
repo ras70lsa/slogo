@@ -16,14 +16,14 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
  *
  */
 public class CmdIDIterator extends CommandTreeNode {
-    private INonLinearCommand myChildNode;
+    private INonLinearCommand myConditionalNode; //this does not have to be checked, will happen in construction
     private double currentTurtleID;
 
 
 
-    public CmdIDIterator (CommandTreeNode myParent, INonLinearCommand myChildNode) {
+    public CmdIDIterator (CommandTreeNode myParent, INonLinearCommand myConditionalNode) {
         super(myParent);
-        this.myChildNode = myChildNode;
+        this.myConditionalNode = myConditionalNode;
         currentTurtleID = Double.NaN;
     }
     
@@ -42,17 +42,24 @@ public class CmdIDIterator extends CommandTreeNode {
             isTurtleActiveArray = myController.activeTurtles();
             listFalseBooleanAdder(isTurtleActiveArray.length - turtleHasActed.size(), turtleHasActed);
             someTurtleHasActed = false;
+            
             for(int i = 0; i < isTurtleActiveArray.length; i++){
-                if(isTurtleActiveArray[i] && !turtleHasActed.get(i) ){
+                if(!turtleHasActed.get(i) ){ // now this code will always iterate through everything untill nothing changes
                     someTurtleHasActed = true;
                     turtleHasActed.set(i, true);
                     this.currentTurtleID = (double) i;
                     //now run the code with this turtle id value
-                    toReturn = this.myChildNode.executeCommand(myController, myInterpreter);
+                    reassignVariableIfNotNaN(toReturn, this.myConditionalNode.executeCommand(myController, myInterpreter));
                 }
             }
         }
         return toReturn;
+    }
+    
+    private void reassignVariableIfNotNaN(double varToChange, Double potentialNaN){
+        if(!Double.isNaN(potentialNaN)){
+            varToChange = potentialNaN;
+        }
     }
     
     

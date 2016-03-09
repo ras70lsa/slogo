@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdProduct extends CommandTreeNode {
+    protected final static String MY_KEY = "Product";
 
     private INonLinearCommand expOne, expTwo; // the two nodes that we need to grab
 

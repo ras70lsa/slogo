@@ -5,6 +5,7 @@ import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 public class CmdFor extends CommandTreeNode {
+    protected final static String MY_KEY = "For";
     private CmdVariable myVariable;
     private INonLinearCommand myStart, myEnd, myIncrement, cmdList;
 

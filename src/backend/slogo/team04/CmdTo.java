@@ -8,6 +8,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdTo extends CommandTreeNode {
+    protected final static String MY_KEY = "MakeUserInstruction";
     private String myCommandName;
     private double isInitializedCorrectly;
 
@@ -29,15 +30,15 @@ public class CmdTo extends CommandTreeNode {
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         String myWord = myScanner.getNextWord();
-        
+
         //check to see if this is a valid command word type
         if(SlogoRegexChecker.conformsToCmdNamingConventions(myWord) && !CommandFactory.isKeyWord(myWord)){
             this.myCommandName = myWord;
         }else{
             throw new UserInputException("Improperly named command detected");
         }
-        
-        
+
+
         CmdCommand myCommandToCreate = new CmdCommand(null, myWord); // command float on their own, do not have any parent as they are not really part of tree
         List<CmdVariable> listOfVariables = new ArrayList<CmdVariable>();
         List<INonLinearCommand> listOfCommands = new ArrayList<INonLinearCommand>(); 
@@ -63,7 +64,7 @@ public class CmdTo extends CommandTreeNode {
                 // adding adding the calculated state to the command and then adding it to the stored list in the interpreter
                 myCommandToCreate.setMyState(listOfVariables, listOfCommands);
                 //myInterpreter.putFunction(myCommandName, myCommandToCreate); //TODO before support recursion  
- 
+
             }else{
                 throw new UserInputException("Command list not closed by bracket");
             }

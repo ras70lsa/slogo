@@ -42,8 +42,8 @@ public class CmdCommand extends CommandTreeNode {
     }
 
 
-    public CmdCommand createClone(){
-        CmdCommand copyToReturn = new CmdCommand(this.getMyParent(), this.myName);
+    public CmdCommand createClone(CommandTreeNode myParent){
+        CmdCommand copyToReturn = new CmdCommand(myParent , this.myName);
         copyToReturn.setMyState(this.listOfVariables, this.listOfCommands );
         return copyToReturn;
     }

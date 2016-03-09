@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdBack extends CommandTreeNode {
+    protected final static String MY_KEY = "Backward";
     private INonLinearCommand myValue; 
     public CmdBack (CommandTreeNode myParent) {
         super(myParent);

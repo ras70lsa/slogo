@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdGreater extends CommandTreeNode {
+    protected final static String MY_KEY = "GreaterThan";
     private INonLinearCommand expressionOne, expressionTwo;
     
     public CmdGreater (CommandTreeNode myParent) {

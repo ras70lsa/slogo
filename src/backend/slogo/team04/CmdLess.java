@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdLess extends CommandTreeNode {
+    protected final static String MY_KEY = "LessThan";
     private INonLinearCommand expressionOne, expressionTwo;
     
 

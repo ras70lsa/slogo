@@ -14,18 +14,27 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
  * @author jonathanim
  *
  */
-public class CmdIsCurrentTurtleActive extends CommandTreeNode {
-    public CmdIsCurrentTurtleActive (CommandTreeNode myParent) {
+public class CmdExecuteIfCurrentTurtleActive extends CommandTreeNode {
+    private INonLinearCommand myChild;
+    public CmdExecuteIfCurrentTurtleActive (CommandTreeNode myParent) {
         super(myParent);
     }
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.isShowing(); asdf asdf 
+        boolean[] currentActiveTurtles = myController.activeTurtles();
+        double currentIDValue = new CmdID(this).executeCommand(myController, myInterpreter);
+        int curID = (int) currentIDValue;
+        if(currentActiveTurtles[curID]){
+            return myChild.executeCommand(myController, myInterpreter);
+        }else{
+            return Double.NaN;
+        }
     }
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        myChild = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
 

@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdNotEqual extends CommandTreeNode {
+    protected final static String MY_KEY = "NotEqual";
     private INonLinearCommand expressionOne, expressionTwo;
 
     public CmdNotEqual (CommandTreeNode myParent) {

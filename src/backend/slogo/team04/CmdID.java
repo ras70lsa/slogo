@@ -11,6 +11,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
  *
  */
 public class CmdID extends CommandTreeNode {
+    protected final static String MY_KEY = "ID";
 
 
 

@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdRepeat extends CommandTreeNode {
+    protected final static String MY_KEY = "Repeat";
     private static final String REP_COUNT_VAR_NAME = ":repcount";
     private CmdVariable myRepCount;
     private INonLinearCommand myExpression, myCommands;

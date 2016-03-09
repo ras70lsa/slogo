@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdTowards extends CommandTreeNode {
+    protected final static String MY_KEY = "SetTowards";
     INonLinearCommand myX, myY;
 
 

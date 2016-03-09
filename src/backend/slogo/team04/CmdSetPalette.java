@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdSetPalette extends CommandTreeNode {
+    protected final static String MY_KEY = "SetPalette";
     private INonLinearCommand myIndex, myR, myG, myB;
     private double proposedIndex, proposedR, proposedG, proposedB;
 
@@ -22,7 +23,7 @@ public class CmdSetPalette extends CommandTreeNode {
         proposedR = myR.executeCommand(myController, myInterpreter);
         proposedG = myG.executeCommand(myController, myInterpreter);
         proposedB = myB.executeCommand(myController, myInterpreter);
-        if(SlogoRegexChecker.isIndexValue(proposedIndex)
+        if(SlogoRegexChecker.isPostiveIndex(proposedIndex)
                 && SlogoRegexChecker.isRGBValue(proposedR)
                 && SlogoRegexChecker.isRGBValue(proposedG)
                 && SlogoRegexChecker.isRGBValue(proposedB)){

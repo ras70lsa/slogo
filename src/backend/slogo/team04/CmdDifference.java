@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdDifference extends CommandTreeNode {
+    protected final static String MY_KEY = "Difference";
 
     private INonLinearCommand inputOne, inputTwo; // the two nodes that we need to grab
 
