@@ -6,6 +6,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdSetPenSize extends CommandTreeNode {
+    private INonLinearCommand myChild;
 
 
 
@@ -16,7 +17,7 @@ public class CmdSetPenSize extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-
+        return myController.setPenSize(myChild.executeCommand(myController, myInterpreter));
     }
     
     
@@ -24,7 +25,8 @@ public class CmdSetPenSize extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        
+        myChild = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        return this;
     }
 
 }

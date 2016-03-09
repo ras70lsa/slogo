@@ -38,5 +38,14 @@ public class CmdTreeHeadNode extends CommandTreeNode {
         }
         return this;
     }
+    
+    /**
+     * The tree will thus have NaN as the current ID, unless the IDIterator nodes are placed in the proper locations,
+     * on top of any type of node that requires operating on any active turtle
+     */
+    @Override
+    protected double getCurrentActiveTurtleID(){
+        return Double.NaN;
+    }
 
 }

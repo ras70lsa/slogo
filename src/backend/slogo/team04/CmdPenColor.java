@@ -11,12 +11,11 @@ public class CmdPenColor extends CommandTreeNode {
 
     public CmdPenColor (CommandTreeNode myParent) {
         super(myParent);
-
     }
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-
+        return myController.penColor();
     }
     
     
@@ -24,7 +23,7 @@ public class CmdPenColor extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        
+        return this;
     }
 
 }

@@ -1,7 +1,7 @@
 package backend.slogo.team04;
 
 import java.util.regex.Pattern;
-
+//TODO should rename this class to represent a more general value bounds, type checking class 
 
 /**
  * This class contains useful regex patterns and an api for checking strings against them for use throughout the backend
@@ -83,7 +83,23 @@ public class SlogoRegexChecker {
     public static boolean isEndOfList(String myString){
         return myString.equals(END_OF_LIST);
     }
-
+    
+    
+    
+    public static boolean isIndexValue(double myDouble){
+        return (int) myDouble == myDouble;
+    }
+    
+    
+    private final static double LOWER_RGB_BOUND = 0d;
+    private final static double UPPER_RBG_BOUND = 256d;
+    public static boolean isRGBValue(double myDouble){
+        return isIndexValue(myDouble) && doubleWithinBoundsExclusive(myDouble, LOWER_RGB_BOUND, UPPER_RBG_BOUND);
+    }
+    
+    private static boolean doubleWithinBoundsExclusive(double value, double lowerBound, double upperBound){
+        return (lowerBound < value) && (value < upperBound);
+    }
 
 
 

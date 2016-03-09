@@ -215,12 +215,36 @@ public class CommandFactory {
                 return new CmdIfElse(myParent);
             case "MakeUserInstruction": //logic to prevent collision of existing commands will belong to the cmdTo class itself
                 return new CmdTo(myParent);
+                //we are now implementing the extension commands
+                //display commands
+            case "SetBackground":
+                return new CmdSetBackground(myParent);
+            case "SetPenColor":
+                return new CmdSetPenColor(myParent);
+            case "SetPenSize":
+                return new CmdSetPenSize(myParent);
+            case "SetShape":
+                return new CmdSetShape(myParent);
+            case "SetPalette":
+                return new CmdSetPalette(myParent);
+            case "GetPenColor":
+                return new CmdPenColor(myParent);
+            case "GetShape":
+                return new CmdShape(myParent);
+            case "Stamp":
+                return new CmdStamp(myParent);
+            case "ClearStamps":
+                return new CmdClearStamps(myParent);
+                //Multiple turtle commands
+            case "ID":
+                return new CmdID(myParent);
+            case "Turtles":
+                return new CmdTurtles(myParent);
             default:
                 return null;
         }
     }
 
-    //parsing checks that are dependent upon state will remain here
     protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException{
         double myValue = myCommand.executeCommand(myController, myInterpreter);
         return myValue != CommandTreeNode.DOUBLE_ZERO;

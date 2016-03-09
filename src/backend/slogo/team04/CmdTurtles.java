@@ -16,7 +16,7 @@ public class CmdTurtles extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-
+        return myController.turtles();
     }
     
     
@@ -24,7 +24,7 @@ public class CmdTurtles extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        
+        return this;
     }
 
 }

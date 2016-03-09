@@ -29,6 +29,10 @@ public interface ISlogoModelActionsExtended extends ISlogoModelActions{
     
     /**
      * A boolean for each turtle representing whether or not it is active 
+     * We will assume that negative ID numbers are not allowed
+     * We will assume that the ID space is contiguous, meaning that no skipping of ID numbers is allowed.
+     * Any 'missing' ID numbers will result in turtle creation
+     * ID numbers will start at 1 and progress upwards (note the numbering difference from Java arrays)
      * @return
      */
     boolean[] activeTurtles();

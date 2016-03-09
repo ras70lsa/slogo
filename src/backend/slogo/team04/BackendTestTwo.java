@@ -1,6 +1,8 @@
 package backend.slogo.team04;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,16 +25,31 @@ public class BackendTestTwo {
 
 
 
-        SlogoScanner scanner = new SlogoScanner(" less? "); 
-        Pattern testPattern = Pattern.compile("(\\b|\\B)" + "(less\\?|lessp)" + "(\\b|\\B)");
-        Matcher m = testPattern.matcher("less?");
-        System.out.println(m.matches());
+//        SlogoScanner scanner = new SlogoScanner(" less? "); 
+//        Pattern testPattern = Pattern.compile("(\\b|\\B)" + "(less\\?|lessp)" + "(\\b|\\B)");
+//        Matcher m = testPattern.matcher("less?");
+//        System.out.println(m.matches());
+//        
+//        
+//        String str = scanner.getLanguageConvertedCode(
+//                                                      ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + "English"));
+//        System.out.println(str);
+        //testing standard list<Boolean> values
         
+        List<Boolean> testList = new ArrayList<Boolean>();
+        for(int i = 0; i < 10; i++){
+            testList.add(Boolean.FALSE);
+        }
+        System.out.println(testList.get(2));
         
-        String str = scanner.getLanguageConvertedCode(
-                                                      ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + "English"));
-        System.out.println(str);
+        testList.set(3, Boolean.TRUE);
         
+        if(testList.get(3)){
+            System.out.println(testList.size());
+            testList.get(9);
+            
+        }
+        //testList.
         
         
 

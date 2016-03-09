@@ -41,6 +41,14 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             this.myChildren.add(nodeToAdd);
         }
     }
+    
+    /**
+     * Standard behavior is to simply query the parent for the current active ID value
+     * @return
+     */
+    protected double getCurrentActiveTurtleID(){
+        return this.myParent.getCurrentActiveTurtleID();
+    }
 
    
 
