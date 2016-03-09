@@ -240,6 +240,12 @@ public class CommandFactory {
                 return new CmdID(myParent);
             case "Turtles":
                 return new CmdTurtles(myParent);
+            case "Tell":
+                return new CmdTell(myParent);
+            case "Ask":
+                return new CmdAsk(myParent);
+            case "AskWith":
+                return new CmdAskWith(myParent);
             default:
                 return null;
         }

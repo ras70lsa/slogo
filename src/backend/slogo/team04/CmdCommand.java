@@ -22,10 +22,8 @@ public class CmdCommand extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        int i = 0;
-        for(CmdVariable var: listOfVariables){ //TODO the list of variables lives in the interpreter, either we pass or lambda, null error
-            var.setVariableValue(listOfVariableAssignments.get(i).executeCommand(myController, myInterpreter), myInterpreter);
-            i++;
+        for(int i = 0; i < listOfVariables.size(); i++){ //TODO the list of variables lives in the interpreter, either we pass or lambda, null error
+            listOfVariables.get(i).setVariableValue(listOfVariableAssignments.get(i).executeCommand(myController, myInterpreter), myInterpreter);
         }
 
         double lastCommandValue = CommandTreeNode.DOUBLE_ZERO;

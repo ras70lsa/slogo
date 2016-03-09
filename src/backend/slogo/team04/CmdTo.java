@@ -50,6 +50,7 @@ public class CmdTo extends CommandTreeNode {
                 myWord = myScanner.getNextWord();
             }
             myInterpreter.putFunction(myCommandName, myCommandToCreate); //i think this supports reucrsion
+            myCommandToCreate.setMyState(listOfVariables, listOfCommands);
             myWord = myScanner.getNextWord();
             if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
                 //grabbing and storing the commands

@@ -26,6 +26,8 @@ public class CmdIDIterator extends CommandTreeNode {
         this.myChildNode = myChildNode;
         currentTurtleID = Double.NaN;
     }
+    
+    //public CmdIDIterato
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
