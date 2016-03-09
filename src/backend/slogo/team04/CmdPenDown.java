@@ -16,7 +16,7 @@ public class CmdPenDown extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        myController.penDown();
+        myController.penDown(new CmdID(this).executeCommand(myController, myInterpreter));
         return CommandTreeNode.DOUBLE_ONE;
     }
 

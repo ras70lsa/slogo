@@ -16,7 +16,7 @@ public class CmdSetHeading extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.setHeading(myValue.executeCommand(myController, myInterpreter));
+        return myController.setHeading(myValue.executeCommand(myController, myInterpreter) , new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override

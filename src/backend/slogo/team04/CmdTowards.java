@@ -18,7 +18,8 @@ public class CmdTowards extends CommandTreeNode {
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
         return myController.towards(myX.executeCommand(myController, myInterpreter)
-                                    , myY.executeCommand(myController, myInterpreter));
+                                    , myY.executeCommand(myController, myInterpreter), 
+                                    new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override

@@ -16,7 +16,7 @@ public class CmdHome extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.home();
+        return myController.home(new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override

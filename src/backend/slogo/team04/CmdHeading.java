@@ -13,7 +13,7 @@ public class CmdHeading extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.heading();
+        return myController.heading(new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override

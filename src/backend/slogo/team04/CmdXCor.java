@@ -16,7 +16,7 @@ public class CmdXCor extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.xCor();
+        return myController.xCor(new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override

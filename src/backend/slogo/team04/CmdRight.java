@@ -14,7 +14,7 @@ public class CmdRight extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.right(myValue.executeCommand(myController, myInterpreter));
+        return myController.right(myValue.executeCommand(myController, myInterpreter) , new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override

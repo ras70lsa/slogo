@@ -13,7 +13,7 @@ public class CmdIsShowing extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.isShowing();
+        return myController.isShowing(new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override

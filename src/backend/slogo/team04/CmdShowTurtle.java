@@ -16,7 +16,7 @@ public class CmdShowTurtle extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        myController.showTurtle();
+        myController.showTurtle(new CmdID(this).executeCommand(myController, myInterpreter));
         return CommandTreeNode.DOUBLE_ONE;
     }
 
