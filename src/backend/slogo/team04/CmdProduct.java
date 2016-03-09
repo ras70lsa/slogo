@@ -1,5 +1,6 @@
 package backend.slogo.team04;
 
+import java.util.function.BiFunction;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
@@ -33,6 +34,11 @@ public class CmdProduct extends CommandTreeNode {
         expOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         expTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
+    }
+    
+    @Override
+    protected BiFunction<Double, Double, Double> getMyUnlimitedParameterBehavior(){
+        return (x,y) ->  x * y;
     }
 
 }

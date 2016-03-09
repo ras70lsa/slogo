@@ -1,5 +1,6 @@
 package backend.slogo.team04;
 
+
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
@@ -38,4 +39,6 @@ public class CmdQuotient extends CommandTreeNode {
         expTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
+    
+
 }
