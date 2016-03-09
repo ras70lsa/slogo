@@ -2,6 +2,7 @@ package backend.slogo.team04;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 
 
@@ -65,6 +66,14 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         }
         return toReturn;
         
+    }
+    
+    /**
+     * If you want a node to exhibit different aggregation behavior simply override this method in the related class
+     * @return
+     */
+    protected BiFunction<Double, Double, Double> getMyUnlimitedParameterBehavior(){
+        return (x,y) ->  x + y;
     }
    
 

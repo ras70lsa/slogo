@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import exceptions.UserInputException;
@@ -111,17 +112,22 @@ public class SlogoScanner {
     public String getString() {
         return str;
     }
+    
+    //SlogoRegexChecker.isStartOfList(toTest)
+    
 
     protected boolean checkIfStartOfList(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
-        String toTest = currentWord;
-        toTest = advanceScannerPastComments(toTest, myInterpreter);
-        return SlogoRegexChecker.isStartOfList(toTest);
+        return commentSafeStringComparison(currentWord, myInterpreter, s -> SlogoRegexChecker.isStartOfList(s));
     }
 
     protected boolean checkIfEndOfList(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
+        return commentSafeStringComparison(currentWord, myInterpreter, s -> SlogoRegexChecker.isEndOfList(s));
+    }
+    
+    protected boolean commentSafeStringComparison (String currentWord, ISlogoInterpreter myInterpreter, Function<String, Boolean> myChecker) throws UserInputException{
         String toTest = currentWord;
         toTest = advanceScannerPastComments(toTest, myInterpreter);
-        return SlogoRegexChecker.isEndOfList(toTest);
+        return myChecker.apply(toTest);
     }
 
     protected String advanceScannerPastComments(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{

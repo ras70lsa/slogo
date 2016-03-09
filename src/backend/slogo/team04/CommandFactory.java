@@ -247,6 +247,8 @@ public class CommandFactory {
                 return new CmdAsk(myParent);
             case CmdAskWith.MY_KEY:
                 return new CmdAskWith(myParent);
+            case CmdUnlimitedParameter.MY_KEY:
+                return new CmdUnlimitedParameter(myParent);
             default:
                 return null;
         }
