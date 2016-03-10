@@ -13,7 +13,6 @@ import frontend.features.History;
 import frontend.features.LocationFeature;
 import frontend.features.Module;
 import frontend.features.PreferenceFeature;
-import frontend.features.SlogoMenu;
 import frontend.features.UserTextInput;
 import frontend.features.VariableFeature;
 import frontend.features.View;
@@ -23,6 +22,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import menu.contents.SlogoMenu;
 import model.Controller;
 
 /**
@@ -124,7 +124,7 @@ public class Display implements IDisplay {
 		gridPane.add(view.getPane(), 2, 2);
 		gridPane.add(textInput.getPane(), 2, 3);
 		gridPane.add(rightFeatures, 3, 1, 3, 3);
-		gridPane.add(menuBar, 2, 1);
+		gridPane.add(menuBar.getBar(), 2, 1);
 		setSizes();
 		
 	}

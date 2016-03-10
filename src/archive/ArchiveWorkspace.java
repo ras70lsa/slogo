@@ -2,6 +2,7 @@ package archive;
 import java.util.ArrayList;
 import java.util.List;
 import backend.slogo.team04.Actor;
+import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.Variable;
 import frontend.slogo.team04.Workspace;
 import frontend.slogo.team04.WorkspaceManager;
@@ -26,6 +27,7 @@ public class ArchiveWorkspace {
 	private ObservableList<Actor> savedActors;
 	private ListProperty<Variable> savedVariables;
 	private ListProperty<String> savedCommands;
+	private ListProperty<INonLinearCommand> savedCommandNode;
 	private ListProperty<String> savedHistory;
 	private ColorProperty savedColor;
 	
@@ -46,6 +48,8 @@ public class ArchiveWorkspace {
 		savedVariables.addAll(model.getExecutionState().getVariables());
 		savedCommands = new SimpleListProperty<>(FXCollections.observableArrayList());
 		savedCommands.addAll(model.getExecutionState().getCommands());
+		savedCommandNode = new SimpleListProperty<>(FXCollections.observableArrayList());
+		savedCommandNode.addAll(model.getExecutionState().getCommandNodes());
 		savedHistory = new SimpleListProperty<>(FXCollections.observableArrayList());
 		savedHistory.addAll(model.getHistory().getCommandList());
 	}
@@ -71,6 +75,7 @@ public class ArchiveWorkspace {
 		}
 		workspace.getModel().getExecutionState().getVariables().set(savedVariables);
 		workspace.getModel().getExecutionState().getCommands().set(savedCommands);
+		workspace.getModel().getExecutionState().getCommandNodes().set(savedCommandNode);
 		return workspace;
 	}
 
