@@ -1,6 +1,6 @@
 package backend.slogo.team04;
 
-import javafx.beans.property.ListProperty;
+
 
 public interface ISlogoInterpreter {
 

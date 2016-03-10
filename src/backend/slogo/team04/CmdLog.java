@@ -1,13 +1,12 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
 
 
 public class CmdLog extends CommandTreeNode {
-    private INonLinearCommand expOne; // the two nodes that we need to grab
+    private INonLinearCommand inputValue; // the two nodes that we need to grab
 
     public CmdLog(CommandTreeNode myParent) {
         super(myParent);
@@ -16,13 +15,13 @@ public class CmdLog extends CommandTreeNode {
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double valOne;
-        valOne = expOne.executeCommand(myController, myInterpreter);
+        valOne = inputValue.executeCommand(myController, myInterpreter);
         return Math.log(valOne);
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        expOne = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        inputValue = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
 

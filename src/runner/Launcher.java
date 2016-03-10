@@ -1,14 +1,9 @@
 package runner;
 
 
-import constants.DisplayConstants;
-import frontend.slogo.team04.Display;
-import frontend.slogo.team04.StartScreen;
 import frontend.slogo.team04.WorkspaceManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Controller;
-import model.Model;
 
 /**
  * Launches the simulation application

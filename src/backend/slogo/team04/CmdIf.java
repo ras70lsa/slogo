@@ -1,7 +1,6 @@
 package backend.slogo.team04;
 
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -19,15 +18,15 @@ public class CmdIf extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        if(CommandTreeNode.isNonZero(myExpression, myController, myInterpreter)){
+        if(CommandFactory.isNonZero(myExpression, myController, myInterpreter)){
             return myListOfCommands.executeCommand(myController, myInterpreter);
         }
         return CommandTreeNode.DOUBLE_ZERO;
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        myExpression = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        myExpression = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         myListOfCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);
         
         

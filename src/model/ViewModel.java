@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.function.Consumer;
-
 import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;

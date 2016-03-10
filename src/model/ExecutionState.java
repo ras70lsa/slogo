@@ -1,8 +1,6 @@
 package model;
 
-import backend.slogo.team04.CommandTreeNode;
 import backend.slogo.team04.INonLinearCommand;
-import backend.slogo.team04.ISlogoInterpreter;
 import backend.slogo.team04.ISlogoInterpreterVariableScope;
 import backend.slogo.team04.Variable;
 import interfaces.slogo.team04.ICommands;

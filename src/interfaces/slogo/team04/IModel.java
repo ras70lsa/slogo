@@ -2,7 +2,6 @@ package interfaces.slogo.team04;
 
 import javafx.beans.property.StringProperty;
 import model.ExecutionState;
-import model.HistoryModel;
 
 public interface IModel {
 
