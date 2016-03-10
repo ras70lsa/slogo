@@ -317,6 +317,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	public int setShape(int index) {
 		alterActors((a) -> a.setShape(TurtleShape.values()[index - 1]));
+		update();
 		return index;
 	}
 
