@@ -62,6 +62,5 @@ public class ShapeIndexMenu extends ComboBox<TurtleShape>{
 			}
 		};
 		setCellFactory(myCellFactory);
-		setButtonCell(myCellFactory.call(null));
 	}
 }
