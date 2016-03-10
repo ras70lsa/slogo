@@ -1,6 +1,8 @@
 package frontend.features;
 
 import java.util.ResourceBundle;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import constants.DisplayConstants;
 import constants.ResourceConstants;
@@ -28,4 +30,9 @@ public class MenuFeature extends Menu {
 		return myBundle.getString(input);
 	}
 	
+	protected void populateFromMap(Menu menu, Map<String, EventHandler<ActionEvent>> map) {
+		for(Entry<String, EventHandler<ActionEvent>> entry: map.entrySet()) {
+			menu.getItems().add(createMenuItem(entry.getKey(), entry.getValue()));
+		}
+	}
 }

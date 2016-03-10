@@ -39,9 +39,7 @@ public class FileOption extends MenuFeature{
 
 	private void setUp() {
 		
-		for(Entry<String, EventHandler<ActionEvent>> entry: menuItems.entrySet()) {
-			this.getItems().add(createMenuItem(entry.getKey(), entry.getValue()));
-		}
+		populateFromMap(this, menuItems);
 		open = new Menu(getString("Open"));
 		this.getItems().add(open);
 		makeOpenMenuItems(manager.getWorkspaceNames());
