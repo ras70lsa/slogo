@@ -333,6 +333,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public int Turtles(){
 		return numberOfTurtles.get();
 	}
+	
+	public void addToPalette(double r, double g, double b){
+		RGBColor newColor = new RGBColor(r,g,b,colorListProperty.size()+1);
+		colorListProperty.add(newColor);
+	}
 
 }
 
