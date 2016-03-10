@@ -53,7 +53,7 @@ public class BackendTest {
         SlogoScanner testScanner = new SlogoScanner(str);
         
         BackendTestNullModelActor modelActor = new BackendTestNullModelActor();
-        Interpreter myTestInterpreter = new Interpreter();
+        BackendTestInterpreter myTestInterpreter = new BackendTestInterpreter();
         
         try {
             INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(testScanner, myTestInterpreter);

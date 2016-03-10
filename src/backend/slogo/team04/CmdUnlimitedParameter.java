@@ -42,7 +42,7 @@ public class CmdUnlimitedParameter extends CommandTreeNode {
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
         //we need stop parsing when we have 
         String myNextWord = myScanner.getNextWord();
-        while(!myScanner.commentSafeStringComparison(myNextWord, myInterpreter, s -> s == END_STRING)){
+        while(!myScanner.commentSafeStringComparison(myNextWord, myInterpreter, s -> s.equals(END_STRING))){
             myParamList.add(CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
             myNextWord = myScanner.getNextWord();
         }

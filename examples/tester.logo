@@ -1,7 +1,11 @@
-repeat 2 [
-   dotimes [ :t 2 ] 
-   [
-      fd 1
-      rt / sin :t 2
-   ]
+to example [ :x ]
+[
+  if greater? :x 10
+  [
+    example difference :x 10
+  ]
+  fd 50
+#  right 10
 ]
+set :testingvarforturtles turtles
+example 30

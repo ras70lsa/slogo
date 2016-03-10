@@ -8,7 +8,7 @@ public class BackendTestNullModelActor implements ISlogoModelActionsExtended{
     @Override
     public boolean[] activeTurtles () {
         // TODO Auto-generated method stub
-        boolean[] turtActive = new boolean[]{true, false , false, true};
+        boolean[] turtActive = new boolean[]{true, false , false, false, true};
         return  turtActive;
     }
 
