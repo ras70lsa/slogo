@@ -1,4 +1,4 @@
-package frontend.features;
+package menu.contents;
 
 import java.util.ResourceBundle;
 

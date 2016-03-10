@@ -1,4 +1,7 @@
-package frontend.features;
+package menu.contents;
+
+import frontend.features.HTMLDisplay;
+import model.MenuFeature;
 
 public class HelpMenu extends MenuFeature {
 

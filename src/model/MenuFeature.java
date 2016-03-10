@@ -1,4 +1,4 @@
-package frontend.features;
+package model;
 
 import java.util.ResourceBundle;
 import java.util.Map;

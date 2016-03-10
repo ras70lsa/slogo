@@ -1,4 +1,4 @@
-package frontend.features;
+package menu.contents;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import model.MenuFeature;
 
 public class Option extends MenuFeature {
 

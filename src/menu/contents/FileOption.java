@@ -1,4 +1,4 @@
-package frontend.features;
+package menu.contents;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import model.MenuFeature;
 
 public class FileOption extends MenuFeature{
 
