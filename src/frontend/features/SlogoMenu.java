@@ -15,7 +15,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
-public class SlogoMenu extends MenuBar {
+public class SlogoMenu {
 
 	IDisplay display;
 	IModel model;
@@ -24,11 +24,13 @@ public class SlogoMenu extends MenuBar {
 	Menu advancedOptions;
 	Menu help;
 	Menu clear;
+	MenuBar bar;
 
 	
 	public SlogoMenu(IModel model, IDisplay display) { 
 		this.display = display;
 		this.model = model;
+		bar = new MenuBar();
 		myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + ResourceConstants.ENGLISH);
 		createMenuBar();
 	}
@@ -36,7 +38,6 @@ public class SlogoMenu extends MenuBar {
 	private void createMenuBar() {
 		
 		createMenus();
-		//addVisualItem(myBundle.getString("View"), options);
 		populate();
 		advanced();
 	}
@@ -65,7 +66,8 @@ public class SlogoMenu extends MenuBar {
 	}
 
 	private void createMenus() {
-		addMenu(new FileOption(display.getManager()));
+		addMenu(new FileOption(display.getManager(), getString("File")));
+		addMenu(new Option(getString("Options")));
 		options = new Menu(myBundle.getString("Options"));
 		advancedOptions = new Menu(myBundle.getString("AdvancedOptions"));
 		help = new Menu(myBundle.getString("Help"));
@@ -79,14 +81,8 @@ public class SlogoMenu extends MenuBar {
 		model.getHistory().clear();
 	}
 
-	private MenuItem createMenuItem(String name, EventHandler<ActionEvent> event) {
-		MenuItem menuItem = new MenuItem(name);
-		menuItem.setOnAction(event);
-		return menuItem;
-	}
-
 	private void addMenu(Menu menu) {
-		this.getMenus().add(menu);
+		bar.getMenus().add(menu);
 	}
 	
 
@@ -94,4 +90,19 @@ public class SlogoMenu extends MenuBar {
 		HTMLDisplay display = new HTMLDisplay(type);
 		display.show();
    }
+	
+	public MenuBar getBar() {
+		return bar;
+	}
+	
+	protected String getString(String input) {
+		return myBundle.getString(input);
+	}
+	
+	protected MenuItem createMenuItem(String title, EventHandler<ActionEvent> event) {
+		MenuItem item = new MenuItem(title);
+		item.setOnAction(event);
+		return item;
+	}
+	
 }

@@ -124,7 +124,7 @@ public class Display implements IDisplay {
 		gridPane.add(view.getPane(), 2, 2);
 		gridPane.add(textInput.getPane(), 2, 3);
 		gridPane.add(rightFeatures, 3, 1, 3, 3);
-		gridPane.add(menuBar, 2, 1);
+		gridPane.add(menuBar.getBar(), 2, 1);
 		setSizes();
 		
 	}

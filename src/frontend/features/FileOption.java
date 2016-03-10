@@ -26,10 +26,9 @@ public class FileOption extends MenuFeature{
 	     menuItems.put(getString("Save"), e-> manager.getDialog());
 	};
 	
-	public FileOption(WorkspaceManager manager) {
-		super();
+	public FileOption(WorkspaceManager manager, String title) {
+		super(title);
 		this.manager= manager;
-		this.setText(getString("File"));
 		setUp();
 		addListeners();
 	}
@@ -57,12 +56,6 @@ public class FileOption extends MenuFeature{
 	
 	private void addToOpen(String name) {
 		open.getItems().add(createMenuItem(name, e-> manager.show(name)));
-	}
-	
-	public MenuItem createMenuItem(String title, EventHandler<ActionEvent> event) {
-		MenuItem item = new MenuItem(title);
-		item.setOnAction(event);
-		return item;
 	}
 	
 	private void create() {

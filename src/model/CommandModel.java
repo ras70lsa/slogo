@@ -23,6 +23,10 @@ public class CommandModel implements ICommands{
 		return names;
 	}
 	
+	public ListProperty<INonLinearCommand> getCommandNodes() {
+		return commands;
+	}
+	
 	public void add(String input) {
 		names.add(input);
 	}
