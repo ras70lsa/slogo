@@ -14,6 +14,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import model.MenuFeature;
 
+/**
+ * Gives the user options, including clearing features and setting the language
+ * The advanced options give the user a greater set of options to chose from to set preferences 
+ * instead of having to use the palette feature
+ * @author RyanStPierre
+ *
+ */
 public class Option extends MenuFeature {
 
 	Menu clear;
