@@ -24,7 +24,7 @@ public class CmdListOfCommands extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double lastValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : myCommands){
             lastValue = cmd.executeCommand(myController, myInterpreter);
@@ -34,7 +34,7 @@ public class CmdListOfCommands extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner,
-                                          ISlogoInterpreter myInterpreter) throws UserInputException {
+                                          ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
 
         String myNextWord = myScanner.getNextWord();
         if(myScanner.checkIfStartOfList(myNextWord, myInterpreter)){

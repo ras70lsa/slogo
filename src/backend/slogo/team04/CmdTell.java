@@ -20,7 +20,7 @@ public class CmdTell extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         List<Integer> listOfTurtlesToMakeActive = new ArrayList<Integer>();
         for(INonLinearCommand next : myArguments){
             double myProposedValue = next.executeCommand(myController, myInterpreter);
@@ -30,7 +30,7 @@ public class CmdTell extends CommandTreeNode {
                 throw new LogicException("Attempted to access index with non positive integer");
             }
         }
-        return myController.tell(this.convertIntegerArrayToIntArray((Integer[])listOfTurtlesToMakeActive.toArray()));
+        return myController.tell(this.convertIntegerArrayToIntArray(listOfTurtlesToMakeActive.toArray()));
         
         
     }
@@ -39,14 +39,14 @@ public class CmdTell extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         String myWord;
         myWord = myScanner.getNextWord();
         if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
             // grab variables
             myWord = myScanner.getNextWord();
             while(!myScanner.checkIfEndOfList(myWord, myInterpreter)){
-                myArguments.add(CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter));
+                myArguments.add(CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myWord, myScanner, this, myInterpreter));
                 myWord = myScanner.getNextWord();
             }
         }

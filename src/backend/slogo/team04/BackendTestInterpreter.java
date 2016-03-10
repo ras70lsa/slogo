@@ -37,7 +37,7 @@ public class BackendTestInterpreter implements ISlogoInterpreterVariableScope{
     public void resetGlobalVariables(){
         myVarStack = new Stack<Map<String,Double>>();
         incept();
-        depth = 1;
+        depth = 1; //this assignment needs to be after the incept call to prevent the double incrementation
     }
 
     @Override

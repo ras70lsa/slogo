@@ -9,7 +9,7 @@ public class CommandFactory {
 
     protected static INonLinearCommand recursiveSlogoFactoryNoListsAllowed(SlogoScanner myScanner
                                                                            , CommandTreeNode parentNode 
-                                                                           , ISlogoInterpreter myInterpreter) throws UserInputException{
+                                                                           , ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         return CommandFactory.recursiveSlogoFactoryAssertCondition(myScanner.getNextWord()
                                                                    , myScanner
                                                                    , parentNode
@@ -22,7 +22,7 @@ public class CommandFactory {
     protected static INonLinearCommand recursiveSlogoFactoryNoListsControlledAdvance(String myWord
                                                                                      ,SlogoScanner myScanner
                                                                                      , CommandTreeNode parentNode 
-                                                                                     , ISlogoInterpreter myInterpreter) throws UserInputException{
+                                                                                     , ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         return CommandFactory.recursiveSlogoFactoryAssertCondition(myWord
                                                                    , myScanner
                                                                    , parentNode
@@ -35,7 +35,7 @@ public class CommandFactory {
     protected static INonLinearCommand recursiveSlogoFactoryAssertCondition(String nextWord 
                                                                             ,SlogoScanner myScanner
                                                                             , CommandTreeNode parentNode
-                                                                            ,ISlogoInterpreter myInterpreter
+                                                                            ,ISlogoInterpreterVariableScope myInterpreter
                                                                             , Predicate<String> myTestCase
                                                                             , String errorMessage) throws UserInputException{
         String curWord = nextWord;
@@ -55,7 +55,7 @@ public class CommandFactory {
      * @return
      * @throws UserInputException 
      */
-    protected static CmdVariable getVariableOrAssertError(String nextWord ,SlogoScanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
+    protected static CmdVariable getVariableOrAssertError(String nextWord ,SlogoScanner myScanner, CommandTreeNode myParent, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         return (CmdVariable) recursiveSlogoFactoryAssertCondition(nextWord
                                                                   ,myScanner
                                                                   , myParent
@@ -74,7 +74,7 @@ public class CommandFactory {
      * @return
      * @throws UserInputException
      */
-    protected static INonLinearCommand topLevelCommandFactory(String nextWord, SlogoScanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
+    protected static INonLinearCommand topLevelCommandFactory(String nextWord, SlogoScanner myScanner, CommandTreeNode myParent, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         if(SlogoRegexChecker.isStartOfComment(nextWord)){
             return new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children //actually need to 
             //return slogoCommandFactory(CommandTreeNode.getNextWord(myScanner), myScanner, myParent, myInterpreter);
@@ -83,7 +83,7 @@ public class CommandFactory {
 
     }
 
-    protected static CommandTreeNode slogoCommandFactory(String nextWord, SlogoScanner myScanner, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
+    protected static CommandTreeNode slogoCommandFactory(String nextWord, SlogoScanner myScanner, CommandTreeNode myParent, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         if(SlogoRegexChecker.isStartOfComment(nextWord)){
             new CmdComment(myParent).parseString(myScanner, myInterpreter);// if it is a comment, we should recurse again to properly feed children //actually need to 
             return slogoCommandFactory(myScanner.getNextWord(), myScanner, myParent, myInterpreter);
@@ -262,7 +262,7 @@ public class CommandFactory {
         return myIterator;
     }
 
-    protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException{
+    protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException{
         double myValue = myCommand.executeCommand(myController, myInterpreter);
         return myValue != CommandTreeNode.DOUBLE_ZERO;
     }

@@ -15,7 +15,7 @@ public class CmdNot extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         boolean testOneNonZero = CommandFactory.isNonZero(testOne, myController, myInterpreter);
         if(testOneNonZero){
             return CommandTreeNode.DOUBLE_ZERO;
@@ -27,7 +27,7 @@ public class CmdNot extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         testOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }

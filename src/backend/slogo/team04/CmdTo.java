@@ -21,14 +21,14 @@ public class CmdTo extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         //should never directly do anything, should only create command nodes which are stored in the interpreter and are grabbed and run themselves
         //TODO make this refer to a resource bundle
         return isInitializedCorrectly;
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         String myWord = myScanner.getNextWord();
 
         //check to see if this is a valid command word type

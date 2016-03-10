@@ -16,7 +16,7 @@ public class CmdIfElse extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         // TODO Auto-generated method stub
         INonLinearCommand cmdToExecute;
         if(CommandFactory.isNonZero(myExpression, myController, myInterpreter)){
@@ -28,7 +28,7 @@ public class CmdIfElse extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         // TODO Auto-generated method stub
         myExpression = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         trueCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);

@@ -23,7 +23,7 @@ public interface INonLinearCommand {
      * @throws LogicException TODO
      * 
      */
-    public abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException;
+    public abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException;
     
 
    
@@ -34,7 +34,7 @@ public interface INonLinearCommand {
      * @return
      * @throws UserInputException TODO
      */
-    public abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException;
+    public abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException;
     
    
 }

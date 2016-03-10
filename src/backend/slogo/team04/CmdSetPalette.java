@@ -18,7 +18,7 @@ public class CmdSetPalette extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         proposedIndex = myIndex.executeCommand(myController, myInterpreter);
         proposedR = myR.executeCommand(myController, myInterpreter);
         proposedG = myG.executeCommand(myController, myInterpreter);
@@ -37,7 +37,7 @@ public class CmdSetPalette extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         myIndex = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         myR = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         myG = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);

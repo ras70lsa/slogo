@@ -31,7 +31,7 @@ public class CmdIDIterator extends CommandTreeNode {
     //public CmdIDIterato
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double toReturn = CommandTreeNode.DOUBLE_ZERO;
         List<Boolean> turtleHasActed = new ArrayList<Boolean>();
         boolean someTurtleHasActed = true; //we are going to essentially iterate through list until it stop changing, because
@@ -75,7 +75,7 @@ public class CmdIDIterator extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         this.commandsToRunIfSatisfied.parseString(myScanner, myInterpreter);
         return this;
     }

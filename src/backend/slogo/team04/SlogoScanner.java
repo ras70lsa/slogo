@@ -116,21 +116,21 @@ public class SlogoScanner {
     //SlogoRegexChecker.isStartOfList(toTest)
     
 
-    protected boolean checkIfStartOfList(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
+    protected boolean checkIfStartOfList(String currentWord, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         return commentSafeStringComparison(currentWord, myInterpreter, s -> SlogoRegexChecker.isStartOfList(s));
     }
 
-    protected boolean checkIfEndOfList(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
+    protected boolean checkIfEndOfList(String currentWord, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         return commentSafeStringComparison(currentWord, myInterpreter, s -> SlogoRegexChecker.isEndOfList(s));
     }
     
-    protected boolean commentSafeStringComparison (String currentWord, ISlogoInterpreter myInterpreter, Function<String, Boolean> myChecker) throws UserInputException{
+    protected boolean commentSafeStringComparison (String currentWord, ISlogoInterpreterVariableScope myInterpreter, Function<String, Boolean> myChecker) throws UserInputException{
         String toTest = currentWord;
         toTest = advanceScannerPastComments(toTest, myInterpreter);
         return myChecker.apply(toTest);
     }
 
-    protected String advanceScannerPastComments(String currentWord, ISlogoInterpreter myInterpreter) throws UserInputException{
+    protected String advanceScannerPastComments(String currentWord, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         
         String curWord = currentWord;
         while(SlogoRegexChecker.isStartOfComment(curWord)){

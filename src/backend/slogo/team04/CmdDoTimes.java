@@ -16,7 +16,7 @@ public class CmdDoTimes extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double lastSeenCommandValue = 0;
         for(int i = 1; i <= myLimit.executeCommand(myController, myInterpreter); i++){
             myVariable.setVariableValue((double) i, myInterpreter);
@@ -27,7 +27,7 @@ public class CmdDoTimes extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         String myWord = myScanner.getNextWord();
         if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
             // grab variable and then the limit factor

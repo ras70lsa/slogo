@@ -17,7 +17,7 @@ public class CmdSetPenColor extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double myProposedIndex = myChild.executeCommand(myController, myInterpreter);
         if(SlogoRegexChecker.isPostiveIndex(myProposedIndex)){
             return myController.setPenColor((int) myProposedIndex);
@@ -30,7 +30,7 @@ public class CmdSetPenColor extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         myChild = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }

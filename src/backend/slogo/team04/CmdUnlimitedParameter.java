@@ -21,7 +21,7 @@ public class CmdUnlimitedParameter extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         if(myParamList.size() > 0){
             BiFunction<Double, Double, Double> myFunc = this.getMyParent().getMyUnlimitedParameterBehavior();
             double runningTotal = myParamList.get(0).executeCommand(myController, myInterpreter);
@@ -39,7 +39,7 @@ public class CmdUnlimitedParameter extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         //we need stop parsing when we have 
         String myNextWord = myScanner.getNextWord();
         while(!myScanner.commentSafeStringComparison(myNextWord, myInterpreter, s -> s.equals(END_STRING))){

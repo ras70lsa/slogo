@@ -20,7 +20,7 @@ public class CmdExecuteIfCurrentTurtleActive extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         boolean[] currentActiveTurtles = myController.activeTurtles();
         double currentIDValue = new CmdID(this).executeCommand(myController, myInterpreter);
         int curID = (int) currentIDValue;
@@ -32,7 +32,7 @@ public class CmdExecuteIfCurrentTurtleActive extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         //myChild = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }

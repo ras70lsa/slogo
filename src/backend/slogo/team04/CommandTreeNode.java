@@ -56,13 +56,13 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
     
-    protected int[] convertIntegerArrayToIntArray(Integer[] toConvert){
+    protected int[] convertIntegerArrayToIntArray(Object[] toConvert){
         if(toConvert.length == 0){
             return null;
         }
         int[] toReturn = new int[toConvert.length];
         for(int i = 0; i < toConvert.length; i++){
-            toReturn[i] = toConvert[i].intValue(); 
+            toReturn[i] = ((Integer)toConvert[i]).intValue(); 
         }
         return toReturn;
         

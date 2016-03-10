@@ -19,7 +19,7 @@ public class CmdRepeat extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double limit = myExpression.executeCommand(myController, myInterpreter);
         double lastValueSeen = CommandTreeNode.DOUBLE_ZERO;
         for(double i = CommandTreeNode.DOUBLE_ONE; i <= limit; i+=CommandTreeNode.DOUBLE_ONE){
@@ -30,7 +30,7 @@ public class CmdRepeat extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         myExpression = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);     
         myRepCount = new CmdVariable(this, REP_COUNT_VAR_NAME);
         myCommands = new CmdListOfCommands(this).parseString(myScanner, myInterpreter);

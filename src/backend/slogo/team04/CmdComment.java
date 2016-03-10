@@ -17,13 +17,13 @@ public class CmdComment extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         Pattern cached = myScanner.delimiter();
         myScanner.useDelimiter(SlogoScanner.ALL_NON_NEW_LINE_REGEX);
         myScanner.getNextWord(); //eat the white space till new line

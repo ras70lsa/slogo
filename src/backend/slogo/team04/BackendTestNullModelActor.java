@@ -299,7 +299,10 @@ public class BackendTestNullModelActor implements ISlogoModelActionsExtended{
     @Override
     public double tell (int[] arrayOfActiveTurtleIDs) {
         System.out.print("Telling the following turtles: ");
-        System.out.print(arrayOfActiveTurtleIDs);
+        for(int i = 0; i < arrayOfActiveTurtleIDs.length; i++){
+            System.out.print(arrayOfActiveTurtleIDs[i] + " ");    
+        }
+        
         System.out.println("");
         return 0;
     }

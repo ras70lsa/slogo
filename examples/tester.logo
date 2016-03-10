@@ -1,11 +1,6 @@
-to example [ :x ]
-[
-  if greater? :x 10
-  [
-    example difference :x 10
-  ]
-  fd 50
-#  right 10
-]
-set :testingvarforturtles turtles
-example 30
+set :x 10
+tell [ 1 2 3 ]
+# this command is only executed once
+set :x * :x :x 
+# all turtles move the same distance
+fd :x
