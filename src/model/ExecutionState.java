@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Collection;
+
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.ISlogoInterpreterVariableScope;
 import backend.slogo.team04.Variable;
@@ -86,6 +88,10 @@ public class ExecutionState implements ISlogoInterpreterVariableScope, IVariable
 	@Override
 	public ListProperty<ListProperty<Variable>> getStack() {
 		return variables.getStack();
+	}
+
+	public ListProperty<INonLinearCommand> getCommandNodes() {
+		return commands.getCommandNodes();
 	}
 
 }

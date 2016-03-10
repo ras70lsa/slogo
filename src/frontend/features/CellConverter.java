@@ -10,6 +10,13 @@ import constants.ResourceConstants;
 import javafx.scene.control.TableView;
 import javafx.util.converter.NumberStringConverter;
 
+/**
+ * Used to catch proper input into the table view
+ * Specifically, it checks to ensure the table view gets proper double input when expected
+ * Shows error and leaves the value unchanged when input is incorrect
+ * @author RyanStPierre
+ *
+ */
 public class CellConverter extends NumberStringConverter {
 
 	//Table needed to return the old value if an excpetion is thrown
@@ -19,7 +26,9 @@ public class CellConverter extends NumberStringConverter {
 		super();
 		this.view = view;
 	}
-	 @Override public Number fromString(String value) {
+	
+	 @Override 
+	 public Number fromString(String value) {
 	        try {
 	            // If the specified value is null or zero-length, return null
 	            if (value == null) {
