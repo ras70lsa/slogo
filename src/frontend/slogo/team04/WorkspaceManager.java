@@ -3,6 +3,7 @@ package frontend.slogo.team04;
 
 import java.util.ResourceBundle;
 
+import archive.ArchiveWorkspace;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
 import frontend.features.SaveAlert;
