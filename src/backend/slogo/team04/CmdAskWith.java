@@ -18,7 +18,10 @@ public class CmdAskWith extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        return myIDIterator.executeCommand(myController, myInterpreter);
+        myInterpreter.incept();
+        double toReturn = myIDIterator.executeCommand(myController, myInterpreter);
+        myInterpreter.kick();
+        return toReturn;
     }
 
 
@@ -38,20 +41,15 @@ public class CmdAskWith extends CommandTreeNode {
             }else{
                 throw new UserInputException("Closing bracket not found");
             }
-
         }
         else{
             throw new UserInputException("Opening bracket not found for CmdTell");
-        }
-        
-        
+        }        
         //fixing tree parent references to pass the proper current id value
         myIDIterator = new CmdIDIterator(this, myCondition, myCmdListOfCommands);
         myCondition.setMyParent(myIDIterator);
         myCmdListOfCommands.setMyParent(myIDIterator);
         return this;
-
-
     }
 
 }

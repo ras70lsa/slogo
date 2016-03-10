@@ -79,8 +79,9 @@ public class BackendTestInterpreter implements ISlogoInterpreterVariableScope{
     @Override
     public void incept () {
         depth++;
-        this.slogoVariables = new HashMap<String, Double>();
         myVarStack.push(this.slogoVariables);
+        this.slogoVariables = new HashMap<String, Double>();
+        
         //TODO push a new stack of variables on it
         
     }
@@ -89,11 +90,23 @@ public class BackendTestInterpreter implements ISlogoInterpreterVariableScope{
     @Override
     public void kick () {
         if(depth > 1){
-            depth--;
-            //TODO actually remove the latest stack value
-            this.slogoVariables = myVarStack.pop();
+            drillUpOne();
         }
         
+    }
+
+
+    @Override
+    public void kickAllButLowest () {
+       while(depth > 1){
+           drillUpOne();
+       }
+        
+    }
+    
+    private void drillUpOne(){
+        depth--;
+        this.slogoVariables = myVarStack.pop();
     }
 
 

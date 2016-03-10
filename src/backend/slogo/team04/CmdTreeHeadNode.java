@@ -25,6 +25,7 @@ public class CmdTreeHeadNode extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        myInterpreter.kickAllButLowest();
         for(INonLinearCommand child : myChildren){
             child.executeCommand(myController, myInterpreter);
         }
@@ -33,6 +34,7 @@ public class CmdTreeHeadNode extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
+        myInterpreter.kickAllButLowest();
         while(myScanner.hasNext()){
             myChildren.add(CommandFactory.topLevelCommandFactory( myScanner.getNextWord(),  myScanner, this ,  myInterpreter));
         }

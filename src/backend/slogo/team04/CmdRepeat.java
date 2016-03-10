@@ -23,8 +23,10 @@ public class CmdRepeat extends CommandTreeNode {
         double limit = myExpression.executeCommand(myController, myInterpreter);
         double lastValueSeen = CommandTreeNode.DOUBLE_ZERO;
         for(double i = CommandTreeNode.DOUBLE_ONE; i <= limit; i+=CommandTreeNode.DOUBLE_ONE){
+            myInterpreter.incept();
             myRepCount.setVariableValue(i, myInterpreter);
             lastValueSeen = myCommands.executeCommand(myController, myInterpreter);
+            myInterpreter.kick();
         }
         return lastValueSeen;
     }

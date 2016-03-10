@@ -19,9 +19,10 @@ public class CmdDoTimes extends CommandTreeNode {
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double lastSeenCommandValue = 0;
         for(int i = 1; i <= myLimit.executeCommand(myController, myInterpreter); i++){
+            myInterpreter.incept();
             myVariable.setVariableValue((double) i, myInterpreter);
-
             lastSeenCommandValue = myCommands.executeCommand(myController, myInterpreter);
+            myInterpreter.kick();
         }
         return lastSeenCommandValue;
     }

@@ -23,7 +23,6 @@ public class CmdTo extends CommandTreeNode {
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         //should never directly do anything, should only create command nodes which are stored in the interpreter and are grabbed and run themselves
-        //TODO make this refer to a resource bundle
         return isInitializedCorrectly;
     }
 
@@ -50,7 +49,7 @@ public class CmdTo extends CommandTreeNode {
                 listOfVariables.add(CommandFactory.getVariableOrAssertError(myWord,myScanner, myCommandToCreate, myInterpreter));
                 myWord = myScanner.getNextWord();
             }
-            myInterpreter.putFunction(myCommandName, myCommandToCreate); //i think this supports reucrsion
+            myInterpreter.putFunction(myCommandName, myCommandToCreate); // supporting recursion
             myCommandToCreate.setMyState(listOfVariables, listOfCommands);
             myWord = myScanner.getNextWord();
             if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
@@ -61,10 +60,6 @@ public class CmdTo extends CommandTreeNode {
                     myWord = myScanner.getNextWord();
                 }
                 isInitializedCorrectly = CommandTreeNode.DOUBLE_ONE; // construction was properly done
-                // adding adding the calculated state to the command and then adding it to the stored list in the interpreter
-                //myCommandToCreate.setMyState(listOfVariables, listOfCommands);
-                //myInterpreter.putFunction(myCommandName, myCommandToCreate); //TODO before support recursion  
-
             }else{
                 throw new UserInputException("Command list not closed by bracket");
             }

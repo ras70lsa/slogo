@@ -24,7 +24,10 @@ public class CmdIfElse extends CommandTreeNode {
         }else{
             cmdToExecute = falseCommands;
         }
-        return cmdToExecute.executeCommand(myController, myInterpreter);
+        myInterpreter.incept();
+        double toReturn = cmdToExecute.executeCommand(myController, myInterpreter);
+        myInterpreter.kick();
+        return toReturn;
     }
 
     @Override

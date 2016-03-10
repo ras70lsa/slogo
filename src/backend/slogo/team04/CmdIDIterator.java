@@ -27,7 +27,7 @@ public class CmdIDIterator extends CommandTreeNode {
         this.commandsToRunIfSatisfied = commandsToRunIfSatisfied;
         currentTurtleID = Double.NaN;
     }
-    
+
     //public CmdIDIterato
 
     @Override
@@ -39,33 +39,23 @@ public class CmdIDIterator extends CommandTreeNode {
 
         boolean[] isTurtleActiveArray; // = myController.activeTurtles();
         while(someTurtleHasActed){
-            //we need to add a check to see if the active turtles arrays has grown
             isTurtleActiveArray = myController.activeTurtles();
             listFalseBooleanAdder(isTurtleActiveArray.length - turtleHasActed.size(), turtleHasActed);
             someTurtleHasActed = false;
-            
             for(int i = 0; i < isTurtleActiveArray.length; i++){
                 this.currentTurtleID = (double) i;
                 double myCondVal = myConditionalNode.executeCommand(myController, myInterpreter); //checking if the test allows us to run
                 if(myCondVal == CommandTreeNode.DOUBLE_ONE && !turtleHasActed.get(i) ){ // now this code will always iterate through everything untill nothing changes
                     someTurtleHasActed = true;
                     turtleHasActed.set(i, true);
-                    //this.currentTurtleID = (double) i;
-                    //now run the code with this turtle id value
-                  toReturn = this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter);
+                    toReturn = this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter);
                 }
             }
         }
         return toReturn;
     }
-    
-//    private void reassignVariableIfNotNaN(double varToChange, Double potentialNaN){
-//        if(!Double.isNaN(potentialNaN)){
-//            varToChange = potentialNaN;
-//        }
-//    }
-    
-    
+
+
 
     private void listFalseBooleanAdder(int numberOfFalsesToAdd, List<Boolean> myList){
         for(int i = 0; i < numberOfFalsesToAdd; i++){

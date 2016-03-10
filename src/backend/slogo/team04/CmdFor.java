@@ -19,8 +19,10 @@ public class CmdFor extends CommandTreeNode {
         double limit = myEnd.executeCommand(myController, myInterpreter);
         double lastValueSeen = CommandTreeNode.DOUBLE_ZERO;
         for(double d = myStart.executeCommand(myController, myInterpreter); d <= limit; d+=increment){
+            myInterpreter.incept();
             myVariable.setVariableValue(d, myInterpreter);
             lastValueSeen = cmdList.executeCommand(myController, myInterpreter);
+            myInterpreter.kick();
         }
         return lastValueSeen;
     }

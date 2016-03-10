@@ -17,10 +17,11 @@ public class CmdAsk extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        double toReturn;
         myController.pushCurrentActive();
         myTellNode.executeCommand(myController, myInterpreter);
-        toReturn = myCommandList.executeCommand(myController, myInterpreter);
+        myInterpreter.incept();
+        double toReturn = myCommandList.executeCommand(myController, myInterpreter);
+        myInterpreter.kick();
         myController.popCurrentActive();
         return toReturn;
 
