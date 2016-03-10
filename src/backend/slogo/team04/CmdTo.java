@@ -62,7 +62,7 @@ public class CmdTo extends CommandTreeNode {
                 }
                 isInitializedCorrectly = CommandTreeNode.DOUBLE_ONE; // construction was properly done
                 // adding adding the calculated state to the command and then adding it to the stored list in the interpreter
-                myCommandToCreate.setMyState(listOfVariables, listOfCommands);
+                //myCommandToCreate.setMyState(listOfVariables, listOfCommands);
                 //myInterpreter.putFunction(myCommandName, myCommandToCreate); //TODO before support recursion  
 
             }else{

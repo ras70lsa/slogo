@@ -52,18 +52,18 @@ public class CmdIDIterator extends CommandTreeNode {
                     turtleHasActed.set(i, true);
                     //this.currentTurtleID = (double) i;
                     //now run the code with this turtle id value
-                    reassignVariableIfNotNaN(toReturn, this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter));
+                  toReturn = this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter);
                 }
             }
         }
         return toReturn;
     }
     
-    private void reassignVariableIfNotNaN(double varToChange, Double potentialNaN){
-        if(!Double.isNaN(potentialNaN)){
-            varToChange = potentialNaN;
-        }
-    }
+//    private void reassignVariableIfNotNaN(double varToChange, Double potentialNaN){
+//        if(!Double.isNaN(potentialNaN)){
+//            varToChange = potentialNaN;
+//        }
+//    }
     
     
 
@@ -76,6 +76,7 @@ public class CmdIDIterator extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        this.commandsToRunIfSatisfied.parseString(myScanner, myInterpreter);
         return this;
     }
 
