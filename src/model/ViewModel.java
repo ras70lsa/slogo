@@ -11,6 +11,7 @@ import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 import interfaces.slogo.team04.IView;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -25,7 +26,7 @@ import properties.ImageProperty;
 import utilities.Angle;
 import utilities.Distance;
 
-public class ViewModel extends Observable implements IView, ISlogoModelActions {
+public class ViewModel extends Observable implements IView, ISlogoModelActionsExtended {
 
 	private static final double RGB_MAX = 255;
 	private static final double RGB_INTERVAL = 255 / 2 + 1;
@@ -352,6 +353,180 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		int size = stamps.size();
 		actors.removeAll(stamps);
 		return (size == 0) ? 0 : 1;
+	}
+
+	@Override
+	public double forward(double pixels, double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double back(double pixels, double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double left(double pixels, double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double right(double pixels, double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double setHeading(double degrees, double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double towards(double x, double y, double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double setxy(double x, double y, double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double penDown(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double penUp(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double showTurtle(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double hideTurtle(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double home(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double isPenDown(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double isShowing(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double xCor(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double yCor(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double heading(double turtleID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean[] activeTurtles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double setBackground(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double setPenColor(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double setPenSize(double pixels) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double penColor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double shape() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double clearStamps() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double ID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double turtles() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double tell(int[] arrayOfActiveTurtleIDs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void pushCurrentActive() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void popCurrentActive() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
