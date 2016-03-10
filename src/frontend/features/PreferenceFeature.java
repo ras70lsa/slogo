@@ -21,6 +21,7 @@ public class PreferenceFeature extends TitledPane {
 	private VBox items;
 	private IView view;
 	private ColorIndexMenu backgroundPallete;
+	private ShapeIndexMenu shapeIndex;
 	ResourceBundle myBundle;
 	
 	public PreferenceFeature(IView view) {
@@ -34,7 +35,7 @@ public class PreferenceFeature extends TitledPane {
 	
 	private void addListener() {
 		backgroundPallete.getSelected().addListener((a,b,c) -> view.getBackgroundColor().set(c));
-		
+		shapeIndex.getSelected().addListener((a,b,c) -> view.setShape((int) c+1));
 	}
 	
 	private void populate() {
@@ -43,7 +44,7 @@ public class PreferenceFeature extends TitledPane {
 		//To Do: add resource bundle
 		labelAndCombo.getChildren().add(new Label(myBundle.getString("BackgroundColor")));
 		backgroundPallete = new ColorIndexMenu(view.getColorListProperty());
-		labelAndCombo.getChildren().add(backgroundPallete);
+		labelAndCombo.getChildren().addAll(backgroundPallete,addColorIndexCombo());
 		items.getChildren().add(labelAndCombo);
 	}
 
@@ -56,6 +57,15 @@ public class PreferenceFeature extends TitledPane {
 		items.getChildren().add(new HBox(addPenCombo(), andPenWidthCombo()));
 	}
 
+
+	private VBox addColorIndexCombo(){
+		shapeIndex = new ShapeIndexMenu();
+		VBox vbox = getVBoxWithSpacing();
+		vbox.getChildren().add(new Label(myBundle.getString("ShapeIndex")));
+		vbox.getChildren().add(shapeIndex);
+		return vbox;
+	}
+	
 	private VBox andPenWidthCombo() {
 		ComboBox<String> penWidth = getComboBox();
 		VBox vbox = getVBoxWithSpacing();

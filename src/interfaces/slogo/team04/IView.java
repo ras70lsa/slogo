@@ -25,4 +25,5 @@ public interface IView{
 	public void update();
 	public void setPenStyle(String selectedItem);
 	public DoubleProperty getPenWidth();
+	public int setShape(int index);
 }
