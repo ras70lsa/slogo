@@ -93,7 +93,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double back(double pixels) {
-
 		alterActors((a) -> a.forward(-pixels));
 		return -pixels;
 	}
@@ -203,8 +202,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double clearScreen() {
-		actors.stream()
-			.forEach((a) -> a.clearLines());
+		actors.stream().forEach((a) -> a.clearLines());
 		return 0;
 	}
 
@@ -259,13 +257,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return colorListProperty;
 	}
 
-	public int PenColor() {
+	public double PenColor() {
 		Actor activeActor = findActiveActor();
 		RGBColor penColor = activeActor.getPen().getPenColor();
 		return colorListProperty.indexOf(penColor);
 	}
 
-	public int setBackgroundColor(int index) {
+	public double setBackgroundColor(int index) {
 		for (RGBColor c : colorListProperty) {
 			if (c.getIndex() == index) {
 				backgroundColor.set(c);
@@ -282,7 +280,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	}
 
-	public int setPalette(int index, int r, int g, int b) {
+	public double setPalette(int index, int r, int g, int b) {
 		boolean hasColor = false;
 		for (RGBColor c : colorListProperty) {
 			if (c.getRed() == r / RGB_MAX && c.getGreen() == g / RGB_MAX && c.getBlue() == b / RGB_MAX) {
@@ -307,52 +305,53 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public Actor findActiveActor() {
 		ArrayList<Actor> activeActors = new ArrayList<Actor>();
 		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);
-		return activeActors.get(activeActors.size()-1);
+		return activeActors.get(activeActors.size() - 1);
 	}
 
-	public int Shape() {
+	public double Shape() {
 		Actor activeActors = findActiveActor();
 		int listIndex = TurtleShape.valueOf(activeActors.getShape().toString()).ordinal();
 		return listIndex + 1;
 	}
 
-	public int setShape(int index) {
+	public double setShape(int index) {
 		alterActors((a) -> a.setShape(TurtleShape.values()[index - 1]));
 		update();
-		return index;
+		return (double) index;
 	}
 
 	public DoubleProperty getPenWidth() {
 		return currentPenWidth;
 	}
 
-	public int setPenSize(int pixels) {
+	public double setPenSize(int pixels) {
 		currentPenWidth.set(pixels);
 		return pixels;
 	}
-	
-	public int Turtles(){
+
+	public double Turtles() {
 		return numberOfTurtles.get();
 	}
-	
-	public void addToPalette(double r, double g, double b){
-		RGBColor newColor = new RGBColor(r,g,b,colorListProperty.size()+1);
+
+	public void addToPalette(double r, double g, double b) {
+		RGBColor newColor = new RGBColor(r, g, b, colorListProperty.size() + 1);
 		colorListProperty.add(newColor);
 	}
 
-	public int Stamp(){
+	public double stamp() {
 		Actor lastActiveTurtle = findActiveActor();
-		Actor stamp = new Actor(lastActiveTurtle.getXLocation(),lastActiveTurtle.getYLocation(), lastActiveTurtle.getHeading(), lastActiveTurtle.getPenDown() == 1);
+		Actor stamp = new Actor(lastActiveTurtle.getXLocation(), lastActiveTurtle.getYLocation(),
+				lastActiveTurtle.getHeading(), lastActiveTurtle.getPenDown() == 1);
 		stamp.setStamp();
 		actors.add(stamp);
 		return 0;
 	}
-	
-	public int clearStamp(){
+
+	public double clearStamp() {
 		List<Actor> stamps = actors.stream().filter((a) -> a.isStamp()).collect(Collectors.toList());
 		int size = stamps.size();
 		actors.removeAll(stamps);
-		return (size == 0)? 0:1;
+		return (size == 0) ? 0 : 1;
 	}
 }
 
