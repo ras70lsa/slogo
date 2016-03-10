@@ -1,12 +1,9 @@
 package backend.slogo.team04;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableDoubleValue;
-import javafx.beans.value.ObservableValue;
 
 public class Variable {
 

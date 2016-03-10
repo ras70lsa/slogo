@@ -2,7 +2,6 @@ package backend.slogo.team04;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -25,8 +24,7 @@ public class CmdListOfCommands extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController,
-                                  ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double lastValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : myCommands){
             lastValue = cmd.executeCommand(myController, myInterpreter);
@@ -35,15 +33,15 @@ public class CmdListOfCommands extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner,
+    public INonLinearCommand parseString (SlogoScanner myScanner,
                                           ISlogoInterpreter myInterpreter) throws UserInputException {
 
-        String myNextWord = CommandTreeNode.getNextWord(myScanner);
-        if(CommandTreeNode.checkIfStartOfList(myNextWord, myScanner, myInterpreter)){
-            myNextWord = CommandTreeNode.getNextWord(myScanner);
-            while(!CommandTreeNode.checkIfEndOfList(myNextWord, myScanner, myInterpreter)){
-                myCommands.add(CommandTreeNode.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
-                myNextWord = CommandTreeNode.getNextWord(myScanner);
+        String myNextWord = myScanner.getNextWord();
+        if(myScanner.checkIfStartOfList(myNextWord, myInterpreter)){
+            myNextWord = myScanner.getNextWord();
+            while(!myScanner.checkIfEndOfList(myNextWord, myInterpreter)){
+                myCommands.add(CommandFactory.recursiveSlogoFactoryNoListsControlledAdvance(myNextWord, myScanner, this, myInterpreter));
+                myNextWord = myScanner.getNextWord();
             }
         }else{
             throw new UserInputException("List of commands failed");

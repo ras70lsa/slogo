@@ -1,6 +1,5 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -8,7 +7,7 @@ import interfaces.slogo.team04.ISlogoModelActions;
 
 public class CmdDifference extends CommandTreeNode {
 
-    private INonLinearCommand expOne, expTwo; // the two nodes that we need to grab
+    private INonLinearCommand inputOne, inputTwo; // the two nodes that we need to grab
 
 
 
@@ -20,8 +19,8 @@ public class CmdDifference extends CommandTreeNode {
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
         double valOne, valTwo;
-        valOne = expOne.executeCommand(myController, myInterpreter);
-        valTwo = expTwo.executeCommand(myController, myInterpreter);
+        valOne = inputOne.executeCommand(myController, myInterpreter);
+        valTwo = inputTwo.executeCommand(myController, myInterpreter);
         return valOne - valTwo;
     }
 
@@ -29,9 +28,9 @@ public class CmdDifference extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        expOne = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
-        expTwo = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        inputOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+        inputTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
 

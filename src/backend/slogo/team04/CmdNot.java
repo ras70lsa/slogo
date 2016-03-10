@@ -1,6 +1,5 @@
 package backend.slogo.team04;
 
-import java.util.Scanner;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActions;
@@ -16,7 +15,7 @@ public class CmdNot extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        boolean testOneNonZero = isNonZero(testOne, myController, myInterpreter);
+        boolean testOneNonZero = CommandFactory.isNonZero(testOne, myController, myInterpreter);
         if(testOneNonZero){
             return CommandTreeNode.DOUBLE_ZERO;
         }
@@ -27,8 +26,8 @@ public class CmdNot extends CommandTreeNode {
 
 
     @Override
-    public INonLinearCommand parseString (Scanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
-        testOne = CommandTreeNode.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+        testOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
 

@@ -1,7 +1,6 @@
 package frontend.features;
 
 import backend.structures.RGBColor;
-import constants.DisplayConstants;
 import javafx.beans.property.ListProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Group;

@@ -19,24 +19,11 @@ import frontend.features.VariableFeature;
 import frontend.features.View;
 import interfaces.slogo.team04.IDisplay;
 import interfaces.slogo.team04.IModel;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import model.Controller;
-import visual.states.HistoryUIState;
 
 /**
  * This class is the class responsible for setting up the interaction with the user.

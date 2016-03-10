@@ -5,20 +5,19 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
-
 import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.IView;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.ModelLine.Style;
 import properties.ColorProperty;
 import properties.ImageProperty;
 import utilities.Angle;
@@ -26,8 +25,8 @@ import utilities.Distance;
 
 public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
-	private static final double RGB_MAX = 255.0;
-	private static final double RGB_INTERVAL = 255/ 2 + 1;
+	private static final double RGB_MAX = 255;
+	private static final double RGB_INTERVAL = 255 / 2 + 1;
 	private ListProperty<Actor> actors;
 	private Actor turtle;
 	private boolean penIsDown;
@@ -38,13 +37,14 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private ListProperty<RGBColor> colorListProperty;
 	private ImageProperty currentActiveImage;
 	private DoubleProperty currentPenWidth;
+	private IntegerBinding numberOfTurtles;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
 		penColor = new ColorProperty();
 		currentPenWidth = new SimpleDoubleProperty();
 		penIsDown = true;
-		turtle = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
+		turtle = new Actor(0, 0, Angle.HALF_CIRCLE / 2, penIsDown);
 		ObservableList<Actor> list = FXCollections.observableArrayList();
 		actors = new SimpleListProperty<Actor>(list);
 		actors.add(turtle);
@@ -52,42 +52,37 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		isShowing = true;
 		generateColorListProperty();
 		currentActiveImage = new ImageProperty();
+		numberOfTurtles = Bindings.size(actors);
 		addListeners(turtle);
 	}
 
 	@Override
 	public void addActor() {
-	
-		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE/2, penIsDown);
+
+		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE / 2, penIsDown);
 		actors.add(newActor);
 		addListeners(newActor);
 		update();
-		
+
 	}
 
 	private void addListeners(Actor actor) {
-		currentActiveImage.addListener((z,b,c) -> {
-			actors.stream()
-				.forEach((a) -> a.setImageProperty(c));
+		currentActiveImage.addListener((z, b, c) -> {
+			actors.stream().forEach((a) -> a.setImageProperty(c));
 			update();
 		});
-		penColor.addListener((z,b,c) -> {
-			actors.stream()
-				.forEach((a) -> a.setPenColor(c));
+		penColor.addListener((z, b, c) -> {
+			actors.stream().forEach((a) -> a.setPenColor(c));
 		});
-		currentPenWidth.addListener((z,b,c) -> {
-			actors.stream()
-				.forEach((a) -> a.setPenWidth(c.doubleValue()));
+		currentPenWidth.addListener((z, b, c) -> {
+			actors.stream().forEach((a) -> a.setPenWidth(c.doubleValue()));
 		});
-	}
-	
-	public void alterActors(Consumer<Actor> action) {
-		actors.stream()
-			.filter((a) -> a.getActive().get())
-			.forEach(action);
 	}
 
-	
+	public void alterActors(Consumer<Actor> action) {
+		actors.stream().filter((a) -> a.getActive().get()).forEach(action);
+	}
+
 	@Override
 	public double forward(double pixels) {
 		alterActors((a) -> a.forward(pixels));
@@ -96,7 +91,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double back(double pixels) {
-		
+
 		alterActors((a) -> a.forward(-pixels));
 		return -pixels;
 	}
@@ -117,7 +112,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	@Override
 	public double setHeading(double degrees) {
 
-		if(actors.get(0) != null) { 
+		if (actors.get(0) != null) {
 			double oldHeading = actors.get(0).getHeading();
 			alterActors((a) -> a.setHeading(degrees));
 			actors.get(0).setHeading(degrees);
@@ -138,13 +133,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double setxy(double x, double y) {
-		if(actors.get(0) != null) {
+		if (actors.get(0) != null) {
 			double oldX = actors.get(0).getXLocation();
 			double oldY = actors.get(0).getYLocation();
 			alterActors((a) -> a.setxy(x, y));
 			return Distance.calculateDistance(oldX, oldY, x, y);
 		}
-		
+
 		return 0;
 	}
 
@@ -176,7 +171,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double home() {
-		return setxy(0,0);
+		return setxy(0, 0);
 	}
 
 	@Override
@@ -206,7 +201,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	@Override
 	public double clearScreen() {
-		lineManager.clear();
+		actors.stream()
+			.forEach((a) -> a.clearLines());
 		return 0;
 	}
 
@@ -222,18 +218,17 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	public List<ModelLine> getLines() {
 		lineManager.clear();
-		for(Actor actor: actors) {
+		for (Actor actor : actors) {
 			lineManager.addAll(actor.getMyLines());
 		}
 		return lineManager;
 	}
-	
 
 	@Override
 	public void update() {
 		setChanged();
 		notifyObservers();
-		
+
 	}
 
 	public ImageProperty getImageProperty() {
@@ -244,87 +239,101 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public ListProperty<Actor> getActorProperty() {
 		return actors;
 	}
-	
 
-	public void generateColorListProperty(){
+	public void generateColorListProperty() {
 		colorListProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
 		int index = 1;
-		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL){
-			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL){
-				for (int b = 0; b < RGB_MAX; b += RGB_INTERVAL){
-					colorListProperty.add(new RGBColor(r/RGB_MAX,g/RGB_MAX,b/RGB_MAX,index));
-					index ++;
+		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL) {
+			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL) {
+				for (int b = 0; b < RGB_MAX; b += RGB_INTERVAL) {
+					colorListProperty.add(new RGBColor(r / RGB_MAX, g / RGB_MAX, b / RGB_MAX, index));
+					index++;
 				}
 			}
 		}
 	}
-	
-	public ListProperty<RGBColor> getColorListProperty(){
+
+	public ListProperty<RGBColor> getColorListProperty() {
 		return colorListProperty;
 	}
-	
 
-	public int setBackgroundColor(int index){
-		for (RGBColor c:colorListProperty){
-			if (c.getIndex() == index){
-				backgroundColor.set(c);;
+	public int PenColor() {
+		ArrayList<Actor> activeActors = findActiveActors();
+		RGBColor penColor = activeActors.get(activeActors.size() - 1).getPen().getPenColor();
+		return colorListProperty.indexOf(penColor);
+	}
+
+	public int setBackgroundColor(int index) {
+		for (RGBColor c : colorListProperty) {
+			if (c.getIndex() == index) {
+				backgroundColor.set(c);
 			}
 		}
 		return index;
 	}
 
-	//Good place for reflection
+	// Good place for reflection
 	@Override
 	public void setPenStyle(String selectedItem) {
-		
-		actors.stream()
-			.forEach((a) -> a.setPenStyle(selectedItem));
-		
-	}
-	
-	public int setPalette(int index, int r, int g, int b){
-		//TODO
-		return index;
-	}
-	
-	public int Shape(){
-		ArrayList<Actor> activeActors = new ArrayList<Actor>();
-		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);;
-		int listIndex = TurtleShape.valueOf(activeActors.get(0).getShape().toString()).ordinal();
-		return listIndex + 1;
-	}
-	
-	public int setShape(int index){
-		alterActors((a) -> a.setShape(TurtleShape.values()[index-1]));
-		update();
-		return index;
-	}
-	
-	public DoubleProperty getPenWidth() {
-		return currentPenWidth;
+
+		actors.stream().forEach((a) -> a.setPenStyle(selectedItem));
+
 	}
 
 	public int setPalette(int index, int r, int g, int b) {
 		boolean hasColor = false;
-		int maxIndex = -1;
 		for (RGBColor c : colorListProperty) {
-			maxIndex = (c.getIndex() > maxIndex) ? c.getIndex() : maxIndex;
 			if (c.getRed() == r / RGB_MAX && c.getGreen() == g / RGB_MAX && c.getBlue() == b / RGB_MAX) {
 				c.setIndex(index);
 				hasColor = true;
 			}
 		}
 
-		RGBColor newColor = null;
 		for (RGBColor c : colorListProperty) {
 			if (c.getIndex() == index) {
-				c.setIndex(maxIndex + 1);
-				newColor = (!hasColor) ? new RGBColor(r / RGB_MAX, g / RGB_MAX, b / RGB_MAX, index) : newColor;
+				if (hasColor) {
+
+				}
 			}
 		}
-		colorListProperty.add(newColor);
-		Collections.sort(colorListProperty);
+
+		colorListProperty.sorted();
+		return index;
+
+	}
+
+	public ArrayList<Actor> findActiveActors() {
+		ArrayList<Actor> activeActors = new ArrayList<Actor>();
+		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);
+		;
+		return activeActors;
+	}
+
+	public int Shape() {
+		ArrayList<Actor> activeActors = findActiveActors();
+		int listIndex = TurtleShape.valueOf(activeActors.get(activeActors.size() - 1).getShape().toString()).ordinal();
+		return listIndex + 1;
+	}
+
+	public int setShape(int index) {
+		alterActors((a) -> a.setShape(TurtleShape.values()[index - 1]));
+		update();
 		return index;
 	}
+
+	public DoubleProperty getPenWidth() {
+		return currentPenWidth;
+	}
+
+	public int setPenSize(int pixels) {
+		currentPenWidth.set(pixels);
+		return pixels;
+	}
+	
+	public int Turtles(){
+		return numberOfTurtles.get();
+	}
+
 }
+
 

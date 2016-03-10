@@ -1,19 +1,12 @@
 package frontend.features;
 
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Set;
-
 import constants.DisplayConstants;
 import constants.ResourceConstants;
-import frontend.slogo.team04.Workspace;
 import frontend.slogo.team04.WorkspaceManager;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
 
 public class FileOption extends Menu {
 

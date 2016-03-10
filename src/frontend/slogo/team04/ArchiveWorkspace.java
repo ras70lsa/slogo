@@ -10,7 +10,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-import model.ExecutionState;
 import model.Model;
 import model.ModelLine;
 public class ArchiveWorkspace {
