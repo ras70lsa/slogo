@@ -61,4 +61,8 @@ public class RGBColor {
 	public int getIndex(){
 		return index.get();
 	}
+
+	public void setIndex(int index) {
+		this.index.set(index);
+	}
 }

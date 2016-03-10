@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Stack;
 
 import frontend.features.TurtleShape;
+import interfaces.slogo.team04.IView;
 import backend.structures.Pen;
 import backend.structures.RGBColor;
 import javafx.beans.property.BooleanProperty;
@@ -227,6 +228,10 @@ public class Actor {
 	
 	public void setPenWidth(double d) {
 		pen.setLineWidth(d);
+	}
+
+	public Pen getPen() {
+		return pen;
 	}
 }
 
