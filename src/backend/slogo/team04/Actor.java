@@ -40,6 +40,7 @@ public class Actor {
 	private Stack<ModelLine> myLines;
 	private Pen pen;
 	private TurtleShape myShape;
+	private boolean isStamp;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = new SimpleDoubleProperty();
@@ -178,7 +179,9 @@ public class Actor {
 	}
 
 	public void toggleActive() {
-		active.set(!active.get());
+		if (!isStamp){
+			active.set(!active.get());
+		}
 	}
 	
 	public BooleanProperty getActive() {
@@ -233,6 +236,15 @@ public class Actor {
 
 	public Pen getPen() {
 		return pen;
+	}
+	
+	public void setStamp(){
+		active.set(false);
+		isStamp = true;
+	}
+	
+	public boolean isStamp(){
+		return isStamp;
 	}
 }
 

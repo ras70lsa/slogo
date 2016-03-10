@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+
 import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
@@ -258,8 +260,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public int PenColor() {
-		ArrayList<Actor> activeActors = findActiveActors();
-		RGBColor penColor = activeActors.get(activeActors.size() - 1).getPen().getPenColor();
+		Actor activeActor = findActiveActor();
+		RGBColor penColor = activeActor.getPen().getPenColor();
 		return colorListProperty.indexOf(penColor);
 	}
 
@@ -302,16 +304,15 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 
 	}
 
-	public ArrayList<Actor> findActiveActors() {
+	public Actor findActiveActor() {
 		ArrayList<Actor> activeActors = new ArrayList<Actor>();
 		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);
-		;
-		return activeActors;
+		return activeActors.get(activeActors.size()-1);
 	}
 
 	public int Shape() {
-		ArrayList<Actor> activeActors = findActiveActors();
-		int listIndex = TurtleShape.valueOf(activeActors.get(activeActors.size() - 1).getShape().toString()).ordinal();
+		Actor activeActors = findActiveActor();
+		int listIndex = TurtleShape.valueOf(activeActors.getShape().toString()).ordinal();
 		return listIndex + 1;
 	}
 
@@ -339,6 +340,20 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		colorListProperty.add(newColor);
 	}
 
+	public int Stamp(){
+		Actor lastActiveTurtle = findActiveActor();
+		Actor stamp = new Actor(lastActiveTurtle.getXLocation(),lastActiveTurtle.getYLocation(), lastActiveTurtle.getHeading(), lastActiveTurtle.getPenDown() == 1);
+		stamp.setStamp();
+		actors.add(stamp);
+		return 0;
+	}
+	
+	public int clearStamp(){
+		List<Actor> stamps = actors.stream().filter((a) -> a.isStamp()).collect(Collectors.toList());
+		int size = stamps.size();
+		actors.removeAll(stamps);
+		return (size == 0)? 0:1;
+	}
 }
 
 
