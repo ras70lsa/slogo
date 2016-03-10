@@ -19,6 +19,7 @@ import model.MenuFeature;
  * The advanced options give the user a greater set of options to chose from to set preferences 
  * instead of having to use the palette feature
  * @author RyanStPierre
+ * @author jonathanim - refractor partner for lab
  *
  */
 public class Option extends MenuFeature {
