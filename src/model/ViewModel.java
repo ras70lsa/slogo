@@ -11,6 +11,8 @@ import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.IView;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -36,6 +38,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private ListProperty<RGBColor> colorListProperty;
 	private ImageProperty currentActiveImage;
 	private DoubleProperty currentPenWidth;
+	private IntegerBinding numberOfTurtles;
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
@@ -50,6 +53,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		isShowing = true;
 		generateColorListProperty();
 		currentActiveImage = new ImageProperty();
+		numberOfTurtles = Bindings.size(actors);
 		addListeners(turtle);
 	}
 
@@ -323,6 +327,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public int setPenSize(int pixels) {
 		currentPenWidth.set(pixels);
 		return pixels;
+	}
+	
+	public int Turtles(){
+		return numberOfTurtles.get();
 	}
 
 }
