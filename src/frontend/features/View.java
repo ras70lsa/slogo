@@ -245,7 +245,6 @@ public class View extends StaticPane implements Observer {
 		original[1] = n.getEndY();
 		
 		if(linesIntersect(n, TopLine)==true){
-			System.out.println("Intercept top");
 			return getLineIntersection(n, TopLine);	
 		}
 		else if(linesIntersect(n, BottomLine)==true){

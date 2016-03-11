@@ -162,18 +162,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
                 hasColor = true;
             }
         }
-
-        for (RGBColor c : colorListProperty) {
-            if (c.getIndex() == index) {
-                if (hasColor) {
-
-                }
-            }
-        }
-
         colorListProperty.sorted();
         return index;
-
     }
 
     public Actor findActiveActor() {
@@ -243,9 +233,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     @Override
     public double setHeading(double degrees, double turtleID) {
         if (actors.get(0) != null) {
-            double oldHeading = actors.get(0).getHeading();
+            double oldHeading = getActor(turtleID).getHeading();
             getActor(turtleID).setHeading(degrees);
-            actors.get(0).setHeading(degrees);
+            getActor(turtleID).setHeading(degrees);
             return Angle.calculateAngleRotated(oldHeading, getActor(turtleID).getHeading());
         }
         return 0;
@@ -262,8 +252,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     @Override
     public double setxy(double x, double y, double turtleID) {
         if (actors.get(0) != null) {
-            double oldX = actors.get(0).getXLocation();
-            double oldY = actors.get(0).getYLocation();
+            double oldX = getActor(turtleID).getXLocation();
+            double oldY = getActor(turtleID).getYLocation();
             getActor(turtleID).setxy(x, y);
             return Distance.calculateDistance(oldX, oldY, x, y);
         }
