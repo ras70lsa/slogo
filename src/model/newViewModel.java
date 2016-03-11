@@ -26,12 +26,12 @@ import properties.ImageProperty;
 import utilities.Angle;
 import utilities.Distance;
 
-public class ViewModel extends Observable implements IView, ISlogoModelActions {
+public class newViewModel extends Observable implements IView, ISlogoModelActionsExtended {
 
 	private static final double RGB_MAX = 255;
 	private static final double RGB_INTERVAL = 255 / 2 + 1;
 	private ListProperty<Actor> actors;
-	private Actor turtle;
+	private ListProperty<Actor> stamps;
 	private boolean penIsDown;
 	private boolean isShowing;
 	private Stack<ModelLine> lineManager;
@@ -42,32 +42,30 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	private DoubleProperty currentPenWidth;
 	private IntegerBinding numberOfTurtles;
 
-	public ViewModel() {
+	public newViewModel() {
 		backgroundColor = new ColorProperty();
 		penColor = new ColorProperty();
 		currentPenWidth = new SimpleDoubleProperty();
 		penIsDown = true;
-		turtle = new Actor(0, 0, Angle.HALF_CIRCLE / 2, penIsDown);
 		ObservableList<Actor> list = FXCollections.observableArrayList();
 		actors = new SimpleListProperty<Actor>(list);
-		actors.add(turtle);
+		addActor();
 		lineManager = new Stack<ModelLine>();
 		isShowing = true;
 		generateColorListProperty();
 		currentActiveImage = new ImageProperty();
 		numberOfTurtles = Bindings.size(actors);
-		addListeners(turtle);
+		addListeners(actors.get(actors.getSize()-1));
 	}
 
 	@Override
 	public void addActor() {
-
 		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE / 2, penIsDown);
 		actors.add(newActor);
 		addListeners(newActor);
 		update();
-
 	}
+	
 
 	private void addListeners(Actor actor) {
 		currentActiveImage.addListener((z, b, c) -> {
@@ -82,119 +80,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		});
 	}
 
-	public void alterActors(Consumer<Actor> action) {
-		actors.stream().filter((a) -> a.getActive().get()).forEach(action);
-	}
-
-	@Override
-	public double forward(double pixels) {
-		alterActors((a) -> a.forward(pixels));
-		return pixels;
-	}
-
-	@Override
-	public double back(double pixels) {
-		alterActors((a) -> a.forward(-pixels));
-		return -pixels;
-	}
-
-	@Override
-
-	public double left(double degrees) {
-		alterActors((a) -> a.rotateCounterClockwise(degrees));
-		return degrees;
-	}
-
-	@Override
-	public double right(double degrees) {
-		alterActors((a) -> a.rotateClockwise(degrees));
-		return degrees;
-	}
-
-	@Override
-	public double setHeading(double degrees) {
-
-		if (actors.get(0) != null) {
-			double oldHeading = actors.get(0).getHeading();
-			alterActors((a) -> a.setHeading(degrees));
-			actors.get(0).setHeading(degrees);
-			return Angle.calculateAngleRotated(oldHeading, turtle.getHeading());
-		}
-		return 0;
-	}
-
-	@Override
-	public double towards(double x, double y) {
-
-		alterActors((a) -> {
-			double newHeading = Angle.calculateAngleBetweenPoints(a.getXLocation(), a.getYLocation(), x, y);
-			a.setHeading(newHeading);
-		});
-		return 0;
-	}
-
-	@Override
-	public double setxy(double x, double y) {
-		if (actors.get(0) != null) {
-			double oldX = actors.get(0).getXLocation();
-			double oldY = actors.get(0).getYLocation();
-			alterActors((a) -> a.setxy(x, y));
-			return Distance.calculateDistance(oldX, oldY, x, y);
-		}
-
-		return 0;
-	}
-
-	@Override
-	public double penDown() {
-		penIsDown = true;
-		alterActors((a) -> a.setPenDown(true));
-		return 0;
-	}
-
-	@Override
-	public double penUp() {
-		penIsDown = false;
-		alterActors((a) -> a.setPenDown(false));
-		return 0;
-	}
-
-	@Override
-	public double showTurtle() {
-		alterActors((a) -> a.setShowing(true));
-		return 1;
-	}
-
-	@Override
-	public double hideTurtle() {
-		alterActors((a) -> a.setShowing(true));
-		return 0;
-	}
-
-	@Override
-	public double home() {
-		return setxy(0, 0);
-	}
-
-	@Override
-	public double xCor() {
-		return turtle.getXLocation();
-	}
-
-	@Override
-	public double yCor() {
-		return turtle.getYLocation();
-	}
-
-	@Override
-	public double heading() {
-		return turtle.getHeading();
-	}
-
-	@Override
-	public double isShowing() {
-		return (isShowing) ? 1 : 0;
-	}
 
 	@Override
 	public ColorProperty getBackgroundColor() {
@@ -205,11 +90,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	public double clearScreen() {
 		actors.stream().forEach((a) -> a.clearLines());
 		return 0;
-	}
-
-	@Override
-	public double isPenDown() {
-		return turtle.getPenDown();
 	}
 
 	@Override
@@ -258,13 +138,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return colorListProperty;
 	}
 
-	public double PenColor() {
+	public double setPenColor() {
 		Actor activeActor = findActiveActor();
 		RGBColor penColor = activeActor.getPen().getPenColor();
 		return colorListProperty.indexOf(penColor);
 	}
 
-	public double setBackgroundColor(int index) {
+	public double setBackground(int index) {
 		for (RGBColor c : colorListProperty) {
 			if (c.getIndex() == index) {
 				backgroundColor.set(c);
@@ -304,9 +184,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public Actor findActiveActor() {
-		ArrayList<Actor> activeActors = new ArrayList<Actor>();
-		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);
-		return activeActors.get(activeActors.size() - 1);
+//		ArrayList<Actor> activeActors = new ArrayList<Actor>();
+//		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);
+		return getActiveActors().get(getActiveActors().size() - 1);
 	}
 
 	public double Shape() {
@@ -316,7 +196,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 	}
 
 	public double setShape(int index) {
-		alterActors((a) -> a.setShape(TurtleShape.values()[index - 1]));
+		getActor(index).setShape(TurtleShape.values()[index - 1]);
 		update();
 		return (double) index;
 	}
@@ -325,7 +205,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		return currentPenWidth;
 	}
 
-	public double setPenSize(int pixels) {
+	public double setPenSize(double pixels) {
 		currentPenWidth.set(pixels);
 		return pixels;
 	}
@@ -344,14 +224,200 @@ public class ViewModel extends Observable implements IView, ISlogoModelActions {
 		Actor stamp = new Actor(lastActiveTurtle.getXLocation(), lastActiveTurtle.getYLocation(),
 				lastActiveTurtle.getHeading(), lastActiveTurtle.getPenDown() == 1);
 		stamp.setStamp();
-		actors.add(stamp);
+		stamps.add(stamp);
 		return 0;
 	}
 
-	public double clearStamp() {
-		List<Actor> stamps = actors.stream().filter((a) -> a.isStamp()).collect(Collectors.toList());
+	public double clearStamps() {
 		int size = stamps.size();
-		actors.removeAll(stamps);
+		stamps.clear();
 		return (size == 0) ? 0 : 1;
 	}
+
+	@Override
+	public double forward(double pixels, double turtleID) {
+		getActor(turtleID).forward(pixels);
+		return pixels;
+	}
+
+	@Override
+	public double back(double pixels, double turtleID) {
+		getActor(turtleID).forward(-pixels);
+		return pixels;
+	}
+
+	@Override
+	public double left(double degrees, double turtleID) {
+		getActor(turtleID).rotateCounterClockwise(degrees);
+		return degrees;
+	}
+
+	@Override
+	public double right(double degrees, double turtleID) {
+		getActor(turtleID).rotateClockwise(degrees);
+		return degrees;
+	}
+
+	@Override
+	public double setHeading(double degrees, double turtleID) {
+		if (actors.get(0) != null) {
+			double oldHeading = actors.get(0).getHeading();
+			getActor(turtleID).setHeading(degrees);
+			actors.get(0).setHeading(degrees);
+			return Angle.calculateAngleRotated(oldHeading, getActor(turtleID).getHeading());
+		}
+		return 0;
+	}
+
+	@Override
+	public double towards(double x, double y, double turtleID) {
+		double newHeading = Angle.calculateAngleBetweenPoints(
+				getActor(turtleID).getXLocation(), getActor(turtleID).getYLocation(), x, y);
+		getActor(turtleID).setHeading(newHeading);
+		return 0;
+	}
+
+	@Override
+	public double setxy(double x, double y, double turtleID) {
+		if (actors.get(0) != null) {
+			double oldX = actors.get(0).getXLocation();
+			double oldY = actors.get(0).getYLocation();
+			getActor(turtleID).setxy(x, y);
+			return Distance.calculateDistance(oldX, oldY, x, y);
+		}
+		return 0;
+	}
+
+	@Override
+	public double penDown(double turtleID) {
+		penIsDown = true;
+		getActor(turtleID).setPenDown(true);
+		return 0;
+	}
+
+	@Override
+	public double penUp(double turtleID) {
+		penIsDown = false;
+		getActor(turtleID).setPenDown(false);
+		return 0;
+	}
+
+	@Override
+	public double showTurtle(double turtleID) {
+		getActor(turtleID).setShowing(true);
+		return 1;
+	}
+
+	@Override
+	public double hideTurtle(double turtleID) {
+		getActor(turtleID).setShowing(false);
+		return 0;
+	}
+
+	@Override
+	public double home(double turtleID) {
+		// TODO Auto-generated method stub
+		return setxy(0, 0, turtleID);
+	}
+
+	@Override
+	public double isPenDown(double turtleID) {
+		// TODO Auto-generated method stub
+		return getActor(turtleID).getPenDown();
+	}
+
+	@Override
+	public double isShowing(double turtleID) {
+		return (getActor(turtleID).getVisible()) ? 1 : 0;
+	}
+
+	@Override
+	public double xCor(double turtleID) {
+		return getActor(turtleID).getXLocation();
+	}
+
+	@Override
+	public double yCor(double turtleID) {
+		// TODO Auto-generated method stub
+		return getActor(turtleID).getYLocation();
+	}
+
+	@Override
+	public double heading(double turtleID) {
+		return getActor(turtleID).getHeading();
+	}
+
+	
+	public ArrayList<Actor> getActiveActors(){
+		ArrayList<Actor> activeActors = new ArrayList<Actor>();
+		actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);
+		return activeActors;
+	}
+	
+	@Override
+	public boolean[] activeTurtles() {
+		ArrayList<Boolean> activeTurtles = new ArrayList<Boolean>();
+		actors.stream().forEach(a -> activeTurtles.add(a.getActive().getValue()));
+		boolean output[] = new boolean[activeTurtles.size()];
+		for (int i=0; i<output.length; i++){
+			output[i] = activeTurtles.get(i);
+		}
+		return output;
+	}
+
+
+	@Override
+	public double penColor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double shape() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double ID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double turtles() {
+		return actors.size();
+	}
+
+	@Override
+	public double tell(int[] arrayOfActiveTurtleIDs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void pushCurrentActive() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void popCurrentActive() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public Actor getActor(double turtleID){
+		return actors.get((int)turtleID);
+	}
+
+	@Override
+	public double setPenColor(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
+
+
+
+
