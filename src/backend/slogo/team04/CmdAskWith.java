@@ -48,6 +48,7 @@ public class CmdAskWith extends CommandTreeNode {
 
             }
         }
+        
         myController.tell(getArrayOfTrueIndex(turtleHasActed));
         //need to set the array in the model to match
         toReturn = myIDIterator.executeCommand(myController, myInterpreter);
@@ -64,7 +65,7 @@ public class CmdAskWith extends CommandTreeNode {
             }
 
         }
-        int[] rightTypeToReturn = new int[listToConvert.size()];
+        int[] rightTypeToReturn = new int[toReturn.size()];
         for(int i = 0; i < toReturn.size(); i++){
             rightTypeToReturn[i] = toReturn.get(i).intValue();
         }
