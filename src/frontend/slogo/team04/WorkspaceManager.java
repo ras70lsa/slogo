@@ -1,13 +1,17 @@
 package frontend.slogo.team04;
 
 
+import java.io.File;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import archive.ArchiveWorkspace;
+import archive.XMLReader;
 import archive.XMLWriter;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
+import exceptions.ImproperFileException;
+import frontend.features.AlertMessage;
 import frontend.features.SaveAlert;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -22,7 +26,9 @@ import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class WorkspaceManager {
 	
@@ -142,6 +148,20 @@ public class WorkspaceManager {
 			List<String> commandNames = currentWorkspace.getModel().getExecutionState().getCommands();
 			XMLWriter writer = new XMLWriter();
 			writer.save(nameInput.getResult(), commandNames);
+		}
+	}
+
+	public void loadCommandScript() {
+		FileChooser load = new FileChooser();
+		File selectedFile = load.showOpenDialog(mainStage);
+		if (selectedFile != null) {
+			XMLReader reader = new XMLReader();
+			try {
+				reader.execute(selectedFile);
+			} catch (Exception e) {
+				AlertMessage alert = new AlertMessage(e.getMessage());
+				alert.displayError();
+			}
 		}
 	}
 
