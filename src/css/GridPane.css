@@ -46,3 +46,12 @@
     -fx-background-color: transparent;
     -fx-text-fill: #000000;
 }
+
+
+.menu-item:focused {
+     -fx-background-color: #0000b3;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: #FFFFFF;
+}
