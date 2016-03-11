@@ -1,5 +1,6 @@
 package model;
 
+import java.util.List;
 import java.util.Map;
 
 import backend.slogo.team04.Variable;
@@ -60,12 +61,19 @@ public class VariableModel implements IVariable {
 
 	public double getVariableValue(String name) {
 		
-		for(Variable variable: getCurrentList()) {
-			if(variable.getName().get().equals(name.toLowerCase())) {
-				return variable.getDoubleValue().get();
+		System.out.println(name);
+		//System.out.println(currentLevel);
+		for(int i = currentLevel; i>=0; i--) {
+			System.out.println("i" + i);
+			List<Variable> currentPosition = stack.get(i);
+			for(Variable variable: currentPosition) {
+				if(variable.getName().get().equals(name.toLowerCase())) {
+					System.out.println(variable.getDoubleValue().get());
+					return variable.getDoubleValue().get();
+				}
 			}
 		}
-		
+		System.out.println("Found nothing");
 		return setVariable(name.toLowerCase(), 0d);
 	}
 
