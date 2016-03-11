@@ -1,5 +1,6 @@
 package model;
 
+import java.util.List;
 import java.util.Map;
 
 import backend.slogo.team04.Variable;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 public class VariableModel implements IVariable {
 
 	private ListProperty<ListProperty<Variable>> stack;
+	private static final double ZERO = 0d;
 	private int currentLevel;
 	private final int BASE_LEVEL = 0;
 	
@@ -59,14 +61,18 @@ public class VariableModel implements IVariable {
 	}
 
 	public double getVariableValue(String name) {
-		
-		for(Variable variable: getCurrentList()) {
-			if(variable.getName().get().equals(name.toLowerCase())) {
-				return variable.getDoubleValue().get();
+	
+		for(int i = currentLevel; i>=0; i--) {
+			System.out.println("i" + i);
+			List<Variable> currentPosition = stack.get(i);
+			for(Variable variable: currentPosition) {
+				if(variable.getName().get().equals(name.toLowerCase())) {
+					System.out.println(variable.getDoubleValue().get());
+					return variable.getDoubleValue().get();
+				}
 			}
 		}
-		
-		return setVariable(name.toLowerCase(), 0d);
+		return setVariable(name.toLowerCase(), ZERO);
 	}
 
 	@Override
