@@ -37,7 +37,7 @@ public class CmdCommand extends CommandTreeNode {
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
-        for (int i = 0; i < listOfVariables.size(); i++) {
+    	for (int i = 0; i < listOfVariables.size(); i++) {
             listOfVariableAssignments.add(CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter));
         }
         return this;
@@ -63,11 +63,17 @@ public class CmdCommand extends CommandTreeNode {
 
     @Override
     public String parsableRepresentation () {
-        String toReturn = myName;
-        for(INonLinearCommand cmd : listOfVariableAssignments){
-            toReturn = toReturn + CommandTreeNode.SPACE + cmd.parsableRepresentation();
-        }
-        return toReturn;
+        String toReturn = myName + CommandTreeNode.LEFT_BRACKET + variableNames() + CommandTreeNode.RIGHT_BRACKET;
+        toReturn = appendParsableRepresentationWithSpaces(toReturn + CommandTreeNode.LEFT_BRACKET, listOfCommands);
+        return toReturn + CommandTreeNode.RIGHT_BRACKET;
+    }
+    
+    private String variableNames () {
+    	String toReturn = CommandTreeNode.EMPTY_STRING;
+    	for (CmdVariable var : listOfVariables){
+    		toReturn += CommandTreeNode.SPACE + var.parsableRepresentation();
+    	}
+    	return toReturn;
     }
 
 

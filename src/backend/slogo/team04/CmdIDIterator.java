@@ -50,18 +50,12 @@ public class CmdIDIterator extends CommandTreeNode {
                     turtleHasActed.set(i, true);
                     toReturn = this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter);
                 }
+                
             }
         }
         return toReturn;
     }
 
-
-
-    private void listFalseBooleanAdder(int numberOfFalsesToAdd, List<Boolean> myList){
-        for(int i = 0; i < numberOfFalsesToAdd; i++){
-            myList.add(Boolean.FALSE);
-        }
-    }
 
 
     @Override

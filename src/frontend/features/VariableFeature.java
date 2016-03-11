@@ -15,15 +15,12 @@ import javafx.beans.property.ListProperty;
  */
 public class VariableFeature extends TitlePaneFeature {
 
-	private IVariable model;
 	private ListProperty<ListProperty<Variable>> stack;
-	
 	private TabPane tabs;
 	
 	public VariableFeature(IVariable variables) {
 		setText(getString("VariableTitle"));
 		this.stack = variables.getStack();
-		model = variables;
 		setUpTabs();
 		setListeners();
 	}

@@ -219,6 +219,14 @@ public class BackendTestNullModelActor implements ISlogoModelActionsExtended{
         
     }
 
+
+
+	@Override
+	public void addActor(boolean visible) {
+		// TODO Auto-generated method stub
+		
+	}
+
     
     
 

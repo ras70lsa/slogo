@@ -25,6 +25,8 @@ public class FileOption extends MenuFeature{
 	Map<String, EventHandler<ActionEvent>> menuItems = new TreeMap<>();{
 	     menuItems.put(getString("New"), e-> create());
 	     menuItems.put(getString("Save"), e-> manager.getDialog());
+	     menuItems.put(getString("SaveCommand"), e -> manager.saveCommands());
+	     menuItems.put(getString("OpenScript"), e -> manager.loadCommandScript());
 	};
 	
 	public FileOption(WorkspaceManager manager, String title) {

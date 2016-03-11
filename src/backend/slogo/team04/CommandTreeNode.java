@@ -89,6 +89,12 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         }
         return toReturn;
     }
+
+    protected void listFalseBooleanAdder (int numberOfFalsesToAdd, List<Boolean> myList) {
+        for(int i = 0; i < numberOfFalsesToAdd; i++){
+            myList.add(Boolean.FALSE);
+        }
+    }
     
    
 

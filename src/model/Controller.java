@@ -70,6 +70,12 @@ public class Controller {
 		model.addActor();
 		
 	}
+
+	public void debug() {
+		//Add code here
+		System.out.println("debug");
+		
+	}
     
 
 
