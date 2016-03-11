@@ -26,4 +26,5 @@ public interface IView{
 	public void setPenStyle(String selectedItem);
 	public DoubleProperty getPenWidth();
 	public double setShape(int index);
+	public List<Actor> getStamps();
 }

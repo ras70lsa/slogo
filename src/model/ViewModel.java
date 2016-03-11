@@ -28,7 +28,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	private static final double RGB_MAX = 255;
 	private static final double RGB_INTERVAL = 255 / 2 + 1;
 	private ListProperty<Actor> actors;
-	private ListProperty<Actor> stamps;
+	private List<Actor> stamps;
 	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
 	private ColorProperty penColor;
@@ -45,6 +45,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		ObservableList<Actor> list = FXCollections.observableArrayList();
 		actors = new SimpleListProperty<Actor>(list);
 		addActor();
+		stamps = new ArrayList<Actor>();
 		lineManager = new Stack<ModelLine>();
 		generateColorListProperty();
 		addListeners(actors.get(actors.getSize() - 1));
@@ -191,8 +192,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	}
 
 	public double stamp() {
-		List<Actor> stamps = actors.stream().map((a) -> new Actor(a.getXLocation(), a.getYLocation(), a.getHeading(),
-				a.getPenDown() == 1, actors.size() + 1)).collect(Collectors.toList());
+		for (Actor a: actors){
+			Actor newActor = new Actor(a.getXLocation(), a.getYLocation(), a.getHeading(),a.getPenDown() == 1, actors.size() + 1);
+			newActor.setImageProperty(a.getImage());
+			stamps.add(newActor);
+	
+		}
 		stamps.stream().forEach((a) -> a.setStamp());
 		return 0;
 	}
@@ -205,14 +210,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	@Override
 	public double forward(double pixels, double turtleID) {
-		stamp();
 		getActor(turtleID).forward(pixels);
 		return pixels;
 	}
 
 	@Override
 	public double back(double pixels, double turtleID) {
-		clearStamps();
 		getActor(turtleID).forward(-pixels);
 		return pixels;
 	}
@@ -414,7 +417,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		for (int i = 0; i < activeTurtles().length; i++) {
 			activeStates.add(activeTurtles()[i]);
 		}
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -423,6 +425,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		penColor.set(newColor);
 		actors.stream().forEach((a) -> a.setPenColor(newColor));
 		return index;
+	}
+
+	@Override
+	public List<Actor> getStamps() {
+		return stamps;
 	}
 }
 

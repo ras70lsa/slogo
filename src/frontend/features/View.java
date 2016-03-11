@@ -95,10 +95,15 @@ public class View extends StaticPane implements Observer {
 		
 		for(Actor actor: model.getActorProperty()) {
 			if(actor.getVisible()) {
+				System.out.println("I'm here!");
 				draw(actor);
 			}
 		}
 		
+		for (Actor actor: model.getStamps()){
+			System.out.println("I'm here");
+			draw(actor);
+		}
 	}
 	
 	private void draw(Actor turtle) {
@@ -163,11 +168,6 @@ public class View extends StaticPane implements Observer {
 			eX = endX - (numTimesXWidthRemoved * DisplayConstants.VIEW_WIDTH);
 			eY = endY - (numTimesYWidthRemoved * DisplayConstants.VIEW_HEIGHT);
 		}
-		System.out.println("SX: " + sX);
-		System.out.println("SY: " + sY);
-		System.out.println("EX: " + eX);
-		System.out.println("EY: " + eY);
-		System.out.println("");
 		Line n = new Line();
 		n.getStrokeDashArray().addAll(line.getStyle());
 		Color color = new Color(line.getColor().getRed(), line.getColor().getGreen(), line.getColor().getBlue(), ALPHA);
