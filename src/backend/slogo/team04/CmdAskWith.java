@@ -68,6 +68,8 @@ public class CmdAskWith extends CommandTreeNode {
         int[] rightTypeToReturn = new int[toReturn.size()];
         for(int i = 0; i < toReturn.size(); i++){
             rightTypeToReturn[i] = toReturn.get(i).intValue();
+            
+            
         }
 
             return rightTypeToReturn;
