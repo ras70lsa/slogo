@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0084)http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands2_J2W.php -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+ <title>CompSci 308 : Spring 2016</title>
+ <meta http-equiv="content-language" content="en-us">
+ 
+ <meta http-equiv="content-style-type" content="text/css">
+ <meta name="author" content="Robert C. Duvall">
+ <meta name="robots" content="all">
+ <link href="./CommandsExtended_files/horizontal.css" type="text/css" rel="stylesheet" media="screen">
+ <link href="./CommandsExtended_files/common.css" type="text/css" rel="stylesheet" media="screen">
+ <link href="./CommandsExtended_files/compsci308.css" type="text/css" rel="stylesheet" media="screen">
+ <link href="./CommandsExtended_files/print.css" type="text/css" rel="stylesheet" media="print">
+</head>
+
+<body>
+<div class="contentPane">
+  <div class="header">
+    <table>
+      <tbody><tr>
+        <td class="left">CompSci 308<br>Spring 2016</td>
+        <td class="right">Software Design and Implementation</td>
+      </tr>
+    </tbody></table>
+  </div>
+	
+  <div class="nav">
+    <ul>
+      <li><a href="http://www.cs.duke.edu/courses/compsci308/spring16/">Home</a></li>
+      <li><a href="http://www.cs.duke.edu/courses/compsci308/spring16/classwork">Calendar</a></li>
+      <li><a class="selected" href="http://www.cs.duke.edu/courses/compsci308/spring16/assign">Projects</a></li>
+      <li><a href="http://www.cs.duke.edu/courses/compsci308/spring16/resources">Resources</a></li>
+      <li><a href="http://piazza.com/class#spring2016/compsci308/" target="new">Discussion</a></li>
+      <li><a href="http://www.cs.duke.edu/courses/compsci308/spring16/admin">Policies</a></li>
+    </ul>
+  </div>
+
+  <div class="mainBody">
+
+<h3><a href="http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/index.php">SLogo</a>  Extended Commands</h3>
+
+<h4>Display Commands</h4>
+<p>Note, for commands below that receive/return an index number, that index should refer to a list of  graphical items (like an image or color) whose items are clearly available in the GUI with their number or order apparent (so the user knows how to refer  to them within a command). Also, it would be helpful to populate each list with some initial default choices for the user.</p>
+
+<table border="1">
+<tbody><tr>
+  <th>Command</th>
+  <th>Description</th>
+  </tr>
+<tr>
+  <td><code>SETBACKGROUND</code> <em>index</em><br>
+      <code>SETBG</code> <em>index</em>
+  </td>
+  <td>sets background color of screen to that represented by <em>index</em><br>
+    returns given <em>index</em></td>
+  </tr>
+<tr>
+  <td><code>SETPENCOLOR</code> <em>index</em><br>
+      <code>SETPC</code> <em>index</em>
+  </td>
+  <td>sets color of the pen to that represented by <em>index</em><br>
+    returns given <em>index</em></td>
+  </tr>
+<tr>
+  <td><code>SETPENSIZE</code> <em>pixels</em><br>
+      <code>SETPS</code> <em>pixels</em>
+  </td>
+  <td>sets size of the pen to be <em>pixels</em> thickness<br>
+    returns given <em>pixels</em></td>
+  </tr>
+<tr>
+  <td><code>SETSHAPE</code> <em>index</em><br>
+      <code>SETSH</code> <em>index</em>
+  </td>
+  <td>sets shape of turtle to that represented by <em>index</em><br>
+    returns given <em>index</em></td>
+  </tr>
+<tr>
+  <td><code>SETPALETTE</code> <em>index</em> <em>r</em> <em>g</em> <em>b</em></td>
+  <td>sets color corresponding at given <em>index</em> to given <em>r</em> <em>g</em> <em>b</em> color values<br>
+    returns given <em>index</em><br>
+    note, color component values are nonnegative integers less than 256 specifying an amount of red, green, and blue </td>
+  </tr>
+<tr>
+  <td><code>PENCOLOR<br>
+  </code><code>PC</code></td>
+  <td>returns  turtle's current color index</td>
+  </tr>
+<tr>
+  <td><code>SHAPE</code><br>
+    <code>SH</code><em></em></td>
+  <td>returns   turtle's current shape index</td>
+  </tr>
+<tr>
+  <td><code>STAMP</code></td>
+  <td>draw the image of the turtle in its current settings on the workspace display<br>
+    returns the  index of the turtle's image used for the stamp</td>
+</tr>
+<tr>
+  <td><code>CLEARSTAMPS</code></td>
+  <td>remove all stamps that have been made<br>
+    returns 1 if there were any stamps  cleared, 0 otherwise</td>
+</tr>
+</tbody></table>
+<h4>Multiple Turtle Commands</h4>
+<table border="1">
+<tbody><tr>
+  <th>Command</th>
+  <th>Description</th>
+  </tr>
+<tr>
+  <td>ID</td>
+  <td>returns  current active turtle's ID number<br>
+    ID values typically start at 1 and increase by 1 with each new turtle created<br>
+    note, there is  technically only one "active turtle" at any given time since each command is run once for each active turtle, i.e., this value can always be used to identify the current turtle running the command</td>
+  </tr>
+<tr>
+  <td>TURTLES<br>
+    <br></td>
+  <td>returns  number of turtles created so far (i.e., the ID of the last turtle)</td>
+</tr>
+<tr>
+  <td><code>TELL</code> <code>[</code> <em>turtle(s)</em> <code>]</code></td>
+  <td>sets <em>turtles</em> that will follow commands hereafter<br>
+    returns last value in <em>turtles</em> list<em><br>
+      </em>note, if turtle has not previously existed, it is created and placed at the home location<br>
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+  </tr>
+<tr>
+  <td><code>ASK</code> <code>[</code> <em>turtle(s)</em> <code>]</code> <br>    
+    <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></td>
+  <td>tell <i>turtles</i> given in first list to run <em>commands</em> given in the second list<em><br>
+    </em>returns result of last command run<br>
+    note, after commands are run,  currently active list of turtles returns to that set by the last TELL command (or default active turtle if TELL never given)<br>
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+</tr>
+<tr>
+  <td><code>ASKWITH</code> <code>[</code> <em>condition</em> <code>]<br>
+  </code> <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></td>
+  <td>tell <i>turtles</i> matching  given <em>condition</em> to run <em>commands</em> given in the second list<em><br>
+    </em>returns result of last command run<br>
+    note, after commands are run,  currently active list of turtles returns to that set by the last TELL command (or default active turtle if TELL never given)<br>
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+  </tr>
+</tbody></table>
+<h4>Additional Command Notes</h4>
+<h5>Multiple turtles</h5>
+<p>Since different versions of Logo handle multiple turtles differently your team will some flexibility in how you choose to implement TELL/ASK. For example, these commands are the only way to make new turtles, so you may want to adopt the shorthand used by newer versions of Logo to create LOTS of turtles:</p>
+<blockquote>
+  <pre>tell [ 100 ]</pre>
+</blockquote>
+<p>When the original Logo supported multiple turtles, this command simply creates a second turtle (with IDs 1 and 100) and some create all the turtles up to that value (i.e., 99 additional turtles). Document your team's decision on how to handle this.</p>
+<p>Additionally, in an effort to allow multiple ways for teams to implement when evaluation of command arguments occur, consider the following code examples:</p>
+<blockquote>
+  <pre>set :x 10
+tell [ 1 2 3 ]
+# this command is only executed once
+set :x * :x :x 
+# all turtles move the same distance
+fd :x</pre>
+  <pre>set :x 10
+# team decision: do all turtles move the same distance or different?
+fd set :x + :x 10</pre>
+  <pre>set :x 10
+# all turtles definitely each move different distances
+fd * id :x</pre>
+</blockquote>
+<p>To be clear, using TELL/ASK is <em>not</em> the same as writing a loop, not all commands are run for each turtle — just the turtle commands. In the second example, if your team evaluates the arguments once and passes the values to the command, then it would make sense that the turtles all move the same distance. On the other hand, if the command evaluates its arguments, then it would make sense for the variable to get set multiple times. In short, please do not try to look at what the arguments to aÂ&nbsp;command are to decide how many times to runÂ&nbsp;it, your code will become a nightmare.</p>
+<p>Note, that the last command must return a different value for each turtle, since the "active" turtle changes each time FD is run. Thus, your ID command should be smart enough to handle this no matter when you evaluate your arguments.</p>
+<p>Lastly, commands like SETPC and SETSH act on all future commands for all turtles. If you want it to act differently a turtle property then you have to change it for each turtle (i.e., in a loop).</p>
+<h5>Unlimited parameters</h5>
+<p>It is sometimes more convenient for users to pass multiple parameters to one command than to compose multiple calls together to achieve the same affect. Thus, like Logo, add syntactic sugar to allow programmers to pass an unlimited number of parameters to commands.</p>
+<table border="1">
+  <tbody><tr>
+    <td>( <em>command</em> <em>expression(s)</em> )</td>
+    <td>allows <em>command</em> to take any number of <em>expressions</em> as parameter values<br>
+      note, this syntax is legal for any command, but only makes sense for a few commands (e.g., <code>sum</code>, <code>difference</code>, <code>product</code>, <code>and</code>, <code>or</code>, etc.)</td>
+  </tr>
+</tbody></table>
+<p>For example, the following are equivalent:</p>
+<blockquote>
+  <pre># ugly way to go FD 100
+fd sum sum sum 10 20 30 40
+# arguably cleaner way to go FD 100
+fd ( sum 10 20 30 40 )
+# what does this do: just FD 100 or FD four times (say for animation purposes) or produce an error?
+( fd 10 20 30 40 )</pre>
+</blockquote>
+<p>Document your team's decision on how to handle unlimited arguments for non-arithmetic or non-boolean commands.</p>
+<h5>Recursion</h5>
+<p>Recursion is tricky because it requires the parser to recognize the command being  defined (and its parameter count) as valid syntax before the command's own parsing is complete. If your parser can accommodate this, then you do not need the DEFINE command described below; however, it may be useful to use it to help get around that problem. Document your team's decision on this (and what happens if the user never actually implements the defined command).</p>
+
+<table border="1">
+  <tbody><tr>
+    <td><code>DEFINE <em>commandName<br>
+    </em> [ <em>parameter(s)</em> ]</code><code></code></td>
+    <td>defines  <em>command</em><em>Name</em> as a command that WILL BE created in the future, but has not yet been<br>
+      returns 1 if command is successfully defined, otherwise 0</td>
+  </tr>
+</tbody></table>
+
+<h5>Variable Scope </h5>
+<p>The original language Logo is <a href="http://en.wikipedia.org/wiki/Scope_%28programming%29#Dynamic_scoping">dynamically scoped</a>: that is, each function call inherits all the variables (and parameters) from the calling function. So you can write something like this:</p>
+  <blockquote>
+    <pre>TO square [ ] [
+   REPEAT 4 [ FD :size RT 90 ]
+]
+
+TO triangle [ :size ] [
+   REPEAT 3 [ FD :size RT 120 ]
+]
+
+TO house [ ] [
+   SET :size 100
+   square
+   FD :size
+   RT 60
+   triangle 80
+   FD :size
+]</pre>
+</blockquote>
+
+<p>In <code>square</code>, <code>:size</code> is inherited from its calling function (so its value is 100), <code>house</code> but, in <code>triangle</code>, <code>:size</code>, is defined by the parameter which overrides the more remote declaration in <code>house</code> (so its value is 80). Then in the last command <code>:size</code> is its original value again (100). In both cases, <code>:size</code> goes out of scope after the procedures are done executing (which is different than your current implementation in which all variables are global). You can write some really bad code using dynamic scoping, with lots of magic side effects and unforeseen runtime errors, but Logo is not meant for writing large programs so it usually does not come up.</p>
+</div>
+
+<div class="footer">
+  <table width="100%">
+    <tbody><tr>
+      <td class="right">
+        <a href="http://creativecommons.org/licenses/by-nc-sa/1.0">
+          <img src="./CommandsExtended_files/somerights.png" alt="Copyright 2016">
+        </a>
+      </td>
+      <td>
+        Last modified 02 Mar 2016      </td>
+      <td class="left">
+        <a href="http://www.cs.duke.edu/csed/feedback/index.php?course=compsci308">
+          <img src="./CommandsExtended_files/suggestion_box.png" alt="Feedback?">
+        </a>
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+</div>
+
+
+</body></html>

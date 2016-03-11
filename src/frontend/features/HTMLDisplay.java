@@ -16,8 +16,9 @@ import javafx.stage.Stage;
 public class HTMLDisplay {
 
 	Stage stage;
-	
-	public HTMLDisplay() {
+	String type;
+	public HTMLDisplay(String type) {
+		this.type = type;
 		makeStage();
 		setProperties();
 	}
@@ -34,8 +35,7 @@ public class HTMLDisplay {
 		 stage = new Stage();
 	     Scene scene = new Scene(new Group());
 	     VBox root = new VBox();     
-	     
-	     final WebView browser = getWebView();
+	     final WebView browser = getWebView(this.type);
 	     ScrollPane scrollPane = createScrollPane(browser);
 	 
 	     root.getChildren().add(scrollPane);
@@ -55,11 +55,16 @@ public class HTMLDisplay {
 	     stage.show();
 	}
 	
-	public WebView getWebView() {
+	public WebView getWebView(String type) {
 		 final WebView browser = new WebView();
 	     final WebEngine webEngine = browser.getEngine();
 	     ClassLoader classLoader = getClass().getClassLoader();
-	 	 String url = classLoader.getResource(CSSPathConstants.HELP).toExternalForm();  
+	     String url;
+	     if(type.equals("Extended")){
+	    	 url = classLoader.getResource(CSSPathConstants.HELP_EXTENDED).toExternalForm();
+	     }else{
+	    	 url = classLoader.getResource(CSSPathConstants.HELP).toExternalForm();
+	     }
 	     webEngine.load(url);
 	     return browser;
 	}

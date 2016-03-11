@@ -79,7 +79,6 @@ public class WorkspaceManager {
 		myGroup.getChildren().add(tabs);
 		tabs.setOnMouseClicked(e -> makeCurrent());
 		addTab();
-		go();
 		start();
 	}
 	
@@ -93,6 +92,7 @@ public class WorkspaceManager {
 		currentTab.setOnCloseRequest(e -> attemptedClose(e));
 		tabs.getTabs().add(currentTab);
 		tabs.getSelectionModel().select(currentTab);
+		go();
 	}
 
 	/**

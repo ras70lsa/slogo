@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Stack;
 
 import frontend.features.TurtleShape;
+import interfaces.slogo.team04.IView;
 import backend.structures.Pen;
 import backend.structures.RGBColor;
 import javafx.beans.property.BooleanProperty;
@@ -38,6 +39,7 @@ public class Actor {
 	private ImageProperty image;
 	private Stack<ModelLine> myLines;
 	private Pen pen;
+	private TurtleShape myShape;
 
 	public Actor(double x, double y, double heading, boolean penIsDown) {
 		xLocation = new SimpleDoubleProperty();
@@ -59,6 +61,7 @@ public class Actor {
 	
 	public Actor(Actor save) {
 		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown.get());
+		myLines.addAll(save.getMyLines());
 	}
 
 	
@@ -96,6 +99,9 @@ public class Actor {
 		}
 	}
 
+	public Image getImageResult(){
+		return image.getValue();
+	}
 	public double getXLocation() {
 		return xLocation.get();
 	}
@@ -192,21 +198,25 @@ public class Actor {
 	}
 	
 	public void setShape(TurtleShape shape){
-		Image newImage;
+		myShape = shape;
+		Image newImage = null;
 		switch (shape) {
 		case RECTANGLE:
-			newImage = getImage("images/rectangle.png");
+			image.set(getImage("images/rectangle.png"));
 			break;
 		case CIRCLE:
-			newImage = getImage("images/circle.png");
-			image.set(newImage);
+			image.set(getImage("images/circle.png"));
 			break;
 		case ELLIPSE:
-			newImage = getImage("images/ellipse.png");
+			image.set(getImage("images/ellipse.png"));;
 			break;
 		default:	
 			
 		}
+	}
+	
+	public TurtleShape getShape(){
+		return myShape;
 	}
 	
 	public void setPenStyle(String selectedItem) {
@@ -219,6 +229,10 @@ public class Actor {
 	
 	public void clearLines() {
 		myLines.clear();
+	}
+
+	public Pen getPen() {
+		return pen;
 	}
 }
 
