@@ -52,7 +52,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	@Override
 	public void addActor() {
-		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE / 2, true, actors.size() + 1);
+		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE / 2, true, actors.size());
 		actors.add(newActor);
 		addListeners(newActor);
 		update();
