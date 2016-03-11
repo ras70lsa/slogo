@@ -16,7 +16,7 @@ public class Communicator implements ICommunicator{
 	}
 	
 	public void addActor() {
-		model.getViewInterface().addActor();
+		model.getViewInterface().addActor(true);
 	}
 		
 	public String getLanguage() {
