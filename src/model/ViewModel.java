@@ -413,6 +413,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 					currentActiveTurtles.add(new Boolean(true));
 			}
 		}
+		for(int j = max; j<oldSize; j++) {
+			actors.get().get(j).setActive(false);
+		}
 		
 		return actors.size() - 1;
 	}
