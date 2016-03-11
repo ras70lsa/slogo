@@ -53,9 +53,16 @@ public class XMLReader {
 		
 		documentBuilder= documentBuilderFactory.newDocumentBuilder();
 		document = documentBuilder.parse(file);
-		Element e = getElement("Element1");
-		String toAdd = "";
-		giveUserInfo(toAdd, executionState);
+		int counter = 0;
+		while(true) {
+			Element element = getElement("Element" + counter);
+			if(element == null) {
+				break;
+			}
+			String toAdd = element.getTextContent();
+			giveUserInfo(toAdd, executionState);
+			counter++;
+		}
 	}
 	
 	private Element getElement(String key) {

@@ -52,9 +52,8 @@ public class XMLWriter {
 	private void addContent(List<String> commandNames, List<INonLinearCommand> commandNodes) {
 		
 		for(int i = 0; i<commandNames.size(); i++) {
-			Element name = document.createElement(commandNames.get(i));
+			Element name = document.createElement("Element" + i);
 			String nodeToText = commandNodes.get(i).parsableRepresentation();
-			System.out.println(nodeToText);
 			name.setTextContent(nodeToText);
 			mainElement.appendChild(name);
 		}
