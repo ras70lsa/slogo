@@ -1,4 +1,4 @@
-package model;
+package menu.contents;
 
 import java.util.ResourceBundle;
 import java.util.Map;

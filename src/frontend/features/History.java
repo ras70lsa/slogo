@@ -1,9 +1,14 @@
 package frontend.features;
 
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 import constants.ResourceConstants;
 import interfaces.slogo.team04.IHistoryModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
@@ -42,13 +47,39 @@ public class History extends InteractionListView {
 	}
 
 	private void showContextMenu(double x, double y) {
-		ContextMenu menu = new ContextMenu();
-		MenuItem item1 = new MenuItem(getString("Go"));
-		MenuItem item2 = new MenuItem(getString("ToWindow"));
-		menu.getItems().addAll(item1, item2);
-		item1.setOnAction(event -> run());
-		item2.setOnAction(event -> primaryClicked());
-		getList().setContextMenu(menu);
+		HistoryContextMenu context = new HistoryContextMenu();
+		getList().setContextMenu(context.getMenu());
+	}
+	
+	private class HistoryContextMenu {
+		
+		ContextMenu menu;
+		
+		Map<String, EventHandler<ActionEvent>> contents = new TreeMap<>();{
+		     contents.put(getString("Go"), event-> run());
+		     contents.put(getString("ToWindow"), event-> primaryClicked());
+		};
+		
+		public HistoryContextMenu() {
+			menu = new ContextMenu();
+			setUpContent();
+		}
+		
+		private void setUpContent() {
+			for(Entry<String, EventHandler<ActionEvent>> entry: contents.entrySet()) {
+				menu.getItems().add(createMenuItem(entry.getKey(), entry.getValue()));
+			}
+		}
+
+		private MenuItem createMenuItem(String title, EventHandler<ActionEvent> event) {
+			MenuItem item = new MenuItem(title);
+			item.setOnAction(event);
+			return item;
+		}
+
+		public ContextMenu getMenu() {
+			return menu;
+		}
 	}
 
 	private void run() {

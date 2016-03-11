@@ -1,16 +1,12 @@
 package menu.contents;
 
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import frontend.slogo.team04.WorkspaceManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import model.MenuFeature;
 
 public class FileOption extends MenuFeature{
 
