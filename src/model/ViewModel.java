@@ -27,6 +27,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	private static final double RGB_MAX = 255;
 	private static final double RGB_INTERVAL = 255 / 2 + 1;
+	private static final Boolean TELL_CMD_TURTLE_ACTIVE_DEFAULT = Boolean.FALSE;
+	private static final Boolean TURTLE_CREATED_ACTIVE_DEFAULT = Boolean.TRUE;
+	
 	private ListProperty<Actor> actors;
 	private List<Actor> stamps;
 	private Stack<ModelLine> lineManager;
@@ -419,24 +422,38 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	@Override
 	public void popCurrentActive() {
 		// TODO Auto-generated method stub
-	        int size = currentActiveTurtles.size();
+	        List<Boolean> prevActive = currentActiveTurtles;
 	        currentActiveTurtles = myCachedActiveTurtles.pop();
-	       // private Stack<List<Boolean>> myCachedActiveTurtles;
+	        matchSizeOfTurtleActiveArrays( prevActive, currentActiveTurtles);
 	    
-	    
-		for (int i = 0; i < actors.size(); i++) {
-			actors.get(i).getActive().set(activeStates.get(i));
-		}
+//	    
+//		for (int i = 0; i < actors.size(); i++) {
+//			actors.get(i).getActive().set(activeStates.get(i));
+//		}
 	}
 
 	@Override
 	public void pushCurrentActive() {
-		for (int i = 0; i < activeTurtles().length; i++) {
-			activeStates.add(activeTurtles()[i]);
-		}
+	    myCachedActiveTurtles.push(currentActiveTurtles);
+	    currentActiveTurtles = new ArrayList<>();
+	    matchSizeOfTurtleActiveArrays(myCachedActiveTurtles.peek(), currentActiveTurtles);
+//		for (int i = 0; i < activeTurtles().length; i++) {
+//			activeStates.add(activeTurtles()[i]);
+//		}
 	}
 	
-	//private void add
+	
+	/**
+	 * As we pop and push the active turtles, we will need to adjust the size of the boolean arrays to reflect further 
+	 * turtle additions
+	 * @param prevActive
+	 * @param nowActive
+	 */
+	private void matchSizeOfTurtleActiveArrays(List<Boolean> prevActive, List<Boolean> nowActive){
+	    while(prevActive.size() > nowActive.size()){
+	        nowActive.add(ViewModel.TELL_CMD_TURTLE_ACTIVE_DEFAULT);
+	    }
+	}
 
 	@Override
 	public double setPenColor(int index) {
