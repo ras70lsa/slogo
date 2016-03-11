@@ -11,6 +11,11 @@ import javafx.scene.input.MouseEvent;
 public abstract class InteractionListView extends TitlePaneFeature {
 
 	private ListView<String> list;
+	/**
+	 * The BooleanProperty interacted is toggled when the feature has been interacted with
+	 * This gives functionality to the class using the InteractionListView to set listeners on this feature
+	 * to update upon interaction
+	 */
 	private BooleanProperty interacted;
 	private String selectedText;
 	
