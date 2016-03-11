@@ -18,12 +18,6 @@ public class Launcher extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		WorkspaceManager workspaces = new WorkspaceManager();
-		//Model model = new Model();
-		//Controller controller = new Controller(model.getCommunicator(), model.getView());
-		//Display display = new Display(model, controller, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT,
-		//		workspaces);
-		//StartScreen start = new StartScreen(DisplayConstants.START_WIDTH, DisplayConstants.START_WIDTH, workspaces);
-		//start.start();
 		workspaces.begin();
 		
 	}
