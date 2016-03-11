@@ -2,7 +2,6 @@ package frontend.slogo.team04;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import constants.CSSPathConstants;
 import constants.DisplayConstants;
 import exceptions.LogicException;
@@ -33,7 +32,10 @@ import model.Controller;
  */
 public class Display implements IDisplay {
 
-	private Collection<Module> modules;
+	public static final int FIRST = 1; 
+	public static final int SECOND = 2; 
+	public static final int THIRD = 3; 
+	
 	private UserTextInput textInput;
 	private History history;
 	private View view;
@@ -52,13 +54,19 @@ public class Display implements IDisplay {
 		this.workspaces = workspaces;
 		this.controller = controller;
 		model = iModel;
-		modules = new ArrayList<Module>();
-		setUpScene();
+		createFeatures();
 		position();			
 		addListeners();
 		controller.update();
 		
 	}
+	
+	public void createFeatures() {
+		createModules(controller);
+		createAccordions();
+		createMenuBar();
+	}
+	
 
 	private void createAccordions() {
 		makeLeft();
@@ -72,8 +80,8 @@ public class Display implements IDisplay {
 		rightFeatures = new Accordion();
 		rightFeatures.getPanes().addAll(history, commands, variables);
 		rightFeatures.setExpandedPane(variables);
-		rightFeatures.expandedPaneProperty().addListener((a, oldView, newView) ->
-			controlCollapse(oldView, newView, rightFeatures));
+//		rightFeatures.expandedPaneProperty().addListener((a, oldView, newView) ->
+//			controlCollapse(oldView, newView, rightFeatures));
 		
 	}
 
@@ -83,23 +91,11 @@ public class Display implements IDisplay {
 		leftFeatures.getPanes().add(actors);
 		PreferenceFeature pallets = new PreferenceFeature(model.getViewInterface());
 		leftFeatures.getPanes().add(pallets);
-		//leftFeatures.setExpandedPane(pallets);
-	}
-
-	public IModel getHistoryModel() {
-		return model;
-		
 	}
 	
 	private void createModules(Controller controller) {
 		textInput= new UserTextInput(controller);
 		view = new View(model.getViewInterface());
-		addModules();
-	}
-
-	private void addModules() {
-		modules.add(textInput);
-		modules.add(view);
 	}
 
 	private void addListeners() {
@@ -120,11 +116,11 @@ public class Display implements IDisplay {
 	private void position() {
 		gridPane = new GridPane();
 		gridPane.getStylesheets().add(CSSPathConstants.GRID_PANE);
-		gridPane.add(leftFeatures, 1, 1, 1, 3);
-		gridPane.add(view.getPane(), 2, 2);
-		gridPane.add(textInput.getPane(), 2, 3);
-		gridPane.add(rightFeatures, 3, 1, 3, 3);
-		gridPane.add(menuBar.getBar(), 2, 1);
+		gridPane.add(leftFeatures, FIRST, FIRST, FIRST, THIRD);
+		gridPane.add(view.getPane(), SECOND, SECOND);
+		gridPane.add(textInput.getPane(), SECOND, THIRD);
+		gridPane.add(rightFeatures, THIRD, FIRST, THIRD, THIRD);
+		gridPane.add(menuBar.getBar(), SECOND, FIRST);
 		setSizes();
 		
 	}
@@ -137,32 +133,28 @@ public class Display implements IDisplay {
 		textInput.getPane().setPrefHeight(DisplayConstants.TEXT_HEIGHT);
 	}
 	
-	private void controlCollapse(TitledPane oldView, TitledPane newView, Accordion accordion) {
-		//Test to see if any are open
-		boolean doSomething = true;
-		for(TitledPane pane: accordion.getPanes()) {
-			if(pane.isExpanded()) {
-				doSomething = false;
-				break;
-			}
-		}
-		
-		if(doSomething && oldView !=null) {
-			accordion.setExpandedPane(oldView);
-		}
-	}
+	/**
+	 * Forces one title pane to be open in the accordion if desired
+	 */
+//	private void controlCollapse(TitledPane oldView, TitledPane newView, Accordion accordion) {
+//		//Test to see if any are open
+//		boolean doSomething = true;
+//		for(TitledPane pane: accordion.getPanes()) {
+//			if(pane.isExpanded()) {
+//				doSomething = false;
+//				break;
+//			}
+//		}
+//		
+//		if(doSomething && oldView !=null) {
+//			accordion.setExpandedPane(oldView);
+//		}
+//	}
 	
 	private void createMenuBar() {
 		menuBar = new SlogoMenu(model, this);
 	}
-	
-	public void setUpScene() {
-		
-		createModules(controller);
-		createAccordions();
-		createMenuBar();
-	}
-	
+
 	public View getView() {
 		return view;
 	}

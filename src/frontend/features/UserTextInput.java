@@ -1,5 +1,8 @@
 package frontend.features;
 
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import constants.CSSPathConstants;
 import exceptions.LogicException;
@@ -18,8 +21,18 @@ import model.Controller;
 
 public class UserTextInput extends VPane {
 
+	public static final double HBOX_SPACING = 5;
 	private TextArea textArea;
 	private Controller controller;
+	
+	/**
+	 * All will be buttons
+	 */
+	Map<String, EventHandler<ActionEvent>> hboxItems = new TreeMap<>();{
+	    hboxItems.put(getString("Go"), e-> inputEntered());
+		hboxItems.put(getString("AddActor"), e-> addActor());
+	    hboxItems.put(getString("Step"), e->step());
+	};
 	
 	public UserTextInput(Controller controller) {
 		this.controller = controller;
@@ -39,10 +52,15 @@ public class UserTextInput extends VPane {
 	}
 
 	private void createButtons() {
-		HBox hbox = new HBox();
-		hbox.getChildren().add(createButton(getString("Go"), e-> inputEntered()));
-		hbox.getChildren().add(createButton(getString("AddActor"), e-> addActor()));
+		HBox hbox = new HBox(HBOX_SPACING);
+		for(Entry<String, EventHandler<ActionEvent>> entry: hboxItems.entrySet()) {
+			hbox.getChildren().add(createButton(entry.getKey(), entry.getValue()));
+		}
 		add(hbox);
+	}
+
+	private void step() {
+		controller.debug();
 	}
 
 	private void addActor() {
@@ -50,9 +68,9 @@ public class UserTextInput extends VPane {
 	}
 
 	private Button createButton(String name, EventHandler<ActionEvent> event) {
-		Button go = new Button(name);
-		go.setOnAction(event);
-		return go;
+		Button button = new Button(name);
+		button.setOnAction(event);
+		return button;
 	}
 	
 	public void inputEntered() {
