@@ -16,6 +16,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import exceptions.ImproperFileException;
+import model.Controller;
+import model.ExecutionState;
 
 
 
@@ -38,7 +40,7 @@ public class XMLReader {
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
 	}
 	
-	public void execute(File file) throws ParserConfigurationException, 
+	public void execute(File file, ExecutionState executionState) throws ParserConfigurationException, 
 											SAXException, IOException, ImproperFileException {
 		checkFile(file);
 		

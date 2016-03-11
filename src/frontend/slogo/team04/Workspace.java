@@ -10,9 +10,11 @@ public class Workspace {
 
 	Display display;
 	Model model;
+	Controller controller;
+	
 	public Workspace(WorkspaceManager space, Stage stage) {
 		model = new Model();
-		Controller controller = new Controller(model.getCommunicator(), model.getView());
+		controller = new Controller(model.getCommunicator(), model.getView());
 		display = new Display(model, controller, DisplayConstants.DISPLAY_WIDTH, DisplayConstants.DISPLAY_HEIGHT,
 				stage, space);
 	}
@@ -24,7 +26,6 @@ public class Workspace {
 	public Model getModel() {
 		return model;
 	}
-	
 	
 	
 }

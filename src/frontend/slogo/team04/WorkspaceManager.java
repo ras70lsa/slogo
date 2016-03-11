@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import archive.ArchiveWorkspace;
 import archive.XMLReader;
 import archive.XMLWriter;
+import backend.slogo.team04.INonLinearCommand;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
 import exceptions.ImproperFileException;
@@ -146,8 +147,9 @@ public class WorkspaceManager {
 	private void saveUserDefinedCommands(TextInputDialog nameInput) {
 		if(nameInput.getResult()!=null) {
 			List<String> commandNames = currentWorkspace.getModel().getExecutionState().getCommands();
+			List<INonLinearCommand> commandNodes = currentWorkspace.getModel().getExecutionState().getCommandNodes();
 			XMLWriter writer = new XMLWriter();
-			writer.save(nameInput.getResult(), commandNames);
+			writer.save(nameInput.getResult(), commandNames, commandNodes);
 		}
 	}
 
@@ -157,7 +159,7 @@ public class WorkspaceManager {
 		if (selectedFile != null) {
 			XMLReader reader = new XMLReader();
 			try {
-				reader.execute(selectedFile);
+				reader.execute(selectedFile, currentWorkspace.getModel().getExecutionState());
 			} catch (Exception e) {
 				AlertMessage alert = new AlertMessage(e.getMessage());
 				alert.displayError();

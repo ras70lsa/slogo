@@ -16,6 +16,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import backend.slogo.team04.INonLinearCommand;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
 import frontend.features.AlertMessage;
@@ -42,17 +43,19 @@ public class XMLWriter {
 		}
 	}
 
-	public void save(String title, List<String> commandNames) {
+	public void save(String title, List<String> commandNames, List<INonLinearCommand> commandNodes) {
 		createDocument(title);
-		addContent(commandNames);
+		addContent(commandNames, commandNodes);
 		writeDocument(getPath(title));
 	}
 
-	private void addContent(List<String> commandNames) {
+	private void addContent(List<String> commandNames, List<INonLinearCommand> commandNodes) {
 		
-		for(String str: commandNames) {
-			Element name = document.createElement(str);
-			name.setTextContent("Woking?");
+		for(int i = 0; i<commandNames.size(); i++) {
+			Element name = document.createElement(commandNames.get(i));
+			String nodeToText = "";
+			//String nodeToText = commandNodes.get(i).parsableRepresentation();
+			name.setTextContent(nodeToText);
 			mainElement.appendChild(name);
 		}
 		
