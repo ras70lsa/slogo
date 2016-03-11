@@ -70,6 +70,7 @@ public interface ISlogoModelActionsExtended{
     void pushCurrentActive();
     
     void popCurrentActive();
+	void addActor(boolean visible);
     
     //TODO we need to add the ability to have a condition here
     

@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
@@ -50,7 +52,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		currentPenWidth = new SimpleDoubleProperty();
 		ObservableList<Actor> list = FXCollections.observableArrayList();
 		actors = new SimpleListProperty<Actor>(list);
-		addActor();
+		addActor(true);
 		activeStates = new ArrayList<> ();
 		stamps = new ArrayList<Actor>();
 		lineManager = new Stack<ModelLine>();
@@ -64,8 +66,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	}
 
 	@Override
-	public void addActor() {
-		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE / 2, true, actors.size());
+	public void addActor(boolean visible) {
+		Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE / 2, visible, actors.size());
 		actors.add(newActor);
 		addListeners(newActor);
 		update();
@@ -393,27 +395,39 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	@Override
 	public double tell(int[] arrayOfActiveTurtleIDs) {
-		addAndSave(arrayOfActiveTurtleIDs);
-		for (int i = 0; i < arrayOfActiveTurtleIDs.length; i++) {
-			for (int j = 0; j < actors.size(); j++) {
-				if (j == arrayOfActiveTurtleIDs[i]) {
-					actors.get(j).getActive().set(true);
+		List<Integer> setToActive = convertToList(arrayOfActiveTurtleIDs);
+		int max = Collections.max(setToActive);
+		int oldSize = actors.get().size();
+		for(int i=0; i<=max; i++) {
+			if(i<oldSize) {
+				if(setToActive.contains(i)) {
+					actors.get().get(i).setActive(true);
 				} else {
-					actors.get(j).getActive().set(false);
+					actors.get().get(i).setActive(false);
 				}
+			} else {
+					addActor(true);
+					currentActiveTurtles.add(new Boolean(true));
 			}
 		}
+		
 		return actors.size() - 1;
+	}
+
+	private List<Integer> convertToList(int[] arrayOfActiveTurtleIDs) {
+		List<Integer> converted = new ArrayList<>();
+		for(Integer x: arrayOfActiveTurtleIDs) {
+			converted.add(x);
+		}
+		return converted;
 	}
 
 	public void addAndSave(int[] arrayOfActiveTurtleIDs) {
 		for (int i = 0; i < arrayOfActiveTurtleIDs.length; i++) {
 			while (arrayOfActiveTurtleIDs[i] > actors.size()) {
-				addActor();
+				addActor(true);
 			}
 		}
-		pushCurrentActive();
-
 	}
 
 	@Override

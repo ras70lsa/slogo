@@ -193,6 +193,11 @@ public class Actor {
 	public BooleanProperty getActive() {
 		return active;
 	}
+	
+	public void setActive(boolean visible) {
+		active.set(visible);
+	}
+
 
 	public List<ModelLine> getMyLines() {
 		return myLines;
