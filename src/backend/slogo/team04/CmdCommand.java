@@ -64,9 +64,8 @@ public class CmdCommand extends CommandTreeNode {
     @Override
     public String parsableRepresentation () {
         String toReturn = myName;
-        for(INonLinearCommand cmd : listOfVariableAssignments){
-            toReturn = toReturn + CommandTreeNode.SPACE + cmd.parsableRepresentation();
-        }
+        appendParsableRepresentationWithSpaces(toReturn, listOfVariableAssignments);
+        appendParsableRepresentationWithSpaces(toReturn, listOfCommands);
         return toReturn;
     }
 
