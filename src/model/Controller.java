@@ -76,6 +76,11 @@ public class Controller {
 		System.out.println("debug");
 		
 	}
+
+	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
     
 
 

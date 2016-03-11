@@ -22,8 +22,11 @@ import model.Controller;
 public class UserTextInput extends VPane {
 
 	public static final double HBOX_SPACING = 5;
+	public static final boolean DEBUGGING = true;
 	private TextArea textArea;
 	private Controller controller;
+	private HBox hbox;
+	private Button step;
 	
 	/**
 	 * All will be buttons
@@ -52,10 +55,13 @@ public class UserTextInput extends VPane {
 	}
 
 	private void createButtons() {
-		HBox hbox = new HBox(HBOX_SPACING);
+		hbox = new HBox(HBOX_SPACING);
 		for(Entry<String, EventHandler<ActionEvent>> entry: hboxItems.entrySet()) {
 			hbox.getChildren().add(createButton(entry.getKey(), entry.getValue()));
 		}
+		step = createButton(getString("Step"), e->step());
+		step.setVisible(!DEBUGGING);
+		hbox.getChildren().add(step);
 		add(hbox);
 	}
 
@@ -65,6 +71,7 @@ public class UserTextInput extends VPane {
 
 	private void debug() {
 		controller.debug();
+		step.setVisible(DEBUGGING);
 	}
 
 	private void addActor() {
@@ -78,6 +85,7 @@ public class UserTextInput extends VPane {
 	}
 	
 	public void inputEntered() {
+		step.setVisible(!DEBUGGING);
 		try {
 			controller.parseString(textArea.getText());
 			textArea.clear();
