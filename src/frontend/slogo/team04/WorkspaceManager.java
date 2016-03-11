@@ -1,19 +1,24 @@
 package frontend.slogo.team04;
 
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 import archive.ArchiveWorkspace;
+import archive.XMLWriter;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
 import frontend.features.SaveAlert;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
@@ -110,15 +115,34 @@ public class WorkspaceManager {
 	}
 
 	public void getDialog() {
+		TextInputDialog input = createTextInput(myBundle.getString("SaveDialog"));
+		input.setOnCloseRequest(e -> saveWorkspace(input));
+	}
+	
+	private TextInputDialog createTextInput(String content ) {
 		TextInputDialog nameInput = new TextInputDialog();
+		nameInput.setContentText(content);
 		nameInput.show();
-		nameInput.setOnCloseRequest(e-> saveWorkspace(nameInput));
+		return nameInput;
 	}
 	
 	private void saveWorkspace(TextInputDialog nameInput) {
 		if(nameInput.getResult()!=null) {
 			save(nameInput.getResult());
 		}	
+	}
+
+	public void saveCommands() {
+		TextInputDialog input = createTextInput(myBundle.getString("SaveCommandPrompt"));
+		input.setOnCloseRequest(e-> saveUserDefinedCommands(input));
+	}
+	
+	private void saveUserDefinedCommands(TextInputDialog nameInput) {
+		if(nameInput.getResult()!=null) {
+			List<String> commandNames = currentWorkspace.getModel().getExecutionState().getCommands();
+			XMLWriter writer = new XMLWriter();
+			writer.save(nameInput.getResult(), commandNames);
+		}
 	}
 
 }

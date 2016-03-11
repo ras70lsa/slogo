@@ -66,7 +66,6 @@ public class ArchiveWorkspace {
 		workspace = alterActor(workspace);
 		workspace = alterHistory(workspace);
 		return workspace;
-		
 	}
 
 	private Workspace alterHistory(Workspace workspace) {
@@ -86,6 +85,11 @@ public class ArchiveWorkspace {
 		workspace.getModel().getViewInterface().getBackgroundColor().set(savedColor.get());
 		workspace.getModel().getViewInterface().update();
 		return workspace;
-		
 	}
+	
+	public List<ModelLine> getSavedLines() {
+		return savedLines;
+	}
+	
+	
 }
