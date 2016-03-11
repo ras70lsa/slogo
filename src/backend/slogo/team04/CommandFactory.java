@@ -256,7 +256,7 @@ public class CommandFactory {
     
     private static CommandTreeNode runCommandOnActiveTurtles(CommandTreeNode myParent, CommandTreeNode originalChild){
         CmdExecuteIfCurrentTurtleActive myTurtleActiveChecker = new CmdExecuteIfCurrentTurtleActive(myParent);
-        CmdIDIterator myIterator = new CmdIDIterator(myParent, myTurtleActiveChecker, originalChild);
+        CommandTreeNode myIterator = new CmdIDIterator(myParent, myTurtleActiveChecker, originalChild);
         myTurtleActiveChecker.setMyParent(myIterator);
         originalChild.setMyParent(myIterator); // so that current active turtle id references are passed properly
         return myIterator;
