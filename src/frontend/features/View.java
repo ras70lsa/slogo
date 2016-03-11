@@ -89,21 +89,20 @@ public class View extends StaticPane implements Observer {
 	public void update(Observable o, Object arg) {
 		clear();
 	
+		for (Actor actor: model.getStamps()){
+                    draw(actor);
+		}
+		
 		for(ModelLine line: model.getLines()) {
 			draw(line);
 		}
 		
 		for(Actor actor: model.getActorProperty()) {
 			if(actor.getVisible()) {
-				System.out.println("I'm here!");
 				draw(actor);
 			}
 		}
-		
-		for (Actor actor: model.getStamps()){
-			System.out.println("I'm here");
-			draw(actor);
-		}
+	
 	}
 	
 	private void draw(Actor turtle) {

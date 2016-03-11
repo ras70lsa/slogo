@@ -97,6 +97,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	@Override
 	public double clearScreen() {
 		actors.stream().forEach((a) -> a.clearLines());
+		actors.clear();
 		return 0;
 	}
 
@@ -413,8 +414,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 					currentActiveTurtles.add(new Boolean(true));
 			}
 		}
-		for(int j = max; j<oldSize; j++) {
-			actors.get().get(j).setActive(false);
+		for(int j = max + 1; j<oldSize; j++) {
+		    System.out.println(j);
+		    actors.get().get(j).setActive(false);
 		}
 		
 		return actors.size() - 1;
