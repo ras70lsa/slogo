@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
@@ -32,6 +33,7 @@ public class newViewModel extends Observable implements IView, ISlogoModelAction
 	private static final double RGB_INTERVAL = 255 / 2 + 1;
 	private ListProperty<Actor> actors;
 	private ListProperty<Actor> stamps;
+	private ArrayList<Boolean> activeStates;
 	private boolean penIsDown;
 	private boolean isShowing;
 	private Stack<ModelLine> lineManager;
@@ -380,8 +382,7 @@ public class newViewModel extends Observable implements IView, ISlogoModelAction
 
 	@Override
 	public double ID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getActiveActors().size()-1;
 	}
 
 	@Override
@@ -391,20 +392,42 @@ public class newViewModel extends Observable implements IView, ISlogoModelAction
 
 	@Override
 	public double tell(int[] arrayOfActiveTurtleIDs) {
-		// TODO Auto-generated method stub
-		return 0;
+		addAndSave(arrayOfActiveTurtleIDs);
+		for(int i=0; i<arrayOfActiveTurtleIDs.length; i++){
+			for(int j=0; j<actors.size(); j++){
+				if(j==arrayOfActiveTurtleIDs[i]){
+					actors.get(j).getActive().set(true);
+				}else{
+					actors.get(j).getActive().set(false);
+				}
+			}
+		}
+		return actors.size()-1;
 	}
-
+	
+	public void addAndSave(int[] arrayOfActiveTurtleIDs){
+		for(int i=0; i<arrayOfActiveTurtleIDs.length; i++){
+			while(arrayOfActiveTurtleIDs[i]>actors.size()){
+				addActor();
+			}
+		}
+		pushCurrentActive();
+		
+	}
 	@Override
 	public void pushCurrentActive() {
+		for(int i=0; i<activeTurtles().length; i++){
+			activeStates.add(activeTurtles()[i]);
+		}
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void popCurrentActive() {
 		// TODO Auto-generated method stub
-		
+		for(int i=0; i<actors.size(); i++){
+			actors.get(i).getActive().set(activeStates.get(i));
+		}
 	}
 	
 	public Actor getActor(double turtleID){
