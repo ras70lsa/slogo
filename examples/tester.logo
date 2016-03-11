@@ -1,6 +1,17 @@
-set :x 10
-tell [ 1 2 3 ]
-# this command is only executed once
-set :x * :x :x 
-# all turtles move the same distance
-fd :x
+to random_in_range [ :min :max ]
+[
+  random sum :min sum 1 difference :max :min
+]
+
+
+to random_move [ :fdmin :fdmax :ltmin :ltmax ]
+[
+  repeat 100
+  [
+    lt random_in_range :ltmin :ltmax
+    fd random_in_range :fdmin :fdmax
+  ]
+]
+
+
+random_move 5 15 -10 5

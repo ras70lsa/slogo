@@ -85,7 +85,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     protected String appendParsableRepresentationWithSpaces(String toBuild, List<INonLinearCommand> myList){
         String toReturn = toBuild;
         for(INonLinearCommand val : myList){
-            toBuild = toBuild + CommandTreeNode.SPACE + val.parsableRepresentation();
+            toReturn = toReturn + CommandTreeNode.SPACE + val.parsableRepresentation();
         }
         return toReturn;
     }

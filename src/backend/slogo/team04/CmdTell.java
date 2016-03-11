@@ -58,12 +58,8 @@ public class CmdTell extends CommandTreeNode {
 
     @Override
     public String parsableRepresentation () {
-        String toReturn = CmdTell.MY_KEY;
-        toReturn = toReturn + CommandTreeNode.LEFT_BRACKET;
-        for(INonLinearCommand cmd : myArguments){
-            toReturn = CommandTreeNode.SPACE + cmd.parsableRepresentation();
-        }
-        return CmdTell.MY_KEY + CommandTreeNode.RIGHT_BRACKET;
+        String toReturn = CmdTell.MY_KEY + CommandTreeNode.LEFT_BRACKET;
+        return appendParsableRepresentationWithSpaces(toReturn, myArguments) + CommandTreeNode.RIGHT_BRACKET;
     }
 
 }

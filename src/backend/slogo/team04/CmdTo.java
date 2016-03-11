@@ -75,15 +75,12 @@ public class CmdTo extends CommandTreeNode {
     @Override
     public String parsableRepresentation () {
         String toReturn = CmdTo.MY_KEY + CommandTreeNode.SPACE + myCommandName + CommandTreeNode.LEFT_BRACKET;
-        // can't use the method, because list subtype is different
+        // can't use the method, because list generic type is different
         for(CmdVariable var : listOfVariables){
             toReturn = toReturn + CommandTreeNode.SPACE + var.parsableRepresentation();
         }
         toReturn = toReturn + CommandTreeNode.RIGHT_BRACKET + CommandTreeNode.LEFT_BRACKET;
-        for(INonLinearCommand cmd : listOfCommands){
-            toReturn = toReturn + CommandTreeNode.SPACE + cmd.parsableRepresentation();
-        }
-        return toReturn + CommandTreeNode.RIGHT_BRACKET;
+        return appendParsableRepresentationWithSpaces(toReturn, listOfCommands) + CommandTreeNode.RIGHT_BRACKET;
     }
 
 }
