@@ -53,8 +53,8 @@ public class XMLWriter {
 		
 		for(int i = 0; i<commandNames.size(); i++) {
 			Element name = document.createElement(commandNames.get(i));
-			String nodeToText = "";
-			//String nodeToText = commandNodes.get(i).parsableRepresentation();
+			String nodeToText = commandNodes.get(i).parsableRepresentation();
+			System.out.println(nodeToText);
 			name.setTextContent(nodeToText);
 			mainElement.appendChild(name);
 		}
@@ -73,7 +73,6 @@ public class XMLWriter {
 	private String getPath(String name) {
 		String operatingSystem = (System.getProperty("os.name"));
 		if(operatingSystem.contains("Mac")) {
-			System.out.println(System.getProperty("user.dir"));
 			return System.getProperty("user.dir")+  MAC_EXT + name + ".xml";
 		} else {
 			return System.getProperty("user.dir")+ WINDOW_EXT  + name + ".xml";
