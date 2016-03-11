@@ -5,7 +5,7 @@ import frontend.slogo.team04.WorkspaceManager;
 
 public interface IDisplay {
 
-	public View getView();
+	View getView();
 
-	public WorkspaceManager getManager();
+	WorkspaceManager getManager();
 }

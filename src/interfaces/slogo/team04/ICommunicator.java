@@ -9,8 +9,8 @@ import model.ExecutionState;
  */
 public interface ICommunicator {
 
-	public void addToHistory(String str);
-	public String getLanguage();
-	public ExecutionState getExecutionModel();
-	public void addActor();
+	void addToHistory(String str);
+	String getLanguage();
+	ExecutionState getExecutionModel();
+	void addActor();
 }

@@ -5,9 +5,9 @@ import javafx.beans.property.StringProperty;
 
 public interface IHistoryModel  {
 
-	public ListProperty<String> getCommandList();
-	public void add(String command);
-	public StringProperty getLanguage();
-	public void clear();
+	ListProperty<String> getCommandList();
+	void add(String command);
+	StringProperty getLanguage();
+	void clear();
 	
 }

@@ -14,16 +14,16 @@ import properties.ImageProperty;
 
 public interface IView{
 
-	public void addObserver(Observer o);
-	public List<ModelLine> getLines();
-	public ColorProperty getBackgroundColor();
-	public ColorProperty getPenColor();
-	public ImageProperty getImageProperty();
-	public ListProperty<Actor> getActorProperty();
-	public ListProperty<RGBColor> getColorListProperty();
-	public void addActor();
-	public void update();
-	public void setPenStyle(String selectedItem);
-	public DoubleProperty getPenWidth();
-	public int setShape(int index);
+	void addObserver(Observer o);
+	List<ModelLine> getLines();
+	ColorProperty getBackgroundColor();
+	ColorProperty getPenColor();
+	ImageProperty getImageProperty();
+	ListProperty<Actor> getActorProperty();
+	ListProperty<RGBColor> getColorListProperty();
+	void addActor();
+	void update();
+	void setPenStyle(String selectedItem);
+	DoubleProperty getPenWidth();
+	int setShape(int index);
 }

@@ -4,6 +4,6 @@ import javafx.beans.property.ListProperty;
 
 public interface ICommands {
 
-	public ListProperty<String> getCommands();
+	ListProperty<String> getCommands();
 
 }
