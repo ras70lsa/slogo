@@ -78,8 +78,8 @@ public class View extends StaticPane implements Observer {
 		GuiUserOption factory = new GuiUserOption();
 		List<Node> list = new ArrayList<Node>();
 		list.add(factory.get(model.getImageProperty(), "Choose Actor Image"));
-		list.add(factory.get(model.getBackgroundColor(), "Background Color"));
-		list.add(factory.get(model.getPenColor(), "Pen Color"));
+		list.add(factory.get(model.getBackgroundColor(), model.getColorListProperty(), "Background Color"));
+		list.add(factory.get(model.getPenColor(), model.getColorListProperty(), "Pen Color"));
 		return list;
 	}
 

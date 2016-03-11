@@ -1,6 +1,7 @@
 package backend.slogo.team04;
 
 import exceptions.LogicException;
+import exceptions.PaletteException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
@@ -20,7 +21,11 @@ public class CmdSetBackground extends CommandTreeNode {
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double myProposedIndex = myChild.executeCommand(myController, myInterpreter);
         if(SlogoRegexChecker.isPostiveIndex(myProposedIndex)){
-            return myController.setBackground((int) myProposedIndex);
+        	try {
+        		return myController.setBackground((int) myProposedIndex);
+        	} catch (PaletteException e){
+        		throw new LogicException("Palette out of range");
+        	}
         }else{
             throw new LogicException("Expected integer like index value as input to SetBackground");
         }
