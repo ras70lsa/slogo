@@ -55,7 +55,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		currentPenWidth = new SimpleDoubleProperty();
 		ObservableList<Actor> list = FXCollections.observableArrayList();
 		actors = new SimpleListProperty<Actor>(list);
-		addActor(true);
+		addActor(TURTLE_CREATED_ACTIVE_DEFAULT);
 		activeStates = new ArrayList<> ();
 		stamps = new ArrayList<Actor>();
 		lineManager = new Stack<ModelLine>();
@@ -409,7 +409,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 					actors.get().get(i).setActive(false);
 				}
 			} else {
-					addActor(true);
+					addActor(TURTLE_CREATED_ACTIVE_DEFAULT);
 					currentActiveTurtles.add(new Boolean(true));
 			}
 		}
@@ -428,7 +428,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	public void addAndSave(int[] arrayOfActiveTurtleIDs) {
 		for (int i = 0; i < arrayOfActiveTurtleIDs.length; i++) {
 			while (arrayOfActiveTurtleIDs[i] > actors.size()) {
-				addActor(true);
+				addActor(TURTLE_CREATED_ACTIVE_DEFAULT);
 			}
 		}
 	}

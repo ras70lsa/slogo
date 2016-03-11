@@ -91,7 +91,7 @@ public class SlogoRegexChecker {
     
     
     private static boolean isPostive(double myDouble){
-        return myDouble > 0d;
+        return myDouble >= 0d;
     }
     
     
