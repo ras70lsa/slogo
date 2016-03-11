@@ -2,10 +2,11 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdMake extends CommandTreeNode {
+    protected final static String MY_KEY = "MakeVariable";
     private CmdVariable myVariable;
     private INonLinearCommand myExpression;
 
@@ -14,13 +15,13 @@ public class CmdMake extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         myVariable.setVariableValue(myExpression.executeCommand(myController, myInterpreter), myInterpreter);
         return myVariable.getVariableValue(myInterpreter);
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         // grab a variable command
         myVariable = CommandFactory.getVariableOrAssertError(myScanner.getNextWord(), myScanner, this, myInterpreter);
         
@@ -28,6 +29,11 @@ public class CmdMake extends CommandTreeNode {
         
         myExpression = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdMake.MY_KEY + CommandTreeNode.SPACE + myVariable.parsableRepresentation() + CommandTreeNode.SPACE + myExpression.parsableRepresentation();
     }
 
 }

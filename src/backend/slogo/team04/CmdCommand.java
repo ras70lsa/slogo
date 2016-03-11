@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdCommand extends CommandTreeNode {
@@ -21,22 +21,22 @@ public class CmdCommand extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        int i = 0;
-        for(CmdVariable var: listOfVariables){ //TODO the list of variables lives in the interpreter, either we pass or lambda, null error
-            var.setVariableValue(listOfVariableAssignments.get(i).executeCommand(myController, myInterpreter), myInterpreter);
-            i++;
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        myInterpreter.incept();
+        for(int i = 0; i < listOfVariables.size(); i++){ //TODO the list of variables lives in the interpreter, either we pass or lambda, null error
+            listOfVariables.get(i).setVariableValue(listOfVariableAssignments.get(i).executeCommand(myController, myInterpreter), myInterpreter);
         }
 
         double lastCommandValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : listOfCommands){
             lastCommandValue = cmd.executeCommand(myController, myInterpreter);
         }
+        myInterpreter.kick();
         return lastCommandValue;
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         for (int i = 0; i < listOfVariables.size(); i++) {
             listOfVariableAssignments.add(CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter));
         }
@@ -44,8 +44,8 @@ public class CmdCommand extends CommandTreeNode {
     }
 
 
-    public CmdCommand createClone(){
-        CmdCommand copyToReturn = new CmdCommand(this.getMyParent(), this.myName);
+    public CmdCommand createClone(CommandTreeNode myParent){
+        CmdCommand copyToReturn = new CmdCommand(myParent , this.myName);
         copyToReturn.setMyState(this.listOfVariables, this.listOfCommands );
         return copyToReturn;
     }
@@ -59,6 +59,15 @@ public class CmdCommand extends CommandTreeNode {
 
     public String getMyName () {
         return myName;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        String toReturn = myName;
+        for(INonLinearCommand cmd : listOfVariableAssignments){
+            toReturn = toReturn + CommandTreeNode.SPACE + cmd.parsableRepresentation();
+        }
+        return toReturn;
     }
 
 

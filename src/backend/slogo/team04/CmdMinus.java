@@ -2,27 +2,34 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdMinus extends CommandTreeNode {
-    private INonLinearCommand expOne; // the two nodes that we need to grab
+    protected final static String MY_KEY = "Minus";
+    private INonLinearCommand expOne; 
 
     public CmdMinus(CommandTreeNode myParent) {
         super(myParent);
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double valOne;
         valOne = expOne.executeCommand(myController, myInterpreter);
         return -valOne;
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         expOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdMinus.MY_KEY + CommandTreeNode.SPACE + expOne.parsableRepresentation();
+    }
+    
 
 }

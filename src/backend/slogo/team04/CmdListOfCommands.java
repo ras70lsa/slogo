@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 /**
- * Helper class, not real part of slogo language but used to encapsulate the storage logic for an expected list of commands
+ * Helper class, not real part of slogo language, thus is not included as part of the recursive construction function
+ * in the CommandFactory. To use this, will need to instantiate an instance by hand where convenient.
+ * 
+ * Used to encapsulate the storage logic for an expected list of commands
  * with the opening and closing brackets []
- * will automatically return the last seen double value as a result of execution
+ * 
+ *
+ * Will automatically return the last seen double value as a result of execution
  * @author jonathanim
  *
  */
@@ -24,17 +29,19 @@ public class CmdListOfCommands extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        
         double lastValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : myCommands){
             lastValue = cmd.executeCommand(myController, myInterpreter);
         }
+       
         return lastValue;
     }
 
     @Override
     public INonLinearCommand parseString (SlogoScanner myScanner,
-                                          ISlogoInterpreter myInterpreter) throws UserInputException {
+                                          ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
 
         String myNextWord = myScanner.getNextWord();
         if(myScanner.checkIfStartOfList(myNextWord, myInterpreter)){
@@ -47,6 +54,12 @@ public class CmdListOfCommands extends CommandTreeNode {
             throw new UserInputException("List of commands failed");
         }
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        String toReturn = CommandTreeNode.LEFT_BRACKET;
+        return appendParsableRepresentationWithSpaces(toReturn, myCommands) + CommandTreeNode.RIGHT_BRACKET;
     }
 
 }

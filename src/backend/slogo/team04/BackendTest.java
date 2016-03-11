@@ -48,25 +48,24 @@ public class BackendTest {
         SlogoScanner scanner = new SlogoScanner(content); 
         String str = scanner.getLanguageConvertedCode(
                                                       ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH + "English"));
-        System.out.println(str);
+        //System.out.println(str);
         
         SlogoScanner testScanner = new SlogoScanner(str);
         
         BackendTestNullModelActor modelActor = new BackendTestNullModelActor();
-        Interpreter myTestInterpreter = new Interpreter();
+        BackendTestInterpreter myTestInterpreter = new BackendTestInterpreter();
         
         try {
             INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(testScanner, myTestInterpreter);
-            myHead.executeCommand(modelActor, myTestInterpreter);
+            //myHead.executeCommand(modelActor, myTestInterpreter);
+            System.out.println(myHead.parsableRepresentation());
+            
         }
         catch (UserInputException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        catch (LogicException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+       
         
 
     }

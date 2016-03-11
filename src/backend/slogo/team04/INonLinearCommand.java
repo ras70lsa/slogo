@@ -2,7 +2,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 /**
  * We will construct our parsing/interpreting tree using concretes instances of this abstract
@@ -23,7 +23,7 @@ public interface INonLinearCommand {
      * @throws LogicException TODO
      * 
      */
-    public abstract double executeCommand(ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException;
+    public abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException;
     
 
    
@@ -34,7 +34,12 @@ public interface INonLinearCommand {
      * @return
      * @throws UserInputException TODO
      */
-    public abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException;
+    public abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException;
     
-   
+    /**
+     * Each command knows how to write itself down via strings such that re-parsing the resultant string will recreate the parse tree
+     * of nodes required to run the same command
+     * @return
+     */
+    public abstract String parsableRepresentation();
 }

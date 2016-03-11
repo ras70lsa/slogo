@@ -2,20 +2,24 @@ package backend.slogo.team04;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * This class h
  * @author jonathanim
  *
  */
-public class Interpreter implements ISlogoInterpreter {
+public class BackendTestInterpreter implements ISlogoInterpreterVariableScope{
     
     private Map<String, Double> slogoVariables;
     private Map<String, INonLinearCommand> userDefinedCommands;
     
+    private Stack<Map<String,Double>> myVarStack;
+    private int depth;
     
     
-    public Interpreter(){
+    
+    public BackendTestInterpreter(){
         resetAllSimulationVariables();
         
         
@@ -26,11 +30,14 @@ public class Interpreter implements ISlogoInterpreter {
     public void resetAllSimulationVariables(){
         resetGlobalVariables();
         resetUserDefinedCommands();
+
     }
 
     @Override
     public void resetGlobalVariables(){
-        this.slogoVariables = new HashMap<String, Double>();
+        myVarStack = new Stack<Map<String,Double>>();
+        incept();
+        depth = 1; //this assignment needs to be after the incept call to prevent the double incrementation
     }
 
     @Override
@@ -66,6 +73,40 @@ public class Interpreter implements ISlogoInterpreter {
             setVariableValue(variable.toLowerCase(), CommandTreeNode.DOUBLE_ZERO);
         }
         return this.slogoVariables.get(variable.toLowerCase());
+    }
+
+
+    @Override
+    public void incept () {
+        depth++;
+        myVarStack.push(this.slogoVariables);
+        this.slogoVariables = new HashMap<String, Double>();
+        
+        //TODO push a new stack of variables on it
+        
+    }
+
+
+    @Override
+    public void kick () {
+        if(depth > 1){
+            drillUpOne();
+        }
+        
+    }
+
+
+    @Override
+    public void kickAllButLowest () {
+       while(depth > 1){
+           drillUpOne();
+       }
+        
+    }
+    
+    private void drillUpOne(){
+        depth--;
+        this.slogoVariables = myVarStack.pop();
     }
 
 

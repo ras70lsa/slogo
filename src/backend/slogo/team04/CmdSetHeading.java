@@ -2,10 +2,11 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdSetHeading extends CommandTreeNode {
+    protected final static String MY_KEY = "SetHeading";
     private INonLinearCommand myValue;
 
 
@@ -14,14 +15,19 @@ public class CmdSetHeading extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.setHeading(myValue.executeCommand(myController, myInterpreter));
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        return myController.setHeading(myValue.executeCommand(myController, myInterpreter) , new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         myValue = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdSetHeading.MY_KEY + CommandTreeNode.SPACE + myValue.parsableRepresentation();
     }
 
 }

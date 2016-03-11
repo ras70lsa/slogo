@@ -3,7 +3,7 @@ package backend.slogo.team04;
 import java.util.regex.Pattern;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 /**
  * Will just eat things until it sees a new line
@@ -17,18 +17,23 @@ public class CmdComment extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         Pattern cached = myScanner.delimiter();
         myScanner.useDelimiter(SlogoScanner.ALL_NON_NEW_LINE_REGEX);
         myScanner.getNextWord(); //eat the white space till new line
         myScanner.useDelimiter(cached); 
         return this; 
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CommandTreeNode.EMPTY_STRING;
     }
 
 }

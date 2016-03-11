@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 
@@ -24,7 +24,8 @@ public class CmdTreeHeadNode extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        myInterpreter.kickAllButLowest();
         for(INonLinearCommand child : myChildren){
             child.executeCommand(myController, myInterpreter);
         }
@@ -32,11 +33,27 @@ public class CmdTreeHeadNode extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
+        myInterpreter.kickAllButLowest();
         while(myScanner.hasNext()){
             myChildren.add(CommandFactory.topLevelCommandFactory( myScanner.getNextWord(),  myScanner, this ,  myInterpreter));
         }
         return this;
+    }
+    
+    /**
+     * The tree will thus have NaN as the current ID, unless the IDIterator nodes are placed in the proper locations,
+     * on top of any type of node that requires operating on any active turtle
+     */
+    @Override
+    protected double getCurrentActiveTurtleID(){
+        return Double.NaN;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return appendParsableRepresentationWithSpaces(CommandTreeNode.EMPTY_STRING, myChildren);
+        
     }
 
 }

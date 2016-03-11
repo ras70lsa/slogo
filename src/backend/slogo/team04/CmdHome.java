@@ -2,10 +2,11 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdHome extends CommandTreeNode {
+    protected final static String MY_KEY = "Home";
 
 
 
@@ -14,13 +15,18 @@ public class CmdHome extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.home();
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        return myController.home(new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdHome.MY_KEY;
     }
 
 }

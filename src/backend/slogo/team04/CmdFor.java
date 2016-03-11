@@ -2,9 +2,10 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 public class CmdFor extends CommandTreeNode {
+    protected final static String MY_KEY = "For";
     private CmdVariable myVariable;
     private INonLinearCommand myStart, myEnd, myIncrement, cmdList;
 
@@ -13,19 +14,21 @@ public class CmdFor extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double increment = myIncrement.executeCommand(myController, myInterpreter);
         double limit = myEnd.executeCommand(myController, myInterpreter);
         double lastValueSeen = CommandTreeNode.DOUBLE_ZERO;
         for(double d = myStart.executeCommand(myController, myInterpreter); d <= limit; d+=increment){
+            myInterpreter.incept();
             myVariable.setVariableValue(d, myInterpreter);
             lastValueSeen = cmdList.executeCommand(myController, myInterpreter);
+            myInterpreter.kick();
         }
         return lastValueSeen;
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         String nextString = myScanner.getNextWord();
         if(myScanner.checkIfStartOfList(nextString, myInterpreter)){
             myVariable = CommandFactory.getVariableOrAssertError(myScanner.getNextWord(), myScanner, this, myInterpreter);
@@ -42,6 +45,15 @@ public class CmdFor extends CommandTreeNode {
         }
         
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        // TODO Auto-generated method stub
+        return CmdFor.MY_KEY + CommandTreeNode.LEFT_BRACKET + myVariable.parsableRepresentation() + CommandTreeNode.SPACE +
+                myStart.parsableRepresentation() + CommandTreeNode.SPACE +
+                myEnd.parsableRepresentation() + CommandTreeNode.SPACE +
+                myIncrement.parsableRepresentation() + CommandTreeNode.RIGHT_BRACKET + cmdList.parsableRepresentation();
     }
 
 }

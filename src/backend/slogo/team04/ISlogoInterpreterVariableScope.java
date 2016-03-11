@@ -27,6 +27,12 @@ public interface ISlogoInterpreterVariableScope extends ISlogoInterpreter{
      * 
      */
     void kick();
+    
+    /**
+     * This method call will not reset the variables, but will kick all but the last stored maps off the stack, this will be called
+     * by the head tree node everytime, incase there was an interrupted parse execution.
+     */
+    void kickAllButLowest();
 
 
 }

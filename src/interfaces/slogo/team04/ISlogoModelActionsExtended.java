@@ -6,7 +6,9 @@ package interfaces.slogo.team04;
  * @author jonathanim
  *
  */
+
 public interface ISlogoModelActionsExtended{
+
     double forward(double pixels, double turtleID);
     double back(double pixels, double turtleID);
     double left(double degrees, double turtleID);
@@ -29,6 +31,10 @@ public interface ISlogoModelActionsExtended{
     
     /**
      * A boolean for each turtle representing whether or not it is active 
+     * We will assume that negative ID numbers are not allowed
+     * We will assume that the ID space is contiguous, meaning that no skipping of ID numbers is allowed.
+     * Any 'missing' ID numbers will result in turtle creation
+     * ID numbers will start at 1 and progress upwards (note the numbering difference from Java arrays)
      * @return
      */
     boolean[] activeTurtles();
@@ -64,6 +70,8 @@ public interface ISlogoModelActionsExtended{
     void pushCurrentActive();
     
     void popCurrentActive();
+    
+    //TODO we need to add the ability to have a condition here
     
     
     

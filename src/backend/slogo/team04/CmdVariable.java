@@ -2,7 +2,7 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdVariable extends CommandTreeNode {
@@ -24,12 +24,12 @@ public class CmdVariable extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         return myInterpreter.getVariableValue(myName);
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         return this;
     }
     
@@ -39,6 +39,11 @@ public class CmdVariable extends CommandTreeNode {
     
     protected double getVariableValue(ISlogoInterpreter myInterpreter){
         return myInterpreter.getVariableValue(myName);
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdVariable.VARIABLE_DECLARATION_TO_REMOVE + myName;
     }
 
 }

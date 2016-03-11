@@ -2,10 +2,11 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdPenDown extends CommandTreeNode {
+    protected final static String MY_KEY = "PenDown";
 
 
 
@@ -14,14 +15,19 @@ public class CmdPenDown extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        myController.penDown();
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        myController.penDown(new CmdID(this).executeCommand(myController, myInterpreter));
         return CommandTreeNode.DOUBLE_ONE;
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdPenDown.MY_KEY;
     }
 
 }

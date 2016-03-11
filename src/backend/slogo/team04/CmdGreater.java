@@ -2,10 +2,11 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdGreater extends CommandTreeNode {
+    protected final static String MY_KEY = "GreaterThan";
     private INonLinearCommand expressionOne, expressionTwo;
     
     public CmdGreater (CommandTreeNode myParent) {
@@ -13,7 +14,7 @@ public class CmdGreater extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
         double valOne, valTwo;
         valOne = expressionOne.executeCommand(myController, myInterpreter);
         valTwo = expressionTwo.executeCommand(myController, myInterpreter);
@@ -29,10 +30,16 @@ public class CmdGreater extends CommandTreeNode {
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         expressionOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         expressionTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdGreater.MY_KEY + CommandTreeNode.SPACE + expressionOne.parsableRepresentation() +
+                CommandTreeNode.SPACE + expressionTwo.parsableRepresentation();
     }
 
 }

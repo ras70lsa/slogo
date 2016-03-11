@@ -2,10 +2,11 @@ package backend.slogo.team04;
 
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 public class CmdYCor extends CommandTreeNode {
+    protected final static String MY_KEY = "YCoordinate";
 
 
 
@@ -14,13 +15,18 @@ public class CmdYCor extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActions myController, ISlogoInterpreter myInterpreter) throws LogicException {
-        return myController.yCor();
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+        return myController.yCor(new CmdID(this).executeCommand(myController, myInterpreter));
     }
 
     @Override
-    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreter myInterpreter) throws UserInputException {
+    public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdYCor.MY_KEY;
     }
 
 }
