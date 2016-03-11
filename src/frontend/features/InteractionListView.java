@@ -62,10 +62,6 @@ public abstract class InteractionListView extends TitlePaneFeature {
 		setContent(list);
 	}
 	
-	protected void canView(boolean interact) {
-		list.setVisible(interact);
-	}
-	
 	public BooleanProperty getInteracted() {
 		return interacted;
 	}

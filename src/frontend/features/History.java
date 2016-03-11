@@ -17,7 +17,7 @@ import visual.states.HistoryUIState;
 
 
 /**
- * History Feature
+ * Class responsible for displaying the history of code the user has entered
  * @author Ryan St Pierre
  */
 
@@ -30,7 +30,6 @@ public class History extends InteractionListView {
 		super(model.getCommandList(), ResourceConstants.HISTORY_KEY);
 		visuals = new HistoryUIState();
 		execute = new SimpleBooleanProperty();
-		addListeners();
 		addSecondaryAction();
 	}
 
@@ -51,6 +50,12 @@ public class History extends InteractionListView {
 		getList().setContextMenu(context.getMenu());
 	}
 	
+	/**
+	 * HistoryContextMenu holds the context menu that display when the user right clicks on the feature
+	 * It is in its own class to add potential greater functionality if desired
+	 * @author RyanStPierre
+	 *
+	 */
 	private class HistoryContextMenu {
 		
 		ContextMenu menu;
@@ -89,10 +94,6 @@ public class History extends InteractionListView {
 	
 	public BooleanProperty getExecute() {
 		return execute;
-	}
-
-	private void addListeners() { 
-		visuals.getVisibleProperty().addListener((a,b,c) -> canView(c.booleanValue()));
 	}
 	
 }
