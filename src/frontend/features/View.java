@@ -50,9 +50,7 @@ public class View extends StaticPane implements Observer {
 	}
 
 	private void addSilentListeners() {
-
 		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
-
 	}
 
 	public double getMaxWidth() {
@@ -90,7 +88,7 @@ public class View extends StaticPane implements Observer {
 		clear();
 	
 		for (Actor actor: model.getStamps()){
-                    draw(actor);
+			draw(actor);
 		}
 		
 		for(ModelLine line: model.getLines()) {
@@ -102,7 +100,6 @@ public class View extends StaticPane implements Observer {
 				draw(actor);
 			}
 		}
-	
 	}
 	
 	private void draw(Actor turtle) {
@@ -147,7 +144,6 @@ public class View extends StaticPane implements Observer {
 			eX = endX;
 			eY = endY;
 		}else{
-			System.out.println("Out of Bounds!");
 			double numTimesXWidthRemoved = Math.floor((startX/DisplayConstants.VIEW_WIDTH));
 			double numTimesYWidthRemoved = Math.floor((startY/DisplayConstants.VIEW_HEIGHT));
 			sX = Math.abs(startX) % DisplayConstants.VIEW_WIDTH;
@@ -183,17 +179,9 @@ public class View extends StaticPane implements Observer {
 			n2.setEndY(eY);
 			double[] originalNewEndPoints = adjustEnd(n2);
 			addLine(n, sX, sY, originalNewEndPoints[0], originalNewEndPoints[1]);
-			System.out.println("Original Starting X " + sX);
-			System.out.println("Original Starting Y " + sY);
-			System.out.println("Original Ending X/New Starting X " + originalNewEndPoints[0]);
-			System.out.println("Original Ending Y/New Starting Y " + originalNewEndPoints[1]);
 			double[] newLine = adjustLine(originalNewEndPoints[0], originalNewEndPoints[1], eX, eY);
-			System.out.println("New Ending X " + newLine[2]);
-			System.out.println("New Ending Y " + newLine[3]);
-			System.out.println("");
 			drawLine(newLine[0], newLine[1], newLine[2], newLine[3], line);
 		}
-//		addLine(n, startX, startY, endX, endY);
 		return n;
 	}
 		/**
@@ -211,22 +199,6 @@ public class View extends StaticPane implements Observer {
 	
 	private boolean checkYBounds(double yLoc){
 		return !(yLoc<0 || yLoc> DisplayConstants.VIEW_HEIGHT);
-	}
-	
-	private boolean checkTop(double yLoc){
-		return yLoc>0;
-	}
-	
-	private boolean checkBottom(double yLoc){
-		return yLoc<DisplayConstants.VIEW_HEIGHT;
-	}
-	
-	private boolean checkRight(double xLoc){
-		return xLoc<DisplayConstants.VIEW_WIDTH;
-	}
-	
-	private boolean checkLeft(double xLoc){
-		return xLoc>0;
 	}
 	
 	private boolean isInBounds(double xLoc, double yLoc){
@@ -272,36 +244,18 @@ public class View extends StaticPane implements Observer {
 		original[0] = n.getEndX();
 		original[1] = n.getEndY();
 		
-//		if(checkTop(n.getEndY())==false){
-//			System.out.println("Intercept top");
-//			return getLineIntersection(n, TopLine);
-//			
-//		}
-//		else if(checkBottom(n.getEndY())==false){
-//			System.out.println("Intercept bottom");
-//			return getLineIntersection(n, BottomLine);
-//		}else if(checkRight(n.getEndX())==false){
-//			System.out.println("Intercept right");
-//			return getLineIntersection(n, RightLine);
-//		}else if(checkLeft(n.getEndX())==false){
-//			System.out.println("Intercept left");
-//			return getLineIntersection(n, LeftLine);
-//		}else{
-//			return original;
-//		}
-		
 		if(linesIntersect(n, TopLine)==true){
 			System.out.println("Intercept top");
 			return getLineIntersection(n, TopLine);	
 		}
 		else if(linesIntersect(n, BottomLine)==true){
-			System.out.println("Intercept bottom");
+			
 			return getLineIntersection(n, BottomLine);
 		}else if(linesIntersect(n, RightLine)==true){
-			System.out.println("Intercept right");
+			
 			return getLineIntersection(n, RightLine);
 		}else if(linesIntersect(n, LeftLine)==true){
-			System.out.println("Intercept left");
+			
 			return getLineIntersection(n, LeftLine);
 		}else{
 			return original;
