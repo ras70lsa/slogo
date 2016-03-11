@@ -2,6 +2,7 @@ package frontend.features;
 
 import backend.slogo.team04.Actor;
 import interfaces.slogo.team04.IView;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -10,35 +11,41 @@ public class LocationFeature extends TitlePaneFeature {
 
 	private ListProperty<Actor> actors;
 	private TableView<Actor> table;
-	
+
 	public LocationFeature(IView info) {
 		setText(getString("ActorSpecifics"));
 		actors = info.getActorProperty();
 		createTableView();
+		setContent(table);
 		
 	}
 
 	private void createTableView() {
 		table = new TableView<>();
 		table.setEditable(false);
-		TableColumn<Actor, Number> xLoc = new TableColumn<Actor, Number>();
-		TableColumn<Actor, Number> yLoc = new TableColumn<Actor, Number>();
-		TableColumn<Actor, Number> heading = new TableColumn<Actor, Number>();
-		TableColumn<Actor, Boolean> showing = new TableColumn<Actor, Boolean>();
-		TableColumn<Actor, Boolean> isPenDown = new TableColumn<Actor, Boolean>();
-		xLoc.setText("x");
-		yLoc.setText("y");
-		heading.setText("heading");
-		showing.setText("showing");
-		isPenDown.setText("isPenDown");
 		table.setItems(actors);
-		xLoc.setCellValueFactory(e -> e.getValue().getXProperty());
-		yLoc.setCellValueFactory(e -> e.getValue().getYProperty());
+		createColumns();
+	}
+
+	private void createColumns() {
+
+		//Needs to be refactored
+		TableColumn<Actor, String> ID = new TableColumn<>(getString("ID"));
+		TableColumn<Actor, String> xLoc = new TableColumn<>(getString("x"));
+		TableColumn<Actor, String> yLoc = new TableColumn<>(getString("y"));
+		TableColumn<Actor, Number> heading = new TableColumn<>(getString("Heading"));
+		TableColumn<Actor, Boolean> showing = new TableColumn<>(getString("Showing"));
+		TableColumn<Actor, Boolean> isPenDown = new TableColumn<>(getString("PenTable"));
+		TableColumn<Actor, Boolean> active = new TableColumn<>(getString("ActiveTable"));
+		ID.setCellValueFactory(e -> Bindings.format("%.0f", e.getValue().getIDProperty()));
+		xLoc.setCellValueFactory(e -> Bindings.format("%.2f", e.getValue().getXProperty()));
+		yLoc.setCellValueFactory(e -> Bindings.format("%.2f", e.getValue().getYProperty()));
 		heading.setCellValueFactory(e ->e.getValue().getHeadingProperty());
 		showing.setCellValueFactory(e -> e.getValue().getVisibileProperty());
 		isPenDown.setCellValueFactory(e -> e.getValue().getPenDownProperty());
-		table.getColumns().addAll(xLoc, yLoc, heading, showing, isPenDown);
-		setContent(table);
+		active.setCellValueFactory(e -> e.getValue().getActive());
+		table.getColumns().add(ID);
+		table.getColumns().addAll(active, xLoc, yLoc, heading, showing, isPenDown);
 		
 	}
 }

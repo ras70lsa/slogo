@@ -41,7 +41,7 @@ public class Actor {
 	private Pen pen;
 	private TurtleShape myShape;
 	private boolean isStamp;
-	private double ID;
+	private DoubleProperty ID;
 
 	public Actor(double x, double y, double heading, boolean penIsDown, double ID) {
 		xLocation = new SimpleDoubleProperty();
@@ -59,7 +59,7 @@ public class Actor {
 		image.set(getImage(DEFAULT_PATH));
 		active = new SimpleBooleanProperty(true);
 		myLines = new Stack<ModelLine>();
-		this.ID = ID;
+		this.ID = new SimpleDoubleProperty(ID);
 	}
 	
 	public Actor(Actor save) {
@@ -69,8 +69,12 @@ public class Actor {
 
 	
 	public double getID () {
-        return ID;
+        return ID.doubleValue();
     }
+	
+	public DoubleProperty getIDProperty() {
+		return ID;
+	}
 
     private Image getImage(String path){
 		return new Image(getClass().getClassLoader().getResourceAsStream(path));
@@ -257,5 +261,6 @@ public class Actor {
 	public boolean isStamp(){
 		return isStamp;
 	}
+		
 }
 

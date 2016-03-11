@@ -6,6 +6,5 @@ import frontend.slogo.team04.WorkspaceManager;
 public interface IDisplay {
 
 	public View getView();
-
 	public WorkspaceManager getManager();
 }
