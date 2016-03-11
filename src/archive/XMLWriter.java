@@ -54,7 +54,7 @@ public class XMLWriter {
 		for(int i = 0; i<commandNames.size(); i++) {
 			Element name = document.createElement(commandNames.get(i));
 			String nodeToText = commandNodes.get(i).parsableRepresentation();
-			System.out.println("this"+ nodeToText);
+			System.out.println(nodeToText);
 			name.setTextContent(nodeToText);
 			mainElement.appendChild(name);
 		}
