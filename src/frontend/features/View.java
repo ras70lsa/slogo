@@ -21,10 +21,10 @@ import visual.states.ViewUIState;
 
 public class View extends StaticPane implements Observer {
 
-	private double scaleFactor = 1;
-	public static final double ALPHA = 1;
-	public static final double DARKEN_FACTOR = -.75;
-	public static final double FADE_FACTOR = .5;
+	private static final double scaleFactor = 1;
+	private static final double ALPHA = 1;
+	private static final double DARKEN_FACTOR = -.75;
+	private static final double FADE_FACTOR = .5;
 	private ViewUIState visuals;
 	private IView model;
 	private Line TopLine;
@@ -32,8 +32,8 @@ public class View extends StaticPane implements Observer {
 	private Line LeftLine;
 	private Line BottomLine;
 	
-	public static final double ACTOR_WIDTH = 50;
-	public static final double ACTOR_HEIGHT = 60;
+	private static final double ACTOR_WIDTH = 50;
+	private static final double ACTOR_HEIGHT = 60;
 
 	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE / 2;
 

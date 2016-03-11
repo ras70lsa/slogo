@@ -175,7 +175,7 @@ public class Actor {
 		return showing.get();
 	}
 	
-	public BooleanProperty getVisibileProperty(){
+	public BooleanProperty getVisibleProperty(){
 		return showing;
 	}
 
