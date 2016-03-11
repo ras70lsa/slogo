@@ -25,4 +25,9 @@ public class CmdSetHeading extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdSetHeading.MY_KEY + CommandTreeNode.SPACE + myValue.parsableRepresentation();
+    }
+
 }

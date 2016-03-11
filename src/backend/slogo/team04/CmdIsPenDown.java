@@ -21,4 +21,9 @@ public class CmdIsPenDown extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdIsPenDown.MY_KEY;
+    }
+
 }

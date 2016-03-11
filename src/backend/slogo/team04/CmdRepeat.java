@@ -39,4 +39,9 @@ public class CmdRepeat extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdRepeat.MY_KEY + CommandTreeNode.SPACE + myExpression.parsableRepresentation() + CommandTreeNode.SPACE + myCommands.parsableRepresentation();
+    }
+
 }

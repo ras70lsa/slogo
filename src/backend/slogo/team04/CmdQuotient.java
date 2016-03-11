@@ -39,6 +39,11 @@ public class CmdQuotient extends CommandTreeNode {
         expTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdQuotient.MY_KEY + CommandTreeNode.SPACE + expOne.parsableRepresentation() + CommandTreeNode.SPACE + expTwo.parsableRepresentation();
+    }
     
 
 }

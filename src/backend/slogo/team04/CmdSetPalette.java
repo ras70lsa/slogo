@@ -46,4 +46,13 @@ public class CmdSetPalette extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+   
+        return CmdSetPalette.MY_KEY + CommandTreeNode.SPACE + myIndex.parsableRepresentation() + CommandTreeNode.SPACE + 
+                myR.parsableRepresentation() + CommandTreeNode.SPACE +
+                myG.parsableRepresentation() + CommandTreeNode.SPACE +
+                myB.parsableRepresentation();
+    }
+
 }

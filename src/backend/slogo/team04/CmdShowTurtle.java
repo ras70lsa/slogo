@@ -25,4 +25,9 @@ public class CmdShowTurtle extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdShowTurtle.MY_KEY;
+    }
+
 }

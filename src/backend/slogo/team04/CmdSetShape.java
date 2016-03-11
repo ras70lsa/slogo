@@ -34,4 +34,9 @@ public class CmdSetShape extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdSetShape.MY_KEY + CommandTreeNode.SPACE + myChild.parsableRepresentation();
+    }
+
 }

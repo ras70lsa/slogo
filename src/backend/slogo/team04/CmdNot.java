@@ -11,7 +11,6 @@ public class CmdNot extends CommandTreeNode {
 
     public CmdNot (CommandTreeNode myParent) {
         super(myParent);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -30,6 +29,11 @@ public class CmdNot extends CommandTreeNode {
     public INonLinearCommand parseString (SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException {
         testOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdNot.MY_KEY + CommandTreeNode.SPACE + testOne.parsableRepresentation();
     }
 
 }

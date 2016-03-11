@@ -56,4 +56,13 @@ public class CmdListOfCommands extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        String toReturn = CommandTreeNode.LEFT_BRACKET;
+        for(INonLinearCommand cmd : myCommands){
+           toReturn = toReturn + CommandTreeNode.SPACE + cmd.parsableRepresentation();
+        }
+        return toReturn + CommandTreeNode.RIGHT_BRACKET;
+    }
+
 }

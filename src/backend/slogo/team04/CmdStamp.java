@@ -28,4 +28,9 @@ public class CmdStamp extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdStamp.MY_KEY;
+    }
+
 }

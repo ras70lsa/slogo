@@ -52,4 +52,9 @@ public class CmdAskWith extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdAskWith.MY_KEY + CommandTreeNode.LEFT_BRACKET + myCondition.parsableRepresentation() + CommandTreeNode.RIGHT_BRACKET + myCmdListOfCommands.parsableRepresentation();
+    }
+
 }

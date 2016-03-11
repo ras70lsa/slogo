@@ -12,7 +12,6 @@ public class CmdOr extends CommandTreeNode {
 
     public CmdOr (CommandTreeNode myParent) {
         super(myParent);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -34,6 +33,11 @@ public class CmdOr extends CommandTreeNode {
         testOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         testTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);        
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdOr.MY_KEY + CommandTreeNode.SPACE + testOne.parsableRepresentation() + CommandTreeNode.SPACE + testTwo.parsableRepresentation();
     }
 
 }

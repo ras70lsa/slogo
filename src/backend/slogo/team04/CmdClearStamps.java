@@ -28,4 +28,9 @@ public class CmdClearStamps extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdClearStamps.MY_KEY;
+    }
+
 }

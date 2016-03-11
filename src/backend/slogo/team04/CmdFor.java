@@ -47,4 +47,13 @@ public class CmdFor extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        // TODO Auto-generated method stub
+        return CmdFor.MY_KEY + CommandTreeNode.LEFT_BRACKET + myVariable.parsableRepresentation() + CommandTreeNode.SPACE +
+                myStart.parsableRepresentation() + CommandTreeNode.SPACE +
+                myEnd.parsableRepresentation() + CommandTreeNode.SPACE +
+                myIncrement.parsableRepresentation() + CommandTreeNode.RIGHT_BRACKET + cmdList.parsableRepresentation();
+    }
+
 }

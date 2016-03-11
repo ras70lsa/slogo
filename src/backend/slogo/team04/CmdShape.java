@@ -27,4 +27,9 @@ public class CmdShape extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdShape.MY_KEY;
+    }
+
 }

@@ -29,4 +29,9 @@ public class CmdRandom extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdRandom.MY_KEY + CommandTreeNode.SPACE + expOne.parsableRepresentation();
+    }
+
 }

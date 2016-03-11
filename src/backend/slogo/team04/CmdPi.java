@@ -21,4 +21,9 @@ public class CmdPi extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdPi.MY_KEY;
+    }
+
 }

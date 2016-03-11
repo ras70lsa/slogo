@@ -30,4 +30,9 @@ public class CmdSetPenSize extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdSetPenSize.MY_KEY + CommandTreeNode.SPACE + myChild.parsableRepresentation();
+    }
+
 }

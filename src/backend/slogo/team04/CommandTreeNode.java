@@ -18,6 +18,12 @@ public abstract class CommandTreeNode implements INonLinearCommand {
 
     protected static final double DOUBLE_ZERO = 0d;
     protected static final double DOUBLE_ONE = 1d;
+    protected static final String SPACE = " ";
+    protected static final String LEFT_BRACKET = " [ ";
+    protected static final String RIGHT_BRACKET = " ] ";
+    protected static final String EMPTY_STRING = " ";
+    protected static final String LEFT_PAREN = " ( ";
+    protected static final String RIGHT_PAREN = " ) ";
 
 
     private List<CommandTreeNode> myChildren;
@@ -75,6 +81,15 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     protected BiFunction<Double, Double, Double> getMyUnlimitedParameterBehavior(){
         return (x,y) ->  x + y;
     }
+    
+    protected String appendParsableRepresentationWithSpaces(String toBuild, List<INonLinearCommand> myList){
+        String toReturn = toBuild;
+        for(INonLinearCommand val : myList){
+            toBuild = toBuild + CommandTreeNode.SPACE + val.parsableRepresentation();
+        }
+        return toReturn;
+    }
+    
    
 
 

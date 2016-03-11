@@ -39,4 +39,10 @@ public class CmdIfElse extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdIfElse.MY_KEY + CommandTreeNode.SPACE + myExpression.parsableRepresentation() + CommandTreeNode.SPACE +
+                trueCommands.parsableRepresentation() + CommandTreeNode.SPACE + falseCommands.parsableRepresentation();
+    }
+
 }

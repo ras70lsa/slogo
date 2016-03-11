@@ -36,4 +36,10 @@ public class CmdGreater extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdGreater.MY_KEY + CommandTreeNode.SPACE + expressionOne.parsableRepresentation() +
+                CommandTreeNode.SPACE + expressionTwo.parsableRepresentation();
+    }
+
 }

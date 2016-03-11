@@ -48,4 +48,11 @@ public class CmdDoTimes extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdDoTimes.MY_KEY + CommandTreeNode.LEFT_BRACKET + myVariable.parsableRepresentation() + 
+                CommandTreeNode.SPACE + myLimit.parsableRepresentation() + CommandTreeNode.RIGHT_BRACKET +
+                myCommands.parsableRepresentation();
+    }
+
 }

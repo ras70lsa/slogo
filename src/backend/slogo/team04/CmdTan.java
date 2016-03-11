@@ -26,4 +26,9 @@ public class CmdTan extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdTan.MY_KEY + CommandTreeNode.SPACE + inputValue.parsableRepresentation();
+    }
+
 }

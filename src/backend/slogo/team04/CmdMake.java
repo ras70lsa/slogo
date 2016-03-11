@@ -31,4 +31,9 @@ public class CmdMake extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdMake.MY_KEY + CommandTreeNode.SPACE + myVariable.parsableRepresentation() + CommandTreeNode.SPACE + myExpression.parsableRepresentation();
+    }
+
 }

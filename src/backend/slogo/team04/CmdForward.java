@@ -28,4 +28,9 @@ public class CmdForward extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdForward.MY_KEY + CommandTreeNode.SPACE + myValue.parsableRepresentation();
+    }
+
 }

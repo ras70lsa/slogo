@@ -31,4 +31,10 @@ public class CmdANullOne extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

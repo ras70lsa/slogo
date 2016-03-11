@@ -37,4 +37,9 @@ public class CmdAsk extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdAsk.MY_KEY + CommandTreeNode.SPACE + myTellNode.parsableRepresentation() + CommandTreeNode.SPACE + myCommandList.parsableRepresentation();
+    }
+
 }

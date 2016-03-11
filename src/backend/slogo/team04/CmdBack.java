@@ -23,4 +23,9 @@ public class CmdBack extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdBack.MY_KEY + CommandTreeNode.SPACE + myValue.parsableRepresentation();
+    }
+
 }

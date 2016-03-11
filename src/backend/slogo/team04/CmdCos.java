@@ -25,4 +25,9 @@ public class CmdCos extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdCos.MY_KEY + CommandTreeNode.SPACE + inputValue.parsableRepresentation();
+    }
+
 }

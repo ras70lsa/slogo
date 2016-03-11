@@ -26,4 +26,9 @@ public class CmdLog extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdLog.MY_KEY + CommandTreeNode.SPACE + inputValue.parsableRepresentation();
+    }
+
 }

@@ -31,4 +31,9 @@ public class CmdComment extends CommandTreeNode {
         return this; 
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CommandTreeNode.EMPTY_STRING;
+    }
+
 }

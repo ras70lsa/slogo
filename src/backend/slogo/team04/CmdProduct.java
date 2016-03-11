@@ -41,4 +41,9 @@ public class CmdProduct extends CommandTreeNode {
         return (x,y) ->  x * y;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdProduct.MY_KEY + CommandTreeNode.SPACE + expOne.parsableRepresentation() + CommandTreeNode.SPACE + expTwo.parsableRepresentation();
+    }
+
 }

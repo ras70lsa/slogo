@@ -29,4 +29,9 @@ public class CmdTowards extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdTowards.MY_KEY + CommandTreeNode.SPACE + myX.parsableRepresentation() + CommandTreeNode.SPACE + myY.parsableRepresentation();
+    }
+
 }

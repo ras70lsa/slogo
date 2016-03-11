@@ -24,4 +24,9 @@ public class CmdYCor extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdYCor.MY_KEY;
+    }
+
 }

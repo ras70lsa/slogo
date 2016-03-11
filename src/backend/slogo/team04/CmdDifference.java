@@ -42,4 +42,9 @@ public class CmdDifference extends CommandTreeNode {
         return (x,y) ->  x - y;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdDifference.MY_KEY + CommandTreeNode.SPACE + inputOne.parsableRepresentation() + CommandTreeNode.SPACE + inputTwo.parsableRepresentation();
+    }
+
 }

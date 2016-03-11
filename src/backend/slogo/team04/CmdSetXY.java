@@ -29,4 +29,9 @@ public class CmdSetXY extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdSetXY.MY_KEY + CommandTreeNode.SPACE + myX.parsableRepresentation() + CommandTreeNode.SPACE + myY.parsableRepresentation();
+    }
+
 }

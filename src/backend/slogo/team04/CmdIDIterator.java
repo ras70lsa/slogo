@@ -79,4 +79,15 @@ public class CmdIDIterator extends CommandTreeNode {
         return this.currentTurtleID;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        String conditionPart, commandsPart;
+        conditionPart = myConditionalNode.parsableRepresentation();
+        if(!conditionPart.equals(CommandTreeNode.EMPTY_STRING)){
+            conditionPart = CommandTreeNode.LEFT_BRACKET + conditionPart + CommandTreeNode.RIGHT_BRACKET;
+        }
+        commandsPart = commandsToRunIfSatisfied.parsableRepresentation();
+        return conditionPart + CommandTreeNode.SPACE + commandsPart;
+    }
+
 }

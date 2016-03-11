@@ -26,4 +26,9 @@ public class CmdSin extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdSin.MY_KEY + CommandTreeNode.SPACE + inputValue.parsableRepresentation();
+    }
+
 }

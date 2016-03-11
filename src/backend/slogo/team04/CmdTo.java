@@ -11,13 +11,17 @@ public class CmdTo extends CommandTreeNode {
     protected final static String MY_KEY = "MakeUserInstruction";
     private String myCommandName;
     private double isInitializedCorrectly;
-
+    List<CmdVariable> listOfVariables;
+    List<INonLinearCommand> listOfCommands; // should refactor this to use a cmdlistofcommands node instead, will require changing the 
+    //interpreter class api
 
 
 
     public CmdTo (CommandTreeNode myParent) {
         super(myParent);
         isInitializedCorrectly = CommandTreeNode.DOUBLE_ZERO;
+        listOfVariables = new ArrayList<CmdVariable>();
+        listOfCommands = new ArrayList<INonLinearCommand>(); 
     }
 
     @Override
@@ -39,8 +43,6 @@ public class CmdTo extends CommandTreeNode {
 
 
         CmdCommand myCommandToCreate = new CmdCommand(null, myWord); // command float on their own, do not have any parent as they are not really part of tree
-        List<CmdVariable> listOfVariables = new ArrayList<CmdVariable>();
-        List<INonLinearCommand> listOfCommands = new ArrayList<INonLinearCommand>(); 
         myWord = myScanner.getNextWord();
         if(myScanner.checkIfStartOfList(myWord, myInterpreter)){
             // grab variables
@@ -68,6 +70,20 @@ public class CmdTo extends CommandTreeNode {
             throw new UserInputException("Variable list not closed");
         }
         return this;
+    }
+
+    @Override
+    public String parsableRepresentation () {
+        String toReturn = CmdTo.MY_KEY + CommandTreeNode.SPACE + myCommandName + CommandTreeNode.LEFT_BRACKET;
+        // can't use the method, because list subtype is different
+        for(CmdVariable var : listOfVariables){
+            toReturn = toReturn + CommandTreeNode.SPACE + var.parsableRepresentation();
+        }
+        toReturn = toReturn + CommandTreeNode.RIGHT_BRACKET + CommandTreeNode.LEFT_BRACKET;
+        for(INonLinearCommand cmd : listOfCommands){
+            toReturn = toReturn + CommandTreeNode.SPACE + cmd.parsableRepresentation();
+        }
+        return toReturn + CommandTreeNode.RIGHT_BRACKET;
     }
 
 }

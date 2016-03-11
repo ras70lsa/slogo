@@ -50,4 +50,10 @@ public class CmdTreeHeadNode extends CommandTreeNode {
         return Double.NaN;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return appendParsableRepresentationWithSpaces(CommandTreeNode.EMPTY_STRING, myChildren);
+        
+    }
+
 }

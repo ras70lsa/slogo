@@ -28,4 +28,9 @@ public class CmdTurtles extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdTurtles.MY_KEY;
+    }
+
 }

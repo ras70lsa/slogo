@@ -30,4 +30,9 @@ public class CmdPow extends CommandTreeNode {
         expTwo = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdPow.MY_KEY + CommandTreeNode.SPACE + expOne.parsableRepresentation() + CommandTreeNode.SPACE + expTwo.parsableRepresentation();
+    }
 }

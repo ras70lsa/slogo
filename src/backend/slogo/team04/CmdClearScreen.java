@@ -24,4 +24,9 @@ public class CmdClearScreen extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdClearScreen.MY_KEY;
+    }
+
 }

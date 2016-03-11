@@ -21,4 +21,9 @@ public class CmdIsShowing extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdIsShowing.MY_KEY;
+    }
+
 }

@@ -37,4 +37,9 @@ public class CmdID extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdID.MY_KEY;
+    }
+
 }

@@ -7,7 +7,7 @@ import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 public class CmdMinus extends CommandTreeNode {
     protected final static String MY_KEY = "Minus";
-    private INonLinearCommand expOne; // the two nodes that we need to grab
+    private INonLinearCommand expOne; 
 
     public CmdMinus(CommandTreeNode myParent) {
         super(myParent);
@@ -25,5 +25,11 @@ public class CmdMinus extends CommandTreeNode {
         expOne = CommandFactory.recursiveSlogoFactoryNoListsAllowed(myScanner, this, myInterpreter);
         return this;
     }
+
+    @Override
+    public String parsableRepresentation () {
+        return CmdMinus.MY_KEY + CommandTreeNode.SPACE + expOne.parsableRepresentation();
+    }
+    
 
 }

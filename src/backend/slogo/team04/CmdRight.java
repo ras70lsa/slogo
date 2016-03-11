@@ -23,4 +23,9 @@ public class CmdRight extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdRight.MY_KEY + CommandTreeNode.SPACE + myValue.parsableRepresentation();
+    }
+
 }

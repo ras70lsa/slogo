@@ -27,4 +27,9 @@ public class CmdPenColor extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdPenColor.MY_KEY;
+    }
+
 }

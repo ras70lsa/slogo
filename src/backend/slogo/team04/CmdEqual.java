@@ -36,4 +36,9 @@ public class CmdEqual extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdEqual.MY_KEY + CommandTreeNode.SPACE + expressionOne.parsableRepresentation() + CommandTreeNode.SPACE + expressionTwo.parsableRepresentation();
+    }
+
 }

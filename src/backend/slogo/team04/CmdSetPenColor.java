@@ -35,4 +35,9 @@ public class CmdSetPenColor extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdSetPenColor.MY_KEY + CommandTreeNode.SPACE + myChild.parsableRepresentation();
+    }
+
 }

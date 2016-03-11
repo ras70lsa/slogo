@@ -24,4 +24,11 @@ public class CmdConstant extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return String.valueOf(myValue);
+    }
+    
+    
+
 }

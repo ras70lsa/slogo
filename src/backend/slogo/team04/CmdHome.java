@@ -24,4 +24,9 @@ public class CmdHome extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdHome.MY_KEY;
+    }
+
 }

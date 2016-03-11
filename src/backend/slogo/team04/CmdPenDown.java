@@ -25,4 +25,9 @@ public class CmdPenDown extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdPenDown.MY_KEY;
+    }
+
 }

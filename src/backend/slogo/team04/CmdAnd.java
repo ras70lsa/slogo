@@ -37,4 +37,10 @@ public class CmdAnd extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdAnd.MY_KEY + CommandTreeNode.SPACE + testOne.parsableRepresentation() + CommandTreeNode.SPACE + testTwo.parsableRepresentation();
+    }
+    
+
 }

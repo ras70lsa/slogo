@@ -41,4 +41,9 @@ public class CmdVariable extends CommandTreeNode {
         return myInterpreter.getVariableValue(myName);
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdVariable.VARIABLE_DECLARATION_TO_REMOVE + myName;
+    }
+
 }

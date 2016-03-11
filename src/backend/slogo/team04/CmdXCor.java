@@ -24,4 +24,9 @@ public class CmdXCor extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdXCor.MY_KEY;
+    }
+
 }

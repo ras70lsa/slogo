@@ -49,4 +49,11 @@ public class CmdUnlimitedParameter extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        String toReturn = CommandTreeNode.LEFT_PAREN;
+        toReturn = appendParsableRepresentationWithSpaces(toReturn, myParamList);
+        return toReturn + CommandTreeNode.RIGHT_PAREN;
+    }
+
 }

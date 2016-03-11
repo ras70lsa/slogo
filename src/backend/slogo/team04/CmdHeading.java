@@ -21,4 +21,9 @@ public class CmdHeading extends CommandTreeNode {
         return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdHeading.MY_KEY;
+    }
+
 }

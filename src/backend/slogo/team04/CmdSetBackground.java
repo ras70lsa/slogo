@@ -36,4 +36,9 @@ public class CmdSetBackground extends CommandTreeNode {
          return this;
     }
 
+    @Override
+    public String parsableRepresentation () {
+        return CmdSetBackground.MY_KEY + CommandTreeNode.SPACE + myChild.parsableRepresentation();
+    }
+
 }

@@ -36,5 +36,10 @@ public interface INonLinearCommand {
      */
     public abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException;
     
-   
+    /**
+     * Each command knows how to write itself down via strings such that re-parsing the resultant string will recreate the parse tree
+     * of nodes required to run the same command
+     * @return
+     */
+    public abstract String parsableRepresentation();
 }
