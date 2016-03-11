@@ -53,7 +53,7 @@ public interface ISlogoModelActionsExtended{
      * then our code will make sure that turtles 1 - 100 exist
      * 
      * Newly created turtles will be set to active, otherwise, after calling this command only the turtles in the list 
-     * should be active, alll non-listed should be set to false
+     * should be active, all non-listed should be set to false
      * @return
      */
     double tell(int[] arrayOfActiveTurtleIDs);

@@ -187,7 +187,7 @@ public class Actor {
 	public BooleanProperty getActive() {
 		return active;
 	}
-
+	
 	public List<ModelLine> getMyLines() {
 		return myLines;
 	}
@@ -246,5 +246,6 @@ public class Actor {
 	public boolean isStamp(){
 		return isStamp;
 	}
+	
 }
 
