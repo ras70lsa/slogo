@@ -26,6 +26,7 @@ public class Option extends MenuFeature {
 
 	Menu clear;
 	Menu advancedOptions;
+	public static final String EMPTY_STRING = "";
 	
 	Map<String, EventHandler<ActionEvent>> clearItems = new TreeMap<>();{
 	     clearItems.put(getString("History"), e-> clearHistory());
@@ -59,7 +60,7 @@ public class Option extends MenuFeature {
 	private void createAdvanced() {
 		
 		for(Node node: display.getView().getReleventProperties()) {
-			MenuItem item = new MenuItem("", node);
+			MenuItem item = new MenuItem(EMPTY_STRING, node);
 			advancedOptions.getItems().add(item);
 		}
 		add(new SeparatorMenuItem());

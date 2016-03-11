@@ -31,7 +31,7 @@ public class UserTextInput extends VPane {
 	Map<String, EventHandler<ActionEvent>> hboxItems = new TreeMap<>();{
 	    hboxItems.put(getString("Go"), e-> inputEntered());
 		hboxItems.put(getString("AddActor"), e-> addActor());
-	    hboxItems.put(getString("Step"), e->step());
+	    hboxItems.put(getString("Debug"), e->debug());
 	};
 	
 	public UserTextInput(Controller controller) {
@@ -60,6 +60,10 @@ public class UserTextInput extends VPane {
 	}
 
 	private void step() {
+		
+	}
+
+	private void debug() {
 		controller.debug();
 	}
 

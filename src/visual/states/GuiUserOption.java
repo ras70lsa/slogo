@@ -1,6 +1,7 @@
 package visual.states;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.StringProperty;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -37,10 +38,10 @@ public class GuiUserOption {
 		
 	}
 	
-	public Node get(ColorProperty color, String title) {
+	public Node get(ColorProperty color, ListProperty<RGBColor> colorPalette, String title) {
 		HBox hbox = new HBox();
 		ColorPicker picker = new ColorPicker();
-		picker.setOnAction(e -> setColor(picker.getValue(), color));
+		picker.setOnAction(e -> setColor(picker.getValue(), colorPalette, color));
 		hbox.getChildren().add(picker);
 		Label label = new Label(OFFSET + title);
 		label.setTextFill(DEFUALT_LABEL_COLOR);
@@ -48,9 +49,10 @@ public class GuiUserOption {
 		return hbox;
 	}
 
-	private void setColor(Color frontEnd, ColorProperty color) {
+	private void setColor(Color frontEnd, ListProperty<RGBColor> colorPalette, ColorProperty color) {
 		//Needs to be fixed. Need to talk about chances to RGB color
-		RGBColor next = new RGBColor(frontEnd.getRed(), frontEnd.getGreen(), frontEnd.getBlue());
+		RGBColor next = new RGBColor(frontEnd.getRed(), frontEnd.getGreen(), frontEnd.getBlue(), colorPalette.size());
+		colorPalette.add(next);
 		color.set(next);
 	}
 
