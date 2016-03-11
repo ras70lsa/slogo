@@ -17,6 +17,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import properties.ColorProperty;
 import properties.ImageProperty;
 import utilities.Angle;
@@ -38,6 +39,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	public ViewModel() {
 		backgroundColor = new ColorProperty();
+		currentActiveImage = new ImageProperty();
 		penColor = new ColorProperty();
 		currentPenWidth = new SimpleDoubleProperty();
 		ObservableList<Actor> list = FXCollections.observableArrayList();
@@ -45,7 +47,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		addActor();
 		lineManager = new Stack<ModelLine>();
 		generateColorListProperty();
-		currentActiveImage = new ImageProperty();
 		addListeners(actors.get(actors.getSize() - 1));
 	}
 
