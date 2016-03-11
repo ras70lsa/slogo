@@ -6,11 +6,13 @@ package interfaces.slogo.team04;
  * @author jonathanim
  *
  */
-public interface ISlogoModelActionsExtended extends ISlogoModelActions{
+
+public interface ISlogoModelActionsExtended{
+
     double forward(double pixels, double turtleID);
     double back(double pixels, double turtleID);
-    double left(double pixels, double turtleID);
-    double right(double pixels, double turtleID);
+    double left(double degrees, double turtleID);
+    double right(double degrees, double turtleID);
     double setHeading(double degrees, double turtleID);
     double towards(double x, double y, double turtleID);
     double setxy(double x, double y, double turtleID);

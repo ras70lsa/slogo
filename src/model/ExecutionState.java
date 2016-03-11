@@ -94,4 +94,12 @@ public class ExecutionState implements ISlogoInterpreterVariableScope, IVariable
 		return commands.getCommandNodes();
 	}
 
+    @Override
+    public void kickAllButLowest () {
+       variables.kickAllButLowest();
+        
+    }
+
+
+
 }

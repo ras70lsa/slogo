@@ -40,8 +40,10 @@ public class Actor {
 	private Stack<ModelLine> myLines;
 	private Pen pen;
 	private TurtleShape myShape;
+	private boolean isStamp;
+	private double ID;
 
-	public Actor(double x, double y, double heading, boolean penIsDown) {
+	public Actor(double x, double y, double heading, boolean penIsDown, double ID) {
 		xLocation = new SimpleDoubleProperty();
 		xLocation.set(x);
 		yLocation = new SimpleDoubleProperty();
@@ -57,15 +59,20 @@ public class Actor {
 		image.set(getImage(DEFAULT_PATH));
 		active = new SimpleBooleanProperty(true);
 		myLines = new Stack<ModelLine>();
+		this.ID = ID;
 	}
 	
 	public Actor(Actor save) {
-		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown.get());
+		this(save.getXLocation(), save.getYLocation(), save.getHeading(), save.penIsDown.get(), save.getID());
 		myLines.addAll(save.getMyLines());
 	}
 
 	
-	private Image getImage(String path){
+	public double getID () {
+        return ID;
+    }
+
+    private Image getImage(String path){
 		return new Image(getClass().getClassLoader().getResourceAsStream(path));
 	}
 
@@ -178,7 +185,9 @@ public class Actor {
 	}
 
 	public void toggleActive() {
-		active.set(!active.get());
+		if (!isStamp){
+			active.set(!active.get());
+		}
 	}
 	
 	public BooleanProperty getActive() {
@@ -233,6 +242,15 @@ public class Actor {
 
 	public Pen getPen() {
 		return pen;
+	}
+	
+	public void setStamp(){
+		active.set(false);
+		isStamp = true;
+	}
+	
+	public boolean isStamp(){
+		return isStamp;
 	}
 }
 

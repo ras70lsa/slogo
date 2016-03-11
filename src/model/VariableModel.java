@@ -13,6 +13,7 @@ public class VariableModel implements IVariable {
 
 	private ListProperty<ListProperty<Variable>> stack;
 	private int currentLevel;
+	private final int BASE_LEVEL = 0;
 	
 	public VariableModel() {
 		currentLevel=-1;
@@ -83,6 +84,12 @@ public class VariableModel implements IVariable {
 
 	public void kick() {
 		stack.remove(currentLevel--);
+	}
+	
+	public void kickAllButLowest() {
+	    while(currentLevel > BASE_LEVEL){
+	        kick();
+	    }
 	}
 	
 	public ListProperty<ListProperty<Variable>> getStack() {

@@ -12,6 +12,7 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ICommunicator;
 import interfaces.slogo.team04.ISlogoModelActions;
+import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
 /**
@@ -24,12 +25,12 @@ import interfaces.slogo.team04.ISlogoModelActions;
 public class Controller {
 
     private ICommunicator model;
-    private ISlogoModelActions viewModel;
+    private ISlogoModelActionsExtended viewModel;
     private BackendTestNullModelActor tester; 
     
-    public Controller(ICommunicator model, ISlogoModelActions viewModel) {
+    public Controller(ICommunicator model, ISlogoModelActionsExtended iSlogoModelActionsExtended) {
     	this.model = model;
-    	this.viewModel = viewModel;
+    	this.viewModel = iSlogoModelActionsExtended;
     	tester = new BackendTestNullModelActor();
     }
     
