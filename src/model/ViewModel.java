@@ -32,7 +32,13 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	private Stack<ModelLine> lineManager;
 	private ColorProperty backgroundColor;
 	private ColorProperty penColor;
-	private ArrayList<Boolean> activeStates;
+	
+	private List<Boolean> activeStates;
+	
+	
+	private List<Boolean> currentActiveTurtles;
+	private Stack<List<Boolean>> myCachedActiveTurtles;
+	
 	private ListProperty<RGBColor> colorListProperty;
 	private ImageProperty currentActiveImage;
 	private DoubleProperty currentPenWidth;
@@ -45,10 +51,16 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		ObservableList<Actor> list = FXCollections.observableArrayList();
 		actors = new SimpleListProperty<Actor>(list);
 		addActor();
+		activeStates = new ArrayList<> ();
 		stamps = new ArrayList<Actor>();
 		lineManager = new Stack<ModelLine>();
 		generateColorListProperty();
 		addListeners(actors.get(actors.getSize() - 1));
+		
+		
+
+		currentActiveTurtles = new ArrayList<>();
+	        myCachedActiveTurtles = new Stack<>();
 	}
 
 	@Override
@@ -407,6 +419,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	@Override
 	public void popCurrentActive() {
 		// TODO Auto-generated method stub
+	        int size = currentActiveTurtles.size();
+	        currentActiveTurtles = myCachedActiveTurtles.pop();
+	       // private Stack<List<Boolean>> myCachedActiveTurtles;
+	    
+	    
 		for (int i = 0; i < actors.size(); i++) {
 			actors.get(i).getActive().set(activeStates.get(i));
 		}
@@ -418,6 +435,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 			activeStates.add(activeTurtles()[i]);
 		}
 	}
+	
+	//private void add
 
 	@Override
 	public double setPenColor(int index) {
