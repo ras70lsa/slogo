@@ -10,4 +10,5 @@ public interface IVariable {
 	void clearVariables();
 	
 	ListProperty<ListProperty<Variable>> getStack();
+
 }

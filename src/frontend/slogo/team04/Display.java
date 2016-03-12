@@ -57,6 +57,7 @@ public class Display implements IDisplay {
 		createFeatures();
 		position();			
 		addListeners();
+		controller.setDisplay(this);
 		controller.update();
 		
 	}
@@ -166,5 +167,16 @@ public class Display implements IDisplay {
 	public GridPane getGridPane() {
 		return gridPane;
 	}
+
+    @Override
+    public VariableFeature getVariableFeature () {
+        return variables;
+    }
+
+    @Override
+    public void disableStep () {
+        textInput.disableStep();
+        
+    }
 
 }

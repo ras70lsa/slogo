@@ -25,6 +25,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     protected static final String EMPTY_STRING = " ";
     protected static final String LEFT_PAREN = " ( ";
     protected static final String RIGHT_PAREN = " ) ";
+    
 
 
     private List<CommandTreeNode> myChildren;
@@ -98,17 +99,40 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     }
 
     protected void ifDebugPauseExecution(ISlogoDebugObject debugMe) throws LogicException{
-        synchronized(debugMe) {
-            while(!debugMe.shouldWake()){ 
-                try {
-                    debugMe.wait();
-                }
-                catch (InterruptedException e) {
-                    throw new LogicException("Debug thread was interrupted");
-                }
+        if(debugMe.firstTimeStep()){
+            synchronized( debugMe.getDrawReadySynchObject()){
+                System.out.println("Trying to step");
+                debugMe.getDrawReadySynchObject().notifyAll();           
             }
         }
+
+        synchronized(debugMe){
+            if(debugMe.shouldPause()){
+                while(!debugMe.shouldWake()){ 
+                    try {
+                        synchronized(debugMe.getDrawReadySynchObject()){
+                            debugMe.getDrawReadySynchObject().notify();
+                        }
+                        debugMe.wait();
+                        //debugMe.notify();
+                    }
+                    catch (InterruptedException e) {
+                        throw new LogicException("Debug thread was interrupted");
+                    }
+                }
+
+            }
+            //myDebugObject.userAttemptedStep();
+            //myDebugObject.notify();
+        }
+//        synchronized( debugMe.getDrawReadySynchObject()){
+//            System.out.println("Trying to step");
+//            debugMe.getDrawReadySynchObject().notifyAll();           
+//        }
         
+      
+
+
     }
 
 

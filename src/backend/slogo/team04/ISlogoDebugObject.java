@@ -22,4 +22,22 @@ public interface ISlogoDebugObject {
      */
     public boolean shouldWake();
   
+    /**
+     * Inform the object that user wanted it to wake
+     */
+    public void userAttemptedStep();
+    
+    public void setDrawReadySynchObject(Object synchObject);
+    
+    public void notifyDrawWaiters();
+    
+    public Object getDrawReadySynchObject();
+    
+    public boolean firstTimeStep();
+    
+    public boolean isDoneStepping();
+    
+    public void doneStepping();
+    
+
 }

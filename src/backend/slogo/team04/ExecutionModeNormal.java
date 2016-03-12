@@ -12,4 +12,42 @@ public class ExecutionModeNormal implements ISlogoDebugObject {
         return true;
     }
 
+    @Override
+    public void userAttemptedStep () {
+        
+    }
+
+    @Override
+    public void setDrawReadySynchObject (Object synchObject) {        
+    }
+
+    @Override
+    public void notifyDrawWaiters(){
+        
+    }
+
+    @Override
+    public Object getDrawReadySynchObject () {
+        return this;
+    }
+
+    @Override
+    public boolean firstTimeStep () {
+        return false;
+    }
+
+    @Override
+    public boolean isDoneStepping () {
+        return true;
+    }
+
+    @Override
+    public void doneStepping () {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    
+    
+
 }

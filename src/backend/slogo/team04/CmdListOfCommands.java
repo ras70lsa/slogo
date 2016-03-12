@@ -30,7 +30,6 @@ public class CmdListOfCommands extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
-        ifDebugPauseExecution(debugMe);
         double lastValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : myCommands){
             lastValue = cmd.executeCommand(myController, myInterpreter, debugMe);

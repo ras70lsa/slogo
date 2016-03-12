@@ -25,10 +25,16 @@ public class CmdTreeHeadNode extends CommandTreeNode {
 
     @Override
     public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
-        ifDebugPauseExecution(debugMe);
+        //ifDebugPauseExecution(debugMe);
         myInterpreter.kickAllButLowest();
         for(INonLinearCommand child : myChildren){
             child.executeCommand(myController, myInterpreter, debugMe);
+        }
+        synchronized (debugMe) {
+            debugMe.doneStepping();
+            synchronized(debugMe.getDrawReadySynchObject()){
+                debugMe.getDrawReadySynchObject().notify();
+            }
         }
         return 0; //this is not a defined language command
     }

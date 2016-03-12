@@ -66,11 +66,28 @@ public class UserTextInput extends VPane {
 	}
 
 	private void step() {
-		
+		try {
+            controller.step();
+        }
+        catch (UserInputException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 
 	private void debug() {
-		controller.debug();
+	    try {
+                controller.debug(textArea.getText());
+                textArea.clear();
+        } catch (UserInputException|LogicException e) {
+                AlertMessage alert = new AlertMessage(e.getMessage());
+                alert.displayError();
+        } 
+		
 		step.setVisible(DEBUGGING);
 	}
 
@@ -105,6 +122,11 @@ public class UserTextInput extends VPane {
 		}
 		textArea.setText(textArea.getText() + " " + text);
 	}
+
+    public void disableStep () {
+        step.setVisible(!DEBUGGING);
+        
+    }
 	
 
 }
