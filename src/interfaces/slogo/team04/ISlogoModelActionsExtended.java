@@ -1,5 +1,6 @@
 package interfaces.slogo.team04;
 
+import exceptions.PaletteException;
 
 /**
  * Adding support for multiple turtles
@@ -39,8 +40,8 @@ public interface ISlogoModelActionsExtended{
      */
     boolean[] activeTurtles();
     
-    double setBackground(int index);
-    double setPenColor(int index);
+    double setBackground(int index) throws PaletteException;
+    double setPenColor(int index) throws PaletteException;
     double setPenSize(double pixels);
     double setShape(int index);
     

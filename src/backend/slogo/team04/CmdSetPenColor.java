@@ -1,6 +1,7 @@
 package backend.slogo.team04;
 
 import exceptions.LogicException;
+import exceptions.PaletteException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
@@ -21,7 +22,11 @@ public class CmdSetPenColor extends CommandTreeNode {
         ifDebugPauseExecution(debugMe);
         double myProposedIndex = myChild.executeCommand(myController, myInterpreter, debugMe);
         if(SlogoRegexChecker.isPostiveIndex(myProposedIndex)){
-            return myController.setPenColor((int) myProposedIndex);
+            try {
+            	return myController.setPenColor((int) myProposedIndex);
+            } catch (PaletteException e) {
+            	throw new LogicException("Palette Index out of Range");
+            }
         }else{
             throw new LogicException("Expected integer like index value as input to SetPenColor");
         }

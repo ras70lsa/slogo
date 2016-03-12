@@ -1,6 +1,7 @@
 package backend.slogo.team04;
 
 import exceptions.LogicException;
+import exceptions.PaletteException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
@@ -20,6 +21,7 @@ public interface INonLinearCommand {
      * 
      * @param myController we delegate actionable events to this object
      * @param myInterpreter This object holds the state required for properly 'running' the Slogo commands
+
      * @param debugMe TODO
      * @throws LogicException TODO
      * 
