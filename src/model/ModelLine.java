@@ -3,6 +3,11 @@ package model;
 import backend.structures.Pen;
 import backend.structures.RGBColor;
 
+/**
+ * ModelLine holds an abstract representation of a line. This class is used to further segment the model from the view,
+ * eliminating any JavaFx line dependency in the backend
+ *
+ */
 public class ModelLine {
 	private double startX, startY, endX, endY;
 	private RGBColor color;

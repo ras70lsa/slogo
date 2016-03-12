@@ -5,10 +5,19 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
+/**
+ * Creates a Menu that allows the user to select one of the available languages
+ * @author RyanStPierre
+ *
+ */
 public class LanguageSelector extends Menu  {
 
 	StringProperty language;
 	
+	/**
+	 * Takes in a StringProperty to edit
+	 * @param language
+	 */
 	public LanguageSelector(StringProperty language) {
 		super();
 		this.language = language;

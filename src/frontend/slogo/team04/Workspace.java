@@ -6,6 +6,11 @@ import javafx.stage.Stage;
 import model.Controller;
 import model.Model;
 
+/**
+ * Holds everything necessary to "a workspace"
+ * @author RyanStPierre
+ *
+ */
 public class Workspace {
 
 	Display display;

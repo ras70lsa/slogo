@@ -7,8 +7,14 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Responsible for holding the user-defined commands
+ * @author RyanStPierre
+ *
+ */
 public class CommandModel implements ICommands{
 
+	/*Parallel list indexing*/
 	private ListProperty<String> names;
 	private ListProperty<INonLinearCommand> commands;
 	

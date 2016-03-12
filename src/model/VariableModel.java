@@ -10,8 +10,17 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Contains the Variables for the Interpreter and front-end feature to use
+ * Functionality allows for dynamic scope and dynamic editing of variables during code execution
+ * @author RyanStPierre
+ *
+ */
 public class VariableModel implements IVariable {
 
+	/**
+	 * Stack used for scope
+	 */
 	private ListProperty<ListProperty<Variable>> stack;
 	private static final double ZERO = 0d;
 	private int currentLevel;

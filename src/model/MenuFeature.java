@@ -11,6 +11,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
+/**
+ * Defines commonality of creating a Menu
+ * @author RyanStPierre
+ *
+ */
 public class MenuFeature extends Menu {
 
 	private ResourceBundle myBundle;
