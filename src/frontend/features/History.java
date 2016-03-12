@@ -38,10 +38,10 @@ public class History extends InteractionListView {
 			primaryClicked();
 			return;
 		}
-		showContextMenu(e.getSceneX(), e.getSceneY());
+		showContextMenu();
 	}
 
-	private void showContextMenu(double x, double y) {
+	private void showContextMenu() {
 		ContextMenu menu = new ContextMenu();
 		MenuItem item1 = new MenuItem(getString("Go"));
 		MenuItem item2 = new MenuItem(getString("ToWindow"));
