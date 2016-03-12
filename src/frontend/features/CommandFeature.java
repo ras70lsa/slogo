@@ -10,6 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.util.Callback;
 
 public class CommandFeature extends InteractionListView {
@@ -36,50 +37,51 @@ public class CommandFeature extends InteractionListView {
 	public class HoverListCell extends ListCell<String> {
 		
 		public static final String EMPTY = "";
-		ContextMenu menu;
-		MenuItem item;
+		public static final double OFFSET = 50;
+		public static final double CELL_HEIGHT = 100;
+		public static final double TEXT_WIDTH = 200;
+		
+		Popup popup;
+		Label label;
 		
 		public HoverListCell() {
-			menu = new ContextMenu();
-			menu.setMaxWidth(50);
-			item = new MenuItem();
-			item.setText(EMPTY);
-			menu.getItems().add(item);
-			setContext(null);
+			
+			createPopUp();
+			popup.getContent().add(label);
 			setAction();
-			this.setPrefHeight(150);
+			this.setPrefHeight(CELL_HEIGHT);
 		}
-		
+
+		private void createPopUp() {
+			popup = new Popup();
+			label = new Label(EMPTY);
+			label.setPrefWidth(TEXT_WIDTH);
+			label.setWrapText(true);
+		}
+
 		private void setAction() {
 			this.setOnMouseEntered(e -> open(e.getSceneX(), e.getSceneY()));
 			this.setOnMouseExited(e -> close());
 		}
 		
 		private void open(double x, double y) {
-			if(!item.getText().equals(EMPTY)) {
-				menu.show(getList(), x - 50, y + 50);
+			if(!label.getText().equals(EMPTY)) {
+				popup.show(getList(), x - OFFSET, y + OFFSET);
 			}
 		}
 		
 		private void close() {
-			menu.hide();
+			popup.hide();
 		}
 		
 		private void setContext(String input) {
 			if(input!=null) {
-				item.setText(addNewLines(input));
+				label.setText(addNewLines(input));
 			}
 		}
 	
 		private String addNewLines(String input) {
-			String [] words = input.split(" ");
-			for(String str: words) {
-				if(!str.equals(" ")) {
-				System.out.println(str);
-				}
-			}
-			String newLines = input.replaceAll("((?:\\w+\\s){2}\\w+)(\\s)", "$1\n");
-			return newLines;
+			return input;
 		}
 
 		@Override
