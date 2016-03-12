@@ -29,7 +29,7 @@ public class CmdAskWith extends CommandTreeNode {
 
 
         double toReturn = CommandTreeNode.DOUBLE_ZERO;
-        List<Boolean> turtleHasActed = new ArrayList<Boolean>();
+        List<Boolean> turtleHasActed = new ArrayList<>();
         boolean someTurtleHasActed = true; //we are going to essentially iterate through list until it stop changing, because
         //        //the list of active turtles might grow shrink or change as a result of our operations
 

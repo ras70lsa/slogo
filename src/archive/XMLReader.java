@@ -87,18 +87,18 @@ public class XMLReader {
 
 	private void checkFile(File file) throws ImproperFileException {
 		String extension = getExtension(file.toString());
-		if(!extension.equals(XML) || extension == null) {
+		if(!extension.equals(XML)) {
 			throw new ImproperFileException(MESSAGE);
 		}
 	}
 	
-	private String getExtension(String file) {
+	private String getExtension(String file) throws ImproperFileException {
 		
 		int index = file.lastIndexOf('.');
-		if(index>-1) {
-			return file.substring(index+1);
+		if(index == -1 ) {
+			throw new ImproperFileException(MESSAGE);
 		}
-		return null;
+		return file.substring(index+1);
 	}
 
 }

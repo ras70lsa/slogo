@@ -32,7 +32,7 @@ public class BackendTestTwo {
 //        System.out.println(str);
         //testing standard list<Boolean> values
         
-        List<Boolean> testList = new ArrayList<Boolean>();
+        List<Boolean> testList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             testList.add(Boolean.FALSE);
         }

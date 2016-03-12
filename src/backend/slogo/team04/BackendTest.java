@@ -51,7 +51,7 @@ public class BackendTest {
         
         SlogoScanner testScanner = new SlogoScanner(str);
         
-        BackendTestNullModelActor modelActor = new BackendTestNullModelActor();
+        //BackendTestNullModelActor modelActor = new BackendTestNullModelActor();
         BackendTestInterpreter myTestInterpreter = new BackendTestInterpreter();
         
         try {
