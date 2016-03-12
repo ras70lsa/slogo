@@ -192,6 +192,10 @@ public class WrapAroundDrawLine {
 	public ArrayList<Line> getLines(){
 		return linemanager;
 	}
+	
+	public void clearLines(){
+		linemanager.clear();
+	}
 
 }
 

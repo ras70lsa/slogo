@@ -119,6 +119,7 @@ public class View extends StaticPane implements Observer {
 		for(Line line: input){
 			addLine(line);
 		}
+		wrapAroundFunction.clearLines();
 	}
 	
 	private void translateLineToView(List<ModelLine> input){
