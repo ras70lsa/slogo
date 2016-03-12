@@ -52,7 +52,8 @@ public interface IModel {
 	ICommands getCommandInterface();
 	
 	/**
-	 * Returns the IView, which defines all the access to the drawing canvas view (where the turtle are actually display)
+	 * Returns the IView
+	 * IView defines the questions the front end drawing can ask the ViewModel
 	 * @return IView
 	 */
 	IView getViewInterface();
