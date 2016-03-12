@@ -5,24 +5,24 @@ import java.util.List;
 import backend.slogo.team04.Action;
 
 public interface VisualizationAction {
-		public double forward(double pixels);
-	    public double back(double pixels);
-	    public double left(double pixels);
-	    public double right(double pixels);
-	    public double setHeading(double degrees);
-	    public double towards(double x, double y);
-	    public double setxy(double x, double y);
-	    public double penDown();
-	    public double penUp();
-	    public double showTurtle();
-	    public double hideTurtle();
-	    public double home();
-	    public double clearScreen();
-	    public double xCor();
-	    public double yCor();
-	    public double heading();
-	    public boolean isPenDown();
-	    public boolean isShowing();
-	    public void updateHistory(List<Action> history);
+	double forward(double pixels);
+	double back(double pixels);
+	double left(double pixels);
+	double right(double pixels);
+	double setHeading(double degrees);
+	double towards(double x, double y);
+	double setxy(double x, double y);
+	double penDown();
+	double penUp();
+	double showTurtle();
+	double hideTurtle();
+	double home();
+	double clearScreen();
+	double xCor();
+	double yCor();
+	double heading();
+	boolean isPenDown();
+	boolean isShowing();
+	void updateHistory(List<Action> history);
 
 }

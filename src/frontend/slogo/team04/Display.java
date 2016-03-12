@@ -1,7 +1,6 @@
 package frontend.slogo.team04;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import constants.CSSPathConstants;
 import constants.DisplayConstants;
 import exceptions.LogicException;
@@ -10,7 +9,6 @@ import frontend.features.AlertMessage;
 import frontend.features.CommandFeature;
 import frontend.features.History;
 import frontend.features.LocationFeature;
-import frontend.features.Module;
 import frontend.features.PreferenceFeature;
 import frontend.features.UserTextInput;
 import frontend.features.VariableFeature;
@@ -18,7 +16,6 @@ import frontend.features.View;
 import interfaces.slogo.team04.IDisplay;
 import interfaces.slogo.team04.IModel;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import menu.contents.SlogoMenu;

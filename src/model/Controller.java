@@ -2,8 +2,6 @@ package model;
 
 
 import java.util.ResourceBundle;
-
-import backend.slogo.team04.BackendTestNullModelActor;
 import backend.slogo.team04.CmdTreeHeadNode;
 import backend.slogo.team04.ExecutionModeDebug;
 import backend.slogo.team04.ExecutionModeNormal;
@@ -15,8 +13,10 @@ import exceptions.LogicException;
 import exceptions.UserInputException;
 import frontend.slogo.team04.Display;
 import interfaces.slogo.team04.ICommunicator;
+
 import interfaces.slogo.team04.IDisplay;
 import interfaces.slogo.team04.ISlogoModelActions;
+
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
@@ -31,17 +31,19 @@ public class Controller {
 
     private ICommunicator model;
     private ISlogoModelActionsExtended viewModel;
-    private BackendTestNullModelActor tester; 
+
+
     private INonLinearCommand myDebugPosition;
     private ISlogoDebugObject myDebugObject;
 
     private IDisplay display;
+
     public Controller(ICommunicator model, ISlogoModelActionsExtended iSlogoModelActionsExtended) {
         this.model = model;
         this.viewModel = iSlogoModelActionsExtended;
-        tester = new BackendTestNullModelActor();
         myDebugObject = null;
     }
+
 
     public void parseString(String stringToParse) throws UserInputException, LogicException{
         SlogoScanner scanner = getProperScanner(stringToParse);
@@ -102,7 +104,7 @@ public class Controller {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-           
+
         }
         checkIfDoneDebugging();
         //update();
@@ -124,20 +126,20 @@ public class Controller {
             update();
         }
         checkIfDoneDebugging();
-        
+
 
     }
-    
+
     private void checkIfDoneDebugging(){
         synchronized(myDebugObject){
             if(myDebugObject.isDoneStepping()){
-               display.disableStep();
+                display.disableStep();
                 //System.out.println("We are done debug stepping");
             }
             update();
         }
     }
-    
+
     public void setDisplay(IDisplay view) {
         this.display =view;
     }

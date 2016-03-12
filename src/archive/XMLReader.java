@@ -2,8 +2,6 @@ package archive;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,8 +9,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import backend.slogo.team04.CmdTreeHeadNode;
@@ -20,12 +16,14 @@ import backend.slogo.team04.ExecutionModeNormal;
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.SlogoScanner;
 import exceptions.ImproperFileException;
-import exceptions.UserInputException;
 import frontend.features.AlertMessage;
-import model.Controller;
 import model.ExecutionState;
 
-
+/**
+ * Code used to turn the user defined commands into an XML that can be exported externally and loaded later
+ * @author RyanStPierre
+ *
+ */
 
 
 public class XMLReader {
@@ -39,7 +37,6 @@ public class XMLReader {
 	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
 	private Document document;
-	private Element mainElement;
 	
 	
 
@@ -54,6 +51,8 @@ public class XMLReader {
 		
 		documentBuilder= documentBuilderFactory.newDocumentBuilder();
 		document = documentBuilder.parse(file);
+		executionState.getCommandNodes().get().clear();
+		
 		int counter = 0;
 		while(true) {
 			Element element = getElement("Element" + counter);
@@ -89,18 +88,18 @@ public class XMLReader {
 
 	private void checkFile(File file) throws ImproperFileException {
 		String extension = getExtension(file.toString());
-		if(!extension.equals(XML) || extension.equals(null)) {
+		if(!extension.equals(XML)) {
 			throw new ImproperFileException(MESSAGE);
 		}
 	}
 	
-	private String getExtension(String file) {
+	private String getExtension(String file) throws ImproperFileException {
 		
 		int index = file.lastIndexOf('.');
-		if(index>-1) {
-			return file.substring(index+1);
+		if(index == -1 ) {
+			throw new ImproperFileException(MESSAGE);
 		}
-		return null;
+		return file.substring(index+1);
 	}
 
 }

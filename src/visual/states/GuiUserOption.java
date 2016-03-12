@@ -65,7 +65,7 @@ public class GuiUserOption {
 	}
 	
 	public Node get(StringProperty property, String[] possible) {
-		ComboBox<String> box = new ComboBox<String>();
+		ComboBox<String> box = new ComboBox<>();
 		box.setPromptText("Choose Language");
 		box.getItems().addAll(possible);
 		box.setOnAction(e -> property.set(box.getValue()));

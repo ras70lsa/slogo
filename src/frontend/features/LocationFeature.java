@@ -41,7 +41,7 @@ public class LocationFeature extends TitlePaneFeature {
 		xLoc.setCellValueFactory(e -> Bindings.format("%.2f", e.getValue().getXProperty()));
 		yLoc.setCellValueFactory(e -> Bindings.format("%.2f", e.getValue().getYProperty()));
 		heading.setCellValueFactory(e ->e.getValue().getHeadingProperty());
-		showing.setCellValueFactory(e -> e.getValue().getVisibileProperty());
+		showing.setCellValueFactory(e -> e.getValue().getVisibleProperty());
 		isPenDown.setCellValueFactory(e -> e.getValue().getPenDownProperty());
 		active.setCellValueFactory(e -> e.getValue().getActive());
 		table.getColumns().add(ID);

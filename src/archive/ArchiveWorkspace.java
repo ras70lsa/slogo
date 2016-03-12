@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import model.Model;
 import model.ModelLine;
 import properties.ColorProperty;
+import properties.ImageProperty;
 
 /**
  * Used to save workspaces while the program is running
@@ -29,7 +30,9 @@ public class ArchiveWorkspace {
 	private ListProperty<String> savedCommands;
 	private ListProperty<INonLinearCommand> savedCommandNode;
 	private ListProperty<String> savedHistory;
-	private ColorProperty savedColor;
+	private ColorProperty savedBackgroundColor;
+	private ColorProperty savedPenColor;
+	private ImageProperty image;
 	
 	public ArchiveWorkspace(Workspace active) {
 		savedLines = new ArrayList<>(active.getModel().getViewInterface().getLines());
@@ -39,8 +42,12 @@ public class ArchiveWorkspace {
 	}
 	
 	private void makeSavedUI(Model model) {
-		savedColor = new ColorProperty();
-		savedColor.set(model.getViewInterface().getBackgroundColor().get());
+		savedBackgroundColor = new ColorProperty();
+		savedPenColor = new ColorProperty();
+		savedBackgroundColor.set(model.getViewInterface().getBackgroundColor().get());
+		savedPenColor.set(model.getViewInterface().getPenColor().get());
+		image = new ImageProperty();
+		image.set(model.getViewInterface().getCurrentImage().get());
 	}
 
 	private void makeSavedHistory(Model model) {
@@ -65,6 +72,15 @@ public class ArchiveWorkspace {
 		Workspace workspace = new Workspace(workspaceManager, mainStage);
 		workspace = alterActor(workspace);
 		workspace = alterHistory(workspace);
+		workspace = alterUI(workspace);
+		workspace.getModel().getViewInterface().update();
+		return workspace;
+	}
+
+	private Workspace alterUI(Workspace workspace) {
+		workspace.getModel().getViewInterface().getBackgroundColor().set(savedBackgroundColor.get());
+		workspace.getModel().getViewInterface().getPenColor().set(savedPenColor.get());
+		workspace.getModel().getViewInterface().getCurrentImage().set(image.get());
 		return workspace;
 	}
 
@@ -82,8 +98,6 @@ public class ArchiveWorkspace {
 		workspace.getModel().getViewInterface().getLines().clear();
 		workspace.getModel().getViewInterface().getLines().addAll(savedLines);
 		workspace.getModel().getViewInterface().getActorProperty().set(savedActors);
-		workspace.getModel().getViewInterface().getBackgroundColor().set(savedColor.get());
-		workspace.getModel().getViewInterface().update();
 		return workspace;
 	}
 	

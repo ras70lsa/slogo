@@ -25,6 +25,9 @@ public class XMLWriter {
 	
 	public static final String MAC_EXT = "/command_scripts/";	
 	public static final String WINDOW_EXT = "\\command_scripts\\";
+	public static final String MAC = "Mac";
+	public static final String USER_DIR = "user.dir";
+	public static final String XML = ".xml";
 	
 	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
@@ -69,16 +72,27 @@ public class XMLWriter {
 		document.appendChild(mainElement);
 	}
 	
+	/**
+	 * Have to get the different path
+	 * Check based on different operating system
+	 * @param name
+	 * @return
+	 */
 	private String getPath(String name) {
 		String operatingSystem = (System.getProperty("os.name"));
-		if(operatingSystem.contains("Mac")) {
-			return System.getProperty("user.dir")+  MAC_EXT + name + ".xml";
+		if(operatingSystem.contains(MAC)) {
+			return getSavePath(MAC_EXT, name);
 		} else {
-			return System.getProperty("user.dir")+ WINDOW_EXT  + name + ".xml";
+			return getSavePath(WINDOW_EXT, name);
 		}
 	}
 
+	private String getSavePath(String input, String name) {
+		return System.getProperty(USER_DIR)+  input + name + XML;
+	}
+
 	private void writeDocument(String path) {
+		System.out.println(path);
 		try {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();

@@ -3,10 +3,6 @@ package backend.slogo.team04;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import constants.DisplayConstants;
 
 
 
@@ -36,7 +32,7 @@ public class BackendTestTwo {
 //        System.out.println(str);
         //testing standard list<Boolean> values
         
-        List<Boolean> testList = new ArrayList<Boolean>();
+        List<Boolean> testList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             testList.add(Boolean.FALSE);
         }

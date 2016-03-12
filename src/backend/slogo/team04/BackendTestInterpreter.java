@@ -35,7 +35,7 @@ public class BackendTestInterpreter implements ISlogoInterpreterVariableScope{
 
     @Override
     public void resetGlobalVariables(){
-        myVarStack = new Stack<Map<String,Double>>();
+        myVarStack = new Stack<>();
         incept();
         depth = 1; //this assignment needs to be after the incept call to prevent the double incrementation
     }
@@ -80,7 +80,7 @@ public class BackendTestInterpreter implements ISlogoInterpreterVariableScope{
     public void incept () {
         depth++;
         myVarStack.push(this.slogoVariables);
-        this.slogoVariables = new HashMap<String, Double>();
+        this.slogoVariables = new HashMap<>();
         
         //TODO push a new stack of variables on it
         

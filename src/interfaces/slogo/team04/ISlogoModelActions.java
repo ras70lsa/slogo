@@ -1,7 +1,5 @@
 package interfaces.slogo.team04;
 
-import backend.structures.RGBColor;
-import properties.ColorProperty;
 
 /**
  * This class represents all actionable things that are present in the Slogo language, things that do not control flow or change internal

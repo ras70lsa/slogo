@@ -6,8 +6,10 @@ import frontend.slogo.team04.WorkspaceManager;
 
 public interface IDisplay {
 
-	public View getView();
-	public WorkspaceManager getManager();
-	VariableFeature getVariableFeature();
-        void disableStep ();
+
+    View getView();
+    WorkspaceManager getManager();
+    VariableFeature getVariableFeature();
+    void disableStep ();
+
 }
