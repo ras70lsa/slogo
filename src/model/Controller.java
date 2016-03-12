@@ -2,8 +2,6 @@ package model;
 
 
 import java.util.ResourceBundle;
-
-import backend.slogo.team04.BackendTestNullModelActor;
 import backend.slogo.team04.CmdTreeHeadNode;
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.SlogoScanner;
@@ -11,7 +9,6 @@ import constants.DisplayConstants;
 import exceptions.LogicException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ICommunicator;
-import interfaces.slogo.team04.ISlogoModelActions;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
 
@@ -26,12 +23,10 @@ public class Controller {
 
     private ICommunicator model;
     private ISlogoModelActionsExtended viewModel;
-    private BackendTestNullModelActor tester; 
     
     public Controller(ICommunicator model, ISlogoModelActionsExtended iSlogoModelActionsExtended) {
     	this.model = model;
     	this.viewModel = iSlogoModelActionsExtended;
-    	tester = new BackendTestNullModelActor();
     }
     
     public void parseString(String stringToParse) throws UserInputException, LogicException{

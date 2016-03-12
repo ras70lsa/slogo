@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import constants.DisplayConstants;
-import exceptions.LogicException;
 import exceptions.UserInputException;
 
 public class BackendTest {

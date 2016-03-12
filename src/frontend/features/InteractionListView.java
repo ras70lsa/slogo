@@ -56,7 +56,7 @@ public abstract class InteractionListView extends TitlePaneFeature {
 	}
 	
 	private void createListView(ObservableList<String> tracking) {
-		list = new ListView<String>();
+		list = new ListView<>();
 		list.setVisible(true);
 		list.setItems(tracking);
 		setContent(list);

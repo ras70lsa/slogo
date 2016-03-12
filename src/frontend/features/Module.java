@@ -13,7 +13,7 @@ public interface Module {
 	/**
 	 * @return a Pane for the Display class to position as desired
 	 */
-	public Region getPane();
+	Region getPane();
 	
 	/**
 	 * This returns a State, which internally can provide a Stage for the user to select options to edit the Stage
@@ -21,7 +21,7 @@ public interface Module {
 	 * @return State 
 	 */
 	
-	public void position(double x, double y, double prefWidth, double prefHeight);
+	void position(double x, double y, double prefWidth, double prefHeight);
 
 	
 	

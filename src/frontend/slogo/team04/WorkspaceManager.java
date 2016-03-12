@@ -11,25 +11,27 @@ import archive.XMLWriter;
 import backend.slogo.team04.INonLinearCommand;
 import constants.DisplayConstants;
 import constants.ResourceConstants;
-import exceptions.ImproperFileException;
 import frontend.features.AlertMessage;
 import frontend.features.SaveAlert;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
+/**
+ * Used to manage all of the workspaces in the current project, including archiving and loading command scripts to external
+ * XMLWriters and XMLReadesr
+ * @author RyanStPierre
+ *
+ */
 
 public class WorkspaceManager {
 	

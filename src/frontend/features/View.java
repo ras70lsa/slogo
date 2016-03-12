@@ -18,7 +18,6 @@ import model.ModelLine;
 import utilities.Angle;
 import utilities.WrapAroundCheck;
 import visual.states.GuiUserOption;
-import visual.states.ViewUIState;
 
 public class View extends StaticPane implements Observer {
 

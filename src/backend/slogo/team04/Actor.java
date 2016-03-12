@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Stack;
 
 import frontend.features.TurtleShape;
-import interfaces.slogo.team04.IView;
 import backend.structures.Pen;
 import backend.structures.RGBColor;
 import javafx.beans.property.BooleanProperty;
@@ -58,7 +57,7 @@ public class Actor {
 		image = new ImageProperty();
 		image.set(getImage(DEFAULT_PATH));
 		active = new SimpleBooleanProperty(true);
-		myLines = new Stack<ModelLine>();
+		myLines = new Stack<>();
 		this.ID = new SimpleDoubleProperty(ID);
 	}
 	
@@ -217,7 +216,6 @@ public class Actor {
 	
 	public void setShape(TurtleShape shape){
 		myShape = shape;
-		Image newImage = null;
 		switch (shape) {
 		case RECTANGLE:
 			image.set(getImage("images/rectangle.png"));

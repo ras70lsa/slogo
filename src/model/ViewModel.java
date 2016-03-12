@@ -1,13 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.stream.Collectors;
-
 import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
@@ -20,7 +18,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
 import properties.ColorProperty;
 import properties.ImageProperty;
 import utilities.Angle;
@@ -52,10 +49,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
         penColor = new ColorProperty();
         currentPenWidth = new SimpleDoubleProperty();
         ObservableList<Actor> list = FXCollections.observableArrayList();
-        actors = new SimpleListProperty<Actor>(list);
+        actors = new SimpleListProperty<>(list);
         addActor(TURTLE_CREATED_ACTIVE_DEFAULT);
-        stamps = new ArrayList<Actor>();
-        lineManager = new Stack<ModelLine>();
+        stamps = new ArrayList<>();
+        lineManager = new Stack<>();
         generateColorListProperty();
         addListeners(actors.get(actors.getSize() - 1));
 

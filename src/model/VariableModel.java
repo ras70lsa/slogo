@@ -15,7 +15,7 @@ public class VariableModel implements IVariable {
 	private ListProperty<ListProperty<Variable>> stack;
 	private static final double ZERO = 0d;
 	private int currentLevel;
-	private final int BASE_LEVEL = 0;
+	private static final int BASE_LEVEL = 0;
 	
 	public VariableModel() {
 		currentLevel=-1;

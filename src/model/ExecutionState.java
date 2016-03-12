@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Collection;
 
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.ISlogoInterpreterVariableScope;

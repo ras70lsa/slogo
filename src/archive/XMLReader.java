@@ -2,8 +2,6 @@ package archive;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,20 +9,20 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import backend.slogo.team04.CmdTreeHeadNode;
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.SlogoScanner;
 import exceptions.ImproperFileException;
-import exceptions.UserInputException;
 import frontend.features.AlertMessage;
-import model.Controller;
 import model.ExecutionState;
 
-
+/**
+ * Code used to turn the user defined commands into an XML that can be exported externally and loaded later
+ * @author RyanStPierre
+ *
+ */
 
 
 public class XMLReader {
@@ -38,7 +36,6 @@ public class XMLReader {
 	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
 	private Document document;
-	private Element mainElement;
 	
 	
 
@@ -90,7 +87,7 @@ public class XMLReader {
 
 	private void checkFile(File file) throws ImproperFileException {
 		String extension = getExtension(file.toString());
-		if(!extension.equals(XML) || extension.equals(null)) {
+		if(!extension.equals(XML) || extension == null) {
 			throw new ImproperFileException(MESSAGE);
 		}
 	}

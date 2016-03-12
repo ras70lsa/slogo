@@ -23,13 +23,11 @@ public class CommandFeature extends InteractionListView {
 	
 	private void setHover() {
 		
-		getList().setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-		     @Override 
-		     public ListCell<String> call(ListView<String> list) {
+		getList().setCellFactory((list) ->  {
 		    	 HoverListCell hoverable = new HoverListCell();
 		    	 hoverable.setStyle(CSS);
 		    	 return hoverable;
-		     }
+		     
 		});
 	}
 

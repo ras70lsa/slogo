@@ -1,7 +1,6 @@
 package backend.slogo.team04;
 
 import exceptions.LogicException;
-import exceptions.PaletteException;
 import exceptions.UserInputException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
@@ -24,7 +23,7 @@ public interface INonLinearCommand {
      * @throws LogicException TODO 
      * 
      */
-    public abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException;
+	abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException;
     
 
    
@@ -35,12 +34,12 @@ public interface INonLinearCommand {
      * @return
      * @throws UserInputException TODO
      */
-    public abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException;
+	abstract INonLinearCommand parseString(SlogoScanner myScanner, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException;
     
     /**
      * Each command knows how to write itself down via strings such that re-parsing the resultant string will recreate the parse tree
      * of nodes required to run the same command
      * @return
      */
-    public abstract String parsableRepresentation();
+    abstract String parsableRepresentation();
 }

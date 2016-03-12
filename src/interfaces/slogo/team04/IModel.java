@@ -5,12 +5,12 @@ import model.ExecutionState;
 
 public interface IModel {
 
-	public IHistoryModel getHistory();
-	public IVariable getVariables();
-	public String getLangauage();
-	public StringProperty getLangauageProperty();
-	public ICommunicator getCommunicator();
-	public ICommands getCommandInterface();
-	public IView getViewInterface();
-	public ExecutionState getExecutionState();
+	IHistoryModel getHistory();
+	IVariable getVariables();
+	String getLangauage();
+	StringProperty getLangauageProperty();
+	ICommunicator getCommunicator();
+	ICommands getCommandInterface();
+	IView getViewInterface();
+	ExecutionState getExecutionState();
 }

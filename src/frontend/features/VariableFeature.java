@@ -60,9 +60,9 @@ public class VariableFeature extends TitlePaneFeature {
 		TableColumn<Variable, String> names;
 		TableColumn<Variable, Number>  values;
 		table.setEditable(true);
-		names = new TableColumn<Variable, String>();
+		names = new TableColumn<>();
 		names.setText("Name");
-		values = new TableColumn<Variable, Number>();
+		values = new TableColumn<>();
 		values.setText("Value");
 		CellValueAndCellFactories(names, values, table);
 		setEditBehavior(names, values, table);
