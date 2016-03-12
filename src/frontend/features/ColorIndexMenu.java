@@ -49,9 +49,7 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 
 	public void addChildren(ListProperty<RGBColor> data) {
 		setItems(data);
-		Callback<ListView<RGBColor>, ListCell<RGBColor>> myCellFactory = new Callback<ListView<RGBColor>, ListCell<RGBColor>>() {
-			@Override
-			public ListCell<RGBColor> call(ListView<RGBColor> p) {
+		setCellFactory((callback) -> {
 				return new ListCell<RGBColor>() {
 
 					private final Group group;
@@ -85,9 +83,8 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 						}
 					}
 				};
-			}
+			});	
+
 		};
-		setCellFactory(myCellFactory);
-		setButtonCell(myCellFactory.call(null));
 	}
-}
+
