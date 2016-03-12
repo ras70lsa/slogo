@@ -26,9 +26,10 @@ import utilities.Distance;
 public class ViewModel extends Observable implements IView, ISlogoModelActionsExtended {
 
     private static final double RGB_MAX = 255;
-    private static final double RGB_INTERVAL = 255 / 2 + 1;
+    private static final double RGB_INTERVAL = 255 / 2d + 1;
     private static final Boolean TELL_CMD_TURTLE_ACTIVE_DEFAULT = Boolean.FALSE;
     private static final Boolean TURTLE_CREATED_ACTIVE_DEFAULT = Boolean.TRUE;
+    private static final int BYONE = 1;
 
     private ListProperty<Actor> actors;
     private List<Actor> stamps;
@@ -315,14 +316,14 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     }
 
     public ArrayList<Actor> getActiveActors() {
-        ArrayList<Actor> activeActors = new ArrayList<Actor>();
+        ArrayList<Actor> activeActors = new ArrayList<>();
         actors.stream().filter((a) -> a.getActive().get()).forEach(activeActors::add);
         return activeActors;
     }
 
     @Override
     public boolean[] activeTurtles() {
-        ArrayList<Boolean> activeTurtles = new ArrayList<Boolean>();
+        ArrayList<Boolean> activeTurtles = new ArrayList<>();
         actors.stream().forEach(a -> activeTurtles.add(a.getActive().getValue()));
         boolean output[] = new boolean[activeTurtles.size()];
         for (int i = 0; i < output.length; i++) {
@@ -349,12 +350,12 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     @Override
     public double shape() {
         int listIndex = TurtleShape.valueOf(actors.get(0).getShape().toString()).ordinal();
-        return listIndex + 1;
+        return listIndex + BYONE;
     }
 
     @Override
     public double ID() {
-        return getActiveActors().size() - 1;
+        return getActiveActors().size() - BYONE;
     }
 
     @Override
