@@ -39,8 +39,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     private ColorProperty backgroundColor;
     private ColorProperty penColor;
 
-
-
     private List<Boolean> toBeActive;
     private Stack<List<Boolean>> myCachedActiveTurtles;
 
@@ -60,8 +58,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
         lineManager = new Stack<ModelLine>();
         generateColorListProperty();
         addListeners(actors.get(actors.getSize() - 1));
-
-
 
         toBeActive = new ArrayList<>();
         myCachedActiveTurtles = new Stack<>();
@@ -166,13 +162,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     	RGBColor toAdd = new RGBColor(r/RGB_MAX, g / RGB_MAX, b / RGB_MAX, index-1);
     	colorListProperty.get().set(index-1, toAdd);
         return index;
-
     }
 
     public Actor findActiveActor() {
-        // ArrayList<Actor> activeActors = new ArrayList<Actor>();
-        // actors.stream().filter((a) ->
-        // a.getActive().get()).forEach(activeActors::add);
         return getActiveActors().get(getActiveActors().size() - 1);
     }
 
@@ -201,7 +193,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
             Actor newActor = new Actor(a.getXLocation(), a.getYLocation(), a.getHeading(),a.getPenDown() == 1, actors.size() + 1);
             newActor.setImageProperty(a.getImage());
             stamps.add(newActor);
-
         }
         stamps.stream().forEach((a) -> a.setStamp());
         return 0;
@@ -240,9 +231,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     @Override
     public double setHeading(double degrees, double turtleID) {
         if (actors.get(0) != null) {
-            double oldHeading = actors.get(0).getHeading();
+            double oldHeading = getActor(turtleID).getHeading();
             getActor(turtleID).setHeading(degrees);
-            actors.get(0).setHeading(degrees);
+            getActor(turtleID).setHeading(degrees);
             return Angle.calculateAngleRotated(oldHeading, getActor(turtleID).getHeading());
         }
         return 0;
@@ -259,8 +250,8 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     @Override
     public double setxy(double x, double y, double turtleID) {
         if (actors.get(0) != null) {
-            double oldX = actors.get(0).getXLocation();
-            double oldY = actors.get(0).getYLocation();
+            double oldX = getActor(turtleID).getXLocation();
+            double oldY = getActor(turtleID).getYLocation();
             getActor(turtleID).setxy(x, y);
             return Distance.calculateDistance(oldX, oldY, x, y);
         }
