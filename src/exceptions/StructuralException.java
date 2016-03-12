@@ -2,7 +2,12 @@ package exceptions;
 
 public class StructuralException extends Exception {
 
-	public StructuralException() {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public StructuralException() {
 		// TODO Auto-generated constructor stub
 	}
 

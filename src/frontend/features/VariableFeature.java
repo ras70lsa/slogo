@@ -36,7 +36,7 @@ public class VariableFeature extends TitlePaneFeature {
 	}
 
 	public void drawTabs() {
-	    System.out.println("Drawing Tabs");
+	    
 	    if(tabs!=null) {
 		tabs.getTabs().clear();
 		int counter = 0;

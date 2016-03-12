@@ -11,11 +11,9 @@ import backend.slogo.team04.SlogoScanner;
 import constants.DisplayConstants;
 import exceptions.LogicException;
 import exceptions.UserInputException;
-import frontend.slogo.team04.Display;
 import interfaces.slogo.team04.ICommunicator;
 
 import interfaces.slogo.team04.IDisplay;
-import interfaces.slogo.team04.ISlogoModelActions;
 
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 
@@ -33,7 +31,6 @@ public class Controller {
     private ISlogoModelActionsExtended viewModel;
 
 
-    private INonLinearCommand myDebugPosition;
     private ISlogoDebugObject myDebugObject;
 
     private IDisplay display;
@@ -87,7 +84,6 @@ public class Controller {
 
     public void debug(String stringToParse) throws UserInputException,LogicException {
         SlogoScanner scanner = getProperScanner(stringToParse);
-        String save = scanner.getString();
         INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(scanner, model.getExecutionModel());
         myDebugObject = new ExecutionModeDebug();
         myDebugObject.setDrawReadySynchObject(this);

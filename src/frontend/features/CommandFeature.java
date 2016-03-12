@@ -5,10 +5,8 @@ import constants.ResourceConstants;
 import interfaces.slogo.team04.ICommands;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
-import javafx.util.Callback;
 
 public class CommandFeature extends InteractionListView {
 	

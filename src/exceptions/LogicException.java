@@ -2,7 +2,12 @@ package exceptions;
 
 public class LogicException extends Exception {
 
-	public LogicException() {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public LogicException() {
 		// TODO Auto-generated constructor stub
 	}
 

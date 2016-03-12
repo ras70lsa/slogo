@@ -149,11 +149,9 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	@Override
 	public double setPalette(int index, int r, int g, int b) {
-		boolean hasColor = false;
 		for (RGBColor c : colorListProperty) {
 			if (c.getRed() == r / RGB_MAX && c.getGreen() == g / RGB_MAX && c.getBlue() == b / RGB_MAX) {
 				c.setIndex(index);
-				hasColor = true;
 			}
 		}
 		colorListProperty.sorted();
