@@ -27,8 +27,6 @@ public class HTMLDisplay {
 		ResourceBundle myBundle = ResourceBundle.getBundle(DisplayConstants.RESOURCES_PATH +
     			ResourceConstants.ENGLISH);
 		 stage.setTitle(myBundle.getString("HTML"));
-//	     stage.setWidth(DisplayConstants.HTML_SIZE);
-//	     stage.setHeight(DisplayConstants.HTML_SIZE);
 	}
 
 	private void makeStage() {
@@ -36,6 +34,7 @@ public class HTMLDisplay {
 	     Scene scene = new Scene(new Group());
 	     VBox root = new VBox();     
 	     final WebView browser = getWebView(this.type);
+	     browser.setPrefHeight(DisplayConstants.HTML_HEIGHT);
 	     ScrollPane scrollPane = createScrollPane(browser);
 	     root.getChildren().add(scrollPane);
 	     scene.setRoot(root);
