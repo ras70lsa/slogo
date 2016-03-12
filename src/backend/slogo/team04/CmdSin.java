@@ -14,9 +14,10 @@ public class CmdSin extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne;
-        valOne = inputValue.executeCommand(myController, myInterpreter);
+        valOne = inputValue.executeCommand(myController, myInterpreter, debugMe);
         return Math.sin(Math.toRadians(valOne));
     }
 

@@ -15,8 +15,9 @@ public class CmdMake extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        myVariable.setVariableValue(myExpression.executeCommand(myController, myInterpreter), myInterpreter);
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        myVariable.setVariableValue(myExpression.executeCommand(myController, myInterpreter, debugMe), myInterpreter);
         return myVariable.getVariableValue(myInterpreter);
     }
 

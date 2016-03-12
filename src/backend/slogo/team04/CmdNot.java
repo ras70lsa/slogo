@@ -14,8 +14,8 @@ public class CmdNot extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        boolean testOneNonZero = CommandFactory.isNonZero(testOne, myController, myInterpreter);
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        boolean testOneNonZero = CommandFactory.isNonZero(testOne, myController, myInterpreter, debugMe);
         if(testOneNonZero){
             return CommandTreeNode.DOUBLE_ZERO;
         }

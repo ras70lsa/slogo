@@ -25,7 +25,7 @@ public class CmdTo extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
         //should never directly do anything, should only create command nodes which are stored in the interpreter and are grabbed and run themselves
         return isInitializedCorrectly;
     }

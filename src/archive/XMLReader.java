@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import backend.slogo.team04.CmdTreeHeadNode;
+import backend.slogo.team04.ExecutionModeNormal;
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.SlogoScanner;
 import exceptions.ImproperFileException;
@@ -77,7 +78,7 @@ public class XMLReader {
 		INonLinearCommand myHead;
 		try {
 			myHead = new CmdTreeHeadNode(null).parseString(scanner, executionState);
-			myHead.executeCommand(null, executionState);
+			myHead.executeCommand(null, executionState, new ExecutionModeNormal());
 		} catch (Exception e) {
 			AlertMessage alert = new AlertMessage(e.getMessage());
 			alert.displayError();

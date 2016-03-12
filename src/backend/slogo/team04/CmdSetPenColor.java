@@ -17,8 +17,9 @@ public class CmdSetPenColor extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        double myProposedIndex = myChild.executeCommand(myController, myInterpreter);
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        double myProposedIndex = myChild.executeCommand(myController, myInterpreter, debugMe);
         if(SlogoRegexChecker.isPostiveIndex(myProposedIndex)){
             return myController.setPenColor((int) myProposedIndex);
         }else{

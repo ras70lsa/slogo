@@ -15,10 +15,11 @@ public class CmdOr extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         boolean testOneNonZero, testTwoNonZero;
-        testOneNonZero = CommandFactory.isNonZero(testOne, myController, myInterpreter);
-        testTwoNonZero = CommandFactory.isNonZero(testTwo, myController, myInterpreter);
+        testOneNonZero = CommandFactory.isNonZero(testOne, myController, myInterpreter, debugMe);
+        testTwoNonZero = CommandFactory.isNonZero(testTwo, myController, myInterpreter, debugMe);
         if(testOneNonZero || testTwoNonZero){
             return CommandTreeNode.DOUBLE_ONE;
         }

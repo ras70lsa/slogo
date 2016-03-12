@@ -12,8 +12,9 @@ public class CmdIsPenDown extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        return myController.isPenDown(new CmdID(this).executeCommand(myController, myInterpreter));
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        return myController.isPenDown(new CmdID(this).executeCommand(myController, myInterpreter, debugMe));
     }
 
     @Override
