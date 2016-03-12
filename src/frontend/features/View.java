@@ -26,7 +26,6 @@ public class View extends StaticPane implements Observer {
 	private static final double ALPHA = 1;
 	private static final double DARKEN_FACTOR = -.75;
 	private static final double FADE_FACTOR = .5;
-	private ViewUIState visuals;
 	private IView model;
 	private Line TopLine;
 	private Line RightLine;

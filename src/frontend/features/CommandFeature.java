@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.util.Callback;
@@ -42,23 +43,27 @@ public class CommandFeature extends InteractionListView {
 		public static final double OFFSET = 50;
 		public static final double CELL_HEIGHT = 75;
 		public static final double TEXT_WIDTH = 200;
-		
+		public static final String HBOX_CSS = "-fx-background-color: #FFFFFF;";
+				
 		Popup popup;
 		Label label;
 		
 		public HoverListCell() {
 			
 			createPopUp();
-			popup.getContent().add(label);
 			setAction();
 			this.setPrefHeight(CELL_HEIGHT);
 		}
 
 		private void createPopUp() {
 			popup = new Popup();
+			HBox hbox = new HBox();
 			label = new Label(EMPTY);
+			hbox.getChildren().add(label);
+			hbox.setStyle(HBOX_CSS);
 			label.setPrefWidth(TEXT_WIDTH);
 			label.setWrapText(true);
+			popup.getContent().add(hbox);
 		}
 
 		private void setAction() {
