@@ -250,7 +250,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	@Override
 	public double setxy(double x, double y, double turtleID) {
-		if (actors.elementIsNull(0)) {
+		if (!actors.elementIsNull((int) turtleID)) {
 			double oldX = getActor(turtleID).getXLocation();
 			double oldY = getActor(turtleID).getYLocation();
 			getActor(turtleID).setxy(x, y);
