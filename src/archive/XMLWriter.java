@@ -27,7 +27,7 @@ public class XMLWriter {
 	public static final String WINDOW_EXT = "\\command_scripts\\";
 	public static final String MAC = "Mac";
 	public static final String USER_DIR = "user.dir";
-	public static final String XML = "xml";
+	public static final String XML = ".xml";
 	
 	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
@@ -81,7 +81,7 @@ public class XMLWriter {
 	private String getPath(String name) {
 		String operatingSystem = (System.getProperty("os.name"));
 		if(operatingSystem.contains(MAC)) {
-			return getSavePath(MAC, name);
+			return getSavePath(MAC_EXT, name);
 		} else {
 			return getSavePath(WINDOW_EXT, name);
 		}
@@ -92,6 +92,7 @@ public class XMLWriter {
 	}
 
 	private void writeDocument(String path) {
+		System.out.println(path);
 		try {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
