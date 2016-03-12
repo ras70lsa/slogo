@@ -21,10 +21,12 @@ public interface INonLinearCommand {
      * 
      * @param myController we delegate actionable events to this object
      * @param myInterpreter This object holds the state required for properly 'running' the Slogo commands
-     * @throws LogicException TODO 
+
+     * @param debugMe TODO
+     * @throws LogicException TODO
      * 
      */
-    public abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException;
+    public abstract double executeCommand(ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException;
     
 
    
