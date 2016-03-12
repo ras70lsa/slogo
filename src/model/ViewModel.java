@@ -10,6 +10,7 @@ import frontend.features.TurtleShape;
 import backend.slogo.team04.Actor;
 import backend.slogo.team04.Actors;
 import backend.structures.RGBColor;
+import exceptions.PaletteException;
 import interfaces.slogo.team04.ISlogoModelActionsExtended;
 import interfaces.slogo.team04.IView;
 import javafx.beans.property.DoubleProperty;
@@ -119,7 +120,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	public void generateColorListProperty() {
 		colorListProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
-		int index = 1;
+		int index = 0;
 		for (int r = 0; r < RGB_MAX; r += RGB_INTERVAL) {
 			for (int g = 0; g < RGB_MAX; g += RGB_INTERVAL) {
 				for (int b = 0; b < RGB_MAX; b += RGB_INTERVAL) {
@@ -135,12 +136,14 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		return colorListProperty;
 	}
 
-	@Override
-	public double setBackground(int index) {
-		RGBColor newColor = findColorFromIndex(index);
-		backgroundColor.set(newColor);
-		return index;
-	}
+	public double setBackground(int index) throws PaletteException {
+	        if(index >= colorListProperty.get().size()) {
+	                throw new PaletteException("Out of Range");
+	        }
+	        RGBColor newColor = colorListProperty.get(index);
+	        backgroundColor.set(newColor);
+	        return index;
+	    }
 
 	@Override
 	public void setPenStyle(String selectedItem) {
@@ -149,13 +152,10 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	@Override
 	public double setPalette(int index, int r, int g, int b) {
-		for (RGBColor c : colorListProperty) {
-			if (c.getRed() == r / RGB_MAX && c.getGreen() == g / RGB_MAX && c.getBlue() == b / RGB_MAX) {
-				c.setIndex(index);
-			}
-		}
-		colorListProperty.sorted();
-		return index;
+	    
+	   RGBColor toAdd = new RGBColor(r/RGB_MAX, g / RGB_MAX, b / RGB_MAX, index);
+	   colorListProperty.get().set(index, toAdd);
+	   return index;
 	}
 
 	public Actor findActiveActor() {
@@ -334,7 +334,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 
 	@Override
 	public double penColor() {
-		return findIndexFromColor(penColor.get());
+		return colorListProperty.indexOf(penColor.get());
 	}
 
 	public RGBColor findColorFromIndex(double index) {
@@ -345,16 +345,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 			}
 		}
 		return newColor;
-	}
-
-	public double findIndexFromColor(RGBColor color) {
-		double index = -1;
-		for (RGBColor c : colorListProperty) {
-			if (c.getRed() == color.getRed() && c.getGreen() == color.getRed() && c.getBlue() == color.getBlue()) {
-				index = colorListProperty.indexOf(c);
-			}
-		}
-		return index;
 	}
 
 	@Override
@@ -453,12 +443,15 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	}
 
 	@Override
-	public double setPenColor(int index) {
-		RGBColor newColor = findColorFromIndex(index);
-		penColor.set(newColor);
-		actors.actOnEachElement((a) -> a.setPenColor(newColor));
-		return index;
-	}
+	    public double setPenColor(int index) throws PaletteException {
+	        if(index >= colorListProperty.get().size()) {
+	                throw new PaletteException("Out of Range");
+	        }
+	        RGBColor newColor = colorListProperty.get(index);
+	        penColor.set(newColor);
+	        actors.actOnEachElement((a) -> a.setPenColor(newColor));
+	        return index;
+	    }
 
 	@Override
 	public List<Actor> getStamps() {
