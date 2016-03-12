@@ -14,14 +14,15 @@ public class CmdFor extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        double increment = myIncrement.executeCommand(myController, myInterpreter);
-        double limit = myEnd.executeCommand(myController, myInterpreter);
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        double increment = myIncrement.executeCommand(myController, myInterpreter, debugMe);
+        double limit = myEnd.executeCommand(myController, myInterpreter, debugMe);
         double lastValueSeen = CommandTreeNode.DOUBLE_ZERO;
-        for(double d = myStart.executeCommand(myController, myInterpreter); d <= limit; d+=increment){
+        for(double d = myStart.executeCommand(myController, myInterpreter, debugMe); d <= limit; d+=increment){
             myInterpreter.incept();
             myVariable.setVariableValue(d, myInterpreter);
-            lastValueSeen = cmdList.executeCommand(myController, myInterpreter);
+            lastValueSeen = cmdList.executeCommand(myController, myInterpreter, debugMe);
             myInterpreter.kick();
         }
         return lastValueSeen;

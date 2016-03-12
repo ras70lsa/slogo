@@ -21,15 +21,16 @@ public class CmdCommand extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         myInterpreter.incept();
         for(int i = 0; i < listOfVariables.size(); i++){ //TODO the list of variables lives in the interpreter, either we pass or lambda, null error
-            listOfVariables.get(i).setVariableValue(listOfVariableAssignments.get(i).executeCommand(myController, myInterpreter), myInterpreter);
+            listOfVariables.get(i).setVariableValue(listOfVariableAssignments.get(i).executeCommand(myController, myInterpreter, debugMe), myInterpreter);
         }
 
         double lastCommandValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : listOfCommands){
-            lastCommandValue = cmd.executeCommand(myController, myInterpreter);
+            lastCommandValue = cmd.executeCommand(myController, myInterpreter, debugMe);
         }
         myInterpreter.kick();
         return lastCommandValue;

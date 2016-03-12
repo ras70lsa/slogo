@@ -21,12 +21,13 @@ public class CmdUnlimitedParameter extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         if(myParamList.size() > 0){
             BiFunction<Double, Double, Double> myFunc = this.getMyParent().getMyUnlimitedParameterBehavior();
-            double runningTotal = myParamList.get(0).executeCommand(myController, myInterpreter);
+            double runningTotal = myParamList.get(0).executeCommand(myController, myInterpreter, debugMe);
             for(int i = 1; i < myParamList.size(); i++){
-                runningTotal = myFunc.apply(runningTotal, myParamList.get(i).executeCommand(myController, myInterpreter));
+                runningTotal = myFunc.apply(runningTotal, myParamList.get(i).executeCommand(myController, myInterpreter, debugMe));
             }
             return runningTotal;
         }else{

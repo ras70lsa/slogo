@@ -16,16 +16,16 @@ public class CmdIfElse extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        // TODO Auto-generated method stub
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         INonLinearCommand cmdToExecute;
-        if(CommandFactory.isNonZero(myExpression, myController, myInterpreter)){
+        if(CommandFactory.isNonZero(myExpression, myController, myInterpreter, debugMe)){
             cmdToExecute = trueCommands;
         }else{
             cmdToExecute = falseCommands;
         }
         myInterpreter.incept();
-        double toReturn = cmdToExecute.executeCommand(myController, myInterpreter);
+        double toReturn = cmdToExecute.executeCommand(myController, myInterpreter, debugMe);
         myInterpreter.kick();
         return toReturn;
     }

@@ -20,10 +20,11 @@ public class CmdQuotient extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne, valTwo;
-        valOne = expOne.executeCommand(myController, myInterpreter);
-        valTwo = expTwo.executeCommand(myController, myInterpreter);
+        valOne = expOne.executeCommand(myController, myInterpreter, debugMe);
+        valTwo = expTwo.executeCommand(myController, myInterpreter, debugMe);
         if(valTwo == CommandTreeNode.DOUBLE_ZERO){
             throw new LogicException("User code attempted to divide by zero");
         }

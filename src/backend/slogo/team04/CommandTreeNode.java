@@ -3,6 +3,7 @@ package backend.slogo.team04;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
+import exceptions.LogicException;
 
 
 
@@ -24,17 +25,18 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     protected static final String EMPTY_STRING = " ";
     protected static final String LEFT_PAREN = " ( ";
     protected static final String RIGHT_PAREN = " ) ";
+    
 
 
     private List<CommandTreeNode> myChildren;
 
 
     private CommandTreeNode myParent; //in case we need to do weird scope things in the future
-    
+
     protected CommandTreeNode getMyParent(){
         return this.myParent;
     }
-    
+
     protected void setMyParent(CommandTreeNode myParent){
         this.myParent = myParent;
     }
@@ -52,7 +54,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             this.myChildren.add(nodeToAdd);
         }
     }
-    
+
     /**
      * Standard behavior is to simply query the parent for the current active ID value
      * @return
@@ -61,7 +63,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
         return this.myParent.getCurrentActiveTurtleID();
     }
 
-    
+
     protected int[] convertIntegerArrayToIntArray(Object[] toConvert){
         if(toConvert.length == 0){
             return null;
@@ -71,9 +73,9 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             toReturn[i] = ((Integer)toConvert[i]).intValue(); 
         }
         return toReturn;
-        
+
     }
-    
+
     /**
      * If you want a node to exhibit different aggregation behavior simply override this method in the related class
      * @return
@@ -81,7 +83,7 @@ public abstract class CommandTreeNode implements INonLinearCommand {
     protected BiFunction<Double, Double, Double> getMyUnlimitedParameterBehavior(){
         return (x,y) ->  x + y;
     }
-    
+
     protected String appendParsableRepresentationWithSpaces(String toBuild, List<INonLinearCommand> myList){
         String toReturn = toBuild;
         for(INonLinearCommand val : myList){
@@ -95,8 +97,44 @@ public abstract class CommandTreeNode implements INonLinearCommand {
             myList.add(Boolean.FALSE);
         }
     }
-    
-   
+
+    protected void ifDebugPauseExecution(ISlogoDebugObject debugMe) throws LogicException{
+        if(debugMe.firstTimeStep()){
+            synchronized( debugMe.getDrawReadySynchObject()){
+                System.out.println("Trying to step");
+                debugMe.getDrawReadySynchObject().notifyAll();           
+            }
+        }
+
+        synchronized(debugMe){
+            if(debugMe.shouldPause()){
+                while(!debugMe.shouldWake()){ 
+                    try {
+                        synchronized(debugMe.getDrawReadySynchObject()){
+                            debugMe.getDrawReadySynchObject().notify();
+                        }
+                        debugMe.wait();
+                        //debugMe.notify();
+                    }
+                    catch (InterruptedException e) {
+                        throw new LogicException("Debug thread was interrupted");
+                    }
+                }
+
+            }
+            //myDebugObject.userAttemptedStep();
+            //myDebugObject.notify();
+        }
+//        synchronized( debugMe.getDrawReadySynchObject()){
+//            System.out.println("Trying to step");
+//            debugMe.getDrawReadySynchObject().notifyAll();           
+//        }
+        
+      
+
+
+    }
+
 
 
 

@@ -26,4 +26,6 @@ public class Communicator implements ICommunicator{
 	public ExecutionState getExecutionModel() {
 		return model.getExecutionState();
 	}
+
+
 }

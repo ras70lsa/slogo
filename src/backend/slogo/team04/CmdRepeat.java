@@ -19,13 +19,14 @@ public class CmdRepeat extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        double limit = myExpression.executeCommand(myController, myInterpreter);
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        double limit = myExpression.executeCommand(myController, myInterpreter, debugMe);
         double lastValueSeen = CommandTreeNode.DOUBLE_ZERO;
         for(double i = CommandTreeNode.DOUBLE_ONE; i <= limit; i+=CommandTreeNode.DOUBLE_ONE){
             myInterpreter.incept();
             myRepCount.setVariableValue(i, myInterpreter);
-            lastValueSeen = myCommands.executeCommand(myController, myInterpreter);
+            lastValueSeen = myCommands.executeCommand(myController, myInterpreter, debugMe);
             myInterpreter.kick();
         }
         return lastValueSeen;

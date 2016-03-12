@@ -31,7 +31,7 @@ public class CmdIDIterator extends CommandTreeNode {
     //public CmdIDIterato
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
         double toReturn = CommandTreeNode.DOUBLE_ZERO;
         List<Boolean> turtleHasActed = new ArrayList<Boolean>();
         boolean someTurtleHasActed = true; //we are going to essentially iterate through list until it stop changing, because
@@ -44,11 +44,11 @@ public class CmdIDIterator extends CommandTreeNode {
             someTurtleHasActed = false;
             for(int i = 0; i < isTurtleActiveArray.length; i++){
                 this.currentTurtleID = (double) i;
-                double myCondVal = myConditionalNode.executeCommand(myController, myInterpreter); //checking if the test allows us to run
+                double myCondVal = myConditionalNode.executeCommand(myController, myInterpreter, debugMe); //checking if the test allows us to run
                 if(myCondVal == CommandTreeNode.DOUBLE_ONE && !turtleHasActed.get(i) ){ // now this code will always iterate through everything untill nothing changes
                     someTurtleHasActed = true;
                     turtleHasActed.set(i, true);
-                    toReturn = this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter);
+                    toReturn = this.commandsToRunIfSatisfied.executeCommand(myController, myInterpreter, debugMe);
                 }
                 
             }

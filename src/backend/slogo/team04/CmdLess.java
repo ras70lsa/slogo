@@ -16,10 +16,11 @@ public class CmdLess extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne, valTwo;
-        valOne = expressionOne.executeCommand(myController, myInterpreter);
-        valTwo = expressionTwo.executeCommand(myController, myInterpreter);
+        valOne = expressionOne.executeCommand(myController, myInterpreter, debugMe);
+        valTwo = expressionTwo.executeCommand(myController, myInterpreter, debugMe);
         return oneIfStrictlyLessThan(valOne, valTwo);
     }
     

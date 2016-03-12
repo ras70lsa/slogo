@@ -14,9 +14,10 @@ public class CmdRandom extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne;
-        valOne = expOne.executeCommand(myController, myInterpreter);
+        valOne = expOne.executeCommand(myController, myInterpreter, debugMe);
         if(valOne < CommandTreeNode.DOUBLE_ZERO){
             throw new LogicException("Random double generation range is negative");
         }

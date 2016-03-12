@@ -14,9 +14,10 @@ public class CmdMinus extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne;
-        valOne = expOne.executeCommand(myController, myInterpreter);
+        valOne = expOne.executeCommand(myController, myInterpreter, debugMe);
         return -valOne;
     }
 

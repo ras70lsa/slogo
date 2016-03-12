@@ -14,9 +14,10 @@ public class CmdAtan extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne;
-        valOne = inputValue.executeCommand(myController, myInterpreter);
+        valOne = inputValue.executeCommand(myController, myInterpreter, debugMe);
         return Math.atan(valOne); //even though language specifies degrees, i think this is the proper way to use arctan, forgot all trig
     }
 
