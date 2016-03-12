@@ -27,4 +27,5 @@ public interface IView{
 	DoubleProperty getPenWidth();
 	double setShape(int index);
 	List<Actor> getStamps();
+	ImageProperty getCurrentImage();
 }

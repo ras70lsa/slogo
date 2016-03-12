@@ -471,6 +471,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     public List<Actor> getStamps() {
         return stamps;
     }
+
+	@Override
+	public ImageProperty getCurrentImage() {
+		return currentActiveImage;
+	}
 }
 
 

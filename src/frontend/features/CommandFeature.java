@@ -3,14 +3,10 @@ package frontend.features;
 import backend.slogo.team04.INonLinearCommand;
 import constants.ResourceConstants;
 import interfaces.slogo.team04.ICommands;
-import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.util.Callback;
 
