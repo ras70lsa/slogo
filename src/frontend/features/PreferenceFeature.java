@@ -42,7 +42,7 @@ public class PreferenceFeature extends TitledPane {
 		VBox labelAndCombo = new VBox(SPACING);
 		labelAndCombo.setPrefWidth(DisplayConstants.ACCORDION_WIDTH);
 		//To Do: add resource bundle
-		labelAndCombo.getChildren().add(new Label(myBundle.getString("BackgroundColor")));
+		labelAndCombo.getChildren().add(new Label(myBundle.getString("ColorOption")));
 		backgroundPallete = new ColorIndexMenu(view.getColorListProperty());
 		labelAndCombo.getChildren().addAll(backgroundPallete,addColorIndexCombo());
 		items.getChildren().add(labelAndCombo);

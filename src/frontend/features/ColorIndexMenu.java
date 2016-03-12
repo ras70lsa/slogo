@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -55,7 +56,7 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 				return new ListCell<RGBColor>() {
 
 					private final Group group;
-					private final TextField text;
+					private final Label text;
 					private final Rectangle rectangle;
 
 					{
@@ -63,7 +64,7 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 						group = new Group();
 						HBox hbox = new HBox(HBOX_SPACING);
 						rectangle = new Rectangle(REC_WIDTH, REC_HEIGHT);
-						text = new TextField();
+						text = new Label();
 						hbox.getChildren().addAll(rectangle, text);
 						HBox.setMargin(rectangle, new Insets(RECTANGLE_TOP_MARGIN, RECTANGLE_RIGHT_MARGIN,
 								RECTANGLE_BOTTOM_MARGIN, RECTANGLE_LEFT_MARGIN));

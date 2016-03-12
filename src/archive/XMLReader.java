@@ -53,6 +53,8 @@ public class XMLReader {
 		
 		documentBuilder= documentBuilderFactory.newDocumentBuilder();
 		document = documentBuilder.parse(file);
+		executionState.getCommandNodes().get().clear();
+		
 		int counter = 0;
 		while(true) {
 			Element element = getElement("Element" + counter);
