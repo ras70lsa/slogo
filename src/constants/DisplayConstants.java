@@ -41,6 +41,7 @@ public class DisplayConstants {
 	public static final int HTML_SIZE = 600;
 	public static final int RGB_MAX = 255;
 	
+	public static final int HTML_HEIGHT = 1000;
 	public static final String[] possibleLangauges = {"English", "Chinese", "French", "German",
 			"Italian", "Portuguese", "Russian", "Spanish"};
 
