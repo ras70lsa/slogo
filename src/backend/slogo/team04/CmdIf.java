@@ -18,10 +18,11 @@ public class CmdIf extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        if(CommandFactory.isNonZero(myExpression, myController, myInterpreter)){
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        if(CommandFactory.isNonZero(myExpression, myController, myInterpreter, debugMe)){
             myInterpreter.incept();
-            double toReturn = myListOfCommands.executeCommand(myController, myInterpreter);
+            double toReturn = myListOfCommands.executeCommand(myController, myInterpreter, debugMe);
             myInterpreter.kick();
             return toReturn;
             

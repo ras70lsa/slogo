@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import backend.slogo.team04.BackendTestNullModelActor;
 import backend.slogo.team04.CmdTreeHeadNode;
+import backend.slogo.team04.ExecutionModeNormal;
 import backend.slogo.team04.INonLinearCommand;
 import backend.slogo.team04.SlogoScanner;
 import constants.DisplayConstants;
@@ -38,7 +39,7 @@ public class Controller {
     	SlogoScanner scanner = getProperScanner(stringToParse);
     	String save = scanner.getString();
     	INonLinearCommand myHead = new CmdTreeHeadNode(null).parseString(scanner, model.getExecutionModel());
-        myHead.executeCommand(viewModel, model.getExecutionModel());
+        myHead.executeCommand(viewModel, model.getExecutionModel(), new ExecutionModeNormal());
         update();
         updateHistory(save);
     }

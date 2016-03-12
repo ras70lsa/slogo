@@ -21,7 +21,8 @@ public class CmdAskWith extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         myInterpreter.incept();
         myController.pushCurrentActive();
         //set the actives here here
@@ -40,7 +41,7 @@ public class CmdAskWith extends CommandTreeNode {
             someTurtleHasActed = false;
             for(int i = 0; i < isTurtleActiveArray.length; i++){
                 this.currentTurtleID = (double) i;
-                double myCondVal = myCondition.executeCommand(myController, myInterpreter); //checking if the test allows us to run
+                double myCondVal = myCondition.executeCommand(myController, myInterpreter, debugMe); //checking if the test allows us to run
                 if(myCondVal == CommandTreeNode.DOUBLE_ONE && !turtleHasActed.get(i) ){ // now this code will always iterate through everything untill nothing changes
                     someTurtleHasActed = true;
                     turtleHasActed.set(i, true);
@@ -51,7 +52,7 @@ public class CmdAskWith extends CommandTreeNode {
         
         myController.tell(getArrayOfTrueIndex(turtleHasActed));
         //need to set the array in the model to match
-        toReturn = myIDIterator.executeCommand(myController, myInterpreter);
+        toReturn = myIDIterator.executeCommand(myController, myInterpreter, debugMe);
         myInterpreter.kick();
         myController.popCurrentActive();
         return toReturn;
@@ -68,6 +69,8 @@ public class CmdAskWith extends CommandTreeNode {
         int[] rightTypeToReturn = new int[toReturn.size()];
         for(int i = 0; i < toReturn.size(); i++){
             rightTypeToReturn[i] = toReturn.get(i).intValue();
+            
+            
         }
 
             return rightTypeToReturn;

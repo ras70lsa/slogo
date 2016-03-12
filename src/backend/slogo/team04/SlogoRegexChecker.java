@@ -103,11 +103,11 @@ public class SlogoRegexChecker {
     private final static double LOWER_RGB_BOUND = 0d;
     private final static double UPPER_RBG_BOUND = 256d;
     public static boolean isRGBValue(double myDouble){
-        return isIndexValue(myDouble) && doubleWithinBoundsExclusive(myDouble, LOWER_RGB_BOUND, UPPER_RBG_BOUND);
+        return isIndexValue(myDouble) && doubleWithinBoundsInclusive(myDouble, LOWER_RGB_BOUND, UPPER_RBG_BOUND);
     }
     
-    private static boolean doubleWithinBoundsExclusive(double value, double lowerBound, double upperBound){
-        return (lowerBound < value) && (value < upperBound);
+    private static boolean doubleWithinBoundsInclusive(double value, double lowerBound, double upperBound){
+        return (lowerBound <= value) && (value <= upperBound);
     }
 
 
