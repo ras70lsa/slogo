@@ -21,7 +21,7 @@ public class CmdID extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
         if(Double.isNaN(this.getCurrentActiveTurtleID())){
             return myController.ID();
         }else{

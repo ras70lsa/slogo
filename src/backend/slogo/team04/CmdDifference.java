@@ -19,10 +19,11 @@ public class CmdDifference extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne, valTwo;
-        valOne = inputOne.executeCommand(myController, myInterpreter);
-        valTwo = inputTwo.executeCommand(myController, myInterpreter);
+        valOne = inputOne.executeCommand(myController, myInterpreter, debugMe);
+        valTwo = inputTwo.executeCommand(myController, myInterpreter, debugMe);
         return valOne - valTwo;
     }
 

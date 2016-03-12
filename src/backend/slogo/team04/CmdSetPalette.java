@@ -18,11 +18,12 @@ public class CmdSetPalette extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        proposedIndex = myIndex.executeCommand(myController, myInterpreter);
-        proposedR = myR.executeCommand(myController, myInterpreter);
-        proposedG = myG.executeCommand(myController, myInterpreter);
-        proposedB = myB.executeCommand(myController, myInterpreter);
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        proposedIndex = myIndex.executeCommand(myController, myInterpreter, debugMe);
+        proposedR = myR.executeCommand(myController, myInterpreter, debugMe);
+        proposedG = myG.executeCommand(myController, myInterpreter, debugMe);
+        proposedB = myB.executeCommand(myController, myInterpreter, debugMe);
         if(SlogoRegexChecker.isPostiveIndex(proposedIndex)
                 && SlogoRegexChecker.isRGBValue(proposedR)
                 && SlogoRegexChecker.isRGBValue(proposedG)

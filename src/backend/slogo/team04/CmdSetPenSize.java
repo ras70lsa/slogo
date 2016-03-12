@@ -17,8 +17,9 @@ public class CmdSetPenSize extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        return myController.setPenSize(myChild.executeCommand(myController, myInterpreter));
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        return myController.setPenSize(myChild.executeCommand(myController, myInterpreter, debugMe));
     }
     
     

@@ -2,7 +2,12 @@ package exceptions;
 
 public class UserInputException extends Exception {
 
-	public UserInputException() {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public UserInputException() {
 		// TODO Auto-generated constructor stub
 	}
 

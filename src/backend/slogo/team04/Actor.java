@@ -98,14 +98,17 @@ public class Actor {
 	}
 	
 	public ModelLine setxy(double x, double y) {
+    
 		if(penIsDown.get()){
 			ModelLine newLine = new ModelLine(getXLocation(), getYLocation(), x, y, pen);
 			xLocation.set(x);
-			yLocation.set(y);
+	                yLocation.set(y);
 			myLines.add(newLine);
 			return newLine;
 		}else{
-			return null;
+		    xLocation.set(x);
+                    yLocation.set(y);
+                    return null;
 		}
 	}
 

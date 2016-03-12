@@ -17,10 +17,11 @@ public class CmdSum extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         double valOne, valTwo;
-        valOne = expOne.executeCommand(myController, myInterpreter);
-        valTwo = expTwo.executeCommand(myController, myInterpreter);
+        valOne = expOne.executeCommand(myController, myInterpreter, debugMe);
+        valTwo = expTwo.executeCommand(myController, myInterpreter, debugMe);
         return valOne + valTwo;
     }
 

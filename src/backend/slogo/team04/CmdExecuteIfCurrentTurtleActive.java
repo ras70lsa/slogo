@@ -20,9 +20,9 @@ public class CmdExecuteIfCurrentTurtleActive extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
         boolean[] currentActiveTurtles = myController.activeTurtles();
-        double currentIDValue = new CmdID(this).executeCommand(myController, myInterpreter);
+        double currentIDValue = new CmdID(this).executeCommand(myController, myInterpreter, debugMe);
         int curID = (int) currentIDValue;
         if(currentActiveTurtles[curID]){
             return CommandTreeNode.DOUBLE_ONE;

@@ -15,8 +15,9 @@ public class CmdPenUp extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        myController.penUp(new CmdID(this).executeCommand(myController, myInterpreter));
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        myController.penUp(new CmdID(this).executeCommand(myController, myInterpreter, debugMe));
         return CommandTreeNode.DOUBLE_ZERO;
     }
 

@@ -20,10 +20,11 @@ public class CmdTell extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
         List<Integer> listOfTurtlesToMakeActive = new ArrayList<Integer>();
         for(INonLinearCommand next : myArguments){
-            double myProposedValue = next.executeCommand(myController, myInterpreter);
+            double myProposedValue = next.executeCommand(myController, myInterpreter, debugMe);
             if(SlogoRegexChecker.isPostiveIndex(myProposedValue)){
                 listOfTurtlesToMakeActive.add((int) myProposedValue);
             }else{

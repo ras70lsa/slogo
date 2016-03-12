@@ -26,7 +26,7 @@ public class VariableFeature extends TitlePaneFeature {
 	}
 
 	private void setListeners() {
-		stack.addListener((a,b,c) -> drawTabs());
+		//stack.addListener((a,b,c) -> drawTabs());
 	}
 
 	private void setUpTabs() {
@@ -35,7 +35,9 @@ public class VariableFeature extends TitlePaneFeature {
 		setContent(tabs);
 	}
 
-	private void drawTabs() {
+	public void drawTabs() {
+	    
+	    if(tabs!=null) {
 		tabs.getTabs().clear();
 		int counter = 0;
 		for(ListProperty<Variable> level: stack) {
@@ -45,6 +47,7 @@ public class VariableFeature extends TitlePaneFeature {
 			tabs.getSelectionModel().select(tab);
 			counter++;
 		}
+	    }
 	}
 
 	private String getTitle(int input) {
@@ -93,6 +96,8 @@ public class VariableFeature extends TitlePaneFeature {
 	private void setName(String oldValue, String edit, TableView<Variable> table) {
 		table.getSelectionModel().getSelectedItem().getName().set(edit);
 	}
+
+
 
 	
 

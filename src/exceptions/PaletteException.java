@@ -2,7 +2,12 @@ package exceptions;
 
 public class PaletteException extends Exception {
 
-	public PaletteException() {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public PaletteException() {
 		// TODO Auto-generated constructor stub
 	}
 

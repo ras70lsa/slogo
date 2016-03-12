@@ -2,7 +2,12 @@ package exceptions;
 
 public class ImproperFileException extends Exception {
 
-	public ImproperFileException() {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public ImproperFileException() {
 		// TODO Auto-generated constructor stub
 	}
 

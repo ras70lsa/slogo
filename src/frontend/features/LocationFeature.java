@@ -27,7 +27,8 @@ public class LocationFeature extends TitlePaneFeature {
 		createColumns();
 	}
 
-	private void createColumns() {
+	@SuppressWarnings("unchecked")
+    private void createColumns() {
 
 		//Needs to be refactored
 		TableColumn<Actor, String> ID = new TableColumn<>(getString("ID"));

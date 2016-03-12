@@ -92,12 +92,11 @@ public class CommandFactory {
 
     }
 
-    private static CommandTreeNode checkCommandsExceptComment(String nextWord, CommandTreeNode myParent, ISlogoInterpreter myInterpreter) throws UserInputException{
+    private static CommandTreeNode checkCommandsExceptComment(String nextWord, CommandTreeNode myParent, ISlogoInterpreterVariableScope myInterpreter) throws UserInputException{
         CommandTreeNode toReturn = CommandFactory.keyWordFunctions(nextWord, myParent);
         if(toReturn != null){
             return toReturn;
         }
-        // at this point, no keyword is detected
         if(SlogoRegexChecker.isVariable(nextWord)){
             return new CmdVariable(myParent, nextWord);
         }
@@ -113,9 +112,7 @@ public class CommandFactory {
         throw new UserInputException("Please check spelling of all Slogo commands");
     }
 
-    protected static boolean isKeyWord(String nextWord){
-        return CommandFactory.keyWordFunctions(nextWord, null) != null;
-    }
+  
 
     private static CommandTreeNode keyWordFunctions (String nextWord, CommandTreeNode myParent) {
         switch(nextWord){
@@ -262,13 +259,23 @@ public class CommandFactory {
         return myIterator;
     }
 
-    protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException{
-        double myValue = myCommand.executeCommand(myController, myInterpreter);
+    protected static boolean isNonZero(INonLinearCommand myCommand, ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException{
+        double myValue = myCommand.executeCommand(myController, myInterpreter, debugMe);
         return myValue != CommandTreeNode.DOUBLE_ZERO;
     }
 
-    protected static boolean isUserDefinedFunction(String nextWord, ISlogoInterpreter myInterpreter){
+    protected static boolean isUserDefinedFunction(String nextWord, ISlogoInterpreterVariableScope myInterpreter){
         return (myInterpreter.getFunction(nextWord) != null);
     }
+    
+    protected static boolean isKeyWord(String nextWord){
+        return CommandFactory.keyWordFunctions(nextWord, null) != null;
+    }
+    
+    
+    protected static boolean isBreakable(String nextWord, ISlogoInterpreterVariableScope myInterpreter){
+        return isUserDefinedFunction(nextWord,  myInterpreter) || isKeyWord(nextWord);
+    }
+    
 
 }

@@ -29,11 +29,10 @@ public class CmdListOfCommands extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
         double lastValue = CommandTreeNode.DOUBLE_ZERO;
         for(INonLinearCommand cmd : myCommands){
-            lastValue = cmd.executeCommand(myController, myInterpreter);
+            lastValue = cmd.executeCommand(myController, myInterpreter, debugMe);
         }
        
         return lastValue;

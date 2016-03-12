@@ -16,10 +16,11 @@ public class CmdSetXY extends CommandTreeNode {
     }
 
     @Override
-    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter) throws LogicException {
-        return myController.setxy(myX.executeCommand(myController, myInterpreter)
-                                  , myY.executeCommand(myController, myInterpreter)
-                                  , new CmdID(this).executeCommand(myController, myInterpreter));
+    public double executeCommand (ISlogoModelActionsExtended myController, ISlogoInterpreterVariableScope myInterpreter, ISlogoDebugObject debugMe) throws LogicException {
+        ifDebugPauseExecution(debugMe);
+        return myController.setxy(myX.executeCommand(myController, myInterpreter, debugMe)
+                                  , myY.executeCommand(myController, myInterpreter, debugMe)
+                                  , new CmdID(this).executeCommand(myController, myInterpreter, debugMe));
     }
 
     @Override
