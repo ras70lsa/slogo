@@ -235,7 +235,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		if (actors.elementIsNull(0)) {
 			double oldHeading = getActor(turtleID).getHeading();
 			getActor(turtleID).setHeading(degrees);
-			getActor(turtleID).setHeading(degrees);
 			return Angle.calculateAngleRotated(oldHeading, getActor(turtleID).getHeading());
 		}
 		return 0;

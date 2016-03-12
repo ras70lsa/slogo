@@ -140,19 +140,19 @@ public class WrapAroundDrawLine {
 		original[2] = ex;
 		original[3] = ey;
 		
-		if(Math.round(sy) == 0){
+		if((int)Math.round(sy) == 0){
 			original[1] = DisplayConstants.VIEW_HEIGHT-1;
 			original[3] = ey + DisplayConstants.VIEW_HEIGHT;
 		}
-		if(Math.round(sy) == DisplayConstants.VIEW_HEIGHT){
+		if((int)Math.round(sy) == DisplayConstants.VIEW_HEIGHT){
 			original[1] = 1;
 			original[3] = ey - DisplayConstants.VIEW_HEIGHT;
 		}
-		if(Math.round(sx) == 0){
+		if((int)Math.round(sx) == 0){
 			original[0] = DisplayConstants.VIEW_WIDTH-1;
 			original[2] = ex + DisplayConstants.VIEW_WIDTH;
 		}
-		if(Math.round(sx) == DisplayConstants.VIEW_WIDTH){
+		if((int)Math.round(sx) == DisplayConstants.VIEW_WIDTH){
 			original[0] = 1;
 			original[2] = ex - DisplayConstants.VIEW_WIDTH;
 		}
