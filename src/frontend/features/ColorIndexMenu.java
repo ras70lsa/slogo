@@ -51,7 +51,9 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 		setItems(data);
 		setCellFactory((callback) -> {
 				return new ListCell<RGBColor>() {
-
+					public static final int HEIGHT = 10;
+					public static final int WIDTH = 50;
+					public static final int ALPHA = 1;
 					private final Group group;
 					private final Label text;
 					private final Rectangle rectangle;
@@ -65,8 +67,8 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 						hbox.getChildren().addAll(rectangle, text);
 						HBox.setMargin(rectangle, new Insets(RECTANGLE_TOP_MARGIN, RECTANGLE_RIGHT_MARGIN,
 								RECTANGLE_BOTTOM_MARGIN, RECTANGLE_LEFT_MARGIN));
-						text.setPrefHeight(10);
-						text.setPrefWidth(50);
+						text.setPrefHeight(HEIGHT);
+						text.setPrefWidth(WIDTH);
 						group.getChildren().add(hbox);
 					}
 
@@ -78,13 +80,13 @@ public class ColorIndexMenu extends ComboBox<RGBColor> {
 							text.setText(Integer.toString(item.getIndex()));
 							rectangle.setFill(new Color(item.getRed(),
 									item.getGreen(),
-									item.getBlue(), 1));
+									item.getBlue(), ALPHA));
 							setGraphic(group);
 						}
 					}
 				};
 			});	
-
+			
 		};
-	}
+}
 
