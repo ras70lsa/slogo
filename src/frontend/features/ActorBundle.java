@@ -20,12 +20,13 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import model.ModelLine;
 import properties.ColorProperty;
 import properties.ImageProperty;
 import utilities.Angle;
 import utilities.Distance;
 
-public class ViewModel extends Observable implements IView, ISlogoModelActionsExtended {
+public class ActorBundle {
 
     private static final double RGB_MAX = 255;
     private static final double RGB_INTERVAL = 255 / 2 + 1;
@@ -35,7 +36,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     private ListProperty<Actor> actors;
     private List<Actor> stamps;
     private Stack<ModelLine> lineManager;
-    private ColorProperty backgroundColor;
     private ColorProperty penColor;
 
     private List<Boolean> toBeActive;
@@ -45,8 +45,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
     private ImageProperty currentActiveImage;
     private DoubleProperty currentPenWidth;
 
-    public ViewModel() {
-        backgroundColor = new ColorProperty();
+    public ActorBundle() {
         currentActiveImage = new ImageProperty();
         penColor = new ColorProperty();
         currentPenWidth = new SimpleDoubleProperty();
@@ -56,59 +55,16 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
         stamps = new ArrayList<Actor>();
         lineManager = new Stack<ModelLine>();
         generateColorListProperty();
-        addListeners(actors.get(actors.getSize() - 1));
 
         toBeActive = new ArrayList<>();
         myCachedActiveTurtles = new Stack<>();
     }
 
-    @Override
     public void addActor(boolean visible) {
         Actor newActor = new Actor(0, 0, Angle.HALF_CIRCLE / 2, visible, actors.size());
         actors.add(newActor);
-        addListeners(newActor);
-        update();
     }
-
-//    private void addListeners(Actor actor) {
-//        currentActiveImage.addListener((z, b, c) -> {
-//            actors.stream().forEach((a) -> a.setImageProperty(c));
-//            update();
-//        });
-//        penColor.addListener((z, b, c) -> {
-//            actors.stream().forEach((a) -> a.setPenColor(c));
-//        });
-//        currentPenWidth.addListener((z, b, c) -> {
-//            actors.stream().forEach((a) -> a.setPenWidth(c.doubleValue()));
-//        });
-//    }
     
-    private void addListeners(Actor actor) {
-	  currentActiveImage.addListener((z, b, c) -> {
-	     getActor(actor.getID()).setImageProperty(c);
-	     update();
-	  });
-	  penColor.addListener((z, b, c) -> {
-	     getActor(actor.getID()).setPenColor(c);
-	  });
-	  currentPenWidth.addListener((z, b, c) -> {
-	      getActor(actor.getID()).setPenWidth(c.doubleValue());
-	  });
-	}
-
-    @Override
-    public ColorProperty getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    @Override
-    public double clearScreen() {
-        actors.stream().forEach((a) -> a.clearLines());
-        actors.clear();
-        return 0;
-    }
-
-    @Override
     public ColorProperty getPenColor() {
         return penColor;
     }
@@ -119,13 +75,6 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
             lineManager.addAll(actor.getMyLines());
         }
         return lineManager;
-    }
-
-    @Override
-    public void update() {
-        setChanged();
-        notifyObservers();
-
     }
 
     public ImageProperty getImageProperty() {
