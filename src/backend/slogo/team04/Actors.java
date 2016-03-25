@@ -1,3 +1,7 @@
+// This entire file is part of my masterpiece.
+// YAQI GUO
+
+
 package backend.slogo.team04;
 
 import java.util.ArrayList;
