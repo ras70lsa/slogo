@@ -1,3 +1,13 @@
+// This entire file is part of my masterpiece.
+// Alexander Tseng
+
+/* This class translates the current position of the actor in the backend into the front end. It is well refactored such that the
+code is pretty readiable and its function is very specific such that the methods here can not be placed anywhere else. It is easily
+extendible for front end features and closed for backend commands. The wraparound class has been refactored out of this class to make
+it more extendible such that the user will be able to add extra border cases or any changes related to the display of the turtle 
+environment.
+*/
+
 package frontend.features;
 
 import java.util.ArrayList;
