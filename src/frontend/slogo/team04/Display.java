@@ -10,6 +10,7 @@ import frontend.features.CommandFeature;
 import frontend.features.History;
 import frontend.features.LocationFeature;
 import frontend.features.PreferenceFeature;
+import frontend.features.TurtleImageFeature;
 import frontend.features.UserTextInput;
 import frontend.features.VariableFeature;
 import frontend.features.View;
@@ -89,6 +90,8 @@ public class Display implements IDisplay {
 		leftFeatures.getPanes().add(actors);
 		PreferenceFeature pallets = new PreferenceFeature(model.getViewInterface());
 		leftFeatures.getPanes().add(pallets);
+		TurtleImageFeature images = new TurtleImageFeature(model.getViewInterface());
+		leftFeatures.getPanes().add(images);
 	}
 	
 	private void createModules(Controller controller) {
