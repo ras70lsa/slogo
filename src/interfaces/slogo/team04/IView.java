@@ -8,6 +8,7 @@ import backend.slogo.team04.Actor;
 import backend.structures.RGBColor;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
+import model.IActorDrawer;
 import model.ModelLine;
 import properties.ColorProperty;
 import properties.ImageProperty;
@@ -57,4 +58,6 @@ public interface IView{
 	double setShape(int index);
 	List<Actor> getStamps();
 	ImageProperty getCurrentImage();
+	
+	IActorDrawer getActorDrawer();
 }

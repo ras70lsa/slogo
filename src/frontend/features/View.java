@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import backend.slogo.team04.Actor;
 import constants.CSSPathConstants;
 import constants.DisplayConstants;
@@ -13,149 +12,121 @@ import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
-import model.ModelLine;
+import model.IActorDrawer;
 import utilities.Angle;
 import visual.states.GuiUserOption;
 
+
 public class View extends StaticPane implements Observer {
 
-	private static final double scaleFactor = 1;
-	private static final double DARKEN_FACTOR = -.75;
-	private static final double FADE_FACTOR = .5;
-	private IView model;
-	private WrapAroundDrawLine wrapAroundFunction;
-	private static final double ACTOR_WIDTH = 50;
-	private static final double ACTOR_HEIGHT = 60;
+    private static final double scaleFactor = 1;
+    private static final double DARKEN_FACTOR = -.75;
+    private static final double FADE_FACTOR = .5;
+    private IView model;
+    private static final double ACTOR_WIDTH = 50;
+    private static final double ACTOR_HEIGHT = 60;
 
-	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE / 2;
+    private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE / 2;
 
-	public View(IView model) {
-		this.model = model;
-		addCSS(CSSPathConstants.DEFAULT_VIEW);
-		addSilentListeners();
-		model.addObserver(this);
-		wrapAroundFunction = new WrapAroundDrawLine();
-	}
 
-	private void addSilentListeners() {
-		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
-	}
+    public View (IView model) {
+        this.model = model;
+        addCSS(CSSPathConstants.DEFAULT_VIEW);
+        addSilentListeners();
+        model.addObserver(this);
+    }
 
-	public double getMaxWidth() {
-		return DisplayConstants.VIEW_WIDTH;
-	}
+    private void addSilentListeners () {
+        model.getBackgroundColor().addListener( (a, b, c) -> updateColor(c));
+    }
 
-	public double getMaxHeight() {
-		return DisplayConstants.VIEW_HEIGHT;
-	}
+    public double getMaxWidth () {
+        return DisplayConstants.VIEW_WIDTH;
+    }
 
-	public double getScaleFactor() {
-		return scaleFactor;
-	}
+    public double getMaxHeight () {
+        return DisplayConstants.VIEW_HEIGHT;
+    }
 
-	public double getCenterXCor(double imageWidth) {
-		return DisplayConstants.VIEW_WIDTH / 2 - (imageWidth / 2);
-	}
+    public double getScaleFactor () {
+        return scaleFactor;
+    }
 
-	public double getCenterYCor(double imageHeight) {
-		return DisplayConstants.VIEW_HEIGHT / 2 - (imageHeight / 2);
+    public double getCenterXCor (double imageWidth) {
+        return DisplayConstants.VIEW_WIDTH / 2 - (imageWidth / 2);
+    }
 
-	}
+    public double getCenterYCor (double imageHeight) {
+        return DisplayConstants.VIEW_HEIGHT / 2 - (imageHeight / 2);
 
-	public List<Node> getReleventProperties() {
-		GuiUserOption factory = new GuiUserOption();
-		List<Node> list = new ArrayList<Node>();
-		list.add(factory.get(model.getImageProperty(), "Choose Actor Image"));
-		list.add(factory.get(model.getBackgroundColor(), model.getColorListProperty(), "Background Color"));
-		list.add(factory.get(model.getPenColor(), model.getColorListProperty(), "Pen Color"));
-		return list;
-	}
+    }
 
-	@Override
-	public void update(Observable o, Object arg) {
-		clear();
-	
-		for (Actor actor: model.getStamps()){
-			draw(actor);
-		}
-		
-		translateLineToView(model.getLines());
-		drawLines(wrapAroundFunction.getLines());
-		
-		for(Actor actor: model.getActorProperty()) {
-			if(actor.getVisible()) {
-				draw(actor);
-			}
-		}
-	}
-	
-	private void draw(Actor turtle) {
-		
-		ImageView view = new ImageView(turtle.getImage());
-		view.setOnMouseClicked(e -> turtle.toggleActive());
-		turtle.getActive().addListener((a,b,current) -> handleImage(view, current));
-		view.setFitWidth(ACTOR_WIDTH);
-		view.setFitHeight(ACTOR_HEIGHT);
-		view.setTranslateX(makeXCorrection(turtle.getXLocation()) - view.getFitWidth()/2);
-		view.setTranslateY(makeYCorrection(turtle.getYLocation()) - view.getFitHeight()/2);
-		view.setRotate(translateToTurtleAngle(turtle.getHeading()));
-		add(view);
-		handleImage(view, turtle.getActive().get());
-	}
-	
-	private void handleImage(ImageView view, Boolean active) {
-		ColorAdjust adjust = new ColorAdjust();
-		if(!active) {
-			adjust.setBrightness(DARKEN_FACTOR);
-			view.setOpacity(FADE_FACTOR);
-		} else {
-			adjust.setBrightness(0);
-			view.setOpacity(1);
-		}
-		view.setEffect(adjust);
-	}
-	
-	private void drawLines(ArrayList<Line> input){
-		for(Line line: input){
-			addLine(line);
-		}
-		wrapAroundFunction.clearLines();
-	}
-	
-	private void translateLineToView(List<ModelLine> input){
-		for(ModelLine line: input) {
-			wrapAroundFunction.draw(line);
-		}
-	}
-	
-	private double makeXCorrection(double x) {
-		x = x - DisplayConstants.VIEW_WIDTH/2;
-		double xd = Math.abs(x)%(DisplayConstants.VIEW_WIDTH);
-		if(x<0){
-			return DisplayConstants.VIEW_WIDTH-xd;
-		}
-		else if(x>DisplayConstants.VIEW_WIDTH){
-			return xd;
-		}
-		return x;
-	}
+    public List<Node> getReleventProperties () {
+        GuiUserOption factory = new GuiUserOption();
+        List<Node> list = new ArrayList<Node>();
+        list.add(factory.get(model.getImageProperty(), "Choose Actor Image"));
+        list.add(factory.get(model.getBackgroundColor(), model.getColorListProperty(),
+                             "Background Color"));
+        list.add(factory.get(model.getPenColor(), model.getColorListProperty(), "Pen Color"));
+        return list;
+    }
 
-	private double makeYCorrection(double y) {
-		y = -y - DisplayConstants.VIEW_HEIGHT/2;
-		double yd = Math.abs(y)%(DisplayConstants.VIEW_HEIGHT);
-		if(y<0){
-			return DisplayConstants.VIEW_HEIGHT - yd;
-		}
-		else if(y>DisplayConstants.VIEW_HEIGHT){
-			return yd;
-		}
-		return y;
-	}
+    @Override
+    public void update (Observable o, Object arg) {
+        clear();
 
-	public double translateToTurtleAngle(double angle) {
-		return -(angle - TURTLE_INITIAL_ANGLE);
-	}
-	
+        for (Actor actor : model.getStamps()) {
+            draw(actor);
+        }
+
+        List<Line> toDraw = getDrawer().correctLines(model.getLines());
+        for (Line line : toDraw) {
+            addLine(line);
+        }
+
+        for (Actor actor : model.getActorProperty()) {
+            if (actor.getVisible()) {
+                draw(actor);
+            }
+        }
+    }
+
+    private void draw (Actor turtle) {
+
+        ImageView view = new ImageView(turtle.getImage());
+        view.setOnMouseClicked(e -> turtle.toggleActive());
+        turtle.getActive().addListener( (a, b, current) -> handleImage(view, current));
+        view.setFitWidth(ACTOR_WIDTH);
+        view.setFitHeight(ACTOR_HEIGHT);
+        view.setTranslateX(getDrawer().makeXCorrection(turtle.getXLocation()) -
+                           view.getFitWidth() / 2);
+        view.setTranslateY(getDrawer().makeYCorrection(turtle.getYLocation()) -
+                           view.getFitHeight() / 2);
+        view.setRotate(translateToTurtleAngle(turtle.getHeading()));
+        add(view);
+        handleImage(view, turtle.getActive().get());
+    }
+
+    private void handleImage (ImageView view, Boolean active) {
+        ColorAdjust adjust = new ColorAdjust();
+        if (!active) {
+            adjust.setBrightness(DARKEN_FACTOR);
+            view.setOpacity(FADE_FACTOR);
+        }
+        else {
+            adjust.setBrightness(0);
+            view.setOpacity(1);
+        }
+        view.setEffect(adjust);
+    }
+
+    public double translateToTurtleAngle (double angle) {
+        return -(angle - TURTLE_INITIAL_ANGLE);
+    }
+
+    
+    public IActorDrawer getDrawer () {
+        return model.getActorDrawer();
+    }
 
 }
-

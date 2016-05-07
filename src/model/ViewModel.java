@@ -40,8 +40,11 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	private ListProperty<RGBColor> colorListProperty;
 	private ImageProperty currentActiveImage;
 	private DoubleProperty currentPenWidth;
+	
+	private IActorDrawer myDrawer;
 
 	public ViewModel() {
+	        myDrawer = new WrapDrawer();
 		actors = new Actors();
 		backgroundColor = new ColorProperty();
 		currentActiveImage = new ImageProperty();
@@ -462,4 +465,27 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	public ImageProperty getCurrentImage() {
 		return currentActiveImage;
 	}
+
+    @Override
+    public double wrap () {
+        myDrawer = new WrapDrawer();
+        return 1;
+    }
+
+    @Override
+    public double window () {
+        myDrawer = new WindowDrawer();
+        return 2;
+    }
+
+    @Override
+    public double fence () {
+        myDrawer = new FenceDrawer();
+        return 3;
+    }
+
+    @Override
+    public IActorDrawer getActorDrawer () {
+        return myDrawer;
+    }
 }

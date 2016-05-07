@@ -1,6 +1,7 @@
 package frontend.features;
 
 import java.util.ArrayList;
+import java.util.List;
 import constants.DisplayConstants;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -32,11 +33,7 @@ public class WrapAroundDrawLine {
 		newLinePoints = checkStartPoints(startX, startY, endX, endY);
 		
 		Line n = new Line();
-		n.getStrokeDashArray().addAll(line.getStyle());
-		Color color = new Color(line.getColor().getRed(), line.getColor().getGreen(), line.getColor().getBlue(), ALPHA);
-		n.setStroke(color);
-		n.setStrokeWidth(line.getWidth());
-		
+
 		checkEndPoints(newLinePoints, n, line);
 		
 		return n;
@@ -189,7 +186,7 @@ public class WrapAroundDrawLine {
 		linemanager.add(node);
 	}
 	
-	public ArrayList<Line> getLines(){
+	public List<Line> getLines(){
 		return linemanager;
 	}
 	

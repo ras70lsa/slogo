@@ -71,7 +71,12 @@ public interface ISlogoModelActionsExtended{
     void pushCurrentActive();
     
     void popCurrentActive();
-	void addActor(boolean visible);
+    void addActor(boolean visible);
+    
+    // Maintenence feature language addition
+    double wrap();
+    double window();
+    double fence();
     
     //TODO we need to add the ability to have a condition here
     

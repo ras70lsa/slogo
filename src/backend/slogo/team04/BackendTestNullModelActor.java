@@ -227,6 +227,30 @@ public class BackendTestNullModelActor implements ISlogoModelActionsExtended{
 		
 	}
 
+
+
+    @Override
+    public double wrap () {
+        System.out.printf("Popping actor stack\n");
+        return 1;
+    }
+
+
+
+    @Override
+    public double window () {
+        System.out.printf("Popping actor stack\n");
+        return 2;
+    }
+
+
+
+    @Override
+    public double fence () {
+        System.out.printf("Popping actor stack\n");
+        return 3;
+    }
+
     
     
 
