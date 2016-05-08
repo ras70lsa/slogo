@@ -22,11 +22,15 @@ public class View extends StaticPane implements Observer {
 	private static final double scaleFactor = 1;
 	private static final double DARKEN_FACTOR = -.75;
 	private static final double FADE_FACTOR = .5;
+	private static final double DEFAULT = 1;
 	private IView model;
 	private WrapAroundDrawLine wrapAroundFunction;
+	private WindowDrawLine windowDrawFunction;
+	private FenceDrawLine fenceDrawFunction;
+	private double num;
 	private static final double ACTOR_WIDTH = 50;
 	private static final double ACTOR_HEIGHT = 60;
-
+	
 	private static final double TURTLE_INITIAL_ANGLE = Angle.HALF_CIRCLE / 2;
 
 	public View(IView model) {
@@ -35,8 +39,22 @@ public class View extends StaticPane implements Observer {
 		addSilentListeners();
 		model.addObserver(this);
 		wrapAroundFunction = new WrapAroundDrawLine();
+		windowDrawFunction = new WindowDrawLine();
+		fenceDrawFunction = new FenceDrawLine();
+		this.num = DEFAULT;
 	}
-
+	
+	public IMyDrawer determineFunction(){
+		this.num = model.getFunction();
+		if(num==1){
+			return wrapAroundFunction;
+		}else if(num==2){
+			return windowDrawFunction;
+		}else{
+			return fenceDrawFunction;
+		}
+	}
+	
 	private void addSilentListeners() {
 		model.getBackgroundColor().addListener((a,b,c) -> updateColor(c));
 	}
@@ -80,7 +98,7 @@ public class View extends StaticPane implements Observer {
 		}
 		
 		translateLineToView(model.getLines());
-		drawLines(wrapAroundFunction.getLines());
+		drawLines(determineFunction().getLines());
 		
 		for(Actor actor: model.getActorProperty()) {
 			if(actor.getVisible()) {
@@ -96,8 +114,7 @@ public class View extends StaticPane implements Observer {
 		turtle.getActive().addListener((a,b,current) -> handleImage(view, current));
 		view.setFitWidth(ACTOR_WIDTH);
 		view.setFitHeight(ACTOR_HEIGHT);
-		view.setTranslateX(makeXCorrection(turtle.getXLocation()) - view.getFitWidth()/2);
-		view.setTranslateY(makeYCorrection(turtle.getYLocation()) - view.getFitHeight()/2);
+		makeCorrection(view, turtle);
 		view.setRotate(translateToTurtleAngle(turtle.getHeading()));
 		add(view);
 		handleImage(view, turtle.getActive().get());
@@ -119,39 +136,19 @@ public class View extends StaticPane implements Observer {
 		for(Line line: input){
 			addLine(line);
 		}
-		wrapAroundFunction.clearLines();
+		determineFunction().clearLines();
 	}
 	
 	private void translateLineToView(List<ModelLine> input){
 		for(ModelLine line: input) {
-			wrapAroundFunction.draw(line);
+			determineFunction().draw(line);
 		}
 	}
 	
-	private double makeXCorrection(double x) {
-		x = x - DisplayConstants.VIEW_WIDTH/2;
-		double xd = Math.abs(x)%(DisplayConstants.VIEW_WIDTH);
-		if(x<0){
-			return DisplayConstants.VIEW_WIDTH-xd;
-		}
-		else if(x>DisplayConstants.VIEW_WIDTH){
-			return xd;
-		}
-		return x;
+	private void makeCorrection(ImageView view, Actor turtle){
+		view.setTranslateX(determineFunction().makeXCorrection(turtle.getXLocation()) - view.getFitWidth()/2);
+		view.setTranslateY(determineFunction().makeYCorrection(turtle.getYLocation()) - view.getFitHeight()/2);
 	}
-
-	private double makeYCorrection(double y) {
-		y = -y - DisplayConstants.VIEW_HEIGHT/2;
-		double yd = Math.abs(y)%(DisplayConstants.VIEW_HEIGHT);
-		if(y<0){
-			return DisplayConstants.VIEW_HEIGHT - yd;
-		}
-		else if(y>DisplayConstants.VIEW_HEIGHT){
-			return yd;
-		}
-		return y;
-	}
-
 	public double translateToTurtleAngle(double angle) {
 		return -(angle - TURTLE_INITIAL_ANGLE);
 	}

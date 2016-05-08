@@ -74,7 +74,12 @@ public interface ISlogoModelActionsExtended{
 	void addActor(boolean visible);
     
     //TODO we need to add the ability to have a condition here
-    
+	/**
+	 * These commands changes the border settings of the program.
+	 */
+    double wrap();
+    double window();
+    double fence();
     
     
     

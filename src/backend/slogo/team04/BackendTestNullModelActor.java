@@ -227,6 +227,25 @@ public class BackendTestNullModelActor implements ISlogoModelActionsExtended{
 		
 	}
 
+
+
+	@Override
+	public double wrap() {
+		return 1;
+	}
+
+
+
+	@Override
+	public double window() {
+		return 2;
+	}
+
+	@Override
+	public double fence() {
+		return 3;
+	}
+
     
     
 

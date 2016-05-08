@@ -246,6 +246,12 @@ public class CommandFactory {
                 return new CmdAskWith(myParent);
             case CmdUnlimitedParameter.MY_KEY:
                 return new CmdUnlimitedParameter(myParent);
+            case CmdWrap.MY_KEY:
+            	return new CmdWrap(myParent);
+            case CmdFence.MY_KEY:
+            	return new CmdFence(myParent);
+            case CmdWindow.MY_KEY:
+            	return new CmdWindow(myParent);
             default:
                 return null;
         }

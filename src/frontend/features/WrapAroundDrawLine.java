@@ -9,7 +9,7 @@ import model.ModelLine;
 import utilities.WrapAroundCheck;
 
 
-public class WrapAroundDrawLine {
+public class WrapAroundDrawLine extends DrawLine implements IMyDrawer{
 
 	private static final double ALPHA = 1;
 
@@ -26,6 +26,7 @@ public class WrapAroundDrawLine {
 		linemanager = new ArrayList<Line>();
 	}
 	
+@Override	
 	public Line drawLine(double startX, double startY, double endX, double endY, ModelLine line) {
 		double[] newLinePoints = new double[4];
 		
@@ -181,7 +182,8 @@ public class WrapAroundDrawLine {
 		}
 	}
 	
-	private void addLine(Line node, double startX, double startY, double endX, double endY){
+	@Override
+	public void addLine(Line node, double startX, double startY, double endX, double endY){
 		node.setStartX(startX);
 		node.setStartY(startY);
 		node.setEndX(endX);
@@ -189,13 +191,38 @@ public class WrapAroundDrawLine {
 		linemanager.add(node);
 	}
 	
+	@Override
 	public ArrayList<Line> getLines(){
 		return linemanager;
 	}
 	
+	@Override
 	public void clearLines(){
 		linemanager.clear();
 	}
-
+	
+	public double makeXCorrection(double x) {
+		x = x - DisplayConstants.VIEW_WIDTH/2;
+		double xd = Math.abs(x)%(DisplayConstants.VIEW_WIDTH);
+		if(x<0){
+			return DisplayConstants.VIEW_WIDTH-xd;
+		}
+		else if(x>DisplayConstants.VIEW_WIDTH){
+			return xd;
+		}
+		return x;
+	}
+	
+	public double makeYCorrection(double y) {
+		y = -y - DisplayConstants.VIEW_HEIGHT/2;
+		double yd = Math.abs(y)%(DisplayConstants.VIEW_HEIGHT);
+		if(y<0){
+			return DisplayConstants.VIEW_HEIGHT - yd;
+		}
+		else if(y>DisplayConstants.VIEW_HEIGHT){
+			return yd;
+		}
+		return y;
+	}
 }
 

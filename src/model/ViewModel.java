@@ -40,6 +40,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	private ListProperty<RGBColor> colorListProperty;
 	private ImageProperty currentActiveImage;
 	private DoubleProperty currentPenWidth;
+	private double num;
 
 	public ViewModel() {
 		actors = new Actors();
@@ -54,6 +55,7 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 		addListeners(actors.getActors().get(actors.getSize() - 1));
 		toBeActive = new ArrayList<>();
 		myCachedActiveTurtles = new Stack<>();
+		num = 1;
 	}
 
 	@Override
@@ -461,5 +463,28 @@ public class ViewModel extends Observable implements IView, ISlogoModelActionsEx
 	@Override
 	public ImageProperty getCurrentImage() {
 		return currentActiveImage;
+	}
+
+	@Override
+	public double wrap() {
+		num = 1;
+		return 1;
+	}
+
+	@Override
+	public double window() {
+		num = 2;
+		return 2;
+	}
+
+	@Override
+	public double fence() {
+		num = 3;
+		return 3;
+	}
+
+	@Override
+	public double getFunction(){
+		return num;
 	}
 }
