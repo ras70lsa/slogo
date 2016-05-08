@@ -13,6 +13,7 @@ import frontend.features.PreferenceFeature;
 import frontend.features.UserTextInput;
 import frontend.features.VariableFeature;
 import frontend.features.View;
+import frontend.features.turtleImageDisplay;
 import interfaces.slogo.team04.IDisplay;
 import interfaces.slogo.team04.IModel;
 import javafx.scene.control.Accordion;
@@ -89,6 +90,8 @@ public class Display implements IDisplay {
 		leftFeatures.getPanes().add(actors);
 		PreferenceFeature pallets = new PreferenceFeature(model.getViewInterface());
 		leftFeatures.getPanes().add(pallets);
+		turtleImageDisplay imageDisplay = new turtleImageDisplay(model.getViewInterface().getActorProperty());
+		leftFeatures.getPanes().add(imageDisplay);
 	}
 	
 	private void createModules(Controller controller) {
