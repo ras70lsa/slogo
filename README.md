@@ -1,5 +1,5 @@
  ##SLogo
-
+Making change.
 A development environment that helps users write SLogo programs.
 
 Jonathan Im
